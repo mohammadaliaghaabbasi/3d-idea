@@ -13,6 +13,12 @@
 ## Locked decisions (do not revisit)
 - Name = Panodrome · EN-first + FA RTL · Three.js/GSAP/PolyHaven CC0 · straight to Phase 1 (no static mockups).
 
+## Repository topology (Anti-Fragmentation Lock — 2026-11-02)
+- `3d-idea` (private) = ONLY workspace & source of truth: ALL code, public/, skills/, data/, MEMORY_STATE.json are edited & committed ONLY here.
+- `panodrome` (public) = dumb build-output mirror for Pages; written ONLY by `scripts/deploy_gh_pages.sh` (mirror README.md is auto-generated). NEVER clone it, NEVER hand-edit it, NEVER PR to it.
+- ONE project working copy on disk: `/home/z/my-project/3d-idea` — no leftover temp clones/worktrees.
+- End of session: `git status` in 3d-idea clean, `main` pushed.
+
 ## Iron law
 1. Turn start: read `MEMORY_STATE.json` only.
 2. Turn end: update `MEMORY_STATE.json` (current_phase, completed_modules, active_decisions, next_immediate_action) + commit.
