@@ -7,12 +7,10 @@
 
 **Panodrome** — the "Spatial & Living Architecture Pinterest".
 
-Transform 2D 360° equirectangular panoramas into **walkable 6DoF 3D meshes**
-(panoramic depth estimation DA2/PanDA → Three.js displaced sphere), connected by
-AI-detected **Smart Portals** (doors / archways) with 4 routing modes
-(Architect/All · Room-Type Filter · Style/Material Filter · Random Serendipity),
-plus **Spatial Audio** (procedural footsteps per floor material + room-tone ambience)
-and an **AI Material Inspector** (hover hotspots).
+Transform 360° equirectangular panoramas of curated interiors into a **zero-distortion
+walkable spatial experience** (pristine high-density sphere + optical focal glide —
+the Kuula/Matterport approach), connected by **VLM-verified doorway waypoints**
+with GSAP optical warp transitions. EN/FA (RTL, Vazirmatn) from Day 1.
 
 ## Locked Decisions (do not revisit)
 
@@ -22,6 +20,22 @@ and an **AI Material Inspector** (hover hotspots).
 | Language | **English-first** (global default) + **full RTL Persian** (`fa`) built in from Day 1 |
 | Stack | **Three.js + GSAP (free) + WebGL displaced sphere + PolyHaven CC0** seed content |
 | Phase plan | Skip static mockups → build **Phase 1 core walkable engine + first 10 rooms** directly |
+
+## 5-Stage Gated Pipeline (SYSTEM RESET — 2026-11-02)
+
+The previous Phase 2.5/3/4 build **failed architectural quality standards** (vertex-displacement warped straight lines, oscillator "dug-dug" fake footsteps, overflowing mobile cards, Tahoma fallback for Persian, random inaccurate pins, non-interior spaces). A strict gated pipeline now governs all work:
+
+| Stage | Scope | Status |
+|---|---|---|
+| **1** | Zero-Distortion Spatial Core: pristine sphere (NO depth displacement ever), optical walk (FOV 78↔42 spring + 0.18 m micro-parallax), 6 curated interiors, Vazirmatn invisible-UI, 1 VLM-verified doorway ring + optical warp, SILENT by design | **DELIVERED — awaiting owner inspection on live URL** |
+| 2 | Full portal/waypoint & navigation system (preview of Stage 2 = today's ring/warp) | 🔒 LOCKED |
+| 3 | Real spatial audio (footsteps, ambience — built properly, no oscillators) | 🔒 LOCKED |
+| 4 | TBD by owner | 🔒 LOCKED |
+| 5 | TBD by owner | 🔒 LOCKED |
+
+**IRON RULE: Stages 2–5 are FORBIDDEN until the owner explicitly inspects and approves Stage 1 on the live URL.** Stripped modules (audio/commerce/hotspots/moodboard/narrator/upload_studio, 12 non-interior rooms) are recoverable from git history commit `3203ae2`.
+
+**Architectural integrity law (permanent):** a 360° architectural render must keep 100% plumb-straight verticals at all times — the walking illusion is produced optically (FOV glide + micro-parallax), NEVER by displacing sphere vertices. Persian UI text always renders in Vazirmatn (never system Arabic/Tahoma fallback).
 
 ## Repository Topology (Anti-Fragmentation Lock — 2026-11-02)
 

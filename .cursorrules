@@ -31,3 +31,9 @@
 - CC0 content only; credit creators always.
 - Depth v1 = procedural box-room prior; upgrade hook = `--depth-backend replicate-da2` (DA2/PanDA).
 - GitHub token arrives via env var `T` only — never written to any file.
+
+## 5-Stage Gated Pipeline (SYSTEM RESET — 2026-11-02)
+- Previous Phase 2.5/3/4 build FAILED architectural QA (vertex-warped walls, oscillator fake footsteps, mobile overflow, Tahoma fallback, random pins, churches/stations). System reset applied.
+- Stage 1 (zero-distortion core) = DELIVERED, awaiting owner inspection on the live URL. Stages 2–5 are LOCKED: FORBIDDEN to start until the owner explicitly approves Stage 1.
+- Architectural integrity law (permanent): straight verticals ALWAYS — walking illusion is optical (FOV 78↔42 spring + ≤0.18 m micro-parallax), NEVER vertex displacement. Persian = Vazirmatn always. Stage 1 is SILENT (real audio only in Stage 3).
+- Stripped modules recoverable from git history commit `3203ae2`.

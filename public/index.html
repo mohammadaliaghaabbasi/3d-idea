@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Panodrome — Walk through Architecture</title>
-<meta name="description" content="Panodrome — the spatial & living architecture Pinterest. Walk through real 360° rooms in 6DoF, hop through smart portals between spaces.">
+<meta name="description" content="Panodrome — the spatial & living architecture collection. Walk through curated 360° interiors with a pure, zero-distortion optical experience.">
 <meta name="theme-color" content="#070a10">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%236ee7ff' stroke-width='3'/%3E%3Cpath d='M10 20 L16 9 L22 20 Z' fill='%23a78bfa'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23e8eef7' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23e8eef7'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="vendor/gsap-3.12.5.min.js"></script>
 <script type="importmap">
 {
   "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+    "three": "./vendor/three-0.160.0.module.js"
   }
 }
 </script>
@@ -24,265 +24,52 @@
 <div id="app">
   <div id="scene"></div>
 
-  <!-- ===================== HUD ===================== -->
-  <!-- top-left: room + attribution card -->
-  <div id="room-card" class="glass hud-hidden">
-    <div class="room-card-top">
-      <span id="room-index" class="room-index"></span>
-      <h1 id="room-name"></h1>
-    </div>
-    <p id="room-desc"></p>
-    <div class="attribution">
-      <span id="room-creator"></span>
-      <a id="room-source" target="_blank" rel="noopener">PolyHaven · CC0</a>
-      <span id="room-platform" class="platform-badge"></span>
-    </div>
-    <div class="room-actions">
-      <button id="btn-listen-room" class="card-action" title="">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
-        <span id="btn-listen-room-label"></span>
-      </button>
-      <button id="btn-hire" class="card-action gold">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span id="btn-hire-label"></span>
-      </button>
+  <!-- ============ Stage 1 · Invisible Luxury UI ============ -->
+
+  <!-- top-inline-start: single compact glass pill (title · designer · source) -->
+  <div id="room-pill" class="glass hud-hidden">
+    <h1 id="room-title"></h1>
+    <div class="pill-meta">
+      <span id="room-designer"></span>
+      <a id="room-source" class="source-badge" target="_blank" rel="noopener"></a>
     </div>
   </div>
 
-  <!-- top-right: system chips -->
-  <div id="sys-bar" class="hud-hidden">
-    <button id="btn-upload" class="glass chip chip-icon" title="Upload 360°">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 19V5M5 12l7-7 7 7"/><path d="M5 21h14"/></svg>
-    </button>
-    <button id="btn-xray" class="glass chip chip-icon" title="AI X-Ray">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h3.5l2-7 3 14 3-11 2 4H21"/><circle cx="12" cy="12" r="10.5" stroke-dasharray="2.5 4" opacity="0.45"/></svg>
-    </button>
-    <button id="btn-save" class="glass chip chip-icon" title="+ Save Room">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M12 10.2v5M9.5 12.7h5"/></svg>
-      <span class="house-count none" id="save-check">✓</span>
-    </button>
-    <button id="btn-house" class="glass chip chip-icon" title="My House">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-      <span class="house-count none" id="house-count">0</span>
-    </button>
-    <button id="btn-sound" class="glass chip chip-icon" title="Sound">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="snd-on" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="snd-on" d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
-    </button>
-    <button id="btn-lang" class="glass chip" title="Language / زبان">EN · فا</button>
-    <button id="btn-help" class="glass chip chip-icon" title="?">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.4-3 4.4"/><circle cx="12" cy="17.6" r=".5" fill="currentColor"/></svg>
+  <!-- top-inline-end: two 38px circular glass buttons -->
+  <div id="view-actions" class="hud-hidden">
+    <button id="btn-lang" class="glass round-btn" aria-label="فا / EN">فا</button>
+    <button id="btn-view" class="glass round-btn" aria-label="">
+      <svg id="btn-view-full" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      <svg id="btn-view-reset" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3.5M12 18v3.5M2.5 12H6M18 12h3.5"/></svg>
     </button>
   </div>
 
-  <!-- bottom: portal mode bar -->
-  <div id="mode-bar" class="glass hud-hidden">
-    <div class="modes">
-      <button class="mode-btn" data-mode="architect">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
-        <span data-i18n="mode_architect"></span>
-      </button>
-      <button class="mode-btn" data-mode="room_type">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-4h6v4M9 12h.01M15 12h.01"/></svg>
-        <span data-i18n="mode_type"></span>
-      </button>
-      <button class="mode-btn" data-mode="style">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/></svg>
-        <span data-i18n="mode_style"></span>
-      </button>
-      <button class="mode-btn" data-mode="random">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.4" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.4" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.4" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.4" fill="currentColor"/></svg>
-        <span data-i18n="mode_random"></span>
-      </button>
-    </div>
-    <div class="mode-hint" id="mode-hint"></div>
-  </div>
-
-  <!-- mobile walk rocker (touch devices) -->
-  <div id="walk-rocker" class="hud-hidden">
-    <button id="btn-walk-f" class="glass" aria-label="walk forward">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  <!-- bottom-centre: floating glass capsule (prev · name (i of 6) · next + hint) -->
+  <div id="nav-capsule" class="glass hud-hidden">
+    <button id="nav-prev" class="nav-btn" aria-label="">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5 7.5 12l7 7"/></svg>
     </button>
-    <button id="btn-walk-b" class="glass" aria-label="walk back">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    <div class="nav-center">
+      <div class="nav-roomline"><span id="nav-name"></span><span id="nav-count"></span></div>
+      <div id="nav-hint"></div>
+    </div>
+    <button id="nav-next" class="nav-btn" aria-label="">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5l7 7-7 7"/></svg>
     </button>
   </div>
 
-  <!-- floating tooltip (quick hint only) -->
-  <div id="tooltip" class="glass hud-hidden">
-    <div id="tooltip-title"></div>
-    <div id="tooltip-body"></div>
+  <!-- touch only: minimal forward/back thumb pad -->
+  <div id="walk-pad" class="hud-hidden">
+    <button id="btn-fwd" class="glass round-btn" aria-label="">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+    <button id="btn-back" class="glass round-btn" aria-label="">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </button>
   </div>
 
-  <!-- ============ Portal preview card (hover / tap → enter) ============ -->
-  <div id="portal-card" class="glass">
-    <div class="portal-media">
-      <img id="portal-img" alt="" draggable="false">
-      <div class="portal-veil"></div>
-      <span id="portal-chip" class="xray-chip"></span>
-      <span id="portal-sponsored" class="sponsored-chip hud-hidden"></span>
-      <button id="portal-close" aria-label="Close">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <div class="portal-body">
-      <h3 id="portal-name"></h3>
-      <p id="portal-meta"></p>
-      <button id="portal-enter" class="primary-btn"></button>
-    </div>
-  </div>
-
-  <!-- ============ AI X-Ray material card (shoppable) ============ -->
-  <div id="xray-card" class="glass sheet-desktop">
-    <div class="xray-head">
-      <span class="xray-chip" id="xray-chip"></span>
-      <div class="xray-head-actions">
-        <button id="xray-listen" class="mini-action" title="">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
-        </button>
-        <button id="xray-close" title="Close" aria-label="Close">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg>
-        </button>
-      </div>
-    </div>
-    <h3 id="xray-title"></h3>
-    <div class="xray-cat"><span id="xray-cat-dot"></span><span id="xray-cat-label"></span></div>
-    <p id="xray-desc"></p>
-
-    <!-- commerce block (shown when hotspot has .commerce) -->
-    <div id="xray-commerce" class="xray-commerce hud-hidden">
-      <div class="commerce-row">
-        <span id="xc-brand" class="brand-badge"></span>
-        <span id="xc-tier" class="tier-badge"></span>
-        <span id="xc-price" class="price-tag"></span>
-      </div>
-      <div class="swatch-row" id="xc-swatches"></div>
-      <button id="xc-inquire" class="primary-btn gold-btn"></button>
-    </div>
-
-    <div class="xray-foot" id="xray-hint"></div>
-  </div>
-
-  <!-- ============ Dream House moodboard ============ -->
-  <div id="drawer-backdrop"></div>
-  <aside id="house-drawer" class="glass">
-    <div class="drawer-head">
-      <h2 data-i18n="house_title"></h2>
-      <button id="drawer-close" title="Close" aria-label="Close">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <div id="drawer-list"></div>
-    <div id="drawer-empty" class="drawer-empty" data-i18n="house_empty"></div>
-    <div class="drawer-foot">
-      <div class="share-row">
-        <input id="share-input" type="text" readonly spellcheck="false" aria-label="share link">
-        <button id="btn-copy" class="glass"></button>
-      </div>
-      <div class="house-actions">
-        <button id="btn-walk-house" class="primary-btn"></button>
-        <button id="btn-clear-house" class="ghost-btn"></button>
-      </div>
-    </div>
-  </aside>
-  <div id="house-badge" class="glass hud-hidden">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-    <span id="house-badge-text"></span>
-    <button id="house-badge-exit" title="Exit tour" aria-label="Exit tour">×</button>
-  </div>
-  <div id="toast"></div>
-
-  <!-- ============ Architect / product inquiry drawer ============ -->
-  <div id="inquiry-backdrop"></div>
-  <aside id="inquiry-drawer" class="glass">
-    <div class="drawer-head">
-      <div>
-        <h2 id="inquiry-title"></h2>
-        <div class="inquiry-sub"><span id="inquiry-chip" class="platform-badge"></span><span id="inquiry-subject"></span></div>
-      </div>
-      <button id="inquiry-close" title="Close" aria-label="Close">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <div id="inquiry-form">
-      <input id="inq-name" type="text">
-      <div class="inq-row">
-        <select id="inq-project"></select>
-        <select id="inq-budget"></select>
-      </div>
-      <textarea id="inq-note" rows="3"></textarea>
-      <div class="house-actions">
-        <button id="inq-copy" class="ghost-btn"></button>
-        <button id="inq-submit" class="primary-btn"></button>
-      </div>
-      <a id="inq-portfolio" class="portfolio-link" target="_blank" rel="noopener"></a>
-    </div>
-  </aside>
-
-  <!-- ============ Creator Upload Studio ============ -->
-  <div id="upload-backdrop"></div>
-  <div id="upload-studio" class="glass">
-    <div class="drawer-head">
-      <div>
-        <h2 id="us-head"></h2>
-        <div class="inquiry-sub"><span id="us-sub"></span></div>
-      </div>
-      <button id="us-close" title="Close" aria-label="Close">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <div id="us-body">
-      <div id="us-drop">
-        <div id="us-drop-title"></div>
-        <div id="us-drop-hint" class="us-dim"></div>
-        <button id="us-browse" class="ghost-btn"></button>
-        <input id="us-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
-      </div>
-      <div class="us-url-row">
-        <input id="us-url" type="text" spellcheck="false">
-        <button id="us-url-go" class="glass">→</button>
-      </div>
-      <div id="us-place-head" class="us-section-head"></div>
-      <div id="us-tools">
-        <button id="us-tool-door" class="mode-btn active"></button>
-        <button id="us-tool-pin" class="mode-btn"></button>
-        <input id="us-pin-label" class="hud-hidden" type="text">
-      </div>
-      <canvas id="us-canvas"></canvas>
-      <div id="us-fields-head" class="us-section-head"></div>
-      <div class="us-grid">
-        <input id="us-title" type="text">
-        <input id="us-creator" type="text">
-        <input id="us-portfolio" type="text">
-        <select id="us-style"></select>
-        <select id="us-type"></select>
-        <select id="us-size">
-          <option value="cozy" data-i18n="us_size_cozy"></option>
-          <option value="standard" selected data-i18n="us_size_standard"></option>
-          <option value="grand" data-i18n="us_size_grand"></option>
-        </select>
-      </div>
-      <div id="us-status" class="us-dim"></div>
-      <div class="house-actions">
-        <button id="us-export" class="ghost-btn"></button>
-        <button id="us-go" class="primary-btn" disabled></button>
-      </div>
-    </div>
-  </div>
-
-  <!-- help panel -->
-  <div id="help-panel" class="glass hud-hidden">
-    <h2 data-i18n="help_title"></h2>
-    <ul>
-      <li><b>Scroll</b> / <span data-i18n="help_dbl"></span> — <span data-i18n="help_move"></span></li>
-      <li><b>W A S D</b> / <span data-i18n="walk_f"></span> — <span data-i18n="help_scroll"></span></li>
-      <li><b>Drag</b> — <span data-i18n="help_look"></span></li>
-      <li><span data-i18n="help_portal"></span></li>
-      <li><span data-i18n="help_xray"></span></li>
-      <li><span data-i18n="help_house"></span></li>
-      <li><b>+ ⬆</b> — <span data-i18n="help_upload"></span></li>
-      <li><span data-i18n="help_listen"></span></li>
-    </ul>
-  </div>
+  <!-- doorway waypoint chip (hover / tap) -->
+  <button id="wp-chip" class="glass hud-hidden"><span id="wp-chip-label"></span></button>
 
   <!-- loading -->
   <div id="loading" class="overlay hud-hidden">
@@ -291,21 +78,20 @@
     <div id="load-text"></div>
   </div>
 
-  <!-- room transition fade -->
+  <!-- optical warp crossfade -->
   <div id="fade"></div>
 
   <!-- intro -->
   <div id="intro" class="overlay">
     <div class="intro-bg" id="intro-bg"></div>
+    <div class="intro-veil"></div>
     <div class="intro-inner">
       <div class="wordmark">PANO<span>DROME</span></div>
       <div class="tagline" id="intro-tag"></div>
       <div class="intro-sub" id="intro-sub"></div>
-      <button id="btn-enter"><span data-i18n="enter"></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      <div class="intro-hint">
-        <span data-i18n="intro_hint"></span>
-      </div>
-      <div class="intro-credit">360° panoramas · PolyHaven · Wikimedia Commons · Creator uploads</div>
+      <button id="btn-enter"><span></span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <div class="intro-hint" id="intro-hint"></div>
+      <div class="intro-credit" id="intro-credit"></div>
     </div>
   </div>
 
