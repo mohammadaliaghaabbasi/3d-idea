@@ -39,6 +39,18 @@
 
   <!-- top-right: system chips -->
   <div id="sys-bar" class="hud-hidden">
+    <button id="btn-xray" class="glass chip" title="AI X-Ray">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h3.5l2-7 3 14 3-11 2 4H21"/><circle cx="12" cy="12" r="10.5" stroke-dasharray="2.5 4" opacity="0.45"/></svg>
+      <span class="chip-txt" data-i18n="xray"></span>
+    </button>
+    <button id="btn-save" class="glass chip" title="+ Save Room">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M12 10.2v5M9.5 12.7h5"/></svg>
+      <span class="chip-txt" id="btn-save-label"></span>
+    </button>
+    <button id="btn-house" class="glass chip" title="My House">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      <span class="house-count none" id="house-count">0</span>
+    </button>
     <button id="btn-lang" class="glass chip" title="Language / زبان">EN · فا</button>
     <button id="btn-sound" class="glass chip" title="Sound">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path class="snd-on" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="snd-on" d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
@@ -83,6 +95,49 @@
     <div id="tooltip-body"></div>
   </div>
 
+  <!-- AI X-Ray material card (Phase 2) -->
+  <div id="xray-card" class="glass">
+    <div class="xray-head">
+      <span class="xray-chip" id="xray-chip"></span>
+      <button id="xray-close" title="Close" aria-label="Close">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <h3 id="xray-title"></h3>
+    <div class="xray-cat"><span id="xray-cat-dot"></span><span id="xray-cat-label"></span></div>
+    <p id="xray-desc"></p>
+    <div class="xray-foot" id="xray-hint"></div>
+  </div>
+
+  <!-- Dream House moodboard (Phase 2) -->
+  <div id="drawer-backdrop"></div>
+  <aside id="house-drawer" class="glass">
+    <div class="drawer-head">
+      <h2 data-i18n="house_title"></h2>
+      <button id="drawer-close" title="Close" aria-label="Close">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div id="drawer-list"></div>
+    <div id="drawer-empty" class="drawer-empty" data-i18n="house_empty"></div>
+    <div class="drawer-foot">
+      <div class="share-row">
+        <input id="share-input" type="text" readonly spellcheck="false" aria-label="share link">
+        <button id="btn-copy" class="glass"></button>
+      </div>
+      <div class="house-actions">
+        <button id="btn-walk-house" class="primary-btn"></button>
+        <button id="btn-clear-house" class="ghost-btn"></button>
+      </div>
+    </div>
+  </aside>
+  <div id="house-badge" class="glass hud-hidden">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+    <span id="house-badge-text"></span>
+    <button id="house-badge-exit" title="Exit tour" aria-label="Exit tour">×</button>
+  </div>
+  <div id="toast"></div>
+
   <!-- help panel -->
   <div id="help-panel" class="glass hud-hidden">
     <h2 data-i18n="help_title"></h2>
@@ -92,6 +147,8 @@
       <li><b>Drag</b> — <span data-i18n="help_look"></span></li>
       <li><span data-i18n="help_portal"></span></li>
       <li><span data-i18n="help_hotspot"></span></li>
+      <li><b>X-Ray / SPACE</b> — <span data-i18n="help_xray"></span></li>
+      <li><b>+ ♥</b> — <span data-i18n="help_house"></span></li>
     </ul>
   </div>
 

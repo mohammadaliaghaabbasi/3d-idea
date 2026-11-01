@@ -10,6 +10,8 @@ import { buildRoomMesh, prefetchRoom } from "./panorama.js";
 import { SixDofControls } from "./controls.js";
 import { Portal, computeRoutes } from "./portals.js";
 import { HUD } from "./hud.js";
+import { XRayLayer } from "./hotspots.js";
+import { Moodboard } from "./moodboard.js";
 
 /* ------------------------------------------------------------------ boot */
 const state = {
@@ -18,14 +20,13 @@ const state = {
   room: null,
   meshObj: null,      // {mesh, dispose}
   portals: [],
-  hotspots: [],
   mode: "architect",
   transitioning: false,
   started: false,
   portalCooldown: 0,
 };
 
-let renderer, scene, camera, controls, audio, hud;
+let renderer, scene, camera, controls, audio, hud, xray, moodboard;
 const clock = new THREE.Clock();
 const raycaster = new THREE.Raycaster();
 const pointerNdc = new THREE.Vector2();
@@ -51,6 +52,7 @@ async function main() {
 
   audio = new AudioEngine();
   hud = new HUD();
+  xray = new XRayLayer(scene);
 
   // restore language preference
   const saved = localStorage.getItem("panodrome_lang");
@@ -66,7 +68,16 @@ async function main() {
     return;
   }
 
-  hud.initIntro(state.db.rooms[0].preview, onEnter);
+  moodboard = new Moodboard({
+    getRooms: () => (state.db ? state.db.rooms : []),
+    onRoutesChanged: () => {
+      refreshRoutes();
+      hud.setMode(state.mode); // restore the mode-bar hint after tour changes
+    },
+    onGotoRoom: (idx) => { if (idx >= 0) loadRoom(idx); },
+  });
+
+  hud.initIntro(state.db.rooms[moodboard.entryIndex(state.db.rooms)].preview, onEnter);
   hud.onModeChange(setMode);
   hud.onLangToggle(() => {
     const next = i18n.lang === "en" ? "fa" : "en";
@@ -98,6 +109,22 @@ async function main() {
   window.__panodrome = {
     state,
     camera,
+    get controls() { return controls; },
+    get xray() { return xray; },
+    get moodboard() { return moodboard; },
+    hotspotScreen: () =>
+      (xray ? xray.pins : []).map((p) => {
+        const v = p.sprite.position.clone().project(camera);
+        return {
+          id: p.def.id,
+          cat: p.def.material_category,
+          title: p.def.title?.en || p.def.label?.en || "",
+          x: Math.round((v.x * 0.5 + 0.5) * innerWidth),
+          y: Math.round((-v.y * 0.5 + 0.5) * innerHeight),
+          behind: v.z > 1,
+          visible: p.sprite.visible,
+        };
+      }),
     portalScreen: () =>
       state.portals.map((p) => {
         const v = p.group.position.clone().project(camera);
@@ -121,7 +148,7 @@ async function onEnter() {
   hud.hideIntro();
   hud.showLoading(true);
   hud.setLoadProgress(0.05);
-  await loadRoom(0);
+  await loadRoom(moodboard.entryIndex(state.db.rooms));
   hud.setLoadProgress(1);
   hud.showLoading(false);
   hud.showHud();
@@ -153,8 +180,7 @@ async function loadRoom(idx) {
   }
   state.portals.forEach((p) => { scene.remove(p.group); p.dispose(); });
   state.portals = [];
-  state.hotspots.forEach((h) => { scene.remove(h.sprite); h.sprite.material.map.dispose(); h.sprite.material.dispose(); });
-  state.hotspots = [];
+  xray.loadRoom(room);
 
   hud.setLoadProgress(0.15);
   const meshObj = await buildRoomMesh(room);
@@ -162,26 +188,14 @@ async function loadRoom(idx) {
   state.meshObj = meshObj;
   scene.add(meshObj.mesh);
 
-  // portals + routing targets
-  const routes = computeRoutes(state.db.rooms, idx, state.mode);
+  // portals + routing targets (Dream House tour overrides the mode)
+  const routes = currentRoutes();
   room.portals.forEach((def, i) => {
     const p = new Portal(def);
     p.target = routes.targets[i] !== undefined ? routes.targets[i] : routes.targets[0];
     p.reason = routes.reason;
     scene.add(p.group);
     state.portals.push(p);
-  });
-
-  // material inspector hotspots
-  room.hotspots.forEach((def) => {
-    const sprite = new THREE.Sprite(
-      new THREE.SpriteMaterial({ map: hotspotTexture(), transparent: true, depthTest: true })
-    );
-    sprite.position.fromArray(def.position);
-    sprite.scale.setScalar(0.085);
-    sprite.renderOrder = 5;
-    scene.add(sprite);
-    state.hotspots.push({ def, sprite, baseScale: 0.085 });
   });
 
   scene.updateMatrixWorld(true);
@@ -193,6 +207,8 @@ async function loadRoom(idx) {
   camera.updateProjectionMatrix();
   audio.setRoom(room.audio);
   hud.setRoom(room, idx, state.db.rooms.length);
+  hud.setMode(state.mode); // re-applies the mode hint
+  moodboard.onRoomChanged(room, idx); // may override hint during a Dream-House tour
 
   hud.setLoadProgress(1);
   state.portalCooldown = performance.now() + 1200;
@@ -205,7 +221,23 @@ function setMode(mode) {
   state.mode = mode;
   hud.setMode(mode);
   if (!state.room) return;
-  const routes = computeRoutes(state.db.rooms, state.roomIdx, mode);
+  if (moodboard.tourActive()) return; // Dream-House tour owns the routing
+  refreshRoutes();
+}
+
+/** Current routing table — Dream House tour overrides the chosen mode. */
+function currentRoutes() {
+  if (!state.room) return computeRoutes(state.db.rooms, Math.max(state.roomIdx, 0), state.mode);
+  if (moodboard && moodboard.tourActive()) {
+    return moodboard.houseRoutes(state.db.rooms, state.roomIdx) ||
+      computeRoutes(state.db.rooms, state.roomIdx, state.mode);
+  }
+  return computeRoutes(state.db.rooms, state.roomIdx, state.mode);
+}
+
+function refreshRoutes() {
+  if (!state.room) return;
+  const routes = currentRoutes();
   state.portals.forEach((p, i) => {
     p.target = routes.targets[i] !== undefined ? routes.targets[i] : routes.targets[0];
     p.reason = routes.reason;
@@ -220,6 +252,7 @@ async function transition(portal) {
   state.transitioning = true;
   controls.enabled = false;
   hud.hideTooltip();
+  xray.closeCard(true);
   audio.portalWhoosh();
 
   const center = portal.planeCenterWorld();
@@ -268,6 +301,7 @@ function onPointerMove(e) {
     hoveredHotspot = hotspot;
     if (!portal) renderer.domElement.style.cursor = hotspot ? "help" : "";
   }
+  xray.setHover(hotspot);
 
   if (portal) showPortalTooltip(portal, e.clientX, e.clientY);
   else if (hotspot) showHotspotTooltip(hotspot, e.clientX, e.clientY);
@@ -278,17 +312,18 @@ function raycast(px, py) {
   pointerNdc.set((px / innerWidth) * 2 - 1, -(py / innerHeight) * 2 + 1);
   raycaster.setFromCamera(pointerNdc, camera);
   const portalMeshes = state.portals.map((p) => p.membrane);
-  const hits = raycaster.intersectObjects([...portalMeshes, ...state.hotspots.map((h) => h.sprite)], false);
+  const hits = raycaster.intersectObjects([...portalMeshes, ...xray.pinMeshes()], false);
   if (!hits.length) return null;
   const obj = hits[0].object;
   const pi = portalMeshes.indexOf(obj);
   if (pi >= 0) return { portal: state.portals[pi] };
-  return { hotspot: state.hotspots.find((h) => h.sprite === obj) };
+  return { hotspot: xray.pins.find((p) => p.sprite === obj) };
 }
 
 function handleClick(px, py) {
   if (!state.started || state.transitioning) return;
   const hit = raycast(px, py);
+  if (hit?.hotspot) { xray.openCard(hit.hotspot.def); return; }
   if (hit?.portal) transition(hit.portal);
 }
 
@@ -306,7 +341,9 @@ function showPortalTooltip(portal, x, y) {
 function showHotspotTooltip(hs, x, y) {
   const L = i18n.lang;
   const d = hs.def;
-  hud.showTooltip(x, y, d.label[L] || d.label.en, d.note[L] || d.note.en, true);
+  const title = d.title?.[L] || d.title?.en || d.label?.[L] || d.label?.en || "";
+  const body = d.desc?.[L] || d.desc?.en || d.note?.[L] || d.note?.en || "";
+  hud.showTooltip(x, y, title, body, true);
 }
 
 /* ------------------------------------------------------------- loop */
@@ -329,12 +366,8 @@ function tick() {
     }
   }
 
-  // hotspot pulse
-  for (const h of state.hotspots) {
-    const pulse = 1 + 0.16 * Math.sin(t * 2.6 + h.def.position[0] * 7);
-    const hover = h === hoveredHotspot ? 1.35 : 1;
-    h.sprite.scale.setScalar(h.baseScale * pulse * hover);
-  }
+  // hotspot pulse + fade (AI X-Ray layer)
+  xray.update(t, dt);
 
   renderer.render(scene, camera);
 }
@@ -343,23 +376,4 @@ function onResize() {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
-}
-
-/* ------------------------------------------------------------- helpers */
-
-let _hotspotTex = null;
-function hotspotTexture() {
-  if (_hotspotTex) return _hotspotTex;
-  const s = 64;
-  const cv = document.createElement("canvas");
-  cv.width = s; cv.height = s;
-  const ctx = cv.getContext("2d");
-  ctx.strokeStyle = "rgba(110,231,255,0.95)";
-  ctx.lineWidth = 3.5;
-  ctx.beginPath(); ctx.arc(s / 2, s / 2, s * 0.34, 0, Math.PI * 2); ctx.stroke();
-  ctx.fillStyle = "rgba(238,242,248,0.9)";
-  ctx.beginPath(); ctx.arc(s / 2, s / 2, s * 0.1, 0, Math.PI * 2); ctx.fill();
-  _hotspotTex = new THREE.CanvasTexture(cv);
-  _hotspotTex.colorSpace = THREE.SRGBColorSpace;
-  return _hotspotTex;
 }

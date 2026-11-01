@@ -105,67 +105,56 @@
       },
       "hotspots": [
         {
-          "id": "anniversary_lounge_oak_parquet",
-          "fraction": 0.5,
-          "pitch": -68,
+          "id": "anniversary_lounge_geometric_patterned_area_rug",
+          "origin": "ai_vlm",
+          "fraction": 0.9,
+          "yaw": 324,
+          "pitch": -25.0,
           "position": [
-            0.579,
-            0.167,
-            0.0
+            -2.173,
+            0.347,
+            -1.579
           ],
-          "label": {
-            "en": "Oak parquet floor",
-            "fa": "کف پارکت بلوط"
+          "title": {
+            "en": "Geometric Patterned Area Rug",
+            "fa": "فرش با طرح هندسی"
           },
-          "note": {
-            "en": "Herringbone oak strips, sanded and oiled.",
-            "fa": "تخته‌های بلوط به‌صورت هریینگ‌بون، سمباده و روغن‌کاری‌شده."
-          }
+          "desc": {
+            "en": "A large, bold area rug featuring a complex geometric pattern in shades of red, black, and beige that anchors the seating area.",
+            "fa": "یک فرش بزرگ و پررنگ با الگوی هندسی پیچیده به رنگ‌های قرمز، مشکی و بژ که فضای نشیمن را تعریف می‌کند."
+          },
+          "material_category": "textile"
         },
         {
-          "id": "anniversary_lounge_persian_carpet",
-          "fraction": 0.44,
-          "pitch": -55,
+          "id": "anniversary_lounge_dark_wood_sideboard_cabinet",
+          "origin": "ai_vlm",
+          "fraction": 0.3,
+          "yaw": 108,
+          "pitch": 10.0,
           "position": [
-            0.946,
-            0.147,
-            0.374
+            0.92,
+            2.125,
+            2.83
           ],
-          "label": {
-            "en": "Hand-woven carpet",
-            "fa": "فرش دستباف"
+          "title": {
+            "en": "Dark Wood Sideboard Cabinet",
+            "fa": "کابینت چوبی تیره کنار دیوار"
           },
-          "note": {
-            "en": "Wool pile on a cotton warp, medallion motif.",
-            "fa": "پشم گره‌خورده روی چله پنبه‌ای با نقش ترنج."
-          }
-        },
-        {
-          "id": "anniversary_lounge_brass_lamp",
-          "fraction": 0.58,
-          "pitch": 8,
-          "position": [
-            2.144,
-            1.944,
-            -1.179
-          ],
-          "label": {
-            "en": "Brass floor lamp",
-            "fa": "چراغ ایستاده برنجی"
+          "desc": {
+            "en": "A traditional dark wood cabinet with paneled doors and a polished finish, serving as a display surface for floral arrangements.",
+            "fa": "یک کابینت چوبی سنتی به رنگ تیره با درب‌های قاب‌دار و روکش صیقلی که به عنوان سطحی برای نمایش گل‌ها استفاده می‌شود."
           },
-          "note": {
-            "en": "Warm 2700K bulb behind a linen shade.",
-            "fa": "لامپ ۲۷۰۰ کلوین پشت حباب کتانی."
-          }
+          "material_category": "wood"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Greg Zaal",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/anniversary_lounge"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:57:05+00:00"
     },
     {
       "id": "photo_studio_loft_hall",
@@ -258,67 +247,77 @@
       },
       "hotspots": [
         {
-          "id": "photo_studio_loft_hall_light_oak_floor",
+          "id": "photo_studio_loft_hall_aged_wooden_plank_floor",
+          "origin": "ai_vlm",
           "fraction": 0.5,
-          "pitch": -70,
+          "yaw": 180,
+          "pitch": -40.0,
           "position": [
-            0.521,
-            0.169,
+            1.773,
+            0.112,
             0.0
           ],
-          "label": {
-            "en": "Light oak flooring",
-            "fa": "کف بلوط روشن"
+          "title": {
+            "en": "Aged wooden plank floor",
+            "fa": "کف چوبی فرسوده و قدیمی"
           },
-          "note": {
-            "en": "Wide-plank engineered oak, matte lacquer.",
-            "fa": "تخته‌های پهن بلوط مهندسی با لاک مات."
-          }
+          "desc": {
+            "en": "The room features a wide, weathered hardwood floor with a rich, dark patina that highlights the natural grain and historical character of the space.",
+            "fa": "این اتاق دارای کفپوشی از تخته‌های چوبی پهن و کهنه با رنگ تیره و طبیعی است که به فضا شخصیت تاریخی می‌بخشد."
+          },
+          "material_category": "wood"
         },
         {
-          "id": "photo_studio_loft_hall_plaster_walls",
-          "fraction": 0.3,
-          "pitch": 4,
+          "id": "photo_studio_loft_hall_green_tufted_leather_armchair",
+          "origin": "ai_vlm",
+          "fraction": 0.23,
+          "yaw": 83,
+          "pitch": 10.0,
           "position": [
-            1.407,
-            1.918,
-            4.329
+            -0.546,
+            2.369,
+            4.325
           ],
-          "label": {
-            "en": "White plaster walls",
-            "fa": "دیوار گچی سفید"
+          "title": {
+            "en": "Green tufted leather armchair",
+            "fa": "مبل تک‌نفره چرمی سبز رنگ"
           },
-          "note": {
-            "en": "Lime-plaster finish, soft sheen.",
-            "fa": "پوشش گچ آهکی با براقیت ملایم."
-          }
+          "desc": {
+            "en": "A classic Chesterfield-style armchair in deep green leather with button-tufting and rolled arms, serving as a signature vintage furniture piece.",
+            "fa": "یک مبل کلاسیک سبک چسترفیلد به رنگ سبز تیره با چرم دکمه‌دوزی شده و دسته‌های گرد، که به عنوان یک قطعه مبلمان شاخص عمل می‌کند."
+          },
+          "material_category": "textile"
         },
         {
-          "id": "photo_studio_loft_hall_steel_windows",
-          "fraction": 0.72,
-          "pitch": 2,
+          "id": "photo_studio_loft_hall_ornate_plaster_ceiling_moldings",
+          "origin": "ai_vlm",
+          "fraction": 0.5,
+          "yaw": 180,
+          "pitch": 60.0,
           "position": [
-            0.825,
-            1.754,
-            -4.323
+            0.949,
+            3.244,
+            0.0
           ],
-          "label": {
-            "en": "Steel-framed windows",
-            "fa": "پنجره‌های فریم فولادی"
+          "title": {
+            "en": "Ornate plaster ceiling moldings",
+            "fa": "گچ‌بری‌های تزئینی سقف"
           },
-          "note": {
-            "en": "Slim black steel mullions, double glazing.",
-            "fa": "نعلبک‌های فولادی باریک سیاه با شیشه دوجداره."
-          }
+          "desc": {
+            "en": "A notable material and design detail.",
+            "fa": "سقف بلند اتاق با گچ‌بری‌های پیچیده و قدیمی در لبه‌ها و مرکز تزئین شده است که هنر معماری کلاسیک را نشان می‌دهد."
+          },
+          "material_category": "plaster"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Sergej Majboroda",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/photo_studio_loft_hall"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:57:29+00:00"
     },
     {
       "id": "art_studio",
@@ -411,67 +410,77 @@
       },
       "hotspots": [
         {
-          "id": "art_studio_concrete_floor",
-          "fraction": 0.5,
-          "pitch": -72,
+          "id": "art_studio_large_scale_seascape_mural",
+          "origin": "ai_vlm",
+          "fraction": 0.82,
+          "yaw": 295,
+          "pitch": -2.0,
           "position": [
-            0.464,
-            0.171,
+            -1.569,
+            1.471,
+            -3.335
+          ],
+          "title": {
+            "en": "Large-scale seascape mural",
+            "fa": "نقاشی دیواری بزرگ دریا"
+          },
+          "desc": {
+            "en": "A vibrant, panoramic painting of a sunset over the ocean is mounted directly on the curved wall, serving as a dramatic focal point for the studio space.",
+            "fa": "نقاشی پانورامایی و رنگارنگی از غروب خورشید بر فراز اقیانوس که مستقیماً روی دیوار قوسی نصب شده و نقطه کانونی چشمگیر فضای آتلیه است."
+          },
+          "material_category": "other"
+        },
+        {
+          "id": "art_studio_curved_wooden_ceiling_beams",
+          "origin": "ai_vlm",
+          "fraction": 0.5,
+          "yaw": 180,
+          "pitch": 65.0,
+          "position": [
+            0.67,
+            3.036,
             0.0
           ],
-          "label": {
-            "en": "Polished concrete",
-            "fa": "بتن صیقلی"
+          "title": {
+            "en": "Curved wooden ceiling beams",
+            "fa": "تیرهای چوبی منحنی سقف"
           },
-          "note": {
-            "en": "Power-troweled slab, sealed matte.",
-            "fa": "دال بتنی ماله‌زده با درزگیر مات."
-          }
+          "desc": {
+            "en": "The ceiling features exposed, arched wooden structural elements that follow the room's curvature, contrasting with the unfinished plaster sections between them.",
+            "fa": "سقف دارای عناصر ساختاری چوبی قوسی است که انحنای اتاق را دنبال می‌کنند و با بخش‌های گچ‌کاری نشده بینشان تضاد دارند."
+          },
+          "material_category": "wood"
         },
         {
-          "id": "art_studio_canvases",
-          "fraction": 0.34,
-          "pitch": 6,
+          "id": "art_studio_large_grey_floor_tiles",
+          "origin": "ai_vlm",
+          "fraction": 0.15,
+          "yaw": 54,
+          "pitch": -40.0,
           "position": [
-            2.125,
-            2.017,
-            3.349
+            -1.042,
+            0.112,
+            1.434
           ],
-          "label": {
-            "en": "Stretched canvases",
-            "fa": "بوم‌های کشیده‌شده"
+          "title": {
+            "en": "Large grey floor tiles",
+            "fa": "کفپوش بزرگ کاشی خاکستری"
           },
-          "note": {
-            "en": "Linen on spruce stretcher bars.",
-            "fa": "کتان روی قاب چوب صنوبر."
-          }
-        },
-        {
-          "id": "art_studio_studio_glazing",
-          "fraction": 0.66,
-          "pitch": 3,
-          "position": [
-            2.125,
-            1.808,
-            -3.348
-          ],
-          "label": {
-            "en": "North-light glazing",
-            "fa": "شیشه‌های نور شمالی"
+          "desc": {
+            "en": "The expansive floor is covered in large-format, light-grey square tiles with subtle grout lines, providing a clean and neutral base for the creative environment.",
+            "fa": "کف گسترده با کاشی‌های مربعی بزرگ به رنگ خاکستری روشن پوشیده شده که پایه‌ای تمیز و خنثی برای فضای خلاق فراهم می‌کند."
           },
-          "note": {
-            "en": "Tall factory Crittall-style steel glazing.",
-            "fa": "شیشه‌کاری فولادی بلند به سبک صنعتی."
-          }
+          "material_category": "ceramic"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Oliksiy Yakovlyev",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/art_studio"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:57:39+00:00"
     },
     {
       "id": "ballroom",
@@ -564,67 +573,56 @@
       },
       "hotspots": [
         {
-          "id": "ballroom_encaustic_tiles",
-          "fraction": 0.5,
-          "pitch": -70,
+          "id": "ballroom_geometric_parquet_wood_floor",
+          "origin": "ai_vlm",
+          "fraction": 0.46,
+          "yaw": 166,
+          "pitch": -15.0,
           "position": [
-            0.521,
-            0.169,
-            0.0
+            4.331,
+            0.402,
+            1.112
           ],
-          "label": {
-            "en": "Encaustic floor tiles",
-            "fa": "کاشی‌های رنگ‌ورورته"
+          "title": {
+            "en": "Geometric Parquet Wood Floor",
+            "fa": "کف پارکت چوبی هندسی"
           },
-          "note": {
-            "en": "Geometric Victorian encaustic tiles.",
-            "fa": "کاشی‌های ویکتوریایی هندسی رنگی."
-          }
+          "desc": {
+            "en": "The floor features an intricate geometric parquet pattern made of contrasting wood tones, creating a visually rich and textured surface that defines the room's classical elegance.",
+            "fa": "کف اتاق با الگوی هندسی پیچیده‌ای از چوب‌های با رنگ متضاد پوشیده شده است که بافت و زیبایی بصری کلاسیک فضا را تعریف می‌کند."
+          },
+          "material_category": "wood"
         },
         {
-          "id": "ballroom_chandelier",
-          "fraction": 0.5,
-          "pitch": 62,
+          "id": "ballroom_white_grand_piano",
+          "origin": "ai_vlm",
+          "fraction": 0.08,
+          "yaw": 29,
+          "pitch": 10.0,
           "position": [
-            1.989,
-            5.341,
-            0.0
+            -4.346,
+            2.475,
+            2.389
           ],
-          "label": {
-            "en": "Crystal chandelier",
-            "fa": "لوستر بلوری"
+          "title": {
+            "en": "White Grand Piano",
+            "fa": "پیانو گراند سفید رنگ"
           },
-          "note": {
-            "en": "Cut-glass drops on a brass frame.",
-            "fa": "آویزهای بلور بریده روی اسکلت برنجی."
-          }
-        },
-        {
-          "id": "ballroom_stucco",
-          "fraction": 0.28,
-          "pitch": 10,
-          "position": [
-            1.302,
-            2.825,
-            6.826
-          ],
-          "label": {
-            "en": "Gilded stucco",
-            "fa": "گچ‌بری طلایی"
+          "desc": {
+            "en": "A polished white grand piano is positioned on the left side of the room, acting as a signature piece of furniture that adds a sense of refined culture and musical heritage to the interior.",
+            "fa": "یک پیانو گراند سفید و براق در سمت چپ اتاق قرار دارد که به عنوان یک قطعه مبلمان امضا، حس فرهنگی و میراث موسیقی را به فضا می‌افزاید."
           },
-          "note": {
-            "en": "Moulded plaster cornices with gold leaf.",
-            "fa": "قرنیزهای گچی قالبی با ورق طلا."
-          }
+          "material_category": "other"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Sergej Majboroda",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/ballroom"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:57:47+00:00"
     },
     {
       "id": "large_corridor",
@@ -716,67 +714,77 @@
       },
       "hotspots": [
         {
-          "id": "large_corridor_victorian_tiles",
+          "id": "large_corridor_arched_double_door",
+          "origin": "ai_vlm",
           "fraction": 0.5,
-          "pitch": -72,
+          "yaw": 180,
+          "pitch": -5.0,
           "position": [
-            0.464,
-            0.171,
+            1.52,
+            1.467,
             -1.5
           ],
-          "label": {
-            "en": "Victorian floor tiles",
-            "fa": "کاشی کف ویکتوریایی"
+          "title": {
+            "en": "Arched Double Door",
+            "fa": "درب دو لته قوسی"
           },
-          "note": {
-            "en": "Chess-pattern encaustic tiling.",
-            "fa": "کاشی‌کاری شطرنجی رنگ‌ورورته."
-          }
+          "desc": {
+            "en": "A prominent dark wooden double door with a tall, pointed Gothic arch and glass panes that allows natural light to flood the room.",
+            "fa": "دری چوبی تیره و بلند با طاق گوتیک تیز که نور طبیعی را به داخل اتاق هدایت می‌کند."
+          },
+          "material_category": "wood"
         },
         {
-          "id": "large_corridor_arch",
-          "fraction": 0.18,
-          "pitch": 6,
+          "id": "large_corridor_ornate_ceramic_stove",
+          "origin": "ai_vlm",
+          "fraction": 0.29,
+          "yaw": 104,
+          "pitch": 0.0,
           "position": [
-            -1.624,
-            2.001,
-            1.951
+            1.654,
+            1.6,
+            4.943
           ],
-          "label": {
-            "en": "Arched doorway",
-            "fa": "طاق‌نمای ورودی"
+          "title": {
+            "en": "Ornate Ceramic Stove",
+            "fa": "اجاق گاز تزئینی سفالی"
           },
-          "note": {
-            "en": "Brick arch with keystone detail.",
-            "fa": "طاق آجری با کلید سنگی."
-          }
+          "desc": {
+            "en": "A tall, decorative masonry heater featuring intricate relief patterns and a dark, textured finish typical of historic European interiors.",
+            "fa": "یک بخاری آجری بلند با نقش‌های برجسته پیچیده و ظاهری تیره که یادآور داخلی‌های تاریخی اروپایی است."
+          },
+          "material_category": "ceramic"
         },
         {
-          "id": "large_corridor_paneled_doors",
-          "fraction": 0.8,
-          "pitch": 4,
+          "id": "large_corridor_patterned_parquet_floor",
+          "origin": "ai_vlm",
+          "fraction": 0.5,
+          "yaw": 180,
+          "pitch": -30.0,
           "position": [
-            -1.569,
-            1.955,
-            -6.329
+            1.542,
+            0.71,
+            -1.5
           ],
-          "label": {
-            "en": "Paneled doors",
-            "fa": "درهای پنل‌دار"
+          "title": {
+            "en": "Patterned Parquet Floor",
+            "fa": "کف پارکت طرح‌دار"
           },
-          "note": {
-            "en": "Four-panel painted timber doors.",
-            "fa": "درهای چوبی چهارپنل رنگ‌شده."
-          }
+          "desc": {
+            "en": "The floor is covered in a fine geometric parquet pattern of light and medium brown wood tones, creating a warm, textured surface.",
+            "fa": "کف اتاق با پارکت چوبی به رنگ‌های قهوه‌ای روشن و متوسط پوشیده شده که بافت گرمی ایجاد کرده است."
+          },
+          "material_category": "wood"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Sergej Majboroda",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/large_corridor"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:57:58+00:00"
     },
     {
       "id": "comfy_cafe",
@@ -869,67 +877,77 @@
       },
       "hotspots": [
         {
-          "id": "comfy_cafe_timber_floor",
-          "fraction": 0.5,
-          "pitch": -71,
+          "id": "comfy_cafe_light_oak_wood_parquet_flooring",
+          "origin": "ai_vlm",
+          "fraction": 0.35,
+          "yaw": 126,
+          "pitch": -55.0,
           "position": [
-            0.492,
-            0.17,
-            0.0
+            0.599,
+            0.144,
+            0.825
           ],
-          "label": {
-            "en": "Worn timber floor",
-            "fa": "کف چوبی کهنه"
+          "title": {
+            "en": "Light Oak Wood Parquet Flooring",
+            "fa": "پارکت چوب بلوط روشن"
           },
-          "note": {
-            "en": "Aged pine boards with an oiled patina.",
-            "fa": "تخته‌های کهنه کاج با پوشش روغنی."
-          }
+          "desc": {
+            "en": "The floor is covered in light-toned oak parquet laid in a herringbone pattern, providing a warm and expansive base for the interior.",
+            "fa": "کف اتاق با پارکت بلوط به رنگ روشن و با الگوی هریبون پوشیده شده که پایه‌ای گرم و دلباز برای فضا ایجاد کرده است."
+          },
+          "material_category": "wood"
         },
         {
-          "id": "comfy_cafe_brick_wall",
-          "fraction": 0.3,
-          "pitch": 6,
+          "id": "comfy_cafe_black_iron_ring_chandelier",
+          "origin": "ai_vlm",
+          "fraction": 0.35,
+          "yaw": 126,
+          "pitch": 65.0,
           "position": [
-            1.082,
-            1.968,
-            3.33
+            0.339,
+            2.836,
+            0.466
           ],
-          "label": {
-            "en": "Exposed brick wall",
+          "title": {
+            "en": "Black Iron Ring Chandelier",
+            "fa": "لوستر آهنی حلقه‌ای مشکی"
+          },
+          "desc": {
+            "en": "A large, sculptural chandelier with an intricate black iron frame hangs from the ceiling, serving as a bold focal point above the seating area.",
+            "fa": "یک لوستر بزرگ و مجسمه‌وار با فریم آهنی مشکی و پیچیده از سقف آویزان شده و به عنوان نقطه کانونی برجسته بالای ناحیه نشیمن عمل می‌کند."
+          },
+          "material_category": "lighting"
+        },
+        {
+          "id": "comfy_cafe_exposed_brick_feature_wall",
+          "origin": "ai_vlm",
+          "fraction": 0.6,
+          "yaw": 216,
+          "pitch": 5.0,
+          "position": [
+            2.351,
+            1.854,
+            -1.708
+          ],
+          "title": {
+            "en": "Exposed Brick Feature Wall",
             "fa": "دیوار آجری نمایان"
           },
-          "note": {
-            "en": "Painted brick, mortar raked back.",
-            "fa": "آجر رنگ‌شده با ملات آب‌خورده."
-          }
-        },
-        {
-          "id": "comfy_cafe_pendant_lights",
-          "fraction": 0.55,
-          "pitch": 58,
-          "position": [
-            0.741,
-            2.847,
-            -0.241
-          ],
-          "label": {
-            "en": "Linen pendant lights",
-            "fa": "آویزهای کتانی"
+          "desc": {
+            "en": "A section of the rear wall features exposed whitewashed brickwork, adding rustic texture and historical character to the modern lounge setting.",
+            "fa": "بخشی از دیوار پشتی با آجرهای نمایان و سفیدکاری شده پوشیده شده که بافت روستایی و شخصیت تاریخی به فضای مدرن می‌بخشد."
           },
-          "note": {
-            "en": "Warm bulbs in woven linen shades.",
-            "fa": "لامپ‌های گرم زیر حباب‌های کتانی بافته."
-          }
+          "material_category": "brick"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Sergej Majboroda",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/comfy_cafe"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:59:50+00:00"
     },
     {
       "id": "castle_zavelstein_cellar",
@@ -1022,67 +1040,77 @@
       },
       "hotspots": [
         {
-          "id": "castle_zavelstein_cellar_brick_vault",
-          "fraction": 0.3,
-          "pitch": 45,
+          "id": "castle_zavelstein_cellar_arched_stone_window",
+          "origin": "ai_vlm",
+          "fraction": 0.6,
+          "yaw": 216,
+          "pitch": -5.0,
           "position": [
-            0.362,
-            2.773,
-            1.115
+            1.652,
+            1.421,
+            -1.2
           ],
-          "label": {
-            "en": "Gothic brick vault",
-            "fa": "طاق آجری گوتیک"
+          "title": {
+            "en": "Arched Stone Window",
+            "fa": "پنجره طاقی سنگی"
           },
-          "note": {
-            "en": "Pointed arches in bond brickwork.",
-            "fa": "طاق‌های تیزه‌ای با آجرچینی بندچین."
-          }
+          "desc": {
+            "en": "A small, rectangular window set deep into the thick masonry wall, allowing a focused beam of natural light to illuminate the vaulted interior space.",
+            "fa": "پنجره‌ای کوچک و مستطیل‌شکل که در دیوار ضخیم سنگی تعبیه شده و نور طبیعی متمرکزی را به فضای داخلی طاق‌دار می‌تاباند."
+          },
+          "material_category": "stone"
         },
         {
-          "id": "castle_zavelstein_cellar_stone_floor",
+          "id": "castle_zavelstein_cellar_barrel_vaulted_ceiling",
+          "origin": "ai_vlm",
           "fraction": 0.5,
-          "pitch": -74,
+          "yaw": 180,
+          "pitch": 25.0,
           "position": [
-            0.409,
-            0.173,
+            1.639,
+            2.364,
             0.0
           ],
-          "label": {
-            "en": "Stone floor slabs",
-            "fa": "پلاک‌های کف سنگی"
+          "title": {
+            "en": "Barrel Vaulted Ceiling",
+            "fa": "سقف طاق جناغی"
           },
-          "note": {
-            "en": "Flags of local sandstone.",
-            "fa": "پلاک‌های ماسه‌سنگ محلی."
-          }
+          "desc": {
+            "en": "A continuous arched ceiling constructed from rough-hewn stone blocks, creating a rhythmic and textured overhead surface typical of ancient fortifications.",
+            "fa": "سقف قوسی پیوسته‌ای که از بلوک‌های سنگی ناهموار ساخته شده و سطحی با بافت و ریتم منحصر به فرد در بالای سر ایجاد کرده است."
+          },
+          "material_category": "stone"
         },
         {
-          "id": "castle_zavelstein_cellar_arched_niche",
-          "fraction": 0.74,
-          "pitch": 2,
+          "id": "castle_zavelstein_cellar_flagstone_floor",
+          "origin": "ai_vlm",
+          "fraction": 0.2,
+          "yaw": 72,
+          "pitch": -40.0,
           "position": [
-            0.303,
-            1.769,
-            -4.82
+            -0.548,
+            0.112,
+            1.686
           ],
-          "label": {
-            "en": "Arched niche",
-            "fa": "طاقچه قوسی"
+          "title": {
+            "en": "Flagstone Floor",
+            "fa": "کفپوش سنگ فرش"
           },
-          "note": {
-            "en": "Storage recess set into the wall.",
-            "fa": "جاگاهی در دل دیوار برای انبار."
-          }
+          "desc": {
+            "en": "The ground is paved with large, irregular slabs of weathered stone, showing natural variations in color and texture that complement the rustic walls.",
+            "fa": "کف اتاق با سنگ‌فرش‌های بزرگ و نامنتظم از جنس سنگ فرسوده پوشیده شده است که تغییرات رنگ و بافت طبیعی را نشان می‌دهد."
+          },
+          "material_category": "stone"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Andreas Mischok",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/castle_zavelstein_cellar"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:58:16+00:00"
     },
     {
       "id": "cabin",
@@ -1175,67 +1203,77 @@
       },
       "hotspots": [
         {
-          "id": "cabin_pine_walls",
-          "fraction": 0.3,
-          "pitch": 6,
+          "id": "cabin_patterned_wall_to_wall_carpet",
+          "origin": "ai_vlm",
+          "fraction": 0.5,
+          "yaw": 180,
+          "pitch": -40.0,
           "position": [
-            0.692,
-            1.835,
-            2.13
+            1.61,
+            0.249,
+            0.0
           ],
-          "label": {
-            "en": "Pine plank walls",
-            "fa": "دیوار تخته کاج"
+          "title": {
+            "en": "Patterned Wall-to-Wall Carpet",
+            "fa": "فرش دیواری با طرح هندسی"
           },
-          "note": {
-            "en": "Tongue-and-groove pine, honey varnish.",
-            "fa": "تخته‌های کاج شیار و زبانه با لاک عسلی."
-          }
+          "desc": {
+            "en": "The floor is covered in a wall-to-wall carpet featuring a dense, repeating geometric pattern in muted blue and orange tones, providing a soft texture underfoot.",
+            "fa": "کف اتاق با فرش دیواری پوشیده شده است که دارای طرح هندسی تکرارشونده‌ای در رنگ‌های آبی و نارنجی ملایم است و بافتی نرم ایجاد کرده است."
+          },
+          "material_category": "textile"
         },
         {
-          "id": "cabin_wool_throw",
-          "fraction": 0.55,
-          "pitch": -30,
+          "id": "cabin_curved_recessed_ceiling_panels",
+          "origin": "ai_vlm",
+          "fraction": 0.2,
+          "yaw": 72,
+          "pitch": 10.0,
           "position": [
-            1.602,
-            0.628,
-            -0.52
+            -0.693,
+            1.995,
+            2.133
           ],
-          "label": {
-            "en": "Wool throw blanket",
-            "fa": "پتوی پشمی"
+          "title": {
+            "en": "Curved Recessed Ceiling Panels",
+            "fa": "پنل‌های سقف گود رفته و منحنی"
           },
-          "note": {
-            "en": "Chunky knit lambswool throw.",
-            "fa": "پتوی بافت ضخیم از پشم بره."
-          }
+          "desc": {
+            "en": "The ceiling features a series of elegant, curved recessed panels that follow the room's contour, creating a sense of spaciousness and sophisticated architectural flow.",
+            "fa": "سقف دارای سری از پنل‌های منحنی و گودرفته است که به شکل اتاق ادامه یافته و حس فضا و جریان معماری پیچیده‌ای را ایجاد می‌کند."
+          },
+          "material_category": "plaster"
         },
         {
-          "id": "cabin_reading_sconce",
-          "fraction": 0.68,
-          "pitch": 20,
+          "id": "cabin_large_framed_vanity_mirror",
+          "origin": "ai_vlm",
+          "fraction": 0.85,
+          "yaw": 306,
+          "pitch": -5.0,
           "position": [
-            0.864,
-            2.338,
-            -1.836
+            -1.563,
+            1.367,
+            -2.151
           ],
-          "label": {
-            "en": "Reading sconce",
-            "fa": "آویز مطالعه"
+          "title": {
+            "en": "Large Framed Vanity Mirror",
+            "fa": "آینه بزرگ قاب‌دار روی میز آرایش"
           },
-          "note": {
-            "en": "Articulated brass wall light.",
-            "fa": "چراغ دیوار برنجی مفصلی."
-          }
+          "desc": {
+            "en": "A large rectangular mirror is mounted above the wooden dresser on the right wall, reflecting the room's interior and enhancing the perceived depth of the space.",
+            "fa": "یک آینه مستطیل بزرگ بالای میز چوبی روی دیوار سمت راست نصب شده است که فضای داخلی را بازتاب داده و عمق بصری اتاق را افزایش می‌دهد."
+          },
+          "material_category": "glass"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Greg Zaal",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/cabin"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:58:26+00:00"
     },
     {
       "id": "quadrangle_sunny",
@@ -1328,67 +1366,77 @@
       },
       "hotspots": [
         {
-          "id": "quadrangle_sunny_cloister",
+          "id": "quadrangle_sunny_herringbone_brick_paved_walkway",
+          "origin": "ai_vlm",
           "fraction": 0.5,
-          "pitch": -2,
+          "yaw": 180,
+          "pitch": -35.0,
           "position": [
-            11.82,
-            1.187,
+            2.148,
+            0.096,
             0.0
           ],
-          "label": {
-            "en": "Limestone cloister",
-            "fa": "راهرو سنگ آهکی"
+          "title": {
+            "en": "Herringbone brick paved walkway",
+            "fa": "پیاده‌رو آجری با چیدمان هریگبون"
           },
-          "note": {
-            "en": "Arcaded walkway with mullioned tracery.",
-            "fa": "ایوان طاق‌دار با شبکه‌های سنگی."
-          }
+          "desc": {
+            "en": "The ground is covered in a wide, curved path made of grey bricks laid in a herringbone pattern, creating a durable and textured surface that leads through the courtyard.",
+            "fa": "زمین با یک مسیر پهن و منحنی از آجرهای خاکستری که به صورت هریگبون چیده شده‌اند پوشیده شده و سطحی بادوام و بافت‌دار ایجاد کرده است."
+          },
+          "material_category": "brick"
         },
         {
-          "id": "quadrangle_sunny_lawn",
-          "fraction": 0.44,
-          "pitch": -66,
+          "id": "quadrangle_sunny_tall_manicured_hornbeam_hedge",
+          "origin": "ai_vlm",
+          "fraction": 0.25,
+          "yaw": 90,
+          "pitch": -5.0,
           "position": [
-            0.594,
-            0.164,
-            0.235
+            -0.0,
+            0.566,
+            11.819
           ],
-          "label": {
-            "en": "Courtyard lawn",
-            "fa": "چمن حیاط"
+          "title": {
+            "en": "Tall manicured hornbeam hedge",
+            "fa": "دیوار سبز درختان هرس شده"
           },
-          "note": {
-            "en": "Close-mown mixed turf.",
-            "fa": "چمن متراکم چندگونه."
-          }
+          "desc": {
+            "en": "A dense wall of neatly trimmed green trees forms a natural architectural boundary on the left side of the open space, providing privacy and structure.",
+            "fa": "یک دیوار متراکم از درختان سبز که به طور مرتب هرس شده‌اند، مرز طبیعی معماری را در سمت چپ فضای باز تشکیل می‌دهد."
+          },
+          "material_category": "vegetation"
         },
         {
-          "id": "quadrangle_sunny_mullioned_windows",
-          "fraction": 0.75,
-          "pitch": 0,
+          "id": "quadrangle_sunny_central_wooden_garden_pavilion",
+          "origin": "ai_vlm",
+          "fraction": 0.5,
+          "yaw": 180,
+          "pitch": 2.0,
           "position": [
-            0.0,
-            1.6,
-            -11.82
+            11.821,
+            2.013,
+            0.0
           ],
-          "label": {
-            "en": "Mullioned windows",
-            "fa": "پنجره‌های شبکه‌دار"
+          "title": {
+            "en": "Central wooden garden pavilion",
+            "fa": "آلاچیق چوبی مرکزی باغ"
           },
-          "note": {
-            "en": "Stone-mullioned casements in the range.",
-            "fa": "پنجره‌های قاب‌سنگی در بالای راهرو."
-          }
+          "desc": {
+            "en": "A small dark timber structure with a pitched roof sits at the end of the central axis, serving as a focal point and shelter within the landscape.",
+            "fa": "یک سازه کوچک چوبی تیره با سقف شیبدار در انتهای محور مرکزی قرار گرفته و به عنوان نقطه کانونی عمل می‌کند."
+          },
+          "material_category": "wood"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Savva Zakharov",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/quadrangle_sunny"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:58:34+00:00"
     },
     {
       "id": "school_hall",
@@ -1481,67 +1529,77 @@
       },
       "hotspots": [
         {
-          "id": "school_hall_maple_floor",
+          "id": "school_hall_light_colored_wooden_stage_floor",
+          "origin": "ai_vlm",
           "fraction": 0.5,
-          "pitch": -71,
+          "yaw": 180,
+          "pitch": -30.0,
           "position": [
-            0.492,
-            0.17,
+            2.625,
+            0.084,
             0.0
           ],
-          "label": {
-            "en": "Varnished maple floor",
-            "fa": "کف افرا لاکی"
+          "title": {
+            "en": "Light-colored wooden stage floor",
+            "fa": "صحنه چوبی با رنگ روشن"
           },
-          "note": {
-            "en": "Strip maple on battens, gloss varnish.",
-            "fa": "نوارهای افرا روی زیرسازی با لاق براق."
-          }
+          "desc": {
+            "en": "The expansive stage is covered in light-toned hardwood planks, providing a warm and acoustically resonant surface for performances.",
+            "fa": "صحنه وسیع با تخته‌های چوبی سخت‌چوب به رنگ روشن پوشیده شده که سطحی گرم و با کیفیت صوتی عالی برای اجراها فراهم می‌کند."
+          },
+          "material_category": "wood"
         },
         {
-          "id": "school_hall_stage_curtain",
-          "fraction": 0.5,
-          "pitch": -4,
+          "id": "school_hall_curved_proscenium_arch",
+          "origin": "ai_vlm",
+          "fraction": 0.75,
+          "yaw": 270,
+          "pitch": 20.0,
           "position": [
-            4.32,
-            1.298,
-            0.0
+            0.0,
+            4.451,
+            -7.833
           ],
-          "label": {
-            "en": "Stage curtains",
-            "fa": "پرده‌های سکو"
+          "title": {
+            "en": "Curved proscenium arch",
+            "fa": "طاق نیم‌دایره‌ای منحنی"
           },
-          "note": {
-            "en": "Heavy wool serge drapery.",
-            "fa": "پرده‌های ضخیم سرژ پشمی."
-          }
+          "desc": {
+            "en": "A large, sweeping curved arch with a warm wood finish defines the transition between the stage and the auditorium seating area.",
+            "fa": "یک طاق بزرگ و منحنی با روکش چوبی گرم، مرز بین صحنه و محل نشستن تماشاگران را مشخص می‌کند."
+          },
+          "material_category": "wood"
         },
         {
-          "id": "school_hall_timber_trusses",
-          "fraction": 0.3,
-          "pitch": 55,
+          "id": "school_hall_exposed_concrete_ceiling_structure",
+          "origin": "ai_vlm",
+          "fraction": 0.25,
+          "yaw": 90,
+          "pitch": 40.0,
           "position": [
-            0.92,
-            5.853,
-            2.832
+            -0.0,
+            5.877,
+            5.097
           ],
-          "label": {
-            "en": "Timber roof trusses",
-            "fa": "پاورقی‌های چوبی"
+          "title": {
+            "en": "Exposed concrete ceiling structure",
+            "fa": "سقف بتنی نمایان"
           },
-          "note": {
-            "en": "Exposed pine trusses with iron ties.",
-            "fa": "پاورقی‌های نمای کاج با مهار آهنی."
-          }
+          "desc": {
+            "en": "The ceiling features a raw, industrial aesthetic with exposed concrete slabs and dark-painted structural steel beams.",
+            "fa": "سقف دارای زیبایی‌شناسی صنعتی خام با دال‌های بتنی نمایان و تیرهای فولادی ساختاری به رنگ تیره است."
+          },
+          "material_category": "concrete"
         }
       ],
-      "hotspots_curated": true,
       "attribution": {
         "creator": "Dimitrios Savva, Jarod Guest",
         "source": "PolyHaven",
         "license": "CC0",
         "url": "https://polyhaven.com/a/school_hall"
-      }
+      },
+      "hotspots_backend": "vlm",
+      "hotspots_generated_at": "2026-11-01T14:58:42+00:00"
     }
   ]
 }

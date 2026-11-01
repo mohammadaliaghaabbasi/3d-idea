@@ -200,3 +200,22 @@ export function computeRoutes(rooms, currentIndex, mode) {
   const b = pool.length ? pool[Math.floor(Math.random() * pool.length)] : (currentIndex + 1) % n;
   return { targets: [a, b], reason: "random" };
 }
+
+/**
+ * Dream House tour routing (Phase 2 moodboard): portals follow the curated
+ * chain exclusively — portal 1 steps to the next room in the sequence,
+ * portal 2 steps back. Unknown ids are dropped; returns null for empty chains.
+ */
+export function computeHouseRoutes(rooms, currentIndex, chainIds) {
+  const idxOf = (id) => rooms.findIndex((r) => r.id === id);
+  const chain = chainIds.map(idxOf).filter((i) => i >= 0);
+  const n = chain.length;
+  if (!n) return null;
+  if (n === 1) return { targets: [chain[0], chain[0]], reason: "house" };
+  const pos = chain.indexOf(currentIndex);
+  if (pos === -1) return { targets: [chain[0], chain[1]], reason: "house" };
+  return {
+    targets: [chain[(pos + 1) % n], chain[(pos - 1 + n) % n]],
+    reason: "house",
+  };
+}
