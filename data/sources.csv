@@ -1,0 +1,81 @@
+id,name,url,category,class,priority,status_2026_11_01,notes
+01,polyhaven,https://polyhaven.com,open_license,ingest,P0,ok200,CC0 · 1092+ equirect HDRIs: 144 interiors + 900+ outdoor · engine testing + first rooms
+02,artstation,https://artstation.com,archviz_community,embed_permission,P0,bot403,Native 360 equirect support since 2017 · huge archviz community · per-artist outreach
+03,kuula,https://kuula.co,community_platform,embed_permission,P0,ok200,Reference platform · embed with credit · raw files forbidden (red line 07)
+04,panorra,https://panorra.com,community_platform,embed_permission,P0,ok200,Post-Roundme social 360 community · closest to '360 Instagram'
+05,matterport_discover,https://discover.matterport.com,community_platform,embed_permission,P1,bot403,Largest 3D-tour ecosystem · public gallery · commercial API
+06,matterport,https://matterport.com,community_platform,embed_permission,P1,ok200,3D capture platform + API
+07,360cities,https://360cities.net,community_platform,embed_permission,P1,ok200,Curated 360 world map + licensing API · photographers keep rights
+08,google_arts_culture,https://artsandculture.google.com,heritage,link_credit,P1,ok200,Museum/heritage virtual tours incl. architecture
+09,archdaily,https://www.archdaily.com,architecture_media,link_credit,P1,ok200,VR / virtual-tour articles of real buildings
+10,youtube_360,https://www.youtube.com,community_platform,embed_permission,P1,ok200,360 videos incl. archviz walkthroughs · official embed API
+11,mapillary,https://www.mapillary.com,street_level,embed_permission,P1,bot400,Crowdsourced street-level · many CC-BY sequences
+12,street_view_js_api,https://developers.google.com/maps/documentation/javascript/streetview,street_level,embed_permission,P1,alive_docs,StreetViewPanorama JS object allows programmatic POV/heading control — portal-graph candidate for outdoor · verify at build
+13,cgarchitect,https://cgarchitect.com,archviz_community,link_credit,P1,ok200,Professional archviz community + forums
+14,behance,https://www.behance.net,archviz_community,embed_permission,P1,bot403,Archviz projects with embedded 360 players · per-artist
+15,sketchfab,https://sketchfab.com,open_license,ingest,P1,ok200,Downloadable CC0/CC-BY 3D models (architecture/interiors) · 3D layer not panos
+16,wikimedia_commons,https://commons.wikimedia.org,open_license,ingest,P1,ok200,Equirect panoramas of real buildings · CC per-file
+17,flickr,https://www.flickr.com,open_license,ingest,P1,ok200,CC 360 photos via API + license filter
+18,open_heritage_3d,https://openheritage3d.org,heritage,ingest,P1,ok200,Raw heritage scans (CyArk/ICOMOS) · open data per-dataset
+19,chaos_cosmos,https://www.chaos.com,archviz_community,link_credit,P1,ok200,Free but EULA-bound (NOT open) · renders OK · do not redistribute assets
+20,d5_render,https://d5render.com,archviz_community,link_credit,P1,bot403,Engine showcase galleries
+21,enscape,https://chaos.com/enscape,archviz_community,link_credit,P1,ok200,Engine gallery + 360 output
+22,twinmotion,https://www.unrealengine.com/twinmotion,archviz_community,link_credit,P2,bot403,Unreal engine gallery
+23,lumion,https://lumion.com,archviz_community,link_credit,P2,ok200,Engine gallery
+24,airpano,https://airpano.com,community_platform,embed_permission,P2,ok200,Aerial 360 of world landmarks · use .com (.org dead from sandbox) · rights reserved
+25,gigapan,https://gigapan.com,community_platform,link_credit,P2,ok200,Gigapixel panoramas
+26,xrez,https://xrez.com,community_platform,link_credit,P2,ok200,High-end gigapixel cultural/urban panos
+27,veer_tv,https://veer.tv,community_platform,link_credit,P2,ok200,360 video community
+28,within,https://within.co,community_platform,link_credit,P3,ok200,Cinematic VR experiences · rights reserved
+29,vimeo,https://vimeo.com,community_platform,link_credit,P3,ok200,360 support — verify current policy
+30,gothru,https://gothru.co,tour_tool,tool,P2,ok200,Tour builder + Street View publishing (Roundme successor)
+31,koala360,https://koala360.com,tour_tool,tool,P2,ok200,Roundme replacement
+32,klapty,https://klapty.com,tour_tool,tool,P2,ok200,Tour hosting
+33,seekbeak,https://seekbeak.com,tour_tool,tool,P2,ok200,Tour builder + analytics
+34,cloudpano,https://cloudpano.com,tour_tool,tool,P2,ok200,Real-estate focused tours
+35,eyespy360,https://eyespy360.com,tour_tool,tool,P2,ok200,Tours + remote capture
+36,panoee,https://panoee.com,tour_tool,tool,P2,ok200,Free-tier tour builder
+37,teliportme,https://teliportme.com,tour_tool,tool,P3,ok200,360 capture app + tours
+38,thinglink,https://thinglink.com,tour_tool,tool,P2,ok200,Interactive 360 used by parks/education
+39,3dvista,https://www.3dvista.com,tour_tool,tool,P2,via_search,Tour software + hosting + live guided tours
+40,dezeen,https://www.dezeen.com,architecture_media,link_credit,P2,ok200,Architecture media
+41,designboom,https://www.designboom.com,architecture_media,link_credit,P2,ok200,Architecture/design media
+42,architizer,https://architizer.com,architecture_media,link_credit,P2,bot403,Architecture media
+43,cyark,https://www.cyark.org,heritage,ingest,P2,ok200,Heritage 3D (via Open Heritage)
+44,europeana,https://www.europeana.eu,heritage,link_credit,P2,bot403,EU cultural aggregator
+45,louvre,https://www.louvre.fr,heritage,link_credit,P2,ok200,Own virtual tours
+46,british_museum,https://www.britishmuseum.org,heritage,link_credit,P2,bot403,Virtual tours
+47,unesco_whc,https://whc.unesco.org,heritage,link_credit,P2,bot403,World Heritage list + links
+48,smithsonian_3d,https://3d.si.edu,heritage,ingest,P2,bot403,CC0 3D objects/scenes
+49,scan_the_world,https://www.myminifactory.com/scantheworld,heritage,ingest,P2,ok200,CC0 heritage sculpture scans
+50,zamani_project,https://zamaniproject.org,heritage,ingest,P2,ok200,African heritage 3D + panoramas · academic permission
+51,sketchup_3d_warehouse,https://3dwarehouse.sketchup.com,open_license,ingest,P2,ok200,Massive building models · mixed per-uploader licenses
+52,blenderkit,https://www.blenderkit.com,open_license,ingest,P2,ok200,Community assets + HDRI · freemium
+53,apple_look_around,https://maps.apple.com,street_level,embed_permission,P2,ok200,MapKit embeds
+54,yandex_panoramas,https://yandex.com/maps/,street_level,embed_permission,P2,ok200,RU/CIS + partial world
+55,kartaview,https://kartaview.org,street_level,ingest,P3,ok200,Open dashcam/360 imagery
+56,baidu_panorama,https://map.baidu.com,street_level,embed_permission,P3,unverified,China · not verified from sandbox
+57,tencent_map_panorama,https://map.qq.com,street_level,embed_permission,P3,unverified,China · not verified from sandbox
+58,kakao_road_view,https://map.kakao.com,street_level,embed_permission,P3,unverified,Korea · not verified from sandbox
+59,360nama,https://360nama.com,persian,embed_permission,P1,ok200,Iranian virtual tours: cities (Tehran/Shiraz/Isfahan/…) + real estate · FA seeding / partnership
+60,aparat,https://www.aparat.com,persian,link_credit,P2,geo504,Iranian video platform · 360 content · verify 360 player
+61,golestan_palace,https://golestanpalace.ir,persian,link_credit,P2,unreachable,Iranian heritage · verify manually (geo-blocked from sandbox)
+62,evermotion,https://evermotion.org,archviz_community,link_credit,P2,bot403,Archviz community
+63,ronen_bekerman,https://www.ronenbekerman.com,archviz_community,link_credit,P2,bot403,Archviz blog/challenges
+64,reddit_archviz,https://www.reddit.com/r/ArchViz/,archviz_community,link_credit,P2,bot403,Community
+65,roundme,https://www.roundme.com,dead,none,P3,dead,Shut down 2023 — ALL tours lost · lesson: independent archive + creator relationships
+66,google_poly,https://poly.google.com,dead,none,P3,dead,Shut down 2021 (3D models)
+67,google_tour_creator,https://vr.google.com/tourcreator,dead,none,P3,dead,Discontinued 2021
+68,marzipano,https://marzipano.net,tool,tool,P2,unreachable,Open-source 360 viewer (known alive · sandbox DNS issue)
+69,pannellum,https://pannellum.org,tool,tool,P2,ok200,Lightweight open-source panorama viewer
+70,krpano,https://krpano.com,tool,tool,P2,ok200,Industry-standard panorama viewer engine
+71,threejs,https://threejs.org,tool,tool,P0,ok200,WebGL engine — our stack core (07-tech-notes)
+72,aframe,https://aframe.io,tool,tool,P2,ok200,Web framework for VR
+73,shapespark,https://shapespark.com,tool,tool,P2,ok200,3D walkthrough hosting from BIM/models
+74,pano2vr,https://gardengnomesoftware.com,tool,tool,P2,ok200,Tour authoring software
+75,modelviewer,https://modelviewer.dev,tool,tool,P2,ok200,Google's <model-viewer> web component for glTF
+76,cesium,https://cesium.com,tool,tool,P3,ok200,3D Tiles / geospatial
+77,maplibre,https://maplibre.org,tool,tool,P2,ok200,Open map rendering
+78,fab_epic,https://www.fab.com,tool,tool,P3,bot403,Quixel Megascans / Unreal asset marketplace
+79,cgtrader,https://www.cgtrader.com,tool,tool,P3,ok200,Paid 3D models ecosystem
+80,turbosquid,https://www.turbosquid.com,tool,tool,P3,bot403,Paid 3D models ecosystem
