@@ -42,6 +42,8 @@ export class XRayLayer {
     this.openDef = null;
     this._dwellTimer = null;
     this._texCache = new Map();
+    this.onInquire = null;    // (def) => void — set by main.js (commerce)
+    this.onNarrate = null;    // (def) => void — set by main.js (narrator)
 
     this.el = {
       btn: document.getElementById("btn-xray"),
@@ -53,6 +55,13 @@ export class XRayLayer {
       desc: document.getElementById("xray-desc"),
       close: document.getElementById("xray-close"),
       hint: document.getElementById("xray-hint"),
+      listen: document.getElementById("xray-listen"),
+      commerce: document.getElementById("xray-commerce"),
+      brand: document.getElementById("xc-brand"),
+      tier: document.getElementById("xc-tier"),
+      price: document.getElementById("xc-price"),
+      swatches: document.getElementById("xc-swatches"),
+      inquire: document.getElementById("xc-inquire"),
     };
     this._bind();
     i18n.onChange(() => {
@@ -67,6 +76,12 @@ export class XRayLayer {
   _bind() {
     this.el.btn.addEventListener("click", () => this.toggle());
     this.el.close.addEventListener("click", () => this.closeCard());
+    this.el.listen.addEventListener("click", () => {
+      if (this.openDef && this.onNarrate) this.onNarrate(this.openDef);
+    });
+    this.el.inquire.addEventListener("click", () => {
+      if (this.openDef && this.onInquire) this.onInquire(this.openDef);
+    });
     this._onKeyDown = (e) => {
       if (e.code !== "Space" || e.repeat) return;
       this.holdActive = true;
@@ -204,6 +219,38 @@ export class XRayLayer {
     this.el.catDot.style.background = CAT_COLORS[cat] || CAT_COLORS.other;
     this.el.catLabel.textContent = t["cat_" + cat] || t.cat_other;
     this.el.catLabel.style.color = CAT_COLORS[cat] || CAT_COLORS.other;
+    this.el.listen.title = t.listen;
+
+    // ---- commerce block (shoppable hotspot) ----
+    const c = def.commerce;
+    this.el.commerce.classList.toggle("hud-hidden", !c);
+    if (c) {
+      this.el.brand.textContent = c.brand || t.brand_showcase;
+      this.el.tier.textContent = t["tier_" + (c.tier || "premium")] || c.tier || "";
+      this.el.price.textContent = c.price ? `${t.est_price} ${c.price}` : "";
+      this.el.inquire.textContent = t.inquire;
+      // swatches — click to recolour the pin + card accent
+      const row = this.el.swatches;
+      row.innerHTML = "";
+      (c.swatches || []).forEach((hex, i) => {
+        const b = document.createElement("button");
+        b.className = "swatch" + (i === 0 ? " sel" : "");
+        b.style.background = hex;
+        b.title = (c.swatch_names?.[L]?.[i]) || (c.swatch_names?.en?.[i]) || `${t.swatch} ${i + 1}`;
+        b.addEventListener("click", () => {
+          row.querySelectorAll(".swatch").forEach((x) => x.classList.remove("sel"));
+          b.classList.add("sel");
+          const pin = this.pins.find((p) => p.def.id === def.id);
+          if (pin) {
+            pin.sprite.material.map = this._pinTexture(hex);
+            pin.sprite.material.needsUpdate = true;
+            pin.matColor = hex;
+          }
+          this.el.catDot.style.background = hex;
+        });
+        row.appendChild(b);
+      });
+    }
   }
 
   /* ------------------------------------------------------------ frame loop */

@@ -1,132 +1,206 @@
 /**
- * PANODROME — Smart Portals (glowing doorways) + routing modes
+ * PANODROME — Smart Portals v2 (Phase 2.5)
  *
- * Each room carries 2 portal definitions in rooms_db.json (position/normal
- * ray-cast onto the room box by the ingest skill; positions come either from
- * the AI vision door pass or curated wall slots).
+ * Sleek, non-intrusive Matterport/VisionOS-style waypoints:
+ *   · a small floating glass pill (billboard sprite, breathing pulse)
+ *   · a soft floor target ring under the doorway
+ *   · room preview card appears on hover (desktop) / single tap (mobile);
+ *     the card's button — or a double-tap on the waypoint — transitions.
+ *   · `"sponsored": true` renders a luxury gold accent (brand showroom).
  *
- * Routing modes decide where each portal leads:
- *   architect — the curated walk (sequential)
- *   room_type — portals lead to rooms of the same type
- *   style     — portals follow shared style/material tags
- *   random    — serendipity
+ * Placement is anchored by ray-casting the room's displaced mesh from the
+ * pano camera toward `portal.fraction` — so the waypoint hugs the REAL
+ * doorway geometry instead of a synthetic box.
  */
 import * as THREE from "three";
+import { i18n } from "./i18n.js";
 
-const CYAN = new THREE.Color("#6ee7ff");
-const VIOLET = new THREE.Color("#a78bfa");
+const CYAN = "#6ee7ff";
+const VIOLET = "#a78bfa";
+const GOLD = "#f2c14e";
+const GOLD_2 = "#e8a23d";
 
-function archShape(w, h) {
-  const s = new THREE.Shape();
-  const r = w / 2;
-  s.moveTo(-r, 0);
-  s.lineTo(-r, h - r);
-  s.absarc(0, h - r, r, Math.PI, 0, true);
-  s.lineTo(r, 0);
-  s.closePath();
-  return s;
+function markerTexture(colorA, colorB) {
+  const s = 160;
+  const cv = document.createElement("canvas");
+  cv.width = s; cv.height = s;
+  const ctx = cv.getContext("2d");
+  const c = s / 2;
+  // outer glass halo
+  let g = ctx.createRadialGradient(c, c, s * 0.05, c, c, s * 0.5);
+  g.addColorStop(0, hexA(colorA, 0.30));
+  g.addColorStop(0.55, hexA(colorB, 0.12));
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, s, s);
+  // glass ring
+  ctx.strokeStyle = "rgba(255,255,255,0.92)";
+  ctx.lineWidth = 7;
+  ctx.beginPath(); ctx.arc(c, c, s * 0.265, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeStyle = hexA(colorA, 0.65);
+  ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(c, c, s * 0.335, 0, Math.PI * 2); ctx.stroke();
+  // core gradient dot
+  g = ctx.createLinearGradient(c - s * 0.1, c - s * 0.1, c + s * 0.1, c + s * 0.1);
+  g.addColorStop(0, colorA);
+  g.addColorStop(1, colorB);
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(c, c, s * 0.16, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "rgba(255,255,255,0.95)";
+  ctx.beginPath(); ctx.arc(c, c, s * 0.055, 0, Math.PI * 2); ctx.fill();
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
 }
 
-const MEMBRANE_VERT = `
-varying vec2 vUv;
-void main() {
-  vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}`;
+function ringTexture(colorA, colorB) {
+  const s = 256;
+  const cv = document.createElement("canvas");
+  cv.width = s; cv.height = s;
+  const ctx = cv.getContext("2d");
+  const c = s / 2;
+  const g = ctx.createLinearGradient(0, 0, s, s);
+  g.addColorStop(0, colorA);
+  g.addColorStop(1, colorB);
+  ctx.strokeStyle = g;
+  ctx.lineWidth = 10;
+  ctx.beginPath(); ctx.arc(c, c, s * 0.40, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeStyle = hexA("#ffffff", 0.5);
+  ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(c, c, s * 0.31, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeStyle = hexA(colorA, 0.22);
+  ctx.lineWidth = 26;
+  ctx.beginPath(); ctx.arc(c, c, s * 0.44, 0, Math.PI * 2); ctx.stroke();
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
 
-const MEMBRANE_FRAG = `
-uniform float uTime;
-uniform vec3 uColorA;
-uniform vec3 uColorB;
-varying vec2 vUv;
-void main() {
-  float d = distance(vUv, vec2(0.5, 0.38));
-  float rings = sin(d * 20.0 - uTime * 2.4) * 0.5 + 0.5;
-  float pulse = 0.72 + 0.28 * sin(uTime * 1.8);
-  float fade = smoothstep(0.0, 0.18, vUv.y);          // soft at the floor
-  vec3 col = mix(uColorA, uColorB, clamp(vUv.y, 0.0, 1.0));
-  float a = (0.16 + 0.34 * rings) * pulse * fade;
-  gl_FragColor = vec4(col, a);
-}`;
+function hexA(hex, a) {
+  const h = hex.replace("#", "");
+  return `rgba(${parseInt(h.slice(0, 2), 16)},${parseInt(h.slice(2, 4), 16)},${parseInt(h.slice(4, 6), 16)},${a})`;
+}
 
 export class Portal {
-  constructor(def) {
+  /**
+   * @param {object} def        portal definition from rooms_db.json
+   * @param {THREE.Camera} cam  the pano camera (for distance-adaptive scale)
+   */
+  constructor(def, cam) {
     this.def = def;
-    this.group = new THREE.Group();
+    this.camera = cam;
+    this.sponsored = !!def.sponsored;
+    this.target = null;
+    this.reason = null;
+    this.hovered = false;
+
+    const a = this.sponsored ? GOLD : CYAN;
+    const b = this.sponsored ? GOLD_2 : VIOLET;
+
+    this.group = new THREE.Group();          // anchor: doorway centre on the mesh
     this.group.position.fromArray(def.position);
-    const n = new THREE.Vector3().fromArray(def.normal).normalize();
-    this.normal = n;
-    this.group.lookAt(this.group.position.clone().add(n));
 
-    const w = def.width, h = def.height;
-
-    // glowing membrane
-    this.membraneMat = new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 },
-        uColorA: { value: CYAN.clone() },
-        uColorB: { value: VIOLET.clone() },
-      },
-      vertexShader: MEMBRANE_VERT,
-      fragmentShader: MEMBRANE_FRAG,
-      transparent: true,
-      depthWrite: false,
-      side: THREE.DoubleSide,
-      blending: THREE.AdditiveBlending,
+    // floating glass pill (billboard sprite)
+    this.spriteMat = new THREE.SpriteMaterial({
+      map: markerTexture(a, b),
+      transparent: true, opacity: 0, depthWrite: false, depthTest: true,
     });
-    const membrane = new THREE.Mesh(new THREE.ShapeGeometry(archShape(w, h), 24), this.membraneMat);
-    // def.position.y (1.07) is the arch CENTRE; the arch shape is built from its base,
-    // so drop it by h/2 to put the base on the floor.
-    membrane.position.set(0, -h / 2 - 0.02, 0.05);
-    this.group.add(membrane);
+    this.marker = new THREE.Sprite(this.spriteMat);
+    this.marker.renderOrder = 7;
+    this.marker.position.set(0, 0, 0);
+    this.group.add(this.marker);
 
-    // bright rim
-    const rim = new THREE.LineSegments(
-      new THREE.EdgesGeometry(new THREE.ShapeGeometry(archShape(w, h), 24), 25),
-      new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.95 })
+    // floor target ring (flat on the floor, slightly into the room)
+    this.ringMat = new THREE.MeshBasicMaterial({
+      map: ringTexture(a, b), transparent: true, opacity: 0,
+      depthWrite: false, side: THREE.DoubleSide,
+    });
+    this.ring = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), this.ringMat);
+    this.ring.rotation.x = -Math.PI / 2;
+    this.ring.renderOrder = 5;
+    this.group.add(this.ring);
+
+    // invisible collider (raycast target; radius scales with distance)
+    this.collider = new THREE.Mesh(
+      new THREE.SphereGeometry(0.5, 8, 8),
+      new THREE.MeshBasicMaterial({ visible: false })
     );
-    rim.position.copy(membrane.position);
-    rim.position.z += 0.01;
-    this.rim = rim;
-    this.group.add(rim);
+    this.group.add(this.collider);
 
-    // outer halo plane
-    const haloTex = makeHaloTexture();
-    this.haloMat = new THREE.MeshBasicMaterial({
-      map: haloTex, transparent: true, depthWrite: false,
-      blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-    });
-    const halo = new THREE.Mesh(new THREE.PlaneGeometry(w * 2.6, h * 1.7), this.haloMat);
-    halo.position.set(0, 0, 0.02); // just in front of the wall, behind the membrane
-    halo.renderOrder = -1;
-    this.group.add(halo);
-
-    this.membrane = membrane;
-    this.target = null;      // room index this portal leads to
-    this.reason = null;      // routing reason key
+    this.phase = Math.random() * Math.PI * 2;
+    this.baseOpacity = 0;
   }
 
-  update(t, hover) {
-    this.membraneMat.uniforms.uTime.value = t;
-    const boost = hover ? 1.0 : 0.0;
-    this.haloMat.opacity = Math.min(0.85, 0.36 + 0.18 * (0.5 + 0.5 * Math.sin(t * 1.8)) + boost * 0.3);
-    this.rim.material.opacity = hover ? 1.0 : 0.85;
-    this.rim.material.color.set(hover ? "#ffffff" : "#6ee7ff");
+  /**
+   * Snap the waypoint onto the real doorway geometry: ray-cast the room mesh
+   * from the PANORAMA SHOOT POINT (room.camera) toward the portal fraction,
+   * then pull the marker into the room and drop the ring on the floor beneath.
+   * @param {THREE.Object3D} roomMesh
+   * @param {{x:number,y:number,z:number}} panoCam  room.camera (ray origin)
+   * @param {number} fraction
+   * @param {number} [floorY]
+   */
+  anchorOnMesh(roomMesh, panoCam, fraction, floorY = 0) {
+    const phi = 2 * Math.PI * fraction;
+    // aim at the door CENTRE height (≈1.3 m), not above the transom
+    const theta = Math.PI / 2 - THREE.MathUtils.degToRad(-8);
+    const st = Math.sin(theta);
+    const dir = new THREE.Vector3(-Math.cos(phi) * st, Math.cos(theta), Math.sin(phi) * st);
+    const origin = new THREE.Vector3(panoCam.x, panoCam.y, panoCam.z);
+    const ray = new THREE.Raycaster(origin, dir.clone().normalize(), 0.1, 200);
+    const hit = ray.intersectObject(roomMesh, false)[0];
+    if (hit) {
+      const p = hit.point.clone();
+      const toCam = origin.clone().sub(p);
+      toCam.y = 0;
+      if (toCam.lengthSq() < 1e-6) toCam.set(-dir.x, 0, -dir.z);
+      toCam.normalize();
+      // marker floats ~0.55 m into the room, at the door-centre height
+      const anchor = p.clone().addScaledVector(toCam, 0.55);
+      anchor.y = THREE.MathUtils.clamp(p.y, 1.1, 1.9);
+      this.group.position.copy(anchor);
+      this.ring.position.set(0, floorY + 0.03 - anchor.y, 0);
+      this._toCam = toCam;
+      this.wallDist = origin.distanceTo(p);
+    } else {
+      this.group.position.fromArray(this.def.position);
+      this.ring.position.set(0, -this.group.position.y + floorY + 0.03, 0);
+    }
+    const n = this._toCam || new THREE.Vector3().fromArray(this.def.normal).normalize();
+    this.normal = n.clone();
   }
 
-  /** World-space distance of a point from the portal plane + local extents check. */
+  update(t, dt, hovered) {
+    this.hovered = !!hovered;
+    const camDist = this.camera ? this.camera.position.distanceTo(this.group.position) : 3;
+    // keep the pill ~36px on screen (scale with distance), floor ring in metres
+    const pillScale = THREE.MathUtils.clamp(camDist * 0.052, 0.16, 1.15);
+    const pulse = 1 + 0.1 * Math.sin(t * 2.2 + this.phase);
+    this.marker.scale.setScalar(pillScale * pulse * (this.hovered ? 1.25 : 1));
+
+    const ringBase = THREE.MathUtils.clamp(camDist * 0.2, 0.75, 2.8);
+    const rPulse = 1 + 0.05 * Math.sin(t * 1.6 + this.phase);
+    this.ring.scale.setScalar(ringBase * rPulse);
+    this.ring.rotation.z = t * 0.22;
+
+    this.collider.scale.setScalar(
+      THREE.MathUtils.clamp(camDist * 0.16, 0.8, 3.2)
+    );
+
+    const target = this.hovered ? 1 : 0.82;
+    this.baseOpacity += (target - this.baseOpacity) * Math.min(1, dt * 6);
+    this.spriteMat.opacity = this.baseOpacity * (0.85 + 0.15 * Math.sin(t * 2.6 + this.phase));
+    this.ringMat.opacity = Math.min(1, this.baseOpacity * 0.95);
+  }
+
+  /** Proximity trigger — walking into the doorway. */
   contains(camPos) {
-    const local = this.group.worldToLocal(camPos.clone());
-    const w = this.def.width, h = this.def.height;
-    return (
-      Math.abs(local.z) < 0.42 &&
-      local.x > -w / 2 - 0.18 && local.x < w / 2 + 0.18 &&
-      local.y > -h / 2 - 0.25 && local.y < h / 2 + 0.25
-    );
+    const d = this.group.position.distanceTo(camPos);
+    return d < 1.15 && Math.abs(camPos.y - this.group.position.y) < 1.6;
   }
 
-  planeCenterWorld() {
-    return this.group.position.clone();
+  colliderMeshes() {
+    return [this.collider];
   }
 
   dispose() {
@@ -140,20 +214,71 @@ export class Portal {
   }
 }
 
-function makeHaloTexture() {
-  const s = 128;
-  const cv = document.createElement("canvas");
-  cv.width = s; cv.height = s;
-  const ctx = cv.getContext("2d");
-  const g = ctx.createRadialGradient(s / 2, s / 2, s * 0.12, s / 2, s / 2, s / 2);
-  g.addColorStop(0, "rgba(110,231,255,0.55)");
-  g.addColorStop(0.5, "rgba(167,139,250,0.18)");
-  g.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, s, s);
-  const tex = new THREE.CanvasTexture(cv);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
+/* ================================================================== *
+ * Portal preview card — hover (desktop) / tap (mobile) → card;
+ * card button or double-tap → transition. Mobile renders as a bottom
+ * sheet (CSS class .sheet handles the layout switch).
+ * ================================================================== */
+export class PortalCard {
+  constructor(onEnter) {
+    this.onEnter = onEnter;
+    this.portal = null;
+    this.el = {
+      card: document.getElementById("portal-card"),
+      img: document.getElementById("portal-img"),
+      chip: document.getElementById("portal-chip"),
+      sponsored: document.getElementById("portal-sponsored"),
+      name: document.getElementById("portal-name"),
+      meta: document.getElementById("portal-meta"),
+      enter: document.getElementById("portal-enter"),
+      close: document.getElementById("portal-close"),
+    };
+    this.el.enter.addEventListener("click", () => this._enter());
+    this.el.close.addEventListener("click", () => this.hide());
+    this._onDocDown = (e) => {
+      if (!this.portal) return;
+      if (this.el.card.contains(e.target)) return;
+      this.hide();
+    };
+    document.addEventListener("pointerdown", this._onDocDown, true);
+    i18n.onChange(() => this.portal && this.fill(this.portal, this.targetRoom));
+  }
+
+  get open() { return !!this.portal; }
+
+  show(portal, targetRoom) {
+    this.portal = portal;
+    this.targetRoom = targetRoom;
+    this.fill(portal, targetRoom);
+    this.el.card.classList.add("open");
+  }
+
+  hide() {
+    this.portal = null;
+    this.el.card.classList.remove("open");
+  }
+
+  _enter() {
+    const p = this.portal;
+    if (!p) return;
+    this.hide();
+    this.onEnter(p);
+  }
+
+  fill(portal, room) {
+    if (!room) return;
+    const t = i18n.t, L = i18n.lang;
+    this.el.img.src = room.preview;
+    this.el.img.alt = room.name[L] || room.name.en;
+    this.el.chip.textContent = t.portal_label;
+    this.el.name.textContent = room.name[L] || room.name.en;
+    const type = t["type_" + room.room_type] || room.room_type;
+    const reason = t.reason[portal.reason] || "";
+    this.el.meta.innerHTML = `${type} · ${t.portal_to} <b>${room.name[L] || room.name.en}</b>${reason ? ` · ${reason}` : ""}`;
+    this.el.sponsored.classList.toggle("hud-hidden", !portal.sponsored);
+    this.el.sponsored.textContent = t.sponsored_badge;
+    this.el.enter.textContent = t.portal_enter;
+  }
 }
 
 // ---------------------------------------------------------------- routing
@@ -182,7 +307,7 @@ export function computeRoutes(rooms, currentIndex, mode) {
     const scored = [];
     for (let i = 0; i < n; i++) {
       if (i === currentIndex) continue;
-      const overlap = rooms[i].style_tags.filter((t) => cur.style_tags.includes(t)).length;
+      const overlap = rooms[i].style_tags.filter((tg) => cur.style_tags.includes(tg)).length;
       scored.push([overlap, i]);
     }
     scored.sort((a, b) => b[0] - a[0] || a[1] - b[1]);

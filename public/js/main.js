@@ -1,17 +1,22 @@
 /**
- * PANODROME — Spatial Engine v1 · main
- * Boot → intro → room lifecycle (load displaced mesh, portals, hotspots, audio)
- * → 6DoF loop → portal transitions with GSAP → routing modes.
+ * PANODROME — Spatial Engine v1.5 · main
+ * Boot → intro → room lifecycle (displaced mesh, sleek portals, X-Ray pins,
+ * moodboard, upload studio, commerce, narrator) → 6DoF loop → transitions.
+ *
+ * Walking: WASD · scroll · double-tap glide · mobile rocker · portal walk-in.
  */
 import * as THREE from "three";
 import { i18n } from "./i18n.js";
 import { AudioEngine } from "./audio.js";
 import { buildRoomMesh, prefetchRoom } from "./panorama.js";
 import { SixDofControls } from "./controls.js";
-import { Portal, computeRoutes } from "./portals.js";
+import { Portal, PortalCard, computeRoutes } from "./portals.js";
 import { HUD } from "./hud.js";
 import { XRayLayer } from "./hotspots.js";
 import { Moodboard } from "./moodboard.js";
+import { Narrator } from "./narrator.js";
+import { Commerce } from "./commerce.js";
+import { UploadStudio } from "./upload_studio.js";
 
 /* ------------------------------------------------------------------ boot */
 const state = {
@@ -26,11 +31,12 @@ const state = {
   portalCooldown: 0,
 };
 
-let renderer, scene, camera, controls, audio, hud, xray, moodboard;
+let renderer, scene, camera, controls, audio, hud, xray, moodboard, narrator, commerce, uploads, portalCard;
 const clock = new THREE.Clock();
 const raycaster = new THREE.Raycaster();
 const pointerNdc = new THREE.Vector2();
 let hoveredPortal = null, hoveredHotspot = null;
+const isTouch = matchMedia("(pointer: coarse)").matches;
 
 main();
 
@@ -53,6 +59,9 @@ async function main() {
   audio = new AudioEngine();
   hud = new HUD();
   xray = new XRayLayer(scene);
+  narrator = new Narrator();
+  commerce = new Commerce();
+  portalCard = new PortalCard((p) => transition(p));
 
   // restore language preference
   const saved = localStorage.getItem("panodrome_lang");
@@ -67,6 +76,18 @@ async function main() {
     hud.showLoading(true);
     return;
   }
+
+  // user-uploaded rooms (IndexedDB) join the routing pool
+  uploads = new UploadStudio({
+    onRoomCreated: (room) => {
+      state.db.rooms.push(room);
+      refreshRoutes();
+      const idx = state.db.rooms.length - 1;
+      loadRoom(idx);
+    },
+  });
+  const persisted = await uploads.loadPersisted();
+  persisted.forEach((room) => state.db.rooms.push(room));
 
   moodboard = new Moodboard({
     getRooms: () => (state.db ? state.db.rooms : []),
@@ -84,21 +105,52 @@ async function main() {
     localStorage.setItem("panodrome_lang", next);
     i18n.setLang(next);
     if (state.room) hud.setRoom(state.room, state.roomIdx, state.db.rooms.length);
-    if (hoveredPortal) showPortalTooltip(hoveredPortal, lastPointer.x, lastPointer.y);
     if (hoveredHotspot) showHotspotTooltip(hoveredHotspot, lastPointer.x, lastPointer.y);
   });
   hud.onSoundToggle(() => {
+    audio.unlock();
     audio.setMuted(!audio.muted);
     hud.setSoundIcon(audio.muted);
   });
   hud.onHelpToggle(() => hud.toggleHelp());
+
+  // narrator + lead-gen from the creator card
+  hud.el.btnListen.addEventListener("click", () => {
+    if (!state.room) return;
+    const L = i18n.lang;
+    narrator.speak(
+      `${state.room.name[L] || state.room.name.en}. ${state.room.description[L] || state.room.description.en}`
+    );
+  });
+  hud.el.btnHire.addEventListener("click", () => {
+    if (state.room) commerce.openInquiry("design", state.room);
+  });
 
   controls = new SixDofControls(camera, renderer.domElement);
   controls.onStep = () => {
     if (state.room) audio.step(state.room.audio.footsteps || state.room.floor_material);
   };
   controls.onClick = (x, y) => handleClick(x, y);
-  hud.bindWalkPad(controls);
+  controls.onDouble = (x, y) => handleDouble(x, y);
+  hud.bindWalkRocker(controls);
+
+  // X-Ray commerce + narrator hooks
+  xray.onInquire = (def) => commerce.openInquiry("product", state.room, def);
+  xray.onNarrate = (def) => {
+    const L = i18n.lang;
+    narrator.speak(`${def.title?.[L] || def.title?.en || ""}. ${def.desc?.[L] || def.desc?.en || ""}`);
+  };
+  narrator.onStateChange = (speaking) => {
+    hud.el.btnListenLabel.textContent = speaking ? i18n.t.stop_listen : i18n.t.listen;
+    xray.el.listen.title = speaking ? i18n.t.stop_listen : i18n.t.listen;
+  };
+
+  // robust audio unlock on ANY first gesture
+  const unlock = () => audio.unlock();
+  window.addEventListener("pointerdown", unlock, { once: false });
+  window.addEventListener("touchstart", unlock, { passive: true });
+  window.addEventListener("wheel", unlock, { passive: true });
+  window.addEventListener("keydown", unlock);
 
   renderer.domElement.addEventListener("pointermove", onPointerMove);
   addEventListener("resize", onResize);
@@ -112,6 +164,10 @@ async function main() {
     get controls() { return controls; },
     get xray() { return xray; },
     get moodboard() { return moodboard; },
+    get commerce() { return commerce; },
+    get narrator() { return narrator; },
+    get uploads() { return uploads; },
+    get portalCard() { return portalCard; },
     hotspotScreen: () =>
       (xray ? xray.pins : []).map((p) => {
         const v = p.sprite.position.clone().project(camera);
@@ -130,21 +186,28 @@ async function main() {
         const v = p.group.position.clone().project(camera);
         return {
           id: p.def.id,
+          fraction: p.def.fraction,
+          sponsored: !!p.def.sponsored,
           x: Math.round((v.x * 0.5 + 0.5) * innerWidth),
           y: Math.round((-v.y * 0.5 + 0.5) * innerHeight),
           behind: v.z > 1,
           target: p.target,
           reason: p.reason,
+          dist: Math.round(camera.position.distanceTo(p.group.position) * 10) / 10,
         };
       }),
+    camPos: () => ({
+      x: Math.round(camera.position.x * 100) / 100,
+      y: Math.round(camera.position.y * 100) / 100,
+      z: Math.round(camera.position.z * 100) / 100,
+    }),
   };
 }
 
 async function onEnter() {
   if (state.started) return;
   state.started = true;
-  audio.init();
-  audio.resume();
+  audio.unlock();
   hud.hideIntro();
   hud.showLoading(true);
   hud.setLoadProgress(0.05);
@@ -172,6 +235,9 @@ async function loadRoom(idx) {
   state.roomIdx = idx;
   state.room = room;
 
+  narrator.stop();
+  portalCard.hide();
+
   // teardown previous
   if (state.meshObj) {
     scene.remove(state.meshObj.mesh);
@@ -187,18 +253,18 @@ async function loadRoom(idx) {
   hud.setLoadProgress(0.85);
   state.meshObj = meshObj;
   scene.add(meshObj.mesh);
+  scene.updateMatrixWorld(true);
 
   // portals + routing targets (Dream House tour overrides the mode)
   const routes = currentRoutes();
   room.portals.forEach((def, i) => {
-    const p = new Portal(def);
+    const p = new Portal(def, camera);
     p.target = routes.targets[i] !== undefined ? routes.targets[i] : routes.targets[0];
     p.reason = routes.reason;
+    p.anchorOnMesh(meshObj.mesh, room.camera, def.fraction % 1.0);
     scene.add(p.group);
     state.portals.push(p);
   });
-
-  scene.updateMatrixWorld(true);
 
   // controls + audio + hud
   controls.setRoom(room);
@@ -211,9 +277,9 @@ async function loadRoom(idx) {
   moodboard.onRoomChanged(room, idx); // may override hint during a Dream-House tour
 
   hud.setLoadProgress(1);
-  state.portalCooldown = performance.now() + 1200;
+  state.portalCooldown = performance.now() + 1100;
 
-  // prefetch likely next rooms
+  // prefetch likely next rooms (data-URL rooms prefetch instantly)
   setTimeout(() => routes.targets.forEach((t) => prefetchRoom(state.db.rooms[t])), 1800);
 }
 
@@ -251,12 +317,15 @@ async function transition(portal) {
   if (state.transitioning || !portal || portal.target === null) return;
   state.transitioning = true;
   controls.enabled = false;
+  portalCard.hide();
   hud.hideTooltip();
   xray.closeCard(true);
+  narrator.stop();
   audio.portalWhoosh();
+  audio.walkSteps(4, state.room?.audio?.footsteps || "concrete", 0.26);
 
-  const center = portal.planeCenterWorld();
-  const overshoot = center.clone().addScaledVector(portal.normal, 0.35);
+  const center = portal.group.position.clone();
+  const overshoot = center.clone().addScaledVector(portal.normal || new THREE.Vector3(0, 0, 1), -0.45);
 
   const tl = gsap.timeline({
     onComplete: async () => {
@@ -276,9 +345,9 @@ async function transition(portal) {
   });
   tl.to(camera.position, {
     x: overshoot.x, y: center.y, z: overshoot.z,
-    duration: 0.9, ease: "power2.in",
+    duration: 0.85, ease: "power2.in",
   });
-  tl.to("#fade", { opacity: 1, duration: 0.32, ease: "power1.in" }, "-=0.3");
+  tl.to("#fade", { opacity: 1, duration: 0.3, ease: "power1.in" }, "-=0.28");
 }
 
 /* ------------------------------------------------------------- pointer / raycast */
@@ -287,7 +356,7 @@ const lastPointer = { x: 0, y: 0 };
 
 function onPointerMove(e) {
   lastPointer.x = e.clientX; lastPointer.y = e.clientY;
-  if (!state.started || state.transitioning) return;
+  if (!state.started || state.transitioning || isTouch) return;
   const hit = raycast(e.clientX, e.clientY);
 
   const portal = hit?.portal ?? null;
@@ -296,6 +365,12 @@ function onPointerMove(e) {
   if (portal !== hoveredPortal) {
     hoveredPortal = portal;
     renderer.domElement.style.cursor = portal ? "pointer" : "";
+    if (portal) {
+      const target = state.db.rooms[portal.target];
+      if (target) portalCard.show(portal, target);
+    } else if (!portalCard._keepOpen) {
+      portalCard.hide();
+    }
   }
   if (hotspot !== hoveredHotspot) {
     hoveredHotspot = hotspot;
@@ -303,15 +378,14 @@ function onPointerMove(e) {
   }
   xray.setHover(hotspot);
 
-  if (portal) showPortalTooltip(portal, e.clientX, e.clientY);
-  else if (hotspot) showHotspotTooltip(hotspot, e.clientX, e.clientY);
-  else hud.hideTooltip();
+  if (hotspot && !portal) showHotspotTooltip(hotspot, e.clientX, e.clientY);
+  else if (!portal) hud.hideTooltip();
 }
 
 function raycast(px, py) {
   pointerNdc.set((px / innerWidth) * 2 - 1, -(py / innerHeight) * 2 + 1);
   raycaster.setFromCamera(pointerNdc, camera);
-  const portalMeshes = state.portals.map((p) => p.membrane);
+  const portalMeshes = state.portals.flatMap((p) => p.colliderMeshes());
   const hits = raycaster.intersectObjects([...portalMeshes, ...xray.pinMeshes()], false);
   if (!hits.length) return null;
   const obj = hits[0].object;
@@ -324,18 +398,38 @@ function handleClick(px, py) {
   if (!state.started || state.transitioning) return;
   const hit = raycast(px, py);
   if (hit?.hotspot) { xray.openCard(hit.hotspot.def); return; }
-  if (hit?.portal) transition(hit.portal);
+  if (hit?.portal) {
+    // first tap shows the room card; the card button (or a second quick tap)
+    // travels — plus walking into the doorway always works
+    if (portalCard.open && portalCard.portal === hit.portal) {
+      transition(hit.portal);
+    } else {
+      const target = state.db.rooms[hit.portal.target];
+      if (target) portalCard.show(hit.portal, target);
+    }
+  }
 }
 
-function showPortalTooltip(portal, x, y) {
-  const t = i18n.t, L = i18n.lang;
-  const target = state.db.rooms[portal.target];
-  if (!target) return hud.hideTooltip();
-  hud.showTooltip(
-    x, y,
-    `${t.portal_label}`,
-    `<b>${target.name[L] || target.name.en}</b><br>${t.portal_to} · ${t.reason[portal.reason] || ""}`
-  );
+function handleDouble(px, py) {
+  if (!state.started || state.transitioning) return;
+  const hit = raycast(px, py);
+  if (hit?.portal) { transition(hit.portal); return; }
+  if (hit?.hotspot) { xray.openCard(hit.hotspot.def); return; }
+  // walk toward the tapped point in the room (floor/furniture direction)
+  pointerNdc.set((px / innerWidth) * 2 - 1, -(py / innerHeight) * 2 + 1);
+  raycaster.setFromCamera(pointerNdc, camera);
+  let dir = null;
+  if (state.meshObj) {
+    const hit3 = raycaster.intersectObject(state.meshObj.mesh, false)[0];
+    if (hit3) dir = hit3.point.clone().sub(camera.position);
+  }
+  if (!dir) {
+    dir = new THREE.Vector3();
+    camera.getWorldDirection(dir);
+  }
+  dir.y = 0;
+  if (dir.lengthSq() < 0.01) return;
+  controls.glide(dir.x, dir.z, 1.5 + Math.random() * 0.6);
 }
 
 function showHotspotTooltip(hs, x, y) {
@@ -356,7 +450,7 @@ function tick() {
 
   // portal animation + proximity trigger
   for (const p of state.portals) {
-    p.update(t, p === hoveredPortal);
+    p.update(t, dt, p === hoveredPortal);
     if (
       controls.enabled && !state.transitioning &&
       performance.now() > state.portalCooldown &&

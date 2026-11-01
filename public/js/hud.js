@@ -18,10 +18,16 @@ export class HUD {
       roomSource: $("room-source"),
       sysBar: $("sys-bar"),
       modeBar: $("mode-bar"),
-      modeLabel: $("mode-label"),
       modeHint: $("mode-hint"),
-      walkPad: $("walk-pad"),
-      btnWalk: $("btn-walk"),
+      walkRocker: $("walk-rocker"),
+      btnWalkF: $("btn-walk-f"),
+      btnWalkB: $("btn-walk-b"),
+      platform: $("room-platform"),
+      btnListen: $("btn-listen-room"),
+      btnListenLabel: $("btn-listen-room-label"),
+      btnHire: $("btn-hire"),
+      btnHireLabel: $("btn-hire-label"),
+      btnUpload: $("btn-upload"),
       btnLang: $("btn-lang"),
       btnSound: $("btn-sound"),
       btnHelp: $("btn-help"),
@@ -48,13 +54,20 @@ export class HUD {
     const t = i18n.t;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
-      if (t[key]) el.textContent = t[key];
+      if (t[key] && el.tagName !== "OPTION") el.textContent = t[key];
+      else if (t[key] && el.tagName === "OPTION") el.textContent = t[key];
     });
-    this.el.modeLabel.textContent = t.mode_label;
     if (this._mode) this.setMode(this._mode);
     if (this._room && this._idx !== undefined) this.setRoom(this._room, this._idx, this._total);
     this.el.introTag.textContent = t.intro_tag;
     this.el.introSub.textContent = t.intro_sub;
+    this.el.btnListen.title = t.listen;
+    this.el.btnListenLabel.textContent = t.listen;
+    this.el.btnHire.title = t.request_design;
+    this.el.btnHireLabel.textContent = t.request_design;
+    this.el.btnUpload.title = t.upload;
+    this.el.btnWalkF.title = t.walk_f;
+    this.el.btnWalkB.title = t.walk_b;
   }
 
   // ------------------------------------------------------------- intro / loading
@@ -88,7 +101,14 @@ export class HUD {
     this.el.roomDesc.textContent = room.description[L] || room.description.en;
     this.el.roomCreator.textContent = `${t.by} ${room.attribution.creator} ·`;
     this.el.roomSource.textContent = `${room.attribution.source} · ${room.attribution.license}`;
-    this.el.roomSource.href = room.attribution.url;
+    this.el.roomSource.href = room.attribution.url !== "#" ? room.attribution.url : "";
+    if (room.attribution.url === "#") {
+      this.el.roomSource.removeAttribute("href");
+      this.el.roomSource.style.cursor = "default";
+    } else {
+      this.el.roomSource.style.cursor = "";
+    }
+    this.el.platform.textContent = room.source_platform || room.attribution.source;
   }
 
   // ------------------------------------------------------------- modes
@@ -119,18 +139,28 @@ export class HUD {
     this.el.helpPanel.classList.toggle("hud-hidden", !this.helpOpen);
   }
 
-  // ------------------------------------------------------------- walk pad (touch)
-  bindWalkPad(controls) {
+  // ------------------------------------------------------------- walk rocker (touch)
+  bindWalkRocker(controls) {
     const isTouch = matchMedia("(pointer: coarse)").matches;
     if (!isTouch) return;
-    this.el.walkPad.classList.remove("hud-hidden");
-    const btn = this.el.btnWalk;
-    const on = (e) => { e.preventDefault(); controls.autoWalk = true; };
-    const off = () => { controls.autoWalk = false; };
-    btn.addEventListener("pointerdown", on);
-    btn.addEventListener("pointerup", off);
-    btn.addEventListener("pointercancel", off);
-    btn.addEventListener("pointerleave", off);
+    this.el.walkRocker.classList.remove("hud-hidden");
+    const bind = (btn, val) => {
+      const on = (e) => {
+        e.preventDefault();
+        controls.rocker = val;
+        btn.classList.add("active");
+      };
+      const off = () => {
+        if (controls.rocker === val) controls.rocker = 0;
+        btn.classList.remove("active");
+      };
+      btn.addEventListener("pointerdown", on);
+      btn.addEventListener("pointerup", off);
+      btn.addEventListener("pointercancel", off);
+      btn.addEventListener("pointerleave", off);
+    };
+    bind(this.el.btnWalkF, 1);
+    bind(this.el.btnWalkB, -1);
   }
 
   // ------------------------------------------------------------- tooltips

@@ -24,7 +24,7 @@ export class AudioEngine {
     this.ctx = new AC();
 
     this.master = this.ctx.createGain();
-    this.master.gain.value = 0.9;
+    this.master.gain.value = 0.95;
     const comp = this.ctx.createDynamicsCompressor();
     comp.threshold.value = -18;
     comp.ratio.value = 6;
@@ -33,7 +33,7 @@ export class AudioEngine {
     // reverb bus
     this.reverb = this.ctx.createConvolver();
     this.reverbGain = this.ctx.createGain();
-    this.reverbGain.gain.value = 0.8;
+    this.reverbGain.gain.value = 1.0;
     this.reverb.connect(this.reverbGain).connect(this.master);
 
     // noise buffers
@@ -42,12 +42,24 @@ export class AudioEngine {
     this._brown = this._noiseBuffer(4, brownSample);
   }
 
+  /** Robust unlock: safe to call from ANY first user gesture (pointer /
+   *  touch / wheel / key). Creates + resumes the context, replays room bed. */
+  unlock() {
+    const hadRoom = this._pendingRoom;
+    if (!this.ctx) {
+      this.init();
+      if (this.ctx && hadRoom) this.setRoom(hadRoom);
+    }
+    this.resume();
+  }
+
   get ready() {
     return !!this.ctx;
   }
 
   // ---------------------------------------------------------------- room ambience
   setRoom(profile) {
+    this._pendingRoom = profile;
     if (!this.ctx) return;
     this._room = profile;
     this._clearAmbience(1.0);
@@ -69,7 +81,7 @@ export class AudioEngine {
       lp.type = "lowpass";
       lp.frequency.value = amb === "hall_air" ? 240 : amb === "city_hum" ? 220 : 380;
       const gain = this.ctx.createGain();
-      gain.gain.value = amb === "hall_air" ? 0.045 : amb === "city_hum" ? 0.075 : 0.06;
+      gain.gain.value = amb === "hall_air" ? 0.13 : amb === "city_hum" ? 0.19 : 0.17;
       // slow breathing LFO
       const lfo = this.ctx.createOscillator();
       lfo.frequency.value = 0.07 + Math.random() * 0.05;
@@ -91,11 +103,11 @@ export class AudioEngine {
       bp.frequency.value = 420;
       bp.Q.value = 0.6;
       const gain = this.ctx.createGain();
-      gain.gain.value = 0.05;
+      gain.gain.value = 0.14;
       const lfo = this.ctx.createOscillator();
       lfo.frequency.value = 0.9;
       const lfoG = this.ctx.createGain();
-      lfoG.gain.value = 0.02;
+      lfoG.gain.value = 0.05;
       lfo.connect(lfoG).connect(gain.gain);
       lfo.start();
       src.connect(bp).connect(gain).connect(g);
@@ -112,7 +124,7 @@ export class AudioEngine {
       lp.type = "lowpass";
       lp.frequency.value = 160;
       const gain = this.ctx.createGain();
-      gain.gain.value = 0.05;
+      gain.gain.value = 0.14;
       pad.connect(lp).connect(gain).connect(g);
       pad.start();
       nodes.push(pad, lp, gain);
@@ -127,11 +139,11 @@ export class AudioEngine {
       lp.type = "lowpass";
       lp.frequency.value = 500;
       const gain = this.ctx.createGain();
-      gain.gain.value = 0.05;
+      gain.gain.value = 0.15;
       const lfo = this.ctx.createOscillator();
       lfo.frequency.value = 0.16;
       const lfoG = this.ctx.createGain();
-      lfoG.gain.value = 0.028; // gusts
+      lfoG.gain.value = 0.07; // gusts
       lfo.connect(lfoG).connect(gain.gain);
       lfo.start();
       wind.connect(lp).connect(gain).connect(g);
@@ -150,15 +162,15 @@ export class AudioEngine {
     if (!this.ctx || this.muted) return;
     const t = this.ctx.currentTime;
     const out = this.ctx.createGain();
-    out.gain.value = 0.9;
+    out.gain.value = 1.35;
     out.connect(this.master);
     if (this._room) {
       const send = this.ctx.createGain();
-      send.gain.value = 0.25 + (this._room.reverb ?? 0.3) * 0.5;
+      send.gain.value = 0.3 + (this._room.reverb ?? 0.3) * 0.5;
       out.connect(send).connect(this.reverb);
     }
     const r = (a, b) => a + Math.random() * (b - a);
-    const vol = r(0.85, 1.15);
+    const vol = r(0.9, 1.25);
 
     const noise = (dur, filterType, freq, q, gain, when = 0) => {
       const src = this.ctx.createBufferSource();
@@ -235,6 +247,14 @@ export class AudioEngine {
     }
   }
 
+  /** Schedule `n` approaching footsteps (portal transitions / walks). */
+  walkSteps(n, material, interval = 0.42) {
+    if (!this.ctx || this.muted) return;
+    for (let i = 0; i < n; i++) {
+      setTimeout(() => this.step(material), i * interval * 1000);
+    }
+  }
+
   // ---------------------------------------------------------------- transitions
   portalWhoosh() {
     if (!this.ctx || this.muted) return;
@@ -248,7 +268,7 @@ export class AudioEngine {
     bp.frequency.exponentialRampToValueAtTime(2400, t + 0.9);
     const env = this.ctx.createGain();
     env.gain.setValueAtTime(0.0001, t);
-    env.gain.exponentialRampToValueAtTime(0.16, t + 0.55);
+    env.gain.exponentialRampToValueAtTime(0.3, t + 0.55);
     env.gain.exponentialRampToValueAtTime(0.0001, t + 1.05);
     src.connect(bp).connect(env).connect(this.master);
     src.connect(bp).connect(env).connect(this.reverb);
@@ -265,7 +285,7 @@ export class AudioEngine {
       o.frequency.value = f;
       const env = this.ctx.createGain();
       env.gain.setValueAtTime(0, t + i * 0.07);
-      env.gain.linearRampToValueAtTime(0.05 / (i + 1), t + i * 0.07 + 0.02);
+      env.gain.linearRampToValueAtTime(0.09 / (i + 1), t + i * 0.07 + 0.02);
       env.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.07 + 1.1);
       o.connect(env).connect(this.master);
       o.connect(env).connect(this.reverb);
@@ -276,7 +296,7 @@ export class AudioEngine {
 
   setMuted(m) {
     this.muted = m;
-    if (this.ctx) this.master.gain.linearRampToValueAtTime(m ? 0 : 0.9, this.ctx.currentTime + 0.2);
+    if (this.ctx) this.master.gain.linearRampToValueAtTime(m ? 0 : 0.95, this.ctx.currentTime + 0.2);
   }
 
   resume() {

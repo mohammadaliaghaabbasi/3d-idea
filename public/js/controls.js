@@ -1,13 +1,16 @@
 /**
- * PANODROME — 6DoF walk controls
+ * PANODROME — 6DoF walk controls v2 (Phase 2.5)
  *
- *  WASD / arrows      walk on the floor plane (real parallax inside the displaced mesh)
- *  drag (mouse/touch) look around (yaw + pitch)
- *  wheel / trackpad   glide forward/back along the view vector (clamped)
- *  hold-to-walk pad   touch devices
+ *  WASD / arrows          walk on the floor plane (real parallax)
+ *  drag (mouse/touch)     look around (yaw + pitch)
+ *  wheel / trackpad       smooth walk forward/back along the look vector
+ *  double-click / tap     glide 1.5–2.5 m toward the tapped point (GSAP)
+ *  on-screen rocker       thumb walk pad on touch devices (fwd / back)
  *
- * Movement is clamped to the room box from rooms_db.json (safe zone) so the
- * camera never leaves the reconstructed volume.
+ * Every source of horizontal motion — keys, wheel, glide, rocker and the
+ * portal-transition glide — feeds the same step accumulator, so footsteps
+ * always match the walking. A subtle head-bob rides on top of motion.
+ * Movement is clamped to the room box from rooms_db.json (safe zone).
  */
 import * as THREE from "three";
 
@@ -25,20 +28,27 @@ export class SixDofControls {
     this.yaw = 0;
     this.pitch = 0;
     this.sensitivity = 0.0031;
-    this.walkSpeed = 2.3;         // m/s
+    this.walkSpeed = 2.5;         // m/s
     this.runFactor = 1.85;
-    this.autoWalk = false;        // touch pad
+    this.rocker = 0;              // -1..1  (mobile thumb pad)
+    this._wheelVel = 0;           // m/s impulse from the wheel
     this._vel = { x: 0, z: 0 };
+    this._gliding = false;
 
     this.box = { minX: -2, maxX: 2, minZ: -2, maxZ: 2, minY: 1.0, maxY: 2.4 };
     this.eyeY = 1.6;
 
     this._stepDist = 0;
-    this._stepLen = 0.78;
-    this.onStep = null;           // () => void
+    this._stepLen = 0.74;
+    this.onStep = null;           // () => void  (footstep)
+
+    this._bobPhase = 0;
+    this._lastBob = 0;
 
     this._down = null;            // {x, y, t, id, moved}
-    this.onClick = null;          // (x, y) pointer click (screen px)
+    this._lastTap = null;         // {t, x, y}
+    this.onClick = null;          // (x, y) single tap/click
+    this.onDouble = null;         // (x, y) double tap/click → walk there
 
     this._fwd = new THREE.Vector3();
     this._flat = new THREE.Vector3();
@@ -49,7 +59,7 @@ export class SixDofControls {
 
   setRoom(room) {
     const s = room.room_shape, c = room.camera;
-    const m = 0.45;
+    const m = 0.4;
     this.box = {
       minX: -s.width / 2 + m,
       maxX: s.width / 2 - m,
@@ -60,7 +70,6 @@ export class SixDofControls {
     };
     this.camera.position.set(c.x, c.y, c.z);
     this._clampPosition();
-    // face the curated initial view
     this.lookAtFraction(room.initial_view.facing);
   }
 
@@ -75,54 +84,116 @@ export class SixDofControls {
     this.pitch = this.camera.rotation.x;
   }
 
-  update(dt) {
-    if (!this.enabled) return;
-    const cam = this.camera;
+  /* ------------------------------------------------------------ click-to-walk */
 
-    // target velocity from keys
+  /** Glide `metres` toward a world direction (horizontal), GSAP-eased. */
+  glide(dirX, dirZ, metres) {
+    if (this._gliding || !this.enabled) return;
+    const len = Math.hypot(dirX, dirZ) || 1;
+    const nx = dirX / len, nz = dirZ / len;
+    const px = this.camera.position.x, pz = this.camera.position.z;
+    let tx = px + nx * metres, tz = pz + nz * metres;
+    tx = Math.min(Math.max(tx, this.box.minX), this.box.maxX);
+    tz = Math.min(Math.max(tz, this.box.minZ), this.box.maxZ);
+    const dist = Math.hypot(tx - px, tz - pz);
+    if (dist < 0.3) return;
+    this._gliding = true;
+    const pos = this.camera.position;
+    const lx = pos.x, lz = pos.z;
+    gsap.to(pos, {
+      x: tx, z: tz,
+      duration: Math.min(1.6, 0.45 + dist * 0.32),
+      ease: "power2.inOut",
+      onUpdate: () => {
+        const mx = pos.x - (this._glx ?? lx), mz = pos.z - (this._glz ?? lz);
+        this._glx = pos.x; this._glz = pos.z;
+        this._accumulateSteps(Math.hypot(mx, mz));
+      },
+      onComplete: () => {
+        this._gliding = false;
+        this._glx = this._glz = undefined;
+      },
+    });
+  }
+
+  _accumulateSteps(moved) {
+    if (moved <= 0) return;
+    this._stepDist += moved;
+    if (this._stepDist >= this._stepLen) {
+      this._stepDist -= this._stepLen;
+      this.onStep && this.onStep();
+    }
+  }
+
+  /* ------------------------------------------------------------ frame loop */
+
+  update(dt) {
+    const cam = this.camera;
+    if (this._lastBob !== 0) { cam.position.y -= this._lastBob; this._lastBob = 0; }
+    if (!this.enabled) {
+      cam.rotation.order = "YXZ";
+      cam.rotation.set(this.pitch, this.yaw, 0);
+      return;
+    }
+
     cam.getWorldDirection(this._fwd);
     const flat = this._flat.set(this._fwd.x, 0, this._fwd.z);
     if (flat.lengthSq() < 1e-6) flat.set(0, 0, -1);
     flat.normalize();
-    const right = this._right.set(-flat.z, 0, flat.x); // forward × up
+    const right = this._right.set(-flat.z, 0, flat.x);
 
     const k = this.keys;
     let x = 0, z = 0;
-    if (k.has("KeyW") || k.has("ArrowUp") || this.autoWalk) z += 1;
+    if (k.has("KeyW") || k.has("ArrowUp")) z += 1;
     if (k.has("KeyS") || k.has("ArrowDown")) z -= 1;
     if (k.has("KeyA") || k.has("ArrowLeft")) x -= 1;
     if (k.has("KeyD") || k.has("ArrowRight")) x += 1;
+    z += this.rocker;                      // mobile thumb rocker
+    z += THREE.MathUtils.clamp(this._wheelVel, -1, 1);  // wheel walk
+    this._wheelVel *= Math.exp(-dt * 4.2); // wheel impulse decays
+    if (Math.abs(this._wheelVel) < 0.02) this._wheelVel = 0;
 
     const speed = this.walkSpeed * (k.has("ShiftLeft") || k.has("ShiftRight") ? this.runFactor : 1);
-    const tx = (flat.x * z + right.x * x), tz = (flat.z * z + right.z * x);
+    const tx = flat.x * z + right.x * x;
+    const tz = flat.z * z + right.z * x;
     const len = Math.hypot(tx, tz) || 1;
-    const targetVX = (tx / len) * speed * (x || z ? 1 : 0);
-    const targetVZ = (tz / len) * speed * (x || z ? 1 : 0);
+    const mag = Math.min(1, Math.hypot(x, z) + Math.abs(this.rocker) + Math.min(1, Math.abs(this._wheelVel)));
+    const targetVX = (tx / len) * speed * mag;
+    const targetVZ = (tz / len) * speed * mag;
 
-    // velocity smoothing (this._vel is a plain {x,z} carrier)
-    if (!this._vel) this._vel = { x: 0, z: 0 };
     const smooth = 1 - Math.exp(-dt * 11);
     this._vel.x += (targetVX - this._vel.x) * smooth;
     this._vel.z += (targetVZ - this._vel.z) * smooth;
 
     const px = cam.position.x, pz = cam.position.z;
-    cam.position.x += this._vel.x * dt;
-    cam.position.z += this._vel.z * dt;
+    if (!this._gliding) {
+      cam.position.x += this._vel.x * dt;
+      cam.position.z += this._vel.z * dt;
+    } else {
+      this._vel.x = this._vel.z = 0;
+    }
     this._clampPosition();
 
-    // footsteps by accumulated horizontal distance
-    const moved = Math.hypot(cam.position.x - px, cam.position.z - pz);
-    if (moved > 0.001) {
-      this._stepDist += moved;
-      if (this._stepDist >= this._stepLen * (this.runFactor > 1 && k.has("ShiftLeft") ? 1.35 : 1)) {
-        this._stepDist = 0;
-        this.onStep && this.onStep();
+    // footsteps from every kind of motion (glide feeds _accumulateSteps itself)
+    if (!this._gliding) {
+      const moved = Math.hypot(cam.position.x - px, cam.position.z - pz);
+      if (moved > 0.001) {
+        this._accumulateSteps(moved);
+      } else {
+        this._stepDist = Math.max(0, this._stepDist - dt * 0.4);
       }
-    } else {
-      this._stepDist = Math.max(0, this._stepDist - dt * 0.4); // decay
     }
 
-    // orientation
+    // subtle head-bob while walking
+    const speedNow = Math.hypot(this._vel.x, this._vel.z) + (this._gliding ? 1.2 : 0);
+    if (speedNow > 0.25) {
+      this._bobPhase += dt * (4.6 + speedNow * 1.6);
+      this._lastBob = Math.sin(this._bobPhase) * 0.032 * Math.min(1, speedNow / 2);
+      cam.position.y += this._lastBob;
+    } else {
+      this._bobPhase = 0;
+    }
+
     cam.rotation.order = "YXZ";
     cam.rotation.set(this.pitch, this.yaw, 0);
   }
@@ -161,18 +232,25 @@ export class SixDofControls {
     this._onPointerUp = (e) => {
       if (!this._down || e.pointerId !== this._down.id) return;
       const quick = performance.now() - this._down.t < 350 && this._down.moved < 8;
+      const { x, y } = this._down;
       this._down = null;
-      if (quick && this.onClick) this.onClick(e.clientX, e.clientY);
+      if (!quick) return;
+      const now = performance.now();
+      const lt = this._lastTap;
+      this._lastTap = { t: now, x, y };
+      if (lt && now - lt.t < 320 && Math.hypot(x - lt.x, y - lt.y) < 32) {
+        this._lastTap = null;
+        this.onDouble && this.onDouble(x, y);      // double tap → walk
+      } else {
+        this.onClick && this.onClick(x, y);
+      }
     };
     this._onWheel = (e) => {
       if (!this.enabled) return;
       e.preventDefault();
-      const d = (e.deltaY < 0 ? 1 : -1) * 0.75;
-      this.camera.getWorldDirection(this._fwd);
-      this.camera.position.addScaledVector(this._fwd, d);
-      // keep eye height comfortable while gliding
-      this.camera.position.y = Math.min(Math.max(this.camera.position.y, this.box.minY), this.box.maxY);
-      this._clampPosition();
+      const step = e.deltaMode === 1 ? e.deltaY / 18 : e.deltaY;
+      this._wheelVel += (step < 0 ? 1 : -1) * Math.min(1.4, Math.abs(step) / 90 + 0.5);
+      this._wheelVel = THREE.MathUtils.clamp(this._wheelVel, -2.4, 2.4);
     };
 
     window.addEventListener("keydown", this._onKeyDown, { passive: false });

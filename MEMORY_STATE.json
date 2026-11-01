@@ -17,14 +17,19 @@
     "repo_topology": "Anti-Fragmentation Lock 2026-11-02: single source of truth = 3d-idea; panodrome = deploy-only mirror (never clone/edit)"
   },
   "do_not_read_on_boot": ["docs/00-source-chat-gemini.md", "docs/01-*", "docs/02-*"],
-  "current_phase": "Phase 2 delivered LIVE + repository topology LOCKED (SSOT: 3d-idea private = only workspace; panodrome public = deploy-only mirror). Next: Phase 3 (more content sources / Cloudflare Pages custom domain panodrome.com / social share preview cards)",
+  "current_phase": "Phase 2.5+3+4 delivered: UX overhaul (sleek Matterport-style portal waypoints + floor rings + preview cards, scroll/dbl-tap/rocker walking + head-bob, audible audio + universal unlock, mobile-first responsive HUD with bottom sheets, authentic Iranian-architect Persian), 8 multi-source Commons rooms (18 total, platform badges), Creator Upload Studio (browser depth + IndexedDB), commerce layer (shoppable hotspots + lead-gen + sponsored gold portals), AI narrator (EN/FA TTS). E2E 43/43 + VLM-verified. Next: Phase 5 (panodrome.com custom domain, social og:image cards, DA2 depth upgrade, real backend for inquiries/uploads)",
   "phase_progress": {
     "memory_system": "ready",
     "ingest_skill": "ready",
     "spatial_engine_v1": "ready",
     "deploy_preview": "LIVE https://mohammadaliaghaabbasi.github.io/panodrome/",
     "phase2_xray_hotspots": "ready (VLM pass + engine layer)",
-    "phase2_moodboard": "ready (save/drawer/share-URL/tour routing)"
+    "phase2_moodboard": "ready (save/drawer/share-URL/tour routing)",
+    "phase25_ux_overhaul": "ready (sleek portals + walking + audio + mobile HUD + FA rewrite)",
+    "phase3_multisource": "ready (multi_source_ingest.py + 8 Commons rooms = 18 total)",
+    "phase3_upload_studio": "ready (browser box-prior depth + portals/pins placement + IndexedDB + JSON export)",
+    "phase4_commerce": "ready (shoppable hotspot cards + swatches + architect lead-gen drawer + 3 sponsored gold portals)",
+    "phase4_narrator": "ready (Web Speech EN/FA on room card + hotspot card)"
   },
   "completed_modules": [
     "Phase 1: persistent memory system, ingest_polyhaven.py (10 rooms @4K + depth + AI-door portals), Spatial Engine v1 (6DoF + portals 4 modes + spatial audio + EN/FA HUD), E2E verified, Issues #1/#2/#3 closed",
@@ -33,13 +38,18 @@
     "Phase 2 public/js/moodboard.js: + Save Room chip (localStorage panodrome_house_v1), slide-over drawer (thumbnails/remove/copy), share URL ?house=a,b,c -> exclusive curated tour (computeHouseRoutes in portals.js, badge + mode-bar lock + exit)",
     "Phase 2 verified: scripts/phase2_e2e.sh all-pass (toggle/pin-click card/space peek/save/drawer/share URL/tour routing/exit/FA RTL/console clean) + VLM screenshot checks",
     "deploy_gh_pages.sh v2: fixed public/ nesting 404 bug (cp public/. -> root), deploys to public site repo 'panodrome', auto-creates repo + enables Pages",
-    "Anti-Fragmentation Protocol executed 2026-11-02: repository_topology locked in MEMORY_STATE.json + CLAUDE.md + .cursorrules + AGENT_BOOT.md; deploy script now auto-generates mirror README.md ('Automated production mirror — source of truth resides in private monorepo')"
+    "Anti-Fragmentation Protocol executed 2026-11-02: repository_topology locked in MEMORY_STATE.json + CLAUDE.md + .cursorrules + AGENT_BOOT.md; deploy script now auto-generates mirror README.md ('Automated production mirror — source of truth resides in private monorepo')",
+    "Phase 2.5 UX: portals v2 = floating glass pill + floor ring anchored by ray-casting room.camera->fraction onto the displaced mesh (portal fraction calibration: marked-image VLM pass + per-fraction crop verification; anniversary lounge/cabin/cellar/abchurch/chapel-royal keep a single real doorway); walking = wheel glide + dbl-tap GSAP walk + mobile rocker + head-bob, all feeding one footstep accumulator; audio gains ~3x + unlock() on any first gesture + walkSteps() during transitions",
+    "Phase 3 content: skills/multi_source_ingest.py (wikimedia/url/polyhaven adapters, manifest-driven, truthful source_platform badges) + 8 Commons rooms (Diliff CC BY-SA cathedrals/oratories/Kings Cross, Leipzig Rathaus, Evora library, Indonesian mosque); Persian 360 equirects do NOT exist freely on Commons — Persian architecture remains a roadmap item (platform is fully FA/RTL bilingual)",
+    "Phase 3/4 engine: upload_studio.js (canvas box-prior depth 1024x512 two-channel PNG, click-to-place portals+pins, IndexedDB panodrome_uploads, JSON contribution export), commerce.js (52/52 hotspots shoppable: tier+est-price+3 swatches recolor pin, inquiry drawer copies request for creator, mailto/portfolio only — no fake vendor claims), narrator.js (SpeechSynthesis voice pick en/fa), 3 sponsored gold portals (photo_studio p1, ballroom p2, kings_cross p1)",
+    "Phase 2.5/3/4 verified: scripts/phase3_e2e.sh 43/43 PASS (desktop 1440x900 + mobile 390x844: portals/scroll-walk/dbl-tap-walk/commerce card/swatches/lead-gen/portal hover card/transition/real file upload->19 rooms/tour/FA RTL/bottom sheets/rocker/no page errors) + VLM screenshot checks (sleek non-blocking waypoints on doorways, mobile no-overlap)"
   ],
   "skills_status": {
     "ingest_polyhaven.py": "ready",
     "vision_hotspots.py": "ready (VLM localization is approximate: floors accurate, mid-height furniture pins may float high when depth hits the wall behind — acceptable v1, grounding upgrade planned)",
     "vision_portal_detect.sh + parse_vision.py": "ready",
-    "ingest_artstation.py": "planned"
+    "multi_source_ingest.py": "ready (wikimedia + url + manifest adapters; Kuula/ArtStation = url adapter WITH mandatory attribution — only ingest content the curator has rights to)",
+    "scripts/portal_calibrate.py + db_assemble.py": "ready (VLM marked-image + crop verification pipeline for portal fractions)"
   },
   "active_decisions": [
     "Depth backend v1 = procedural box-room ray prior (seamless, offline); DA2/PanDA = drop-in upgrade (--depth-backend replicate-da2, experimental)",
@@ -48,6 +58,6 @@
     "Publish flow: publish_phase1.sh (push main + issues) -> deploy_gh_pages.sh (live redeploy)",
     "Zero split-state verified 2026-11-02: only project repo on disk = /home/z/my-project/3d-idea (clean, main=e33cf3f+ pushed, 28 VLM hotspots in DB); stale tmp clones deleted; legacy gh-pages branch in 3d-idea deleted (local+remote); /tmp/my-project bridge mount emptied (platform infra, stays)"
   ],
-  "next_immediate_action": "Owner: rotate the GitHub token; register panodrome.com; optional Cloudflare Pages custom-domain deploy. Agent Phase 3: social share preview cards (og:image per room), ingest_artstation.py for outdoor scenes, DA2 depth upgrade trial",
+  "next_immediate_action": "Owner: rotate the GitHub token; register panodrome.com. Agent Phase 5: social og:image preview cards per room, real inquiry/upload backend (Formspree/Cloudflare Workers), DA2 depth upgrade trial, curated Persian-architecture 360 shoot (freely-licensed Persian interiors are missing from Commons)",
   "last_updated": "2026-11-02"
 }

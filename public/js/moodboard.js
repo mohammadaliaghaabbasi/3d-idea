@@ -28,7 +28,7 @@ export class Moodboard {
 
     this.el = {
       btnSave: document.getElementById("btn-save"),
-      saveLabel: document.getElementById("btn-save-label"),
+      saveCheck: document.getElementById("save-check"),
       btnHouse: document.getElementById("btn-house"),
       houseCount: document.getElementById("house-count"),
       drawer: document.getElementById("house-drawer"),
@@ -245,10 +245,11 @@ export class Moodboard {
     const byId = new Map(rooms.map((r) => [r.id, r]));
     const L = i18n.lang;
 
-    // save chip
+    // save chip (icon-only: check badge + title)
     const saved = this._currentId ? this.hasRoom(this._currentId) : false;
     this.el.btnSave.classList.toggle("saved", saved);
-    this.el.saveLabel.textContent = saved ? i18n.t.saved : i18n.t.save_room;
+    if (this.el.saveCheck) this.el.saveCheck.classList.toggle("none", !saved);
+    this.el.btnSave.title = saved ? i18n.t.saved : i18n.t.save_room;
 
     // house chip count
     this.el.houseCount.textContent = String(this.ids.length);
