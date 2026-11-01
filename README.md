@@ -1,47 +1,85 @@
-# 3D Idea — مخزن ایده‌های پلتفرم معماری سه‌بعدی
+# PANODROME — Spatial & Living Architecture Pinterest
 
-این ریپازیتوری **خصوصی**، خانه‌ی تمام ایده‌ها، مستندات و تصمیمات پروژه است.
+> **Repo `mohammadaliaghaabbasi/3d-idea`** · Name locked **2026-11-01** (Issue #1) · `panodrome.com` / `panodrome.io` free at research time — see `docs/11-naming-and-domain.md`.
 
-**موضوع پروژه:** پلتفرم «پینترست فضایی و زنده‌ی معماری» — تبدیل پانوراماهای ۳۶۰ درجه‌ی معماری (داخلی و بیرونی) به فضاهای سه‌بعدیِ قابل قدم زدن که با «درهای هوشمند» به هم وصل می‌شوند.
+Transform 360° equirectangular panoramas of real architecture (indoor + outdoor) into
+**walkable 6DoF 3D rooms** — connected by AI-detected **Smart Portals**, with **spatial
+audio** and an **AI material inspector**. English-first, full RTL Persian from day one.
 
-**زبان محصول (تصمیم نوامبر ۲۰۲۶):** زبان مادر **انگلیسی**؛ زبان دوم **فارسی** (راست‌چین کامل)؛ سپس بین‌المللی‌سازی — جزئیات در `docs/01-vision.md`.
+> **فارسی:** پانودروم — «پینترست فضایی و زنده‌ی معماری». پانوراماهای ۳۶۰ درجه‌ی واقعی به
+> اتاق‌های سه‌بعدیِ قابل‌قدم‌زدن تبدیل می‌شوند و با درگاه‌های هوشمند به هم وصل می‌شوند.
+> زبان مادر انگلیسی، فارسی راست‌چین کامل از روز اول.
 
-## ایده در یک خط
+## Phase 1 — Core Spatial Engine ✅ (2026-11-01)
 
-کاربر داخل فضاهای سه‌بعدیِ ساخته‌شده از پانوراماهای ۳۶۰ درجه قدم می‌زند، صدای فضا را می‌شنود، با هوش مصنوعی متریال‌ها و مبلمان را می‌شناسد، از درها به فضاهای طراحان دیگر سفر می‌کند و در نهایت «خانه‌ی رویایی» خودش را می‌سازد و به اشتراک می‌گذارد.
+The walkable engine is live in `public/` — **10 PolyHaven rooms** (living rooms, lofts,
+studios, halls, corridors, cafés, vaulted cellars, cabins, a college quadrangle, an
+auditorium) with:
 
-## ساختار مستندات
+- **6DoF walkable displaced sphere** — panorama + depth map → real room volume with
+  true parallax; `WASD` walk, `drag` look, `scroll` glide, safe-zone clamping
+- **Smart Portals** — glowing archways placed by an **AI vision door-detection pass**
+  (VLM), with 4 routing modes: **Architect / Room Type / Style / Random**
+- **Spatial audio engine** — fully procedural WebAudio: footsteps per floor material
+  (wood / stone / concrete / carpet / gravel), room-tone ambience, generated
+  convolution reverb, portal whoosh + arrival chime
+- **Glassmorphism HUD** — EN ⇄ فا RTL toggle, portal mode bar, creator attribution
+  (PolyHaven · CC0), AI inspector tooltips on material hotspots
 
-| فایل | محتوا |
+### Run it instantly
+
+```bash
+cd public
+python3 -m http.server 8000     # or: npx serve public
+# open http://localhost:8000
+```
+
+Deploy-ready as a **static site** (GitHub Pages / Cloudflare Pages — no build step):
+
+```bash
+# publish main + update GitHub Issues (needs token in env T):
+T="github_token" bash scripts/publish_phase1.sh
+
+# publish public/ as a GitHub Pages site (same token):
+T="github_token" bash scripts/deploy_gh_pages.sh
+```
+
+### Re-ingest / extend rooms
+
+```bash
+python3 skills/ingest_polyhaven.py            # 10 curated rooms, 4K, procedural depth
+python3 skills/ingest_polyhaven.py --only cabin,art_studio
+# future: --depth-backend replicate-da2  (Depth Anything 2 / PanDA upgrade hook)
+```
+
+## Repo layout
+
+| Path | Role |
 |---|---|
-| `docs/00-source-chat-gemini.md` | متن کامل گفتگوی شکل‌گیری ایده (منبع اصلی) |
-| `docs/01-vision.md` | چشم‌انداز، تعریف محصول، مخاطب‌ها و استراتژی زبان |
-| `docs/02-pillars.md` | پنج ستون اصلی + سیستم خانه‌ی رویایی |
-| `docs/03-ux-ui.md` | تجربه و ظاهر کاربری پلتفرم |
-| `docs/04-monetization.md` | مدل درآمدی چهارلایه |
-| `docs/05-agent-architecture.md` | حالت‌ها و مهارت‌های ایجنت هوش مصنوعی |
-| `docs/06-roadmap.md` | نقشه‌ی راه چهار فازی |
-| `docs/07-tech-notes.md` | نکات فنی، منابع محتوا و ملاحظات قانونی + تاییدهای پژوهشی |
-| `docs/08-prototype-prompt.md` | پرامپت آماده‌ی اجرای نمونه‌ی اولیه (فاز صفر) |
-| `docs/09-open-questions.md` | تصمیم‌های باز که باید نهایی شوند |
-| `docs/10-content-sources.md` | **لیست کامل منابع محتوای ۳۶۰ و تور** (۸۰ منبع، کلاس‌بندی مجوز و اولویت) — EN + خلاصه فارسی |
-| `docs/11-naming-and-domain.md` | **پژوهش نام‌گذاری جهانی** و وضعیت دامنه‌ها — پیشنهاد: **Panodrome** |
-| `data/sources.csv` | دیتای اولیه‌ی ماشینی منابع محتوا (۸۰ ردیف، وضعیت ۲۰۲۶-۱۱-۰۱) |
+| `CLAUDE.md` · `.cursorrules` · `AGENT_BOOT.md` | Agent boot protocol + compact core memory |
+| `MEMORY_STATE.json` | Active brain — phase, modules, skills status, next action |
+| `skills/ingest_polyhaven.py` | Ingest skill: PolyHaven → panorama + depth + portals + EN/FA metadata |
+| `data/rooms_db.json` | Canonical rooms database (10 rooms) |
+| `data/vision_overrides.json` | AI vision pass output (facing + door positions per room) |
+| `public/` | Panodrome Spatial Engine v1 (static app — deploy root) |
+| `docs/` | Research archive: vision, pillars, roadmap, naming, content sources |
+| `data/sources.csv` | 80 content sources, license-classified |
 
-## قواعد آپدیت
+## Status
 
-- هر ایده یا تغییر جدید، اول در فایل مرتبط در `docs/` ثبت و بعد پوش می‌شود.
-- تصمیم‌های قطعی‌نشده به `docs/09-open-questions.md` می‌روند و بعد از تصمیم، نتیجه به مستند مربوطه منتقل و از آن فایل خط می‌خورند.
-- هر فایل در انتها بخش «تاریخچه تغییرات» دارد.
-- از v2 به بعد، سندهای جدید به زبان مادر محصول (انگلیسی) با خلاصه‌ی فارسی نوشته می‌شوند؛ سندهای فارسی موجود با همان زبان به‌روز می‌شوند.
+- [x] Ideation & vision (v1)
+- [x] Research & seed data — 360 content sources, naming research, language decision (v2)
+- [x] **Name locked: Panodrome** · EN-first + FA RTL · direct-to-Phase-1 (2026-11-01)
+- [x] **Phase 1 — Core spatial 360→3D walkable engine + first 10 rooms** (this release)
+- [ ] Phase 1.5 — DA2/PanDA real depth (replace procedural prior), AI portal detection at scale
+- [ ] Phase 2 — automated content pipeline
+- [ ] Phase 3 — Pinterest layer (dream home + community upload)
+- [ ] Phase 4 — monetization
+- [ ] Public launch on Cloudflare (register panodrome.com)
 
-## وضعیت پروژه
+## Update rules
 
-- [x] ایده‌پردازی و چشم‌انداز اولیه (v1)
-- [x] تحقیق و دیتای اولیه — لیست کامل منابع ۳۶۰، پژوهش نام‌گذاری، تصمیم زبان (v2)
-- [ ] نهایی‌سازی تصمیم‌های باز (نام نهایی و دامنه، قدم اول ساخت)
-- [ ] فاز ۱ — هسته‌ی سه‌بعدی و قدم زدن (MVP)
-- [ ] فاز ۲ — خط تولید خودکار محتوا
-- [ ] فاز ۳ — لایه‌ی پینترستی (خانه‌ی رویایی و آپلود مردمی)
-- [ ] فاز ۴ — درآمدزایی
-- [ ] انتشار عمومی روی Cloudflare
+- New ideas/changes land in the matching `docs/` file first, then push.
+- Undecided items live in `docs/09-open-questions.md`; once decided → move to the
+  owning doc and strike them from the list.
+- Agents: read `MEMORY_STATE.json` at turn start, update it at turn end (see `CLAUDE.md`).

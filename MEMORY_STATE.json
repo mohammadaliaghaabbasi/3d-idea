@@ -1,0 +1,45 @@
+{
+  "project_name": "Panodrome",
+  "repo": "mohammadaliaghaabbasi/3d-idea",
+  "core_identity": "Spatial & Living Architecture Pinterest: 360 equirect panoramas -> walkable 6DoF 3D rooms (panoramic depth DA2/PanDA + Three.js displaced sphere), connected by AI Smart Portals (4 routing modes: Architect/All, Room-Type, Style/Material, Random Serendipity) with Spatial Audio + AI Material Inspector",
+  "locked_decisions": {
+    "name": "Panodrome (Issue #1 approved by owner 2026-11-01; panodrome.com/.io free at research time - registration pending)",
+    "language": "English-first global default + full RTL Persian (fa) from Day 1",
+    "stack": "Three.js + GSAP (free) + WebGL displaced sphere + PolyHaven CC0 seed content",
+    "phase_plan": "Skip static mockups; build Phase 1 core walkable engine + first 10 rooms directly"
+  },
+  "do_not_read_on_boot": ["docs/00-source-chat-gemini.md", "docs/01-*", "docs/02-*"],
+  "current_phase": "Phase 1 delivered: Core Spatial 360-to-3D Walkable Engine + First 10 PolyHaven Rooms (pending: git push + GitHub Issues update + domain registration)",
+  "phase_progress": {
+    "memory_system": "ready",
+    "ingest_skill": "ready",
+    "spatial_engine_v1": "ready",
+    "deploy_preview": "ready (local run cmd + gh-pages/cloudflare scripts; push needs owner token)"
+  },
+  "completed_modules": [
+    "Persistent memory system (CLAUDE.md / .cursorrules / AGENT_BOOT.md / MEMORY_STATE.json)",
+    "skills/ingest_polyhaven.py: 10 rooms ingested at 4K (panorama + two-channel depth PNG + previews + rooms_db.json with EN/FA metadata, portals, hotspots, audio profiles)",
+    "AI vision pass (VLM door detection): data/vision_overrides.json -> portals on real doorways + curated facing",
+    "Panodrome Spatial Engine v1 (public/): 6DoF displaced sphere (WASD/drag/scroll + safe zone), Smart Portals with 4 routing modes + GSAP transitions, procedural spatial audio (footsteps per material + ambience + reverb + chime), glassmorphism HUD with EN/FA RTL toggle",
+    "Verified: headless-browser E2E (enter/walk/hover/click-transition/modes/FA-RTL) + mathematical ground-truth diff (28.6/255 mean, residual = portal glow overlay)"
+  ],
+  "skills_status": {
+    "ingest_polyhaven.py": "ready",
+    "portal_ai_detection.py (VLM pass, currently scripts/vlm_doors.sh + parse_vlm.py)": "ready-as-scripts",
+    "ingest_artstation.py": "planned",
+    "material_hotspots_ai.py": "planned"
+  },
+  "active_decisions": [
+    "Depth backend v1 = procedural box-room ray prior (seamless, offline); DA2/PanDA = drop-in upgrade (--depth-backend replicate-da2, experimental, verify model slug)",
+    "Portals = AI vision door coordinates (data/vision_overrides.json), 2 per room",
+    "Canonical DB = data/rooms_db.json; static copy = public/data/rooms_db.json (deploy artifact, regenerate on ingest)",
+    "Publish requires owner GitHub token via env T (never stored) - scripts/publish_phase1.sh + scripts/deploy_gh_pages.sh"
+  ],
+  "github_issues": {
+    "1": "close resolved: name approved = Panodrome (locked across codebase/UI/DB)",
+    "2": "close resolved: skip mockups, direct Phase 1 core engine + 10 rooms",
+    "3": "close resolved: first 10 PolyHaven rooms ingested with depth + AI-door portals + audio + EN/FA metadata"
+  },
+  "next_immediate_action": "Owner runs: T=<token> bash scripts/publish_phase1.sh (push main + update Issues #1/#2/#3), then T=<token> bash scripts/deploy_gh_pages.sh for the live preview; then register panodrome.com and deploy to Cloudflare Pages",
+  "last_updated": "2026-11-01"
+}

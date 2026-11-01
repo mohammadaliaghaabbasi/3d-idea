@@ -1,0 +1,27 @@
+# PANODROME — Cursor Rules (mirrors CLAUDE.md)
+
+# ⚡ BOOT: read MEMORY_STATE.json (≤50 lines) at turn start. NEVER bulk-read docs/* on startup.
+# 🚫 Forbidden on boot: docs/00-source-chat-gemini.md, docs/01-*, docs/02-*
+
+## Project
+- Name: **Panodrome** (locked 2026-11-01, Issue #1) — "Spatial & Living Architecture Pinterest".
+- Core: 360° equirect panoramas → walkable 6DoF 3D meshes (depth estimation + Three.js displaced sphere),
+  AI Smart Portals with 4 routing modes (All / Room-Type / Style / Random), spatial audio, AI material inspector.
+- Language: English-first + full RTL Persian (`fa`) from Day 1.
+- Stack: Three.js + GSAP (free) + WebGL + PolyHaven CC0.
+
+## Locked decisions (do not revisit)
+- Name = Panodrome · EN-first + FA RTL · Three.js/GSAP/PolyHaven CC0 · straight to Phase 1 (no static mockups).
+
+## Iron law
+1. Turn start: read `MEMORY_STATE.json` only.
+2. Turn end: update `MEMORY_STATE.json` (current_phase, completed_modules, active_decisions, next_immediate_action) + commit.
+3. `docs/` is archive; open only when the task targets that doc.
+4. Canonical rooms DB = `data/rooms_db.json`; static deploy copy = `public/data/rooms_db.json`.
+
+## Conventions
+- Commit prefixes: `phase1:` `memory:` `docs:` `skill:`.
+- All UI strings EN + FA (`public/js/i18n.js`); FA fully RTL.
+- CC0 content only; credit creators always.
+- Depth v1 = procedural box-room prior; upgrade hook = `--depth-backend replicate-da2` (DA2/PanDA).
+- GitHub token arrives via env var `T` only — never written to any file.

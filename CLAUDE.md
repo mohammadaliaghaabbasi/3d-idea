@@ -1,0 +1,50 @@
+# PANODROME — Agent Core Memory (Auto-Load)
+
+> ⚡ This file + `MEMORY_STATE.json` are the ONLY context needed at turn start.
+> 🚫 NEVER re-read `docs/00-source-chat-gemini.md` or bulk `docs/*` files on startup — they are archived reference material.
+
+## Identity
+
+**Panodrome** — the "Spatial & Living Architecture Pinterest".
+
+Transform 2D 360° equirectangular panoramas into **walkable 6DoF 3D meshes**
+(panoramic depth estimation DA2/PanDA → Three.js displaced sphere), connected by
+AI-detected **Smart Portals** (doors / archways) with 4 routing modes
+(Architect/All · Room-Type Filter · Style/Material Filter · Random Serendipity),
+plus **Spatial Audio** (procedural footsteps per floor material + room-tone ambience)
+and an **AI Material Inspector** (hover hotspots).
+
+## Locked Decisions (do not revisit)
+
+| Topic | Decision |
+|---|---|
+| Name | **Panodrome** (Issue #1 ✅ approved by owner 2026-11-01; `panodrome.com`/`.io` free at research time) |
+| Language | **English-first** (global default) + **full RTL Persian** (`fa`) built in from Day 1 |
+| Stack | **Three.js + GSAP (free) + WebGL displaced sphere + PolyHaven CC0** seed content |
+| Phase plan | Skip static mockups → build **Phase 1 core walkable engine + first 10 rooms** directly |
+
+## Memory Iron Law
+
+1. **Turn start** → read `MEMORY_STATE.json` (≤50 lines). Nothing else.
+2. **Turn end** → update `MEMORY_STATE.json` (`current_phase`, `completed_modules`, `active_decisions`, `next_immediate_action`) in the same commit.
+3. `docs/` = archive. Open a doc ONLY when a task explicitly targets that doc's topic.
+4. Never re-derive decisions already listed under "Locked Decisions" above.
+
+## Repo Map
+
+| Path | Role |
+|---|---|
+| `MEMORY_STATE.json` | Active brain — phase, modules, skills status, next action |
+| `skills/` | Ingestion / processing skill scripts (`ingest_polyhaven.py` = first skill) |
+| `data/rooms_db.json` | Canonical rooms database (panorama + depth + portals + audio + EN/FA metadata) |
+| `public/` | Panodrome Spatial Engine — static app (`index.html` + `js/` + `assets/`); deploy root for GitHub Pages / Cloudflare |
+| `scripts/` | GitHub publish/issue automation (token passed via env `T`, never stored) |
+| `docs/` | Archived research & decisions (00 source chat … 11 naming) |
+
+## Conventions
+
+- Commit message prefix: `phase1:` / `memory:` / `docs:` …; always update `MEMORY_STATE.json` with meaningful commits.
+- Every UI string ships in **EN + FA** (`public/js/i18n.js`); FA runs fully RTL (`dir="rtl"`).
+- Content license: **CC0 only** (PolyHaven) — always credit creators anyway.
+- Depth v1 = procedural box-room ray prior (seamless, offline). DA2/PanDA = drop-in upgrade (`--depth-backend replicate-da2`).
+- Portals v1 = curated coordinates in `rooms_db.json`; AI door detection = future skill.
