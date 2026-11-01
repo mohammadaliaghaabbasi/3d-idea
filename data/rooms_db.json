@@ -1,0 +1,1547 @@
+{
+  "schema": "panodrome.rooms_db/1",
+  "project": "Panodrome",
+  "generated_at": "2026-11-01T13:55:00+0000",
+  "content_source": {
+    "name": "PolyHaven",
+    "license": "CC0",
+    "url": "https://polyhaven.com"
+  },
+  "routing_modes": [
+    "architect",
+    "room_type",
+    "style",
+    "random"
+  ],
+  "rooms": [
+    {
+      "id": "anniversary_lounge",
+      "room_type": "living_room",
+      "style_tags": [
+        "classic",
+        "warm",
+        "cozy"
+      ],
+      "name": {
+        "en": "Anniversary Lounge",
+        "fa": "نشیمن سالن کلاسیک"
+      },
+      "description": {
+        "en": "A warm classic living room with carpet, floor lamps and soft window light.",
+        "fa": "اتاق نشیمن کلاسیک و گرم با فرش، چراغ ایستاده و نور ملایم پنجره."
+      },
+      "panorama": "assets/panoramas/anniversary_lounge.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/anniversary_lounge.jpg",
+      "depth_map": "assets/depth/anniversary_lounge_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 4.515,
+      "room_shape": {
+        "width": 4.6,
+        "height": 2.8,
+        "depth": 6.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.6
+      },
+      "portals": [
+        {
+          "id": "anniversary_lounge_p1",
+          "fraction": 0.02,
+          "origin": "ai_vision_door",
+          "position": [
+            -2.022,
+            1.07,
+            0.255
+          ],
+          "normal": [
+            0.992,
+            0.0,
+            -0.125
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "anniversary_lounge_p2",
+          "fraction": 0.52,
+          "origin": "ai_vision_door",
+          "position": [
+            2.022,
+            1.07,
+            -0.255
+          ],
+          "normal": [
+            -0.992,
+            0.0,
+            0.125
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "wood",
+      "audio": {
+        "ambient": "room_tone",
+        "reverb": 0.25,
+        "footsteps": "wood"
+      },
+      "hotspots": [
+        {
+          "id": "anniversary_lounge_oak_parquet",
+          "fraction": 0.5,
+          "pitch": -68,
+          "position": [
+            0.579,
+            0.167,
+            0.0
+          ],
+          "label": {
+            "en": "Oak parquet floor",
+            "fa": "کف پارکت بلوط"
+          },
+          "note": {
+            "en": "Herringbone oak strips, sanded and oiled.",
+            "fa": "تخته‌های بلوط به‌صورت هریینگ‌بون، سمباده و روغن‌کاری‌شده."
+          }
+        },
+        {
+          "id": "anniversary_lounge_persian_carpet",
+          "fraction": 0.44,
+          "pitch": -55,
+          "position": [
+            0.946,
+            0.147,
+            0.374
+          ],
+          "label": {
+            "en": "Hand-woven carpet",
+            "fa": "فرش دستباف"
+          },
+          "note": {
+            "en": "Wool pile on a cotton warp, medallion motif.",
+            "fa": "پشم گره‌خورده روی چله پنبه‌ای با نقش ترنج."
+          }
+        },
+        {
+          "id": "anniversary_lounge_brass_lamp",
+          "fraction": 0.58,
+          "pitch": 8,
+          "position": [
+            2.144,
+            1.944,
+            -1.179
+          ],
+          "label": {
+            "en": "Brass floor lamp",
+            "fa": "چراغ ایستاده برنجی"
+          },
+          "note": {
+            "en": "Warm 2700K bulb behind a linen shade.",
+            "fa": "لامپ ۲۷۰۰ کلوین پشت حباب کتانی."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Greg Zaal",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/anniversary_lounge"
+      }
+    },
+    {
+      "id": "photo_studio_loft_hall",
+      "room_type": "loft",
+      "style_tags": [
+        "modern",
+        "minimal",
+        "scandinavian"
+      ],
+      "name": {
+        "en": "Sunny Loft Hall",
+        "fa": "سالن لوفت آفتابی"
+      },
+      "description": {
+        "en": "A bright modern loft with wooden floors and tall morning windows.",
+        "fa": "لوفت مدرن و پرنور با کف چوبی و پنجره‌های بلند نور صبح."
+      },
+      "panorama": "assets/panoramas/photo_studio_loft_hall.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/photo_studio_loft_hall.jpg",
+      "depth_map": "assets/depth/photo_studio_loft_hall_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 6.27,
+      "room_shape": {
+        "width": 6.0,
+        "height": 3.4,
+        "depth": 9.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.5
+      },
+      "portals": [
+        {
+          "id": "photo_studio_loft_hall_p1",
+          "fraction": 0.03,
+          "origin": "ai_vision_door",
+          "position": [
+            -2.725,
+            1.07,
+            0.52
+          ],
+          "normal": [
+            0.982,
+            0.0,
+            -0.187
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "photo_studio_loft_hall_p2",
+          "fraction": 0.92,
+          "origin": "ai_vision_door",
+          "position": [
+            -2.755,
+            1.07,
+            -1.514
+          ],
+          "normal": [
+            0.876,
+            0.0,
+            0.482
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "wood",
+      "audio": {
+        "ambient": "city_hum",
+        "reverb": 0.35,
+        "footsteps": "wood"
+      },
+      "hotspots": [
+        {
+          "id": "photo_studio_loft_hall_light_oak_floor",
+          "fraction": 0.5,
+          "pitch": -70,
+          "position": [
+            0.521,
+            0.169,
+            0.0
+          ],
+          "label": {
+            "en": "Light oak flooring",
+            "fa": "کف بلوط روشن"
+          },
+          "note": {
+            "en": "Wide-plank engineered oak, matte lacquer.",
+            "fa": "تخته‌های پهن بلوط مهندسی با لاک مات."
+          }
+        },
+        {
+          "id": "photo_studio_loft_hall_plaster_walls",
+          "fraction": 0.3,
+          "pitch": 4,
+          "position": [
+            1.407,
+            1.918,
+            4.329
+          ],
+          "label": {
+            "en": "White plaster walls",
+            "fa": "دیوار گچی سفید"
+          },
+          "note": {
+            "en": "Lime-plaster finish, soft sheen.",
+            "fa": "پوشش گچ آهکی با براقیت ملایم."
+          }
+        },
+        {
+          "id": "photo_studio_loft_hall_steel_windows",
+          "fraction": 0.72,
+          "pitch": 2,
+          "position": [
+            0.825,
+            1.754,
+            -4.323
+          ],
+          "label": {
+            "en": "Steel-framed windows",
+            "fa": "پنجره‌های فریم فولادی"
+          },
+          "note": {
+            "en": "Slim black steel mullions, double glazing.",
+            "fa": "نعلبک‌های فولادی باریک سیاه با شیشه دوجداره."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Sergej Majboroda",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/photo_studio_loft_hall"
+      }
+    },
+    {
+      "id": "art_studio",
+      "room_type": "studio",
+      "style_tags": [
+        "artistic",
+        "industrial",
+        "creative"
+      ],
+      "name": {
+        "en": "Painter's Studio",
+        "fa": "اتودیوی نقاش"
+      },
+      "description": {
+        "en": "A creative studio filled with canvases, pigments and daylight.",
+        "fa": "اتودیویی خلاق پر از بوم، رنگدانه و نور روز."
+      },
+      "panorama": "assets/panoramas/art_studio.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/art_studio.jpg",
+      "depth_map": "assets/depth/art_studio_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 5.048,
+      "room_shape": {
+        "width": 5.0,
+        "height": 3.2,
+        "depth": 7.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.82
+      },
+      "portals": [
+        {
+          "id": "art_studio_p1",
+          "fraction": 0.058,
+          "origin": "ai_vision_door",
+          "position": [
+            -2.238,
+            1.07,
+            0.854
+          ],
+          "normal": [
+            0.934,
+            0.0,
+            -0.356
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "art_studio_p2",
+          "fraction": 0.193,
+          "origin": "ai_vision_door",
+          "position": [
+            -1.212,
+            1.07,
+            3.238
+          ],
+          "normal": [
+            0.351,
+            0.0,
+            -0.937
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "concrete",
+      "audio": {
+        "ambient": "room_tone",
+        "reverb": 0.4,
+        "footsteps": "concrete"
+      },
+      "hotspots": [
+        {
+          "id": "art_studio_concrete_floor",
+          "fraction": 0.5,
+          "pitch": -72,
+          "position": [
+            0.464,
+            0.171,
+            0.0
+          ],
+          "label": {
+            "en": "Polished concrete",
+            "fa": "بتن صیقلی"
+          },
+          "note": {
+            "en": "Power-troweled slab, sealed matte.",
+            "fa": "دال بتنی ماله‌زده با درزگیر مات."
+          }
+        },
+        {
+          "id": "art_studio_canvases",
+          "fraction": 0.34,
+          "pitch": 6,
+          "position": [
+            2.125,
+            2.017,
+            3.349
+          ],
+          "label": {
+            "en": "Stretched canvases",
+            "fa": "بوم‌های کشیده‌شده"
+          },
+          "note": {
+            "en": "Linen on spruce stretcher bars.",
+            "fa": "کتان روی قاب چوب صنوبر."
+          }
+        },
+        {
+          "id": "art_studio_studio_glazing",
+          "fraction": 0.66,
+          "pitch": 3,
+          "position": [
+            2.125,
+            1.808,
+            -3.348
+          ],
+          "label": {
+            "en": "North-light glazing",
+            "fa": "شیشه‌های نور شمالی"
+          },
+          "note": {
+            "en": "Tall factory Crittall-style steel glazing.",
+            "fa": "شیشه‌کاری فولادی بلند به سبک صنعتی."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Oliksiy Yakovlyev",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/art_studio"
+      }
+    },
+    {
+      "id": "ballroom",
+      "room_type": "hall",
+      "style_tags": [
+        "victorian",
+        "classic",
+        "ornate"
+      ],
+      "name": {
+        "en": "Victorian Ballroom",
+        "fa": "تالار بال ویکتوریایی"
+      },
+      "description": {
+        "en": "An ornate ballroom with tiled floor, chandeliers and a grand piano.",
+        "fa": "تالار مجلل با کف کاشی، لوسترهای بلور و پیانوی بزرگ."
+      },
+      "panorama": "assets/panoramas/ballroom.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/ballroom.jpg",
+      "depth_map": "assets/depth/ballroom_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 10.109,
+      "room_shape": {
+        "width": 9.0,
+        "height": 5.5,
+        "depth": 14.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.5
+      },
+      "portals": [
+        {
+          "id": "ballroom_p1",
+          "fraction": 0.338,
+          "origin": "ai_vision_door",
+          "position": [
+            4.173,
+            1.07,
+            6.762
+          ],
+          "normal": [
+            -0.525,
+            0.0,
+            -0.851
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "ballroom_p2",
+          "fraction": 0.908,
+          "origin": "ai_vision_door",
+          "position": [
+            -4.265,
+            1.07,
+            -2.783
+          ],
+          "normal": [
+            0.838,
+            0.0,
+            0.546
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "stone",
+      "audio": {
+        "ambient": "hall_air",
+        "reverb": 0.7,
+        "footsteps": "stone"
+      },
+      "hotspots": [
+        {
+          "id": "ballroom_encaustic_tiles",
+          "fraction": 0.5,
+          "pitch": -70,
+          "position": [
+            0.521,
+            0.169,
+            0.0
+          ],
+          "label": {
+            "en": "Encaustic floor tiles",
+            "fa": "کاشی‌های رنگ‌ورورته"
+          },
+          "note": {
+            "en": "Geometric Victorian encaustic tiles.",
+            "fa": "کاشی‌های ویکتوریایی هندسی رنگی."
+          }
+        },
+        {
+          "id": "ballroom_chandelier",
+          "fraction": 0.5,
+          "pitch": 62,
+          "position": [
+            1.989,
+            5.341,
+            0.0
+          ],
+          "label": {
+            "en": "Crystal chandelier",
+            "fa": "لوستر بلوری"
+          },
+          "note": {
+            "en": "Cut-glass drops on a brass frame.",
+            "fa": "آویزهای بلور بریده روی اسکلت برنجی."
+          }
+        },
+        {
+          "id": "ballroom_stucco",
+          "fraction": 0.28,
+          "pitch": 10,
+          "position": [
+            1.302,
+            2.825,
+            6.826
+          ],
+          "label": {
+            "en": "Gilded stucco",
+            "fa": "گچ‌بری طلایی"
+          },
+          "note": {
+            "en": "Moulded plaster cornices with gold leaf.",
+            "fa": "قرنیزهای گچی قالبی با ورق طلا."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Sergej Majboroda",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/ballroom"
+      }
+    },
+    {
+      "id": "large_corridor",
+      "room_type": "corridor",
+      "style_tags": [
+        "victorian",
+        "classic"
+      ],
+      "name": {
+        "en": "Grand Entrance Corridor",
+        "fa": "هال ورودی باشکوه"
+      },
+      "description": {
+        "en": "A Victorian entrance hall with arched doorways and tiled floor.",
+        "fa": "هال ورودی ویکتوریایی با طاق‌نماهای قوسی و کف کاشی."
+      },
+      "panorama": "assets/panoramas/large_corridor.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/large_corridor.jpg",
+      "depth_map": "assets/depth/large_corridor_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 9.44,
+      "room_shape": {
+        "width": 3.4,
+        "height": 4.2,
+        "depth": 13.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": -1.5
+      },
+      "initial_view": {
+        "facing": 0.596
+      },
+      "portals": [
+        {
+          "id": "large_corridor_p1",
+          "fraction": 0.109,
+          "origin": "ai_vision_door",
+          "position": [
+            -1.483,
+            1.07,
+            -0.289
+          ],
+          "normal": [
+            0.775,
+            0.0,
+            -0.633
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "large_corridor_p2",
+          "fraction": 0.378,
+          "origin": "ai_vision_door",
+          "position": [
+            1.498,
+            1.07,
+            -0.057
+          ],
+          "normal": [
+            -0.72,
+            0.0,
+            -0.694
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "stone",
+      "audio": {
+        "ambient": "hall_air",
+        "reverb": 0.6,
+        "footsteps": "stone"
+      },
+      "hotspots": [
+        {
+          "id": "large_corridor_victorian_tiles",
+          "fraction": 0.5,
+          "pitch": -72,
+          "position": [
+            0.464,
+            0.171,
+            -1.5
+          ],
+          "label": {
+            "en": "Victorian floor tiles",
+            "fa": "کاشی کف ویکتوریایی"
+          },
+          "note": {
+            "en": "Chess-pattern encaustic tiling.",
+            "fa": "کاشی‌کاری شطرنجی رنگ‌ورورته."
+          }
+        },
+        {
+          "id": "large_corridor_arch",
+          "fraction": 0.18,
+          "pitch": 6,
+          "position": [
+            -1.624,
+            2.001,
+            1.951
+          ],
+          "label": {
+            "en": "Arched doorway",
+            "fa": "طاق‌نمای ورودی"
+          },
+          "note": {
+            "en": "Brick arch with keystone detail.",
+            "fa": "طاق آجری با کلید سنگی."
+          }
+        },
+        {
+          "id": "large_corridor_paneled_doors",
+          "fraction": 0.8,
+          "pitch": 4,
+          "position": [
+            -1.569,
+            1.955,
+            -6.329
+          ],
+          "label": {
+            "en": "Paneled doors",
+            "fa": "درهای پنل‌دار"
+          },
+          "note": {
+            "en": "Four-panel painted timber doors.",
+            "fa": "درهای چوبی چهارپنل رنگ‌شده."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Sergej Majboroda",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/large_corridor"
+      }
+    },
+    {
+      "id": "comfy_cafe",
+      "room_type": "cafe",
+      "style_tags": [
+        "cozy",
+        "commercial",
+        "rustic"
+      ],
+      "name": {
+        "en": "Comfy Café",
+        "fa": "کافه دنج"
+      },
+      "description": {
+        "en": "A cozy café corner with couches, warm lamps and low light.",
+        "fa": "گوشه‌ای دنج از کافه با مبل‌های راحت و نور کم‌سوی چراغ‌ها."
+      },
+      "panorama": "assets/panoramas/comfy_cafe.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/comfy_cafe.jpg",
+      "depth_map": "assets/depth/comfy_cafe_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 5.048,
+      "room_shape": {
+        "width": 5.0,
+        "height": 3.0,
+        "depth": 7.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.5
+      },
+      "portals": [
+        {
+          "id": "comfy_cafe_p1",
+          "fraction": 0.502,
+          "origin": "ai_vision_door",
+          "position": [
+            2.22,
+            1.07,
+            -0.028
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.013
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "comfy_cafe_p2",
+          "fraction": 0.687,
+          "origin": "ai_vision_door",
+          "position": [
+            1.355,
+            1.07,
+            -3.242
+          ],
+          "normal": [
+            -0.386,
+            0.0,
+            0.923
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "wood",
+      "audio": {
+        "ambient": "cafe_murmur",
+        "reverb": 0.45,
+        "footsteps": "wood"
+      },
+      "hotspots": [
+        {
+          "id": "comfy_cafe_timber_floor",
+          "fraction": 0.5,
+          "pitch": -71,
+          "position": [
+            0.492,
+            0.17,
+            0.0
+          ],
+          "label": {
+            "en": "Worn timber floor",
+            "fa": "کف چوبی کهنه"
+          },
+          "note": {
+            "en": "Aged pine boards with an oiled patina.",
+            "fa": "تخته‌های کهنه کاج با پوشش روغنی."
+          }
+        },
+        {
+          "id": "comfy_cafe_brick_wall",
+          "fraction": 0.3,
+          "pitch": 6,
+          "position": [
+            1.082,
+            1.968,
+            3.33
+          ],
+          "label": {
+            "en": "Exposed brick wall",
+            "fa": "دیوار آجری نمایان"
+          },
+          "note": {
+            "en": "Painted brick, mortar raked back.",
+            "fa": "آجر رنگ‌شده با ملات آب‌خورده."
+          }
+        },
+        {
+          "id": "comfy_cafe_pendant_lights",
+          "fraction": 0.55,
+          "pitch": 58,
+          "position": [
+            0.741,
+            2.847,
+            -0.241
+          ],
+          "label": {
+            "en": "Linen pendant lights",
+            "fa": "آویزهای کتانی"
+          },
+          "note": {
+            "en": "Warm bulbs in woven linen shades.",
+            "fa": "لامپ‌های گرم زیر حباب‌های کتانی بافته."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Sergej Majboroda",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/comfy_cafe"
+      }
+    },
+    {
+      "id": "castle_zavelstein_cellar",
+      "room_type": "cellar",
+      "style_tags": [
+        "gothic",
+        "historic",
+        "stone"
+      ],
+      "name": {
+        "en": "Castle Vaulted Cellar",
+        "fa": "سرداب قلعه"
+      },
+      "description": {
+        "en": "Gothic brick vaults beneath the castle, cool and echoing.",
+        "fa": "طاق‌های آجری گوتیک زیر قلعه، خنک و طنین‌انداز."
+      },
+      "panorama": "assets/panoramas/castle_zavelstein_cellar.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/castle_zavelstein_cellar.jpg",
+      "depth_map": "assets/depth/castle_zavelstein_cellar_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 6.105,
+      "room_shape": {
+        "width": 3.6,
+        "height": 2.9,
+        "depth": 10.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.6
+      },
+      "portals": [
+        {
+          "id": "castle_zavelstein_cellar_p1",
+          "fraction": 0.12,
+          "origin": "ai_vision_door",
+          "position": [
+            -1.596,
+            1.07,
+            1.499
+          ],
+          "normal": [
+            0.729,
+            0.0,
+            -0.685
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "castle_zavelstein_cellar_p2",
+          "fraction": 0.62,
+          "origin": "ai_vision_door",
+          "position": [
+            1.596,
+            1.07,
+            -1.499
+          ],
+          "normal": [
+            -0.729,
+            0.0,
+            0.685
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "stone",
+      "audio": {
+        "ambient": "cellar_drip",
+        "reverb": 0.8,
+        "footsteps": "stone"
+      },
+      "hotspots": [
+        {
+          "id": "castle_zavelstein_cellar_brick_vault",
+          "fraction": 0.3,
+          "pitch": 45,
+          "position": [
+            0.362,
+            2.773,
+            1.115
+          ],
+          "label": {
+            "en": "Gothic brick vault",
+            "fa": "طاق آجری گوتیک"
+          },
+          "note": {
+            "en": "Pointed arches in bond brickwork.",
+            "fa": "طاق‌های تیزه‌ای با آجرچینی بندچین."
+          }
+        },
+        {
+          "id": "castle_zavelstein_cellar_stone_floor",
+          "fraction": 0.5,
+          "pitch": -74,
+          "position": [
+            0.409,
+            0.173,
+            0.0
+          ],
+          "label": {
+            "en": "Stone floor slabs",
+            "fa": "پلاک‌های کف سنگی"
+          },
+          "note": {
+            "en": "Flags of local sandstone.",
+            "fa": "پلاک‌های ماسه‌سنگ محلی."
+          }
+        },
+        {
+          "id": "castle_zavelstein_cellar_arched_niche",
+          "fraction": 0.74,
+          "pitch": 2,
+          "position": [
+            0.303,
+            1.769,
+            -4.82
+          ],
+          "label": {
+            "en": "Arched niche",
+            "fa": "طاقچه قوسی"
+          },
+          "note": {
+            "en": "Storage recess set into the wall.",
+            "fa": "جاگاهی در دل دیوار برای انبار."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Andreas Mischok",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/castle_zavelstein_cellar"
+      }
+    },
+    {
+      "id": "cabin",
+      "room_type": "bedroom",
+      "style_tags": [
+        "cozy",
+        "rustic",
+        "timber"
+      ],
+      "name": {
+        "en": "Forest Cabin Room",
+        "fa": "اتاق کلبه جنگلی"
+      },
+      "description": {
+        "en": "An intimate timber cabin bedroom with warm bedside light.",
+        "fa": "اتاق خواب چوبی و صمیمی کلبه با نور گرم کنار تخت."
+      },
+      "panorama": "assets/panoramas/cabin.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/cabin.jpg",
+      "depth_map": "assets/depth/cabin_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 3.634,
+      "room_shape": {
+        "width": 3.5,
+        "height": 2.4,
+        "depth": 4.6
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.35
+      },
+      "portals": [
+        {
+          "id": "cabin_p1",
+          "fraction": 0.358,
+          "origin": "ai_vision_door",
+          "position": [
+            1.574,
+            1.07,
+            1.952
+          ],
+          "normal": [
+            -0.628,
+            0.0,
+            -0.778
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "cabin_p2",
+          "fraction": 0.858,
+          "origin": "ai_vision_door",
+          "position": [
+            -1.574,
+            1.07,
+            -1.952
+          ],
+          "normal": [
+            0.628,
+            0.0,
+            0.778
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "wood",
+      "audio": {
+        "ambient": "room_tone",
+        "reverb": 0.2,
+        "footsteps": "wood"
+      },
+      "hotspots": [
+        {
+          "id": "cabin_pine_walls",
+          "fraction": 0.3,
+          "pitch": 6,
+          "position": [
+            0.692,
+            1.835,
+            2.13
+          ],
+          "label": {
+            "en": "Pine plank walls",
+            "fa": "دیوار تخته کاج"
+          },
+          "note": {
+            "en": "Tongue-and-groove pine, honey varnish.",
+            "fa": "تخته‌های کاج شیار و زبانه با لاک عسلی."
+          }
+        },
+        {
+          "id": "cabin_wool_throw",
+          "fraction": 0.55,
+          "pitch": -30,
+          "position": [
+            1.602,
+            0.628,
+            -0.52
+          ],
+          "label": {
+            "en": "Wool throw blanket",
+            "fa": "پتوی پشمی"
+          },
+          "note": {
+            "en": "Chunky knit lambswool throw.",
+            "fa": "پتوی بافت ضخیم از پشم بره."
+          }
+        },
+        {
+          "id": "cabin_reading_sconce",
+          "fraction": 0.68,
+          "pitch": 20,
+          "position": [
+            0.864,
+            2.338,
+            -1.836
+          ],
+          "label": {
+            "en": "Reading sconce",
+            "fa": "آویز مطالعه"
+          },
+          "note": {
+            "en": "Articulated brass wall light.",
+            "fa": "چراغ دیوار برنجی مفصلی."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Greg Zaal",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/cabin"
+      }
+    },
+    {
+      "id": "quadrangle_sunny",
+      "room_type": "courtyard",
+      "style_tags": [
+        "collegiate",
+        "classical",
+        "open_air"
+      ],
+      "name": {
+        "en": "Sunny College Quadrangle",
+        "fa": "حیاط چهارگوش دانشگاه"
+      },
+      "description": {
+        "en": "An open collegiate courtyard framed by stone cloisters under the midday sun.",
+        "fa": "حیاط باز دانشگاه با راهروهای سنگی در آفتاب نیم‌روز."
+      },
+      "panorama": "assets/panoramas/quadrangle_sunny.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/quadrangle_sunny.jpg",
+      "depth_map": "assets/depth/quadrangle_sunny_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 51.26,
+      "room_shape": {
+        "width": 24.0,
+        "height": 45.0,
+        "depth": 24.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.5
+      },
+      "portals": [
+        {
+          "id": "quadrangle_sunny_p1",
+          "fraction": 0.49,
+          "origin": "ai_vision_door",
+          "position": [
+            11.721,
+            1.07,
+            0.737
+          ],
+          "normal": [
+            -0.998,
+            0.0,
+            -0.063
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "quadrangle_sunny_p2",
+          "fraction": 0.99,
+          "origin": "ai_vision_door",
+          "position": [
+            -11.721,
+            1.07,
+            -0.737
+          ],
+          "normal": [
+            0.998,
+            0.0,
+            0.063
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "gravel",
+      "audio": {
+        "ambient": "birds_wind",
+        "reverb": 0.05,
+        "footsteps": "gravel"
+      },
+      "hotspots": [
+        {
+          "id": "quadrangle_sunny_cloister",
+          "fraction": 0.5,
+          "pitch": -2,
+          "position": [
+            11.82,
+            1.187,
+            0.0
+          ],
+          "label": {
+            "en": "Limestone cloister",
+            "fa": "راهرو سنگ آهکی"
+          },
+          "note": {
+            "en": "Arcaded walkway with mullioned tracery.",
+            "fa": "ایوان طاق‌دار با شبکه‌های سنگی."
+          }
+        },
+        {
+          "id": "quadrangle_sunny_lawn",
+          "fraction": 0.44,
+          "pitch": -66,
+          "position": [
+            0.594,
+            0.164,
+            0.235
+          ],
+          "label": {
+            "en": "Courtyard lawn",
+            "fa": "چمن حیاط"
+          },
+          "note": {
+            "en": "Close-mown mixed turf.",
+            "fa": "چمن متراکم چندگونه."
+          }
+        },
+        {
+          "id": "quadrangle_sunny_mullioned_windows",
+          "fraction": 0.75,
+          "pitch": 0,
+          "position": [
+            0.0,
+            1.6,
+            -11.82
+          ],
+          "label": {
+            "en": "Mullioned windows",
+            "fa": "پنجره‌های شبکه‌دار"
+          },
+          "note": {
+            "en": "Stone-mullioned casements in the range.",
+            "fa": "پنجره‌های قاب‌سنگی در بالای راهرو."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Savva Zakharov",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/quadrangle_sunny"
+      }
+    },
+    {
+      "id": "school_hall",
+      "room_type": "auditorium",
+      "style_tags": [
+        "institutional",
+        "timber",
+        "hall"
+      ],
+      "name": {
+        "en": "Old School Hall",
+        "fa": "سالن مدرسه قدیمی"
+      },
+      "description": {
+        "en": "A wooden-floored assembly hall with a stage and tall windows.",
+        "fa": "سالن اجتماعات با کف چوبی، سکوی نمایش و پنجره‌های بلند."
+      },
+      "panorama": "assets/panoramas/school_hall.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/school_hall.jpg",
+      "depth_map": "assets/depth/school_hall_depth.png",
+      "depth_encoding": "uint16-two-channel-rgb",
+      "depth_backend": "procedural",
+      "depth_max": 11.197,
+      "room_shape": {
+        "width": 9.0,
+        "height": 6.0,
+        "depth": 16.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.75
+      },
+      "portals": [
+        {
+          "id": "school_hall_p1",
+          "fraction": 0.595,
+          "origin": "ai_vision_door",
+          "position": [
+            4.268,
+            1.07,
+            -2.901
+          ],
+          "normal": [
+            -0.827,
+            0.0,
+            0.562
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        },
+        {
+          "id": "school_hall_p2",
+          "fraction": 0.178,
+          "origin": "ai_vision_door",
+          "position": [
+            -3.766,
+            1.07,
+            7.748
+          ],
+          "normal": [
+            0.437,
+            0.0,
+            -0.899
+          ],
+          "width": 1.15,
+          "height": 2.15,
+          "label": {
+            "en": "Smart Portal",
+            "fa": "درگاه هوشمند"
+          }
+        }
+      ],
+      "floor_material": "wood",
+      "audio": {
+        "ambient": "hall_air",
+        "reverb": 0.6,
+        "footsteps": "wood"
+      },
+      "hotspots": [
+        {
+          "id": "school_hall_maple_floor",
+          "fraction": 0.5,
+          "pitch": -71,
+          "position": [
+            0.492,
+            0.17,
+            0.0
+          ],
+          "label": {
+            "en": "Varnished maple floor",
+            "fa": "کف افرا لاکی"
+          },
+          "note": {
+            "en": "Strip maple on battens, gloss varnish.",
+            "fa": "نوارهای افرا روی زیرسازی با لاق براق."
+          }
+        },
+        {
+          "id": "school_hall_stage_curtain",
+          "fraction": 0.5,
+          "pitch": -4,
+          "position": [
+            4.32,
+            1.298,
+            0.0
+          ],
+          "label": {
+            "en": "Stage curtains",
+            "fa": "پرده‌های سکو"
+          },
+          "note": {
+            "en": "Heavy wool serge drapery.",
+            "fa": "پرده‌های ضخیم سرژ پشمی."
+          }
+        },
+        {
+          "id": "school_hall_timber_trusses",
+          "fraction": 0.3,
+          "pitch": 55,
+          "position": [
+            0.92,
+            5.853,
+            2.832
+          ],
+          "label": {
+            "en": "Timber roof trusses",
+            "fa": "پاورقی‌های چوبی"
+          },
+          "note": {
+            "en": "Exposed pine trusses with iron ties.",
+            "fa": "پاورقی‌های نمای کاج با مهار آهنی."
+          }
+        }
+      ],
+      "hotspots_curated": true,
+      "attribution": {
+        "creator": "Dimitrios Savva, Jarod Guest",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/school_hall"
+      }
+    }
+  ]
+}
