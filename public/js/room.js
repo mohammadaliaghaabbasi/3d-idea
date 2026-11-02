@@ -1,31 +1,19 @@
 /**
- * PANODROME — Stage 1.5 · True Room Volume (replaces the Stage-1 sphere)
+ * PANODROME — Stage 1.6 · Two-Layer Room (shell volume + 3D furniture)
  *
- * ARCHITECTURE (locked 2026-11-02, Stage 1.5):
- * The equirectangular panorama is projected onto a TRUE ROOM-SCALE INTERIOR
- * VOLUME — a metric shoebox calibrated to each room's real dimensions
- * (room_shape: width × depth in plan, height to the ceiling plane, floor
- * y = 0, walls at true metric distance from the origin, capture point =
- * room.camera). The camera WALKS for real: position.x/z translate in
- * metres across the floor, the floor plane slides underneath, and walls
- * stay 100 % FLAT AND PLUMB at every step (flat quads — zero vertex
- * displacement, forever).
+ * LAYER 1 (this module): the room shell — since Stage 1.5 the equirect
+ * panorama is projected onto a TRUE ROOM-SCALE INTERIOR VOLUME (metric
+ * shoebox, floor y = 0, plumb walls, per-fragment equirect shader from the
+ * capture point). Stage 1.6 swaps the texture source: when the room was
+ * processed by skills/skill_360_to_walkable_3d.py, `shell_texture` is the
+ * INPAINTED panorama (foreground furniture cleanly erased + background
+ * floor/wall reconstructed) — so walking across the floor shows clean
+ * carpet/wood, never flattened chalk-art furniture.
+ * LAYER 2 (main.js): the extracted furniture renders as true 3D meshes at
+ * their measured metric (x, y, z) inside this volume.
  *
- * How the projection stays exact while the camera moves:
- *   · UVs are NOT interpolated per-vertex — the fragment shader computes the
- *     equirect sample PER-FRAGMENT from the true direction
- *     (fragment → pano capture point). From the capture point the view is
- *     pano-exact (identical to the old sphere); away from it the room box
- *     provides real, physically-correct perspective parallax: the floor
- *     slides, walls approach, corners stay straight.
- *   · Smooth corner filleting: vertical corner fillets (r = 0.35 m) and
- *     floor coves (r = 0.15 m) blend wall→wall and wall→floor so the
- *     projection maps cleanly onto every junction.
- *
- *   · FOV is FIXED (68° desktop / 75° mobile) — walking is real translation,
- *     NEVER a focal-length zoom.
- *   · 4K equirect texture, anisotropy = max, raw-sRGB passthrough (no color
- *     mangling: the render is byte-identical to the source panorama).
+ * Laws that NEVER change: floor perfectly flat, walls perfectly plumb,
+ * FOV fixed 68/75, zero vertex displacement, raw-sRGB passthrough.
  */
 import * as THREE from "three";
 
@@ -144,8 +132,9 @@ const VERT_SHADER = /* glsl */`
  */
 export function buildRoomVolume(room, renderer) {
   return new Promise((resolve, reject) => {
+    const texUrl = room.shell_texture || room.panorama;   // Stage 1.6: inpainted shell
     new THREE.TextureLoader().load(
-      room.panorama,
+      texUrl,
       (texture) => {
         // RAW sRGB passthrough: no decode / no re-encode — byte-exact panorama.
         texture.wrapS = THREE.RepeatWrapping;
@@ -213,7 +202,7 @@ export function buildRoomVolume(room, renderer) {
         });
       },
       undefined,
-      () => reject(new Error("panorama failed: " + room.panorama))
+      () => reject(new Error("shell/panorama failed: " + texUrl))
     );
   });
 }
@@ -222,5 +211,8 @@ export function buildRoomVolume(room, renderer) {
 export function prefetchRoom(room) {
   if (!room) return;
   const a = new Image();
-  a.src = room.panorama;
+  a.src = room.shell_texture || room.panorama;
+  if (room.furniture && room.furniture.glb) {
+    fetch(room.furniture.glb, { mode: "same-origin" }).catch(() => {});
+  }
 }

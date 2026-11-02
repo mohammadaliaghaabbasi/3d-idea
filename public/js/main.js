@@ -19,6 +19,7 @@
  *     footsteps every 0.65 m of real travel + gentle room air.
  */
 import * as THREE from "three";
+import { GLTFLoader } from "../vendor/GLTFLoader-0.160.0.js";
 import { i18n } from "./i18n.js";
 import { buildRoomVolume, prefetchRoom } from "./room.js";
 import { WalkingControls } from "./controls.js";
@@ -35,6 +36,7 @@ const state = {
   roomIdx: -1,
   room: null,
   meshObj: null,
+  furnitureObj: null,
   waypoint: null,
   world: null,
   fx: null,
@@ -45,6 +47,7 @@ const state = {
 };
 
 let renderer, scene, camera, controls, hud, audio;
+const gltfLoader = new GLTFLoader();
 const clock = new THREE.Clock();
 const raycaster = new THREE.Raycaster();
 const pointerNdc = new THREE.Vector2();
@@ -143,7 +146,14 @@ async function main() {
     pos: () => [camera.position.x, camera.position.y, camera.position.z].map((v) => Math.round(v * 1000) / 1000),
     movedFromStart: () => Math.hypot(controls.pos.x - controls.start.x, controls.pos.z - controls.start.z),
     travelled: () => Math.round(controls.travelled * 100) / 100,
-    roomStats: () => (state.meshObj ? state.meshObj.stats : null),
+    roomStats: () => {
+      if (!state.meshObj) return null;
+      const s = { ...state.meshObj.stats };
+      s.furniture = state.furnitureObj ? state.furnitureObj.stats : null;
+      s.textureUrl = state.room ? (state.room.shell_texture || state.room.panorama) : null;
+      s.obstacles = state.room?.walk?.obstacles?.length ?? 0;
+      return s;
+    },
     textureSize: () => (state.meshObj ? state.meshObj.stats.textureSize : null),
     waypointScreen: () => {
       if (!state.waypoint) return null;
@@ -211,6 +221,51 @@ async function onEnter() {
 
 /* ------------------------------------------------------------- room lifecycle */
 
+/**
+ * Stage 1.6 LAYER 2 — independent 3D furniture meshes at true metric (x,y,z)
+ * inside the room volume (real parallax + occlusion; collision stays in
+ * collider.js from walk.obstacles). Fails soft: null → shell-only room.
+ */
+function loadFurnitureLayer(room) {
+  return new Promise((resolve) => {
+    if (!room.furniture || !room.furniture.glb) { resolve(null); return; }
+    gltfLoader.load(
+      room.furniture.glb,
+      (gltf) => {
+        const group = new THREE.Group();
+        group.name = "panodrome_furniture";
+        let tris = 0, meshes = 0;
+        gltf.scene.traverse((o) => {
+          if (o.isMesh) {
+            meshes++;
+            const n = o.geometry.index ? o.geometry.index.count
+                                         : o.geometry.attributes.position.count;
+            tris += n / 3;
+            if (o.material && o.material.map) {
+              o.material.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            }
+          }
+        });
+        group.add(gltf.scene);
+        resolve({ group, stats: { meshes, tris: Math.round(tris), glb: room.furniture.glb } });
+      },
+      undefined,
+      () => { console.warn("furniture layer failed (shell-only):", room.furniture.glb); resolve(null); }
+    );
+  });
+}
+
+function disposeFurnitureLayer(f) {
+  if (!f) return;
+  f.group.traverse((o) => {
+    if (o.isMesh) {
+      o.geometry?.dispose();
+      const mats = Array.isArray(o.material) ? o.material : [o.material];
+      for (const m of mats) { m.map?.dispose(); m?.dispose(); }
+    }
+  });
+}
+
 function routeFor(idx) {
   return computeRoutes(state.db.rooms, idx, state.mode);
 }
@@ -233,13 +288,21 @@ async function loadRoom(idx) {
   // build FIRST — the swap below is atomic, so state.room / world / waypoint
   // can never disagree (no walking in the previous room's collision world)
   hud.setLoadProgress(0.15);
-  const meshObj = await buildRoomVolume(room, renderer);
+  const [meshObj, furnitureObj] = await Promise.all([
+    buildRoomVolume(room, renderer),
+    loadFurnitureLayer(room),
+  ]);
   hud.setLoadProgress(0.85);
 
   if (state.meshObj) {
     scene.remove(state.meshObj.mesh);
     state.meshObj.dispose();
     state.meshObj = null;
+  }
+  if (state.furnitureObj) {
+    scene.remove(state.furnitureObj.group);
+    disposeFurnitureLayer(state.furnitureObj);
+    state.furnitureObj = null;
   }
   if (state.waypoint) {
     scene.remove(state.waypoint.group);
@@ -253,6 +316,8 @@ async function loadRoom(idx) {
 
   state.meshObj = meshObj;
   scene.add(meshObj.mesh);
+  state.furnitureObj = furnitureObj;
+  if (furnitureObj) scene.add(furnitureObj.group);
   state.roomIdx = idx;
   state.room = room;
 

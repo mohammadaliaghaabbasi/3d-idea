@@ -1,0 +1,931 @@
+{
+ "generated": "2026-11-02T13:11:18",
+ "results": [
+  {
+   "id": "anniversary_lounge",
+   "status": "CONVERTED",
+   "timings": {
+    "depth_s": 17.6,
+    "calibrate_s": 16.5,
+    "separate_s": 0.5,
+    "mesh_s": 2.3,
+    "inpaint_s": 6.6,
+    "total_s": 45.9
+   },
+   "measured": {
+    "scale": 4.708,
+    "cam_h_m": 0.895,
+    "ceil_h_m": 2.467,
+    "consistency": 0.566,
+    "box_min_wall_expected_m": 2.3,
+    "wall_rho_min_med_max": [
+     2.31,
+     3.61,
+     9.6
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 5,
+   "glb_kb": 513,
+   "shell_kb": 1099,
+   "total_kb": 1613,
+   "meshes": 5,
+   "tris": 22759,
+   "obstacles": [
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": 1.01,
+     "z": -1.41,
+     "type": "cylinder",
+     "r": 1.02
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "x": 1.67,
+     "z": 1.11,
+     "type": "cylinder",
+     "r": 0.69
+    },
+    {
+     "label": {
+      "en": "table",
+      "fa": "میز"
+     },
+     "x": -0.2,
+     "z": -0.59,
+     "type": "cylinder",
+     "r": 0.32
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": -1.57,
+     "z": 0.13,
+     "type": "box",
+     "hw": 0.55,
+     "hd": 0.2
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": -1.75,
+     "z": -0.18,
+     "type": "box",
+     "hw": 0.48,
+     "hd": 0.24
+    }
+   ],
+   "furniture_items": [
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 5645,
+     "stride": 4,
+     "x": 1.01,
+     "z": -1.41,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.82
+     ],
+     "median_distance_m": 1.81
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "tris": 4564,
+     "stride": 4,
+     "x": 1.67,
+     "z": 1.11,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      1.94
+     ],
+     "median_distance_m": 2.23
+    },
+    {
+     "label": {
+      "en": "table",
+      "fa": "میز"
+     },
+     "tris": 4130,
+     "stride": 4,
+     "x": -0.2,
+     "z": -0.59,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.25
+     ],
+     "median_distance_m": 0.95
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 4528,
+     "stride": 2,
+     "x": -1.57,
+     "z": 0.13,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.5
+     ],
+     "median_distance_m": 1.76
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 3892,
+     "stride": 2,
+     "x": -1.75,
+     "z": -0.18,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.5
+     ],
+     "median_distance_m": 1.9
+    }
+   ]
+  },
+  {
+   "id": "art_studio",
+   "status": "CONVERTED",
+   "timings": {
+    "depth_s": 17.0,
+    "calibrate_s": 14.8,
+    "separate_s": 0.4,
+    "mesh_s": 1.4,
+    "inpaint_s": 2.9,
+    "total_s": 38.8
+   },
+   "measured": {
+    "scale": 5.614,
+    "cam_h_m": 1.038,
+    "ceil_h_m": 2.439,
+    "consistency": 0.62,
+    "box_min_wall_expected_m": 2.5,
+    "wall_rho_min_med_max": [
+     1.69,
+     3.47,
+     9.05
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 3,
+   "glb_kb": 861,
+   "shell_kb": 1486,
+   "total_kb": 2348,
+   "meshes": 3,
+   "tris": 49832,
+   "obstacles": [
+    {
+     "label": {
+      "en": "Furniture",
+      "fa": "مبلمان"
+     },
+     "x": 1.86,
+     "z": -2.28,
+     "type": "cylinder",
+     "r": 0.83
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "x": 0.16,
+     "z": -1.9,
+     "type": "cylinder",
+     "r": 0.53
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "x": 2.03,
+     "z": 2.5,
+     "type": "box",
+     "hw": 0.45,
+     "hd": 0.95
+    }
+   ],
+   "furniture_items": [
+    {
+     "label": {
+      "en": "Furniture",
+      "fa": "مبلمان"
+     },
+     "tris": 12412,
+     "stride": 2,
+     "x": 1.86,
+     "z": -2.28,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      1.34
+     ],
+     "median_distance_m": 3.11
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "tris": 24822,
+     "stride": 1,
+     "x": 0.16,
+     "z": -1.9,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.54
+     ],
+     "median_distance_m": 2.03
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "tris": 12598,
+     "stride": 1,
+     "x": 2.03,
+     "z": 2.5,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.79
+     ],
+     "median_distance_m": 3.42
+    }
+   ]
+  },
+  {
+   "id": "cabin",
+   "status": "CONVERTED",
+   "timings": {
+    "depth_s": 17.8,
+    "calibrate_s": 17.1,
+    "separate_s": 0.4,
+    "mesh_s": 0.9,
+    "inpaint_s": 9.4,
+    "total_s": 46.3
+   },
+   "measured": {
+    "scale": 3.246,
+    "cam_h_m": 0.75,
+    "ceil_h_m": 1.95,
+    "consistency": 0.698,
+    "box_min_wall_expected_m": 1.75,
+    "wall_rho_min_med_max": [
+     1.48,
+     2.12,
+     7.36
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 4,
+   "glb_kb": 695,
+   "shell_kb": 576,
+   "total_kb": 1272,
+   "meshes": 4,
+   "tris": 33016,
+   "obstacles": [
+    {
+     "label": {
+      "en": "bed",
+      "fa": "تخت"
+     },
+     "x": -0.15,
+     "z": -0.72,
+     "type": "cylinder",
+     "r": 1.22
+    },
+    {
+     "label": {
+      "en": "bed",
+      "fa": "تخت"
+     },
+     "x": -0.52,
+     "z": 0.43,
+     "type": "cylinder",
+     "r": 0.7
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": 1.22,
+     "z": 0.19,
+     "type": "cylinder",
+     "r": 0.72
+    },
+    {
+     "label": {
+      "en": "bed",
+      "fa": "تخت"
+     },
+     "x": -0.55,
+     "z": -1.89,
+     "type": "cylinder",
+     "r": 0.34
+    }
+   ],
+   "furniture_items": [
+    {
+     "label": {
+      "en": "bed",
+      "fa": "تخت"
+     },
+     "tris": 7926,
+     "stride": 8,
+     "x": -0.15,
+     "z": -0.72,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      1.85
+     ],
+     "median_distance_m": 1.15
+    },
+    {
+     "label": {
+      "en": "bed",
+      "fa": "تخت"
+     },
+     "tris": 9136,
+     "stride": 5,
+     "x": -0.52,
+     "z": 0.43,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.36
+     ],
+     "median_distance_m": 0.8
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 10042,
+     "stride": 3,
+     "x": 1.22,
+     "z": 0.19,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.48
+     ],
+     "median_distance_m": 1.45
+    },
+    {
+     "label": {
+      "en": "bed",
+      "fa": "تخت"
+     },
+     "tris": 5912,
+     "stride": 2,
+     "x": -0.55,
+     "z": -1.89,
+     "collider": true,
+     "y_extent_m": [
+      0.29,
+      1.01
+     ],
+     "median_distance_m": 1.96
+    }
+   ]
+  },
+  {
+   "id": "comfy_cafe",
+   "status": "CONVERTED",
+   "timings": {
+    "depth_s": 17.6,
+    "calibrate_s": 14.6,
+    "separate_s": 0.6,
+    "mesh_s": 3.0,
+    "inpaint_s": 7.3,
+    "total_s": 45.4
+   },
+   "measured": {
+    "scale": 5.612,
+    "cam_h_m": 1.015,
+    "ceil_h_m": 2.34,
+    "consistency": 0.584,
+    "box_min_wall_expected_m": 2.5,
+    "wall_rho_min_med_max": [
+     2.26,
+     3.67,
+     11.2
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 7,
+   "glb_kb": 576,
+   "shell_kb": 762,
+   "total_kb": 1339,
+   "meshes": 7,
+   "tris": 29123,
+   "obstacles": [
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": -1.3,
+     "z": 0.63,
+     "type": "cylinder",
+     "r": 0.79
+    },
+    {
+     "label": {
+      "en": "table",
+      "fa": "میز"
+     },
+     "x": -0.58,
+     "z": 1.6,
+     "type": "cylinder",
+     "r": 0.74
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": 0.11,
+     "z": 2.13,
+     "type": "cylinder",
+     "r": 0.99
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": -1.82,
+     "z": -1.42,
+     "type": "cylinder",
+     "r": 0.64
+    },
+    {
+     "label": {
+      "en": "Plant",
+      "fa": "گیاه"
+     },
+     "x": 2.17,
+     "z": 0.6,
+     "type": "cylinder",
+     "r": 0.38
+    },
+    {
+     "label": {
+      "en": "table",
+      "fa": "میز"
+     },
+     "x": -1.27,
+     "z": -2.34,
+     "type": "cylinder",
+     "r": 0.55
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "x": -0.66,
+     "z": -2.83,
+     "type": "cylinder",
+     "r": 0.61
+    }
+   ],
+   "furniture_items": [
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 4130,
+     "stride": 5,
+     "x": -1.3,
+     "z": 0.63,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.68
+     ],
+     "median_distance_m": 1.6
+    },
+    {
+     "label": {
+      "en": "table",
+      "fa": "میز"
+     },
+     "tris": 3886,
+     "stride": 4,
+     "x": -0.58,
+     "z": 1.6,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.42
+     ],
+     "median_distance_m": 1.89
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 5033,
+     "stride": 3,
+     "x": 0.11,
+     "z": 2.13,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.71
+     ],
+     "median_distance_m": 2.12
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 3708,
+     "stride": 3,
+     "x": -1.82,
+     "z": -1.42,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.71
+     ],
+     "median_distance_m": 2.6
+    },
+    {
+     "label": {
+      "en": "Plant",
+      "fa": "گیاه"
+     },
+     "tris": 3302,
+     "stride": 3,
+     "x": 2.17,
+     "z": 0.6,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      1.23
+     ],
+     "median_distance_m": 2.34
+    },
+    {
+     "label": {
+      "en": "table",
+      "fa": "میز"
+     },
+     "tris": 5120,
+     "stride": 2,
+     "x": -1.27,
+     "z": -2.34,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.57
+     ],
+     "median_distance_m": 2.81
+    },
+    {
+     "label": {
+      "en": "sofa",
+      "fa": "مبل"
+     },
+     "tris": 3944,
+     "stride": 2,
+     "x": -0.66,
+     "z": -2.83,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.74
+     ],
+     "median_distance_m": 3.12
+    }
+   ]
+  },
+  {
+   "id": "large_corridor",
+   "status": "CONVERTED",
+   "timings": {
+    "depth_s": 17.3,
+    "calibrate_s": 16.5,
+    "separate_s": 0.3,
+    "mesh_s": 0.0,
+    "inpaint_s": 4.4,
+    "total_s": 39.1
+   },
+   "measured": {
+    "scale": 3.235,
+    "cam_h_m": 0.7,
+    "ceil_h_m": 1.96,
+    "consistency": 0.835,
+    "box_min_wall_expected_m": 1.7,
+    "wall_rho_min_med_max": [
+     1.2,
+     2.09,
+     20.4
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 1,
+   "glb_kb": 359,
+   "shell_kb": 1223,
+   "total_kb": 1583,
+   "meshes": 1,
+   "tris": 22264,
+   "obstacles": [
+    {
+     "label": {
+      "en": "Door",
+      "fa": "درب"
+     },
+     "x": 0.54,
+     "z": -2.31,
+     "type": "cylinder",
+     "r": 0.29
+    }
+   ],
+   "furniture_items": [
+    {
+     "label": {
+      "en": "Door",
+      "fa": "درب"
+     },
+     "tris": 22264,
+     "stride": 1,
+     "x": 0.54,
+     "z": -2.31,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.37
+     ],
+     "median_distance_m": 1.09
+    }
+   ]
+  },
+  {
+   "id": "castle_zavelstein_cellar",
+   "status": "SKIPPED",
+   "timings": {
+    "depth_s": 17.4,
+    "calibrate_s": 16.8,
+    "separate_s": 0.3
+   },
+   "measured": {
+    "scale": 3.436,
+    "cam_h_m": 0.7,
+    "ceil_h_m": 1.9,
+    "consistency": 0.685,
+    "box_min_wall_expected_m": 1.8,
+    "wall_rho_min_med_max": [
+     1.82,
+     2.56,
+     13.7
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 0,
+   "reason": "no furniture components passed the D1 filters (empty room / outdoor scene) — Stage 1.5 setup kept"
+  },
+  {
+   "id": "ballroom",
+   "status": "CONVERTED",
+   "timings": {
+    "depth_s": 17.5,
+    "calibrate_s": 15.1,
+    "separate_s": 0.3,
+    "mesh_s": 0.5,
+    "inpaint_s": 1.2,
+    "total_s": 35.4
+   },
+   "measured": {
+    "scale": 10.068,
+    "cam_h_m": 1.649,
+    "ceil_h_m": 4.924,
+    "consistency": 0.412,
+    "box_min_wall_expected_m": 4.5,
+    "wall_rho_min_med_max": [
+     4.4,
+     6.99,
+     22.4
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 2,
+   "glb_kb": 432,
+   "shell_kb": 1417,
+   "total_kb": 1850,
+   "meshes": 2,
+   "tris": 25672,
+   "obstacles": [
+    {
+     "label": {
+      "en": "radiator",
+      "fa": "رادیاتور"
+     },
+     "x": -0.82,
+     "z": -4.49,
+     "type": "box",
+     "hw": 1.82,
+     "hd": 0.73
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "x": 1.59,
+     "z": -4.19,
+     "type": "box",
+     "hw": 0.77,
+     "hd": 0.18
+    }
+   ],
+   "furniture_items": [
+    {
+     "label": {
+      "en": "radiator",
+      "fa": "رادیاتور"
+     },
+     "tris": 11858,
+     "stride": 2,
+     "x": -0.82,
+     "z": -4.49,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      1.72
+     ],
+     "median_distance_m": 4.52
+    },
+    {
+     "label": {
+      "en": "cabinet",
+      "fa": "کابینت"
+     },
+     "tris": 13814,
+     "stride": 1,
+     "x": 1.59,
+     "z": -4.19,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.97
+     ],
+     "median_distance_m": 4.66
+    }
+   ]
+  },
+  {
+   "id": "school_hall",
+   "status": "CONVERTED",
+   "timings": {
+    "depth_s": 17.4,
+    "calibrate_s": 15.4,
+    "separate_s": 0.2,
+    "mesh_s": 0.0,
+    "inpaint_s": 1.4,
+    "total_s": 34.9
+   },
+   "measured": {
+    "scale": 4.052,
+    "cam_h_m": 0.7,
+    "ceil_h_m": 2.5,
+    "consistency": 0.653,
+    "box_min_wall_expected_m": 4.5,
+    "wall_rho_min_med_max": [
+     2.83,
+     3.71,
+     25.0
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 1,
+   "glb_kb": 206,
+   "shell_kb": 1304,
+   "total_kb": 1511,
+   "meshes": 1,
+   "tris": 12324,
+   "obstacles": [
+    {
+     "label": {
+      "en": "piano",
+      "fa": "پیانو"
+     },
+     "x": -3.52,
+     "z": -0.83,
+     "type": "cylinder",
+     "r": 0.82
+    }
+   ],
+   "furniture_items": [
+    {
+     "label": {
+      "en": "piano",
+      "fa": "پیانو"
+     },
+     "tris": 12324,
+     "stride": 1,
+     "x": -3.52,
+     "z": -0.83,
+     "collider": true,
+     "y_extent_m": [
+      0.03,
+      0.77
+     ],
+     "median_distance_m": 3.65
+    }
+   ]
+  },
+  {
+   "id": "leipzig_festsaal",
+   "status": "SKIPPED",
+   "timings": {
+    "depth_s": 19.2,
+    "calibrate_s": 15.3,
+    "separate_s": 0.2
+   },
+   "measured": {
+    "scale": 9.565,
+    "cam_h_m": 1.444,
+    "ceil_h_m": 4.851,
+    "consistency": 0.462,
+    "box_min_wall_expected_m": 5.0,
+    "wall_rho_min_med_max": [
+     2.32,
+     4.92,
+     24.33
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 0,
+   "reason": "no furniture components passed the D1 filters (empty room / outdoor scene) — Stage 1.5 setup kept"
+  },
+  {
+   "id": "quadrangle_sunny",
+   "status": "SKIPPED",
+   "timings": {
+    "depth_s": 17.1,
+    "calibrate_s": 16.4,
+    "separate_s": 0.2
+   },
+   "measured": {
+    "scale": 16.492,
+    "cam_h_m": 1.7,
+    "ceil_h_m": 6.2,
+    "consistency": 0.25,
+    "box_min_wall_expected_m": 12.0,
+    "wall_rho_min_med_max": [
+     9.53,
+     25.0,
+     25.0
+    ],
+    "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
+   },
+   "components_raw": 0,
+   "reason": "no furniture components passed the D1 filters (empty room / outdoor scene) — Stage 1.5 setup kept"
+  }
+ ],
+ "summary": {
+  "converted": 7,
+  "skipped": 3,
+  "total_min": 6.5,
+  "budget_kb": 2500
+ }
+}

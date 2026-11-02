@@ -2,7 +2,7 @@
   "schema": "panodrome/rooms-db@2",
   "project": "Panodrome",
   "generated_at": "2026-11-02T00:00:00",
-  "stage": "stage1.5_true_first_person_walk",
+  "stage": "stage1.6_layered_3d_walk",
   "content_source": "PolyHaven CC0 (9) + Wikimedia Commons CC BY-SA 4.0 (1) — 10 curated design spaces, VLM-verified doorways, true room-box geometry with walk colliders",
   "geometry_law": "room box = width x depth centred at world origin x/z, floor y=0, ceiling y=height; pano capture point = room.camera; equirect projected per-fragment from the capture point; walls/floor stay perfectly flat — zero vertex displacement, forever",
   "rooms": [
@@ -80,25 +80,56 @@
         },
         "obstacles": [
           {
-            "type": "box",
-            "x": -1.95,
-            "z": -1.3,
-            "hw": 0.32,
-            "hd": 1.0,
             "label": {
-              "en": "Sofa",
-              "fa": "مبل راحتی"
-            }
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "x": 1.01,
+            "z": -1.41,
+            "type": "cylinder",
+            "r": 1.02
           },
           {
-            "type": "cylinder",
-            "x": -1.25,
-            "z": -1.3,
-            "r": 0.5,
             "label": {
-              "en": "Coffee Table",
-              "fa": "میز عسلی"
-            }
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "x": 1.67,
+            "z": 1.11,
+            "type": "cylinder",
+            "r": 0.69
+          },
+          {
+            "label": {
+              "en": "table",
+              "fa": "میز"
+            },
+            "x": -0.2,
+            "z": -0.59,
+            "type": "cylinder",
+            "r": 0.32
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "x": -1.57,
+            "z": 0.13,
+            "type": "box",
+            "hw": 0.55,
+            "hd": 0.2
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "x": -1.75,
+            "z": -0.18,
+            "type": "box",
+            "hw": 0.48,
+            "hd": 0.24
           },
           {
             "type": "cylinder",
@@ -122,6 +153,109 @@
             }
           }
         ]
+      },
+      "shell_texture": "assets/shells/anniversary_lounge.jpg",
+      "furniture": {
+        "glb": "assets/furniture/anniversary_lounge.glb",
+        "meshes": 5,
+        "tris": 22759,
+        "bytes_glb": 525600,
+        "bytes_shell": 1126155,
+        "items": [
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 5645,
+            "stride": 4,
+            "x": 1.01,
+            "z": -1.41,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.82
+            ],
+            "median_distance_m": 1.81
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "tris": 4564,
+            "stride": 4,
+            "x": 1.67,
+            "z": 1.11,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              1.94
+            ],
+            "median_distance_m": 2.23
+          },
+          {
+            "label": {
+              "en": "table",
+              "fa": "میز"
+            },
+            "tris": 4130,
+            "stride": 4,
+            "x": -0.2,
+            "z": -0.59,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.25
+            ],
+            "median_distance_m": 0.95
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 4528,
+            "stride": 2,
+            "x": -1.57,
+            "z": 0.13,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.5
+            ],
+            "median_distance_m": 1.76
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 3892,
+            "stride": 2,
+            "x": -1.75,
+            "z": -0.18,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.5
+            ],
+            "median_distance_m": 1.9
+          }
+        ]
+      },
+      "measured": {
+        "scale": 4.708,
+        "cam_h_m": 0.895,
+        "ceil_h_m": 2.467,
+        "consistency": 0.566,
+        "box_min_wall_expected_m": 2.3,
+        "wall_rho_min_med_max": [
+          2.31,
+          3.61,
+          9.6
+        ],
+        "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
       }
     },
     {
@@ -153,7 +287,7 @@
       },
       "camera": {
         "x": 0.0,
-        "y": 1.6,
+        "y": 1.04,
         "z": 0.0
       },
       "initial_view": {
@@ -198,6 +332,37 @@
         },
         "obstacles": [
           {
+            "label": {
+              "en": "Furniture",
+              "fa": "مبلمان"
+            },
+            "x": 1.86,
+            "z": -2.28,
+            "type": "cylinder",
+            "r": 0.83
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "x": 0.16,
+            "z": -1.9,
+            "type": "cylinder",
+            "r": 0.53
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "x": 2.03,
+            "z": 2.5,
+            "type": "box",
+            "hw": 0.45,
+            "hd": 0.95
+          },
+          {
             "type": "cylinder",
             "x": -1.8,
             "z": 1.3,
@@ -217,39 +382,79 @@
               "en": "Studio Stairs",
               "fa": "پله‌های استودیو"
             }
-          },
-          {
-            "type": "box",
-            "x": 1.7,
-            "z": 0.6,
-            "hw": 0.85,
-            "hd": 0.6,
-            "label": {
-              "en": "Paint Table",
-              "fa": "میز نقاشی"
-            }
-          },
-          {
-            "type": "cylinder",
-            "x": 1.9,
-            "z": -1.9,
-            "r": 0.6,
-            "label": {
-              "en": "Table",
-              "fa": "میز"
-            }
-          },
-          {
-            "type": "cylinder",
-            "x": 0.5,
-            "z": -3.0,
-            "r": 0.5,
-            "label": {
-              "en": "Easel",
-              "fa": "چوب‌قاب نقاشی"
-            }
           }
         ]
+      },
+      "shell_texture": "assets/shells/art_studio.jpg",
+      "furniture": {
+        "glb": "assets/furniture/art_studio.glb",
+        "meshes": 3,
+        "tris": 49832,
+        "bytes_glb": 882384,
+        "bytes_shell": 1522111,
+        "items": [
+          {
+            "label": {
+              "en": "Furniture",
+              "fa": "مبلمان"
+            },
+            "tris": 12412,
+            "stride": 2,
+            "x": 1.86,
+            "z": -2.28,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              1.34
+            ],
+            "median_distance_m": 3.11
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "tris": 24822,
+            "stride": 1,
+            "x": 0.16,
+            "z": -1.9,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.54
+            ],
+            "median_distance_m": 2.03
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "tris": 12598,
+            "stride": 1,
+            "x": 2.03,
+            "z": 2.5,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.79
+            ],
+            "median_distance_m": 3.42
+          }
+        ]
+      },
+      "measured": {
+        "scale": 5.614,
+        "cam_h_m": 1.038,
+        "ceil_h_m": 2.439,
+        "consistency": 0.62,
+        "box_min_wall_expected_m": 2.5,
+        "wall_rho_min_med_max": [
+          1.69,
+          3.47,
+          9.05
+        ],
+        "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
       }
     },
     {
@@ -281,7 +486,7 @@
       },
       "camera": {
         "x": 0.0,
-        "y": 1.6,
+        "y": 0.75,
         "z": 0.0
       },
       "initial_view": {
@@ -326,26 +531,44 @@
         },
         "obstacles": [
           {
-            "type": "box",
-            "x": 0.0,
-            "z": -1.55,
-            "hw": 1.25,
-            "hd": 0.7,
             "label": {
-              "en": "Bed",
-              "fa": "تخت‌خواب"
-            }
+              "en": "bed",
+              "fa": "تخت"
+            },
+            "x": -0.15,
+            "z": -0.72,
+            "type": "cylinder",
+            "r": 1.22
           },
           {
-            "type": "box",
-            "x": 0.0,
-            "z": 2.0,
-            "hw": 0.75,
-            "hd": 0.38,
             "label": {
-              "en": "Desk",
-              "fa": "میز کار"
-            }
+              "en": "bed",
+              "fa": "تخت"
+            },
+            "x": -0.52,
+            "z": 0.43,
+            "type": "cylinder",
+            "r": 0.7
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "x": 1.22,
+            "z": 0.19,
+            "type": "cylinder",
+            "r": 0.72
+          },
+          {
+            "label": {
+              "en": "bed",
+              "fa": "تخت"
+            },
+            "x": -0.55,
+            "z": -1.89,
+            "type": "cylinder",
+            "r": 0.34
           },
           {
             "type": "box",
@@ -357,18 +580,95 @@
               "en": "Cabinet",
               "fa": "کمد"
             }
-          },
-          {
-            "type": "cylinder",
-            "x": 1.35,
-            "z": 0.35,
-            "r": 0.5,
-            "label": {
-              "en": "Chair",
-              "fa": "صندلی"
-            }
           }
         ]
+      },
+      "shell_texture": "assets/shells/cabin.jpg",
+      "furniture": {
+        "glb": "assets/furniture/cabin.glb",
+        "meshes": 4,
+        "tris": 33016,
+        "bytes_glb": 712212,
+        "bytes_shell": 590577,
+        "items": [
+          {
+            "label": {
+              "en": "bed",
+              "fa": "تخت"
+            },
+            "tris": 7926,
+            "stride": 8,
+            "x": -0.15,
+            "z": -0.72,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              1.85
+            ],
+            "median_distance_m": 1.15
+          },
+          {
+            "label": {
+              "en": "bed",
+              "fa": "تخت"
+            },
+            "tris": 9136,
+            "stride": 5,
+            "x": -0.52,
+            "z": 0.43,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.36
+            ],
+            "median_distance_m": 0.8
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 10042,
+            "stride": 3,
+            "x": 1.22,
+            "z": 0.19,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.48
+            ],
+            "median_distance_m": 1.45
+          },
+          {
+            "label": {
+              "en": "bed",
+              "fa": "تخت"
+            },
+            "tris": 5912,
+            "stride": 2,
+            "x": -0.55,
+            "z": -1.89,
+            "collider": true,
+            "y_extent_m": [
+              0.29,
+              1.01
+            ],
+            "median_distance_m": 1.96
+          }
+        ]
+      },
+      "measured": {
+        "scale": 3.246,
+        "cam_h_m": 0.75,
+        "ceil_h_m": 1.95,
+        "consistency": 0.698,
+        "box_min_wall_expected_m": 1.75,
+        "wall_rho_min_med_max": [
+          1.48,
+          2.12,
+          7.36
+        ],
+        "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
       }
     },
     {
@@ -445,36 +745,74 @@
         },
         "obstacles": [
           {
-            "type": "cylinder",
-            "x": -2.0,
-            "z": 0.0,
-            "r": 0.55,
             "label": {
-              "en": "Café Table",
-              "fa": "میز کافه"
-            }
-          },
-          {
-            "type": "box",
-            "x": -1.4,
-            "z": 2.6,
-            "hw": 0.75,
-            "hd": 0.45,
-            "label": {
-              "en": "Sofa",
+              "en": "sofa",
               "fa": "مبل"
-            }
+            },
+            "x": -1.3,
+            "z": 0.63,
+            "type": "cylinder",
+            "r": 0.79
           },
           {
-            "type": "box",
-            "x": 0.9,
-            "z": 3.0,
-            "hw": 0.9,
-            "hd": 0.45,
             "label": {
-              "en": "Sofa Bench",
-              "fa": "نیمکت"
-            }
+              "en": "table",
+              "fa": "میز"
+            },
+            "x": -0.58,
+            "z": 1.6,
+            "type": "cylinder",
+            "r": 0.74
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "x": 0.11,
+            "z": 2.13,
+            "type": "cylinder",
+            "r": 0.99
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "x": -1.82,
+            "z": -1.42,
+            "type": "cylinder",
+            "r": 0.64
+          },
+          {
+            "label": {
+              "en": "Plant",
+              "fa": "گیاه"
+            },
+            "x": 2.17,
+            "z": 0.6,
+            "type": "cylinder",
+            "r": 0.38
+          },
+          {
+            "label": {
+              "en": "table",
+              "fa": "میز"
+            },
+            "x": -1.27,
+            "z": -2.34,
+            "type": "cylinder",
+            "r": 0.55
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "x": -0.66,
+            "z": -2.83,
+            "type": "cylinder",
+            "r": 0.61
           },
           {
             "type": "cylinder",
@@ -485,29 +823,143 @@
               "en": "Café Table",
               "fa": "میز کافه"
             }
-          },
-          {
-            "type": "cylinder",
-            "x": 2.1,
-            "z": 0.4,
-            "r": 0.5,
-            "label": {
-              "en": "Café Table",
-              "fa": "میز کافه"
-            }
-          },
-          {
-            "type": "box",
-            "x": -0.8,
-            "z": -3.0,
-            "hw": 0.85,
-            "hd": 0.45,
-            "label": {
-              "en": "Sofa Bench",
-              "fa": "نیمکت"
-            }
           }
         ]
+      },
+      "shell_texture": "assets/shells/comfy_cafe.jpg",
+      "furniture": {
+        "glb": "assets/furniture/comfy_cafe.glb",
+        "meshes": 7,
+        "tris": 29123,
+        "bytes_glb": 590524,
+        "bytes_shell": 780791,
+        "items": [
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 4130,
+            "stride": 5,
+            "x": -1.3,
+            "z": 0.63,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.68
+            ],
+            "median_distance_m": 1.6
+          },
+          {
+            "label": {
+              "en": "table",
+              "fa": "میز"
+            },
+            "tris": 3886,
+            "stride": 4,
+            "x": -0.58,
+            "z": 1.6,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.42
+            ],
+            "median_distance_m": 1.89
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 5033,
+            "stride": 3,
+            "x": 0.11,
+            "z": 2.13,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.71
+            ],
+            "median_distance_m": 2.12
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 3708,
+            "stride": 3,
+            "x": -1.82,
+            "z": -1.42,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.71
+            ],
+            "median_distance_m": 2.6
+          },
+          {
+            "label": {
+              "en": "Plant",
+              "fa": "گیاه"
+            },
+            "tris": 3302,
+            "stride": 3,
+            "x": 2.17,
+            "z": 0.6,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              1.23
+            ],
+            "median_distance_m": 2.34
+          },
+          {
+            "label": {
+              "en": "table",
+              "fa": "میز"
+            },
+            "tris": 5120,
+            "stride": 2,
+            "x": -1.27,
+            "z": -2.34,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.57
+            ],
+            "median_distance_m": 2.81
+          },
+          {
+            "label": {
+              "en": "sofa",
+              "fa": "مبل"
+            },
+            "tris": 3944,
+            "stride": 2,
+            "x": -0.66,
+            "z": -2.83,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.74
+            ],
+            "median_distance_m": 3.12
+          }
+        ]
+      },
+      "measured": {
+        "scale": 5.612,
+        "cam_h_m": 1.015,
+        "ceil_h_m": 2.34,
+        "consistency": 0.584,
+        "box_min_wall_expected_m": 2.5,
+        "wall_rho_min_med_max": [
+          2.26,
+          3.67,
+          11.2
+        ],
+        "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
       }
     },
     {
@@ -538,7 +990,7 @@
       },
       "camera": {
         "x": 0.0,
-        "y": 1.6,
+        "y": 0.7,
         "z": -1.5
       },
       "initial_view": {
@@ -583,6 +1035,16 @@
         },
         "obstacles": [
           {
+            "label": {
+              "en": "Door",
+              "fa": "درب"
+            },
+            "x": 0.54,
+            "z": -2.31,
+            "type": "cylinder",
+            "r": 0.29
+          },
+          {
             "type": "box",
             "x": 1.45,
             "z": 4.9,
@@ -605,6 +1067,45 @@
             }
           }
         ]
+      },
+      "shell_texture": "assets/shells/large_corridor.jpg",
+      "furniture": {
+        "glb": "assets/furniture/large_corridor.glb",
+        "meshes": 1,
+        "tris": 22264,
+        "bytes_glb": 368204,
+        "bytes_shell": 1252813,
+        "items": [
+          {
+            "label": {
+              "en": "Door",
+              "fa": "درب"
+            },
+            "tris": 22264,
+            "stride": 1,
+            "x": 0.54,
+            "z": -2.31,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.37
+            ],
+            "median_distance_m": 1.09
+          }
+        ]
+      },
+      "measured": {
+        "scale": 3.235,
+        "cam_h_m": 0.7,
+        "ceil_h_m": 1.96,
+        "consistency": 0.835,
+        "box_min_wall_expected_m": 1.7,
+        "wall_rho_min_med_max": [
+          1.2,
+          2.09,
+          20.4
+        ],
+        "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
       }
     },
     {
@@ -756,6 +1257,28 @@
         },
         "obstacles": [
           {
+            "label": {
+              "en": "radiator",
+              "fa": "رادیاتور"
+            },
+            "x": -0.82,
+            "z": -4.49,
+            "type": "box",
+            "hw": 1.82,
+            "hd": 0.73
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "x": 1.59,
+            "z": -4.19,
+            "type": "box",
+            "hw": 0.77,
+            "hd": 0.18
+          },
+          {
             "type": "box",
             "x": -3.6,
             "z": 2.3,
@@ -767,6 +1290,61 @@
             }
           }
         ]
+      },
+      "shell_texture": "assets/shells/ballroom.jpg",
+      "furniture": {
+        "glb": "assets/furniture/ballroom.glb",
+        "meshes": 2,
+        "tris": 25672,
+        "bytes_glb": 443040,
+        "bytes_shell": 1451545,
+        "items": [
+          {
+            "label": {
+              "en": "radiator",
+              "fa": "رادیاتور"
+            },
+            "tris": 11858,
+            "stride": 2,
+            "x": -0.82,
+            "z": -4.49,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              1.72
+            ],
+            "median_distance_m": 4.52
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "tris": 13814,
+            "stride": 1,
+            "x": 1.59,
+            "z": -4.19,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.97
+            ],
+            "median_distance_m": 4.66
+          }
+        ]
+      },
+      "measured": {
+        "scale": 10.068,
+        "cam_h_m": 1.649,
+        "ceil_h_m": 4.924,
+        "consistency": 0.412,
+        "box_min_wall_expected_m": 4.5,
+        "wall_rho_min_med_max": [
+          4.4,
+          6.99,
+          22.4
+        ],
+        "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
       }
     },
     {
@@ -798,7 +1376,7 @@
       },
       "camera": {
         "x": 0.0,
-        "y": 1.6,
+        "y": 0.7,
         "z": 0.0
       },
       "initial_view": {
@@ -843,6 +1421,16 @@
         },
         "obstacles": [
           {
+            "label": {
+              "en": "piano",
+              "fa": "پیانو"
+            },
+            "x": -3.52,
+            "z": -0.83,
+            "type": "cylinder",
+            "r": 0.82
+          },
+          {
             "type": "box",
             "x": 0.0,
             "z": -6.8,
@@ -863,30 +1451,47 @@
               "en": "Chair Rows",
               "fa": "ردیف صندلی‌ها"
             }
-          },
-          {
-            "type": "box",
-            "x": 0.0,
-            "z": -2.9,
-            "hw": 3.4,
-            "hd": 0.55,
-            "label": {
-              "en": "Chair Rows",
-              "fa": "ردیف صندلی‌ها"
-            }
-          },
-          {
-            "type": "box",
-            "x": -3.8,
-            "z": -1.6,
-            "hw": 0.8,
-            "hd": 1.05,
-            "label": {
-              "en": "Piano",
-              "fa": "پیانو"
-            }
           }
         ]
+      },
+      "shell_texture": "assets/shells/school_hall.jpg",
+      "furniture": {
+        "glb": "assets/furniture/school_hall.glb",
+        "meshes": 1,
+        "tris": 12324,
+        "bytes_glb": 211676,
+        "bytes_shell": 1336291,
+        "items": [
+          {
+            "label": {
+              "en": "piano",
+              "fa": "پیانو"
+            },
+            "tris": 12324,
+            "stride": 1,
+            "x": -3.52,
+            "z": -0.83,
+            "collider": true,
+            "y_extent_m": [
+              0.03,
+              0.77
+            ],
+            "median_distance_m": 3.65
+          }
+        ]
+      },
+      "measured": {
+        "scale": 4.052,
+        "cam_h_m": 0.7,
+        "ceil_h_m": 2.5,
+        "consistency": 0.653,
+        "box_min_wall_expected_m": 4.5,
+        "wall_rho_min_med_max": [
+          2.83,
+          3.71,
+          25.0
+        ],
+        "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
       }
     },
     {
