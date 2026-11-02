@@ -31,6 +31,13 @@ SECURITY: the Google AI Studio key lives ONLY in `.env` (git-ignored)
 or the GOOGLE_API_KEY env var. It is NEVER written to any tracked
 file, log line, or cache entry.
 
+GEO-BYPASS GATEWAY: set GEMINI_PROXY_URL in `.env` (e.g. the deployed
+Cloudflare Worker gateway — scripts/cf_deploy_gateway.sh) and every
+Gemini call is routed through its North-America-pinned Durable Object
+(locationHint "enam"), so egress regions on Google's unsupported list
+(HK build sandbox, Iran) stop hitting "User location is not supported".
+Unset -> direct generativelanguage.googleapis.com access.
+
 USAGE
 -----
   CLI:  python3 skills/ai_router.py --probe
@@ -76,6 +83,41 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CACHE_DIR = REPO_ROOT / ".cache" / "ai_responses"
 GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
 CACHE_SCHEMA = "panodrome.ai_router.cache.v1"
+# Gateway state, measured live 2026-11-02 through the CF gateway:
+#   WORKS on free tier: 3.6-flash, 3.5-flash, 3.5-flash-lite
+#   429 quota-0: 3.8-flash, flash-latest, pro-latest, 3.1-pro-preview
+#   503 busy (transient): 3.7-flash, 3.1-flash-lite
+_PROXY_BASE_CACHE: dict = {}
+
+
+def _load_env_var(name: str) -> Optional[str]:
+    """Env var or .env value (never logged, never hardcoded)."""
+    val = os.environ.get(name)
+    if val:
+        return val.strip()
+    env_path = REPO_ROOT / ".env"
+    if env_path.is_file():
+        for line in env_path.read_text().splitlines():
+            line = line.strip()
+            if line.startswith(name) and "=" in line:
+                v = line.split("=", 1)[1].strip().strip('"').strip("'")
+                if v:
+                    return v
+    return None
+
+
+def gemini_base() -> str:
+    """Effective Generative Language base URL (GEMINI_PROXY_URL-aware)."""
+    if "v" not in _PROXY_BASE_CACHE:
+        proxy = _load_env_var("GEMINI_PROXY_URL")
+        if proxy:
+            proxy = proxy.rstrip("/")
+            if not proxy.startswith(("http://", "https://")):
+                proxy = "https://" + proxy
+            _PROXY_BASE_CACHE["v"] = proxy + "/v1beta"
+        else:
+            _PROXY_BASE_CACHE["v"] = GEMINI_BASE
+    return _PROXY_BASE_CACHE["v"]
 # Current ladder, MEASURED 2026-11-02: the 2.5/2.0 family returns 404
 # "no longer available to new users" and points at these 3.x successors:
 #   gemini-2.5-pro       -> gemini-3.1-pro-preview
@@ -85,6 +127,9 @@ CACHE_SCHEMA = "panodrome.ai_router.cache.v1"
 PROBE_MODELS = [
     "gemini-3.1-pro-preview",
     "gemini-3.8-flash",
+    "gemini-3.7-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
     "gemini-3.5-flash-lite",
     "gemini-2.5-pro",  # legacy: expected 404 deprecation evidence
 ]
@@ -110,7 +155,7 @@ TIERS: dict[int, TierSpec] = {
         name="heavy_spatial_architect",
         desc="3D room-layout math, precise 2D/3D furniture bounding boxes & "
         "segmentation masks, complex WebGL shader design",
-        models=["gemini-3.1-pro-preview", "gemini-3.8-flash"],  # was 2.5-pro -> 2.5-flash
+        models=["gemini-3.1-pro-preview", "gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash"],  # 3.6 = measured live free-tier floor
         zai_chat_or_vision="chat",
         thinking_budget=None,  # Pro thinking ON — spatial math needs it
         timeout_s=180,
@@ -120,7 +165,7 @@ TIERS: dict[int, TierSpec] = {
         name="persian_arch_vision_qa",
         desc="Fluent Iranian-architectural Persian copywriting, material "
         "hotspot analysis, doorway crop verification",
-        models=["gemini-3.8-flash"],  # was 2.5-flash
+        models=["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash"],  # 3.6 = measured live
         zai_chat_or_vision="vision",
         thinking_budget=None,  # NB: flash-lite 400-rejects explicit thinkingBudget=0
         timeout_s=120,
@@ -130,7 +175,7 @@ TIERS: dict[int, TierSpec] = {
         name="bulk_smoke",
         desc="Simple JSON checks, automated E2E screenshot sanity checks, "
         "routine tasks",
-        models=["gemini-3.5-flash-lite", "gemini-flash-latest"],  # was 2.5-flash-lite / 2.0-flash
+        models=["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.5-flash"],  # flash-latest = 429 quota-0 (measured)
         zai_chat_or_vision="chat",
         thinking_budget=None,
         timeout_s=60,
@@ -216,7 +261,7 @@ def _gemini_call(
     """POST generateContent. Raises GeminiError on any failure."""
     if requests is None:
         raise GeminiError("requests lib unavailable", retryable=False)
-    url = f"{GEMINI_BASE}/models/{model}:generateContent"
+    url = f"{gemini_base()}/models/{model}:generateContent"
     headers = {"x-goog-api-key": key, "Content-Type": "application/json"}
     parts: list[dict] = [{"text": prompt}]
     for img in images or []:
@@ -574,6 +619,7 @@ def run_probe() -> dict:
         "auth_matrix": {},
         "model_tests": {},
         "egress": {},
+        "gateway": {},
         "zai": {},
         "sdk": {},
         "verdict": {},
@@ -586,12 +632,19 @@ def run_probe() -> dict:
     except Exception as exc:
         report["egress"] = {"error": type(exc).__name__}
 
+    # gateway context (geo-bypass route, if configured)
+    report["gateway"] = {
+        "configured": bool(_load_env_var("GEMINI_PROXY_URL")),
+        "base": gemini_base(),
+        "direct": gemini_base() == GEMINI_BASE,
+    }
+
     # auth matrix against ListModels
     if key:
-        url_q = f"{GEMINI_BASE}/models?pageSize=5"
+        url_q = f"{gemini_base()}/models?pageSize=5"
         tests = {
             "x-goog-api-key header": dict(url=url_q, headers={"x-goog-api-key": key}),
-            "?key= query param": dict(url=f"{GEMINI_BASE}/models?key={key}&pageSize=5", headers={}),
+            "?key= query param": dict(url=f"{gemini_base()}/models?key={key}&pageSize=5", headers={}),
             "Authorization: Bearer": dict(url=url_q, headers={"Authorization": f"Bearer {key}"}),
             "control: garbage key": dict(url=url_q, headers={"x-goog-api-key": "AQ.INVALIDgarbage123"}),
         }
@@ -683,7 +736,9 @@ def run_probe() -> dict:
     gemini_ok = any(t.get("ok") for t in report["model_tests"].values())
     zai_ok = report["zai"].get("chat", {}).get("ok")
     if gemini_ok:
-        mode = "full 4-tier chain (Gemini callable from this egress)"
+        gw = report["gateway"].get("configured")
+        mode = ("full 4-tier chain via Cloudflare gateway (geo-bypassed)" if gw
+                else "full 4-tier chain (Gemini callable from this egress)")
     elif geo or quota_zero:
         mode = ("z-ai-only from this egress — Gemini key VALID but geo-blocked (flash) "
                 "and/or free-tier quota 0 (pro); tiers stay armed for supported regions")

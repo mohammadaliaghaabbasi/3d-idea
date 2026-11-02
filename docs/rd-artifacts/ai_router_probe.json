@@ -1,6 +1,6 @@
 {
  "schema": "panodrome.ai_router.probe.v1",
- "timestamp": "2026-11-02T10:13:13Z",
+ "timestamp": "2026-11-02T14:43:39Z",
  "python": "3.12.16",
  "key": {
   "present": true,
@@ -10,14 +10,28 @@
  "requests_lib": true,
  "auth_matrix": {
   "x-goog-api-key header": {
-   "http": 400,
-   "status": "FAILED_PRECONDITION",
-   "message": "User location is not supported for the API use."
+   "http": 200,
+   "status": "OK",
+   "message": "models listed",
+   "sample_models": [
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-2.5-flash-preview-tts",
+    "gemini-2.5-pro-preview-tts",
+    "gemma-4-26b-a4b-it"
+   ]
   },
   "?key= query param": {
-   "http": 400,
-   "status": "FAILED_PRECONDITION",
-   "message": "User location is not supported for the API use."
+   "http": 200,
+   "status": "OK",
+   "message": "models listed",
+   "sample_models": [
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-2.5-flash-preview-tts",
+    "gemini-2.5-pro-preview-tts",
+    "gemma-4-26b-a4b-it"
+   ]
   },
   "Authorization: Bearer": {
    "http": 401,
@@ -37,11 +51,61 @@
   },
   "gemini-3.8-flash": {
    "ok": false,
-   "reason": "http_400:FAILED_PRECONDITION:User location is not supported for the API use."
+   "reason": "network: ReadTimeout"
+  },
+  "gemini-3.7-flash": {
+   "ok": false,
+   "reason": "http_429:RESOURCE_EXHAUSTED:You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/"
+  },
+  "gemini-3.6-flash": {
+   "ok": true,
+   "text": "ROUTER-PROBE-OK",
+   "usage": {
+    "promptTokenCount": 12,
+    "candidatesTokenCount": 7,
+    "totalTokenCount": 128,
+    "promptTokensDetails": [
+     {
+      "modality": "TEXT",
+      "tokenCount": 12
+     }
+    ],
+    "thoughtsTokenCount": 109,
+    "serviceTier": "standard"
+   }
+  },
+  "gemini-3.5-flash": {
+   "ok": true,
+   "text": "ROUTER-PROBE-OK",
+   "usage": {
+    "promptTokenCount": 12,
+    "candidatesTokenCount": 7,
+    "totalTokenCount": 105,
+    "promptTokensDetails": [
+     {
+      "modality": "TEXT",
+      "tokenCount": 12
+     }
+    ],
+    "thoughtsTokenCount": 86,
+    "serviceTier": "standard"
+   }
   },
   "gemini-3.5-flash-lite": {
-   "ok": false,
-   "reason": "http_400:FAILED_PRECONDITION:User location is not supported for the API use."
+   "ok": true,
+   "text": "ROUTER-PROBE-OK",
+   "usage": {
+    "promptTokenCount": 12,
+    "candidatesTokenCount": 7,
+    "totalTokenCount": 19,
+    "promptTokensDetails": [
+     {
+      "modality": "TEXT",
+      "tokenCount": 12
+     }
+    ],
+    "serviceTier": "standard"
+   }
   },
   "gemini-2.5-pro": {
    "ok": false,
@@ -49,10 +113,15 @@
   }
  },
  "egress": {
-  "ip": "8.212.10.159",
+  "ip": "47.57.232.232",
   "city": "Hong Kong",
   "country": "HK",
   "org": "AS45102 Alibaba (US) Technology Co., Ltd."
+ },
+ "gateway": {
+  "configured": true,
+  "base": "https://panodrome-ai-gw.mesadesignstudio01.workers.dev/v1beta",
+  "direct": false
  },
  "zai": {
   "chat": {
@@ -69,17 +138,16 @@
  "sdk": {
   "installed": true,
   "ok": false,
-  "error": "400 FAILED_PRECONDITION. {'error': {'code': 400, 'message': 'User location is not supported for the API use.', 'status': 'FAILED_PRECONDITION'}}",
-  "geo_blocked": true,
-  "version": "2.34.0"
+  "error": "No module named 'google'",
+  "geo_blocked": false
  },
  "verdict": {
   "key_valid": true,
   "key_proof": "garbage key -> 401 'API key not valid' while our key passes auth (400 geo-block / 404 deprecation / 429 quota are all POST-auth errors)",
-  "gemini_callable_from_here": false,
-  "geo_blocked": true,
+  "gemini_callable_from_here": true,
+  "geo_blocked": false,
   "quota_zero_on_free_tier": true,
   "zai_floor_ok": true,
-  "router_mode": "z-ai-only from this egress — Gemini key VALID but geo-blocked (flash) and/or free-tier quota 0 (pro); tiers stay armed for supported regions"
+  "router_mode": "full 4-tier chain via Cloudflare gateway (geo-bypassed)"
  }
 }
