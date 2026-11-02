@@ -1,0 +1,93 @@
+{
+  "timings": {
+    "calibrate_s": 16.39,
+    "separate_s": 0.01,
+    "components_s": 0.01,
+    "inpaint_s": 2.22,
+    "meshing_s": 1.44,
+    "renders_s": 2.27,
+    "total_s": 22.6
+  },
+  "calibration": {
+    "method": "iterative_measured_shell",
+    "scale": 5.7,
+    "cam_h_m": 1.102,
+    "ceil_h_m": 3.04,
+    "wall_rho_min_med_max": [
+      2.8,
+      4.37,
+      9.0
+    ]
+  },
+  "furniture": [
+    {
+      "name": "furniture_00",
+      "tris": 925457,
+      "center_xz": [
+        0.12,
+        -0.04
+      ],
+      "radius_m": 1.12,
+      "y_extent_m": [
+        2.01,
+        2.91
+      ],
+      "distance_m": 1.4
+    },
+    {
+      "name": "furniture_01",
+      "tris": 41344,
+      "center_xz": [
+        0.25,
+        -0.75
+      ],
+      "radius_m": 0.35,
+      "y_extent_m": [
+        0.03,
+        0.33
+      ],
+      "distance_m": 1.13
+    },
+    {
+      "name": "furniture_02",
+      "tris": 268942,
+      "center_xz": [
+        0.0,
+        0.0
+      ],
+      "radius_m": 0.25,
+      "y_extent_m": [
+        0.29,
+        0.43
+      ],
+      "distance_m": 0.75
+    }
+  ],
+  "files": {
+    "shell_tris": 1045506,
+    "glb_bytes": 45653324
+  },
+  "colliders": [
+    {
+      "id": "furniture_00",
+      "x": 0.12,
+      "z": -0.04,
+      "radius_m": 1.12,
+      "type": "cylinder"
+    },
+    {
+      "id": "furniture_01",
+      "x": 0.25,
+      "z": -0.75,
+      "radius_m": 0.35,
+      "type": "cylinder"
+    },
+    {
+      "id": "furniture_02",
+      "x": 0.0,
+      "z": 0.0,
+      "radius_m": 0.25,
+      "type": "cylinder"
+    }
+  ]
+}
