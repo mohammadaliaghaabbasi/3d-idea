@@ -1,0 +1,6 @@
+{
+ "label": "anniversary_lounge @ spawn",
+ "shot": "/tmp/render/qa_anniv_spawn.jpg",
+ "text": "Based on a thorough inspection of the provided mobile viewport screenshot:\n\nThe image displays high visual integrity. The architectural lines of the room, including the ceiling-to-wall junction and window frame, are clean and straight without any \"exploding triangles\" or geometric distortions. The furniture, specifically the green upholstered chair in the foreground, features smooth, natural curves consistent with fabric texture; there are no saw-tooth jagged edges or digital artifacts on its silhouette. The wall surfaces and background elements appear sharp and well-defined, showing no signs of blurry inpainted smudges or AI-generation artifacts. The lighting and shadows are coherent with the scene's perspective.\n\nSCORE: 10/10\n",
+ "score": 10.0
+}

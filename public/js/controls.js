@@ -96,6 +96,97 @@ export class WalkingControls {
 
   setWorld(world) { this.world = world; }
 
+  /* ------------------------------------------------------------ walk envelope
+   * Stage 1.6.1 (owner order): controlled metric walk envelope — an ELASTIC
+   * radial boundary (base radius 1.1–1.35 m from the capture centre, per
+   * room) with smooth spring damping from 78% of the radius and a hard
+   * radial clamp + tangential slide at 100%.  Smooth cos² "channels"
+   * extend the reach toward each doorway ring and each obstacle collider
+   * so walk-in portals and furniture bumps stay fully reachable.
+   */
+  setEnvelope(env) {
+    // env = { cx, cz, r, channels: [{ ang, reach, half }] } | null
+    this.envelope = env || null;
+    if (this.envelope && this.walkTarget) this.walkTarget = this._clampEnv(this.walkTarget);
+  }
+
+  _rEnv(ang) {
+    const e = this.envelope;
+    let R = e.r;
+    for (const c of e.channels) {
+      let da = ang - c.ang;
+      da = Math.atan2(Math.sin(da), Math.cos(da));         // wrap [-π,π]
+      if (Math.abs(da) < c.half && c.reach > R) {
+        const w = Math.cos((Math.PI / 2) * (da / c.half)) ** 2;
+        R = Math.max(R, e.r + (c.reach - e.r) * w);
+      }
+    }
+    return R;
+  }
+
+  _clampEnv(p) {
+    const e = this.envelope;
+    const dx = p.x - e.cx, dz = p.z - e.cz;
+    const d = Math.hypot(dx, dz);
+    if (d < 1e-6) return p.clone();
+    const R = this._rEnv(Math.atan2(dz, dx)) * 0.99;
+    if (d <= R) return p.clone();
+    const k = R / d;
+    return new THREE.Vector3(e.cx + dx * k, p.y, e.cz + dz * k);
+  }
+
+  /** Elastic boundary physics — called after world.resolve each frame. */
+  _resolveEnvelope(dt) {
+    const e = this.envelope;
+    const dx = this.pos.x - e.cx, dz = this.pos.z - e.cz;
+    const d = Math.hypot(dx, dz);
+    if (d < 1e-6) return;
+    const ang = Math.atan2(dz, dx);
+    const R = this._rEnv(ang);
+    const soft = R - 0.25;                          // fixed 25cm elastic band
+    if (d >= R) {
+      // hard boundary: radial clamp, tangential slide (like the walls)
+      const k = R / d;
+      this.pos.x = e.cx + dx * k;
+      this.pos.z = e.cz + dz * k;
+      const nx = dx / d, nz = dz / d;
+      const vr = this.vel.x * nx + this.vel.y * nz;
+      if (vr > 0) { this.vel.x -= vr * nx; this.vel.y -= vr * nz; }
+      if (this.walkTarget) {
+        const tdx = this.walkTarget.x - this.pos.x, tdz = this.walkTarget.z - this.pos.z;
+        const td = Math.hypot(tdx, tdz);
+        if (td > 0.35 && (tdx * nx + tdz * nz) / td > 0.6) this.walkTarget = null;
+      }
+    } else if (d > soft && !this.walkTarget) {
+      // elastic damping: resist outward motion + a gentle spring pull-back.
+      // AUTO-WALK (double-tap) is exempt: its target is already clamped
+      // inside the envelope, so the walk glides at full speed to obstacle
+      // contacts and doorway rings (bump events fire with real impact).
+      // Human input (joystick / WASD / wheel) feels the full elastic band.
+      const over = Math.min(1, (d - soft) / 0.25);         // 0..1
+      const nx = dx / d, nz = dz / d;
+      const vr = this.vel.x * nx + this.vel.y * nz;
+      if (vr > 0) {
+        const g = Math.exp(-2.2 * over * over);            // gentle, tunable
+        this.vel.x -= vr * (1 - g) * nx;
+        this.vel.y -= vr * (1 - g) * nz;
+      }
+      const pull = 0.15 * over * over;                     // m/s spring-back
+      this.pos.x -= nx * pull * dt;
+      this.pos.z -= nz * pull * dt;
+    }
+  }
+
+  /** E2E helper: envelope state at the player. */
+  envelopeState() {
+    const e = this.envelope;
+    if (!e) return null;
+    const dx = this.pos.x - e.cx, dz = this.pos.z - e.cz;
+    const d = Math.hypot(dx, dz);
+    const R = this._rEnv(Math.atan2(dz, dx));
+    return { base: e.r, channels: e.channels.length, d: Math.round(d * 100) / 100, r: Math.round(R * 100) / 100, inside: d <= R + 1e-6 };
+  }
+
   /** Orient yaw/pitch toward a horizontal image fraction f (0..1). */
   lookAtFraction(f) {
     const phi = 2 * Math.PI * f;
@@ -137,7 +228,7 @@ export class WalkingControls {
     if (!this.world) return;
     const p = point.clone();
     p.y = 0;
-    this.walkTarget = p;
+    this.walkTarget = this.envelope ? this._clampEnv(p) : p;
   }
 
   /** "بازگشت به مرکز فضا" — glide back to the capture point. */
@@ -227,9 +318,11 @@ export class WalkingControls {
     let bump = null;
     if (this.world) {
       bump = this.world.resolve(this.pos, this.vel);
-      // head-on hit cancels the auto-walk; grazes keep sliding toward it
-      if (this.walkTarget && bump && bump.impact > 0.7) this.walkTarget = null;
+      // any real obstacle contact completes a double-tap destination (you
+      // walked up to the thing you aimed at); hard head-on walls cancel too
+      if (this.walkTarget && bump && (bump.ob || bump.impact > 0.7)) this.walkTarget = null;
     }
+    if (this.envelope) this._resolveEnvelope(dt);
     const movedDist = Math.hypot(this.pos.x - bx, this.pos.z - bz);
 
     // ---- metres travelled → bob + footsteps ----

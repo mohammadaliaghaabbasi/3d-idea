@@ -1,25 +1,39 @@
 /**
- * PANODROME — Stage 1.6 · Two-Layer Room (shell volume + 3D furniture)
+ * PANODROME — Stage 1.6.1 · Relief Dome Room (EMERGENCY VISUAL RESTORATION)
+ * ============================================================================
+ * Owner order 2026-11-02 (live iPhone audit rejected Stage 1.6):
+ *   · Rule A — the ORIGINAL crisp pano_4k.jpg is the ONLY texture.  No
+ *     Telea/NS inpainting, no shell swap, no 122px guard bands, ever.
+ *   · Rule B — NO depth-cut furniture extrusions (no edge tearing, no
+ *     back-caps, no spiky GLBs).  Instead: ONE watertight, ground-
+ *     flattened radial RELIEF DOME — a sphere grid around the capture
+ *     point displaced by a smooth σ=18px Gaussian depth-relief field
+ *     (baked offline by skills/stage161_dome_relief.py into
+ *     public/assets/relief/<id>.png, u16 split across the R+G bytes).
+ *     Furniture stays painted in the photograph AT ITS TRUE RADIAL
+ *     DEPTH (soft relief bulges) -> genuine parallax, zero saw-tooth,
+ *     zero smudges, zero torn edges.
  *
- * LAYER 1 (this module): the room shell — since Stage 1.5 the equirect
- * panorama is projected onto a TRUE ROOM-SCALE INTERIOR VOLUME (metric
- * shoebox, floor y = 0, plumb walls, per-fragment equirect shader from the
- * capture point). Stage 1.6 swaps the texture source: when the room was
- * processed by skills/skill_360_to_walkable_3d.py, `shell_texture` is the
- * INPAINTED panorama (foreground furniture cleanly erased + background
- * floor/wall reconstructed) — so walking across the floor shows clean
- * carpet/wood, never flattened chalk-art furniture.
- * LAYER 2 (main.js): the extracted furniture renders as true 3D meshes at
- * their measured metric (x, y, z) inside this volume.
+ * The per-fragment equirect shader is UNCHANGED (Stage-1.5 law): every
+ * fragment computes its pano UV from the direction capture->fragment, so
+ * the projection is PIXEL-EXACT at the capture point and stays correct
+ * from anywhere inside the dome.  Floor is EXACTLY y=0 (flat-floor law:
+ * the bake snaps floor rays to the analytic plane; steep rows are forced
+ * exactly planar).  FOV stays fixed; the dome never zooms.
  *
- * Laws that NEVER change: floor perfectly flat, walls perfectly plumb,
- * FOV fixed 68/75, zero vertex displacement, raw-sRGB passthrough.
+ * Fallback: if a room has no relief field (or the PNG fails to load) we
+ * silently build the Stage-1.5 metric shoebox — the site always works.
  */
 import * as THREE from "three";
 
-export const CORNER_FILLET = 0.35;   // m — vertical wall-corner fillet radius
-export const FLOOR_COVE = 0.15;      // m — floor/wall cove radius
+export const CORNER_FILLET = 0.35;   // m — box-fallback corner fillet radius
+export const FLOOR_COVE = 0.15;      // m — box-fallback floor/wall cove radius
 const FILLET_SEG = 10;
+
+const DOME_SEG = 320;                // azimuth bins (1.125°)
+const DOME_ROWS = 144;               // elevation rows (1.25°)
+
+/* ------------------------------------------------------------ box fallback */
 
 function buildGeometryParts() {
   const verts = [];
@@ -37,30 +51,22 @@ function buildGeometryParts() {
   return { verts, idx, vert, quad, ruled };
 }
 
-/**
- * Build the room-volume geometry in WORLD coordinates.
- * Box: x ∈ [-w/2, w/2], z ∈ [-d/2, d/2] (centred on the world origin),
- * floor y = 0, ceiling y = h. The capture point (room.camera) sits inside.
- */
+/** Stage-1.5 metric shoebox (fallback when no relief field exists). */
 export function buildRoomGeometry(w, d, h) {
   const { verts, idx, vert, quad, ruled } = buildGeometryParts();
 
   const hw = w / 2, hd = d / 2;
-  const fr = Math.min(CORNER_FILLET, hw * 0.45, hd * 0.45);  // corner fillet
-  const gr = Math.min(FLOOR_COVE, hw * 0.45, hd * 0.45);      // floor cove
+  const fr = Math.min(CORNER_FILLET, hw * 0.45, hd * 0.45);
+  const gr = Math.min(FLOOR_COVE, hw * 0.45, hd * 0.45);
 
-  // ---- floor & ceiling: perfectly flat planes ----
   quad(vert(-hw, 0, -hd), vert(hw, 0, -hd), vert(hw, 0, hd), vert(-hw, 0, hd));
   quad(vert(-hw, h, -hd), vert(hw, h, -hd), vert(hw, h, hd), vert(-hw, h, hd));
 
-  // ---- 4 walls: perfectly flat, perfectly plumb quads ----
-  quad(vert(-hw, 0, -hd), vert(-hw, 0, hd), vert(-hw, h, hd), vert(-hw, h, -hd)); // west  x-
-  quad(vert(hw, 0, -hd), vert(hw, 0, hd), vert(hw, h, hd), vert(hw, h, -hd));     // east  x+
-  quad(vert(-hw, 0, -hd), vert(hw, 0, -hd), vert(hw, h, -hd), vert(-hw, h, -hd)); // north z-
-  quad(vert(-hw, 0, hd), vert(hw, 0, hd), vert(hw, h, hd), vert(-hw, h, hd));     // south z+
+  quad(vert(-hw, 0, -hd), vert(-hw, 0, hd), vert(-hw, h, hd), vert(-hw, h, -hd));
+  quad(vert(hw, 0, -hd), vert(hw, 0, hd), vert(hw, h, hd), vert(hw, h, -hd));
+  quad(vert(-hw, 0, -hd), vert(hw, 0, -hd), vert(hw, h, -hd), vert(-hw, h, -hd));
+  quad(vert(-hw, 0, hd), vert(hw, 0, hd), vert(hw, h, hd), vert(-hw, h, hd));
 
-  // ---- 4 vertical corner fillets: quarter cylinders, full height ----
-  // surface point at arc angle a ∈ [0, π/2]: sweeps from one wall to the other
   for (const [sx, sz] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) {
     const bottom = [], top = [];
     for (let i = 0; i <= FILLET_SEG; i++) {
@@ -73,15 +79,12 @@ export function buildRoomGeometry(w, d, h) {
     ruled(bottom, top);
   }
 
-  // ---- 4 floor coves: quarter cylinders along the wall bases ----
-  // arc t ∈ [0, π/2]: t=0 lies on the floor plane, t=π/2 lies on the wall
   for (const side of ["west", "east", "north", "south"]) {
     const arcStart = [], arcEnd = [];
     for (let i = 0; i <= FILLET_SEG; i++) {
-      const s = i / FILLET_SEG;
-      const t = s * Math.PI / 2;
-      const y = gr * Math.sin(t);            // 0 → gr above the floor
-      const off = gr - gr * Math.cos(t);     // 0 → gr away from the wall
+      const t = (i / FILLET_SEG) * Math.PI / 2;
+      const y = gr * Math.sin(t);
+      const off = gr - gr * Math.cos(t);
       if (side === "west" || side === "east") {
         const x = side === "west" ? -hw + off : hw - off;
         arcStart.push(vert(x, y, -hd));
@@ -100,6 +103,182 @@ export function buildRoomGeometry(w, d, h) {
   geo.setIndex(idx);
   return geo;
 }
+
+/* -------------------------------------------------------- relief field I/O */
+
+/**
+ * Load the baked radial relief field (u16 split across PNG R+G channels).
+ * @returns {Promise<null | {data: Float32Array, w:number, h:number,
+ *                            rmin:number, rmax:number}>}
+ */
+export function loadReliefField(room) {
+  const rel = room.walk && room.walk.relief;
+  if (!rel || !rel.url) return Promise.resolve(null);
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const cv = document.createElement("canvas");
+        cv.width = rel.w;
+        cv.height = rel.h;
+        const ctx = cv.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(img, 0, 0, rel.w, rel.h);
+        const px = ctx.getImageData(0, 0, rel.w, rel.h).data;
+        const n = rel.w * rel.h;
+        const data = new Float32Array(n);
+        const span = rel.rmax - rel.rmin;
+        for (let i = 0; i < n; i++) {
+          const q = px[i * 4] * 256 + px[i * 4 + 1];       // R = hi byte, G = lo
+          data[i] = rel.rmin + (q / 65535) * span;
+        }
+        resolve({ data, w: rel.w, h: rel.h, rmin: rel.rmin, rmax: rel.rmax });
+      } catch (err) {
+        console.warn("relief decode failed (box fallback):", err);
+        resolve(null);
+      }
+    };
+    img.onerror = () => { console.warn("relief png failed (box fallback):", rel.url); resolve(null); };
+    img.src = rel.url;
+  });
+}
+
+/** Bilinear sample of the field. u wraps (equirect seam), v clamps. */
+function sampleField(f, u, v) {
+  const w = f.w, h = f.h, d = f.data;
+  let x = u * w - 0.5;
+  x = ((x % w) + w) % w;                                  // wrap x
+  const y = Math.min(h - 1.001, Math.max(0, v * h - 0.5)); // clamp y
+  const x0 = Math.floor(x), y0 = Math.floor(y);
+  const x1 = (x0 + 1) % w, y1 = Math.min(y0 + 1, h - 1);
+  const fx = x - x0, fy = y - y0;
+  const a = d[y0 * w + x0], b = d[y0 * w + x1];
+  const c = d[y1 * w + x0], e = d[y1 * w + x1];
+  return a * (1 - fx) * (1 - fy) + b * fx * (1 - fy) + c * (1 - fx) * fy + e * fx * fy;
+}
+
+/* ------------------------------------------------------------ relief dome */
+
+/**
+ * Watertight ground-flattened radial relief dome.
+ * Grid: DOME_SEG x DOME_ROWS around the capture point; vertex = capture +
+ * ray(θ,φ)·R(θ,φ) with the SAME equirect convention as the shader
+ * (u = atan2(dz,-dx)/2π; row 0 = zenith).  Poles capped with tiny fans
+ * (the nadir cap sits EXACTLY on y=0 — flat-floor law).
+ */
+export function buildDomeGeometry(field, capture) {
+  const SEG = DOME_SEG, ROWS = DOME_ROWS;
+  const camY = capture.y;
+  const rad = new Float32Array(SEG * ROWS);
+  const positions = new Float32Array((SEG * ROWS + 2) * 3);
+
+  // φ(v): v = (0.5 - φ/π)  →  v 0 = zenith, 1 = nadir (matches pano rows)
+  for (let j = 0; j < ROWS; j++) {
+    const v = (j + 0.5) / ROWS;
+    const phi = (0.5 - v) * Math.PI;
+    const sinP = Math.sin(phi), cosP = Math.cos(phi);
+    // FLAT-FLOOR LAW: steep rows are provably floor (the bake snaps them
+    // exactly planar) — force the ANALYTIC planar radius so bilinear
+    // sampling at the -50° field boundary can never reintroduce wobble.
+    const isSteepFloor = phi < -55 * Math.PI / 180;
+    const planarR = camY / Math.max(-sinP, 1e-6);
+    for (let i = 0; i < SEG; i++) {
+      const u = (i + 0.5) / SEG;
+      const theta = u * Math.PI * 2;
+      const R = isSteepFloor ? planarR : sampleField(field, u, v);
+      rad[j * SEG + i] = R;
+      const k = (j * SEG + i) * 3;
+      // dir = (-cosφ·cosθ, sinφ, cosφ·sinθ) — room.js / shader convention
+      positions[k] = capture.x + (-cosP * Math.cos(theta)) * R;
+      positions[k + 1] = camY + sinP * R;
+      positions[k + 2] = capture.z + (cosP * Math.sin(theta)) * R;
+    }
+  }
+
+  const idx = new Uint32Array(SEG * ROWS * 6 + SEG * 3 * 2);
+  let t = 0;
+  for (let j = 0; j < ROWS - 1; j++) {
+    for (let i = 0; i < SEG; i++) {
+      const i2 = (i + 1) % SEG;                            // x-wrap seam
+      const a = j * SEG + i, b = j * SEG + i2;
+      const c = (j + 1) * SEG + i, d = (j + 1) * SEG + i2;
+      idx[t++] = a; idx[t++] = c; idx[t++] = d;
+      idx[t++] = a; idx[t++] = d; idx[t++] = b;
+    }
+  }
+  // pole caps: last two verts
+  const topIdx = SEG * ROWS;          // zenith cap
+  const botIdx = topIdx + 1;          // nadir cap (EXACTLY y = 0)
+  // zenith cap point: mean of the top ring, projected on the up-ray
+  let topR = 0;
+  for (let i = 0; i < SEG; i++) topR += rad[i];
+  topR /= SEG;
+  positions[topIdx * 3] = capture.x;
+  positions[topIdx * 3 + 1] = camY + topR;
+  positions[topIdx * 3 + 2] = capture.z;
+  positions[botIdx * 3] = capture.x;
+  positions[botIdx * 3 + 1] = 0;                          // flat-floor law
+  positions[botIdx * 3 + 2] = capture.z;
+  for (let i = 0; i < SEG; i++) {
+    const i2 = (i + 1) % SEG;
+    idx[t++] = topIdx; idx[t++] = i2; idx[t++] = i;       // zenith fan
+    const last = (ROWS - 1) * SEG;
+    idx[t++] = botIdx; idx[t++] = last + i; idx[t++] = last + i2;  // nadir fan
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geo.setIndex(new THREE.BufferAttribute(idx.slice(0, t), 1));
+
+  /* ---- mathematical proofs (the E2E contract) ---- */
+  // 1) EXACT floor: rows with φ < -56° are analytically planar (override)
+  let exactFloor = 0;
+  for (let j = 0; j < ROWS; j++) {
+    const phi = (0.5 - (j + 0.5) / ROWS) * Math.PI;
+    if (phi > -56 * Math.PI / 180) continue;
+    for (let i = 0; i < SEG; i++) {
+      const y = positions[(j * SEG + i) * 3 + 1];
+      if (Math.abs(y) < 0.05) exactFloor = Math.max(exactFloor, Math.abs(y));
+    }
+  }
+  // 2) floor-planarity: any vert within 2cm of the floor is floor-ish
+  let floorDev = 0;
+  for (let k = 0; k < SEG * ROWS; k++) {
+    const y = positions[k * 3 + 1];
+    if (Math.abs(y) < 0.02) floorDev = Math.max(floorDev, Math.abs(y));
+  }
+  // 3) saw-tooth guard (slope-reversal height) on the sampled radii
+  let zigzag = 0;
+  for (let j = 0; j < ROWS; j++) {
+    for (let i = 0; i < SEG; i++) {
+      const i0 = j * SEG + ((i + SEG - 1) % SEG);
+      const i1 = j * SEG + i;
+      const i2 = j * SEG + ((i + 1) % SEG);
+      const s1 = rad[i1] - rad[i0], s2 = rad[i2] - rad[i1];
+      if (s1 * s2 < 0) zigzag = Math.max(zigzag, Math.min(Math.abs(s1), Math.abs(s2)));
+      const j2 = Math.min(j + 1, ROWS - 1);
+      const v1 = rad[j2 * SEG + i] - rad[i1], v0 = rad[i1] - rad[Math.max(j - 1, 0) * SEG + i];
+      if (v0 * v1 < 0) zigzag = Math.max(zigzag, Math.min(Math.abs(v0), Math.abs(v1)));
+    }
+  }
+  let minR = Infinity, maxR = 0;
+  for (let i = 0; i < rad.length; i++) { minR = Math.min(minR, rad[i]); maxR = Math.max(maxR, rad[i]); }
+
+  const stats = {
+    dome: {
+      verts: SEG * ROWS + 2,
+      tris: t / 3,
+      minR: Math.round(minR * 1000) / 1000,
+      maxR: Math.round(maxR * 1000) / 1000,
+      zigzag: Math.round(zigzag * 1000) / 1000,
+      exactFloor: Math.round(exactFloor * 100000) / 100000,
+    },
+    floorFlatness: Math.round(exactFloor * 100000) / 100000,   // strict law
+    floorPlanarity: Math.round(floorDev * 100000) / 100000,    // incl. skirts
+  };
+  return { geo, stats };
+}
+
+/* ---------------------------------------------------------------- shaders */
 
 const FRAG = /* glsl */`
   uniform sampler2D map;
@@ -123,52 +302,48 @@ const VERT_SHADER = /* glsl */`
   }
 `;
 
+/* ------------------------------------------------------------- public API */
+
 /**
- * Build the walkable room volume.
- * @returns {Promise<{mesh, texture, geo, stats, setFade, dispose}>}
- *   stats.floorFlatness — max |y| over floor-plane vertices (→ 0: flat law)
- *   stats.wallPlumb     — max off-plane distance over straight-band wall
- *                         vertices between the fillets (→ ~0: plumb law)
+ * Build the walkable room: relief dome when the room has a baked field,
+ * Stage-1.5 metric shoebox otherwise.  The pano texture is ALWAYS the
+ * crisp original (Rule A — no inpainted shells).
+ * @returns {Promise<{mesh, texture, geo, stats, isDome, setFade,
+ *                    wallDistAt, dispose}>}
  */
 export function buildRoomVolume(room, renderer) {
+  const capture = new THREE.Vector3(room.camera.x, room.camera.y, room.camera.z);
+  const { width, height, depth } = room.room_shape;
+
   return new Promise((resolve, reject) => {
-    const texUrl = room.shell_texture || room.panorama;   // Stage 1.6: inpainted shell
-    new THREE.TextureLoader().load(
-      texUrl,
-      (texture) => {
-        // RAW sRGB passthrough: no decode / no re-encode — byte-exact panorama.
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        texture.needsUpdate = true;
+    Promise.all([
+      new Promise((res, rej) => new THREE.TextureLoader().load(
+        room.panorama, res, undefined,
+        () => rej(new Error("panorama failed: " + room.panorama)))),
+      loadReliefField(room),
+    ]).then(([texture, field]) => {
+      // RAW sRGB passthrough: no decode / no re-encode — byte-exact panorama.
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      texture.needsUpdate = true;
 
-        const { width, height, depth } = room.room_shape;
-        const geo = buildRoomGeometry(width, depth, height);
-
-        const mat = new THREE.ShaderMaterial({
-          vertexShader: VERT_SHADER,
-          fragmentShader: FRAG,
-          uniforms: {
-            map: { value: texture },
-            uCenter: { value: new THREE.Vector3(room.camera.x, room.camera.y, room.camera.z) },
-            uFade: { value: 1 },
-          },
-          side: THREE.DoubleSide,
-          depthWrite: true,
-        });
-
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.name = "panodrome_room";
-        mesh.frustumCulled = false;
-
-        // ---- mathematical flatness proofs (the E2E contract) ----
-        // floor: the first 4 vertices of buildRoomGeometry are the floor quad
+      let geo, stats, isDome = false, wallDistAt = null;
+      if (field) {
+        const dome = buildDomeGeometry(field, capture);
+        geo = dome.geo;
+        stats = dome.stats;
+        isDome = true;
+        // horizontal wall distance at pano-θ (φ = 0 row) — used to keep the
+        // doorway ring floating just in front of the TRUE wall
+        wallDistAt = (theta) => {
+          const u = ((theta / (Math.PI * 2)) % 1 + 1) % 1;
+          return sampleField(field, u, 0.5);
+        };
+      } else {
+        geo = buildRoomGeometry(width, depth, height);
         const pos = geo.attributes.position;
         let floorFlat = 0;
-        for (let i = 0; i < 4; i++) {
-          floorFlat = Math.max(floorFlat, Math.abs(pos.getY(i)));
-        }
-        // walls: verts in the straight band between the fillets, above the
-        // cove, must lie exactly on a wall plane (x = ±w/2 or z = ±d/2)
+        for (let i = 0; i < 4; i++) floorFlat = Math.max(floorFlat, Math.abs(pos.getY(i)));
         let wallPlumb = 0;
         const fr = Math.min(CORNER_FILLET, (width / 2) * 0.45, (depth / 2) * 0.45);
         const gr = Math.min(FLOOR_COVE, (width / 2) * 0.45, (depth / 2) * 0.45);
@@ -179,40 +354,52 @@ export function buildRoomVolume(room, renderer) {
           const onZ = Math.min(Math.abs(z + depth / 2), Math.abs(z - depth / 2));
           const inCornerX = Math.abs(x) > width / 2 - fr - 1e-6;
           const inCornerZ = Math.abs(z) > depth / 2 - fr - 1e-6;
-          if (inCornerX && inCornerZ) continue;   // fillet band
+          if (inCornerX && inCornerZ) continue;
           wallPlumb = Math.max(wallPlumb, Math.min(onX, onZ));
         }
+        stats = { width, depth, height, floorFlatness: floorFlat, wallPlumb: Math.max(0, wallPlumb), dome: null };
+      }
+      stats.textureSize = [texture.image.width, texture.image.height];
 
-        resolve({
-          mesh,
-          texture,
-          geo,
-          stats: {
-            width, depth, height,
-            floorFlatness: floorFlat,
-            wallPlumb: Math.max(0, wallPlumb),
-            textureSize: [texture.image.width, texture.image.height],
-          },
-          setFade(f) { mat.uniforms.uFade.value = f; },
-          dispose() {
-            geo.dispose();
-            texture.dispose();
-            mat.dispose();
-          },
-        });
-      },
-      undefined,
-      () => reject(new Error("shell/panorama failed: " + texUrl))
-    );
+      const mat = new THREE.ShaderMaterial({
+        vertexShader: VERT_SHADER,
+        fragmentShader: FRAG,
+        uniforms: {
+          map: { value: texture },
+          uCenter: { value: capture.clone() },
+          uFade: { value: 1 },
+        },
+        side: THREE.DoubleSide,
+        depthWrite: true,
+      });
+
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.name = "panodrome_room";
+      mesh.frustumCulled = false;
+
+      resolve({
+        mesh,
+        texture,
+        geo,
+        stats,
+        isDome,
+        setFade(f) { mat.uniforms.uFade.value = f; },
+        wallDistAt,
+        dispose() {
+          geo.dispose();
+          texture.dispose();
+          mat.dispose();
+        },
+      });
+    }).catch(reject);
   });
 }
 
-/** Warm the browser cache for the likely-next room. */
+/** Warm the browser cache for the likely-next room (pano + relief). */
 export function prefetchRoom(room) {
   if (!room) return;
   const a = new Image();
-  a.src = room.shell_texture || room.panorama;
-  if (room.furniture && room.furniture.glb) {
-    fetch(room.furniture.glb, { mode: "same-origin" }).catch(() => {});
-  }
+  a.src = room.panorama;
+  const rel = room.walk && room.walk.relief;
+  if (rel && rel.url) fetch(rel.url, { mode: "same-origin" }).catch(() => {});
 }

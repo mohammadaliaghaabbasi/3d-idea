@@ -1,0 +1,6 @@
+{
+ "label": "cabin @ joystick walk toward bed",
+ "shot": "/tmp/render/qa_cabin_walked.jpg",
+ "text": "Based on a detailed inspection of the provided mobile viewport screenshot, the image exhibits high visual integrity. The architectural elements, such as the curved ceiling panels and the wall surfaces, are smooth and free from \"exploding triangles\" or jagged artifacts. The furniture, including the bed and lamp, maintains clean, well-defined edges without saw-tooth distortions. There are no visible blurry inpainted smudges or AI-generated artifacts on the walls. The lighting from the skylight is rendered with soft gradients, and the overall composition is coherent.\n\nSCORE: 10/10\n",
+ "score": 10.0
+}

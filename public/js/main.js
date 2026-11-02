@@ -5,6 +5,12 @@
  * Boot → intro → room lifecycle (true room volume + physics walking,
  * doorway waypoint with routing modes) → GSAP warp transitions.
  *
+ * Stage 1.6.1 (owner emergency order 2026-11-02): the furniture GLB layer
+ * and inpainted shells are PURGED (spike/smudge audit).  Rooms render as a
+ * smooth RELIEF DOME (room.js) textured with the crisp original pano; real
+ * physics colliders + glass floor halos stay (collider.js); walking is
+ * bounded by the elastic radial envelope (controls.js).
+ *
  * Stage 1.5 laws (locked 2026-11-02):
  *   · camera.fov is FIXED — 68° desktop / 75° touch. Walking is real
  *     position translation, never a focal-length zoom.
@@ -19,7 +25,6 @@
  *     footsteps every 0.65 m of real travel + gentle room air.
  */
 import * as THREE from "three";
-import { GLTFLoader } from "../vendor/GLTFLoader-0.160.0.js";
 import { i18n } from "./i18n.js";
 import { buildRoomVolume, prefetchRoom } from "./room.js";
 import { WalkingControls } from "./controls.js";
@@ -36,7 +41,6 @@ const state = {
   roomIdx: -1,
   room: null,
   meshObj: null,
-  furnitureObj: null,
   waypoint: null,
   world: null,
   fx: null,
@@ -47,7 +51,6 @@ const state = {
 };
 
 let renderer, scene, camera, controls, hud, audio;
-const gltfLoader = new GLTFLoader();
 const clock = new THREE.Clock();
 const raycaster = new THREE.Raycaster();
 const pointerNdc = new THREE.Vector2();
@@ -149,11 +152,15 @@ async function main() {
     roomStats: () => {
       if (!state.meshObj) return null;
       const s = { ...state.meshObj.stats };
-      s.furniture = state.furnitureObj ? state.furnitureObj.stats : null;
-      s.textureUrl = state.room ? (state.room.shell_texture || state.room.panorama) : null;
+      s.isDome = !!state.meshObj.isDome;
+      s.textureUrl = state.room ? state.room.panorama : null;
       s.obstacles = state.room?.walk?.obstacles?.length ?? 0;
+      s.envelope = controls.envelope ? controls.envelopeState() : null;
+      s.halos = state.fx?.halos?.count ?? 0;
       return s;
     },
+    envelope: () => controls.envelopeState(),
+    halos: () => (state.fx && state.fx.halos ? state.fx.halos.count : 0),
     textureSize: () => (state.meshObj ? state.meshObj.stats.textureSize : null),
     waypointScreen: () => {
       if (!state.waypoint) return null;
@@ -221,51 +228,6 @@ async function onEnter() {
 
 /* ------------------------------------------------------------- room lifecycle */
 
-/**
- * Stage 1.6 LAYER 2 — independent 3D furniture meshes at true metric (x,y,z)
- * inside the room volume (real parallax + occlusion; collision stays in
- * collider.js from walk.obstacles). Fails soft: null → shell-only room.
- */
-function loadFurnitureLayer(room) {
-  return new Promise((resolve) => {
-    if (!room.furniture || !room.furniture.glb) { resolve(null); return; }
-    gltfLoader.load(
-      room.furniture.glb,
-      (gltf) => {
-        const group = new THREE.Group();
-        group.name = "panodrome_furniture";
-        let tris = 0, meshes = 0;
-        gltf.scene.traverse((o) => {
-          if (o.isMesh) {
-            meshes++;
-            const n = o.geometry.index ? o.geometry.index.count
-                                         : o.geometry.attributes.position.count;
-            tris += n / 3;
-            if (o.material && o.material.map) {
-              o.material.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
-            }
-          }
-        });
-        group.add(gltf.scene);
-        resolve({ group, stats: { meshes, tris: Math.round(tris), glb: room.furniture.glb } });
-      },
-      undefined,
-      () => { console.warn("furniture layer failed (shell-only):", room.furniture.glb); resolve(null); }
-    );
-  });
-}
-
-function disposeFurnitureLayer(f) {
-  if (!f) return;
-  f.group.traverse((o) => {
-    if (o.isMesh) {
-      o.geometry?.dispose();
-      const mats = Array.isArray(o.material) ? o.material : [o.material];
-      for (const m of mats) { m.map?.dispose(); m?.dispose(); }
-    }
-  });
-}
-
 function routeFor(idx) {
   return computeRoutes(state.db.rooms, idx, state.mode);
 }
@@ -288,21 +250,13 @@ async function loadRoom(idx) {
   // build FIRST — the swap below is atomic, so state.room / world / waypoint
   // can never disagree (no walking in the previous room's collision world)
   hud.setLoadProgress(0.15);
-  const [meshObj, furnitureObj] = await Promise.all([
-    buildRoomVolume(room, renderer),
-    loadFurnitureLayer(room),
-  ]);
+  const meshObj = await buildRoomVolume(room, renderer);
   hud.setLoadProgress(0.85);
 
   if (state.meshObj) {
     scene.remove(state.meshObj.mesh);
     state.meshObj.dispose();
     state.meshObj = null;
-  }
-  if (state.furnitureObj) {
-    scene.remove(state.furnitureObj.group);
-    disposeFurnitureLayer(state.furnitureObj);
-    state.furnitureObj = null;
   }
   if (state.waypoint) {
     scene.remove(state.waypoint.group);
@@ -316,21 +270,22 @@ async function loadRoom(idx) {
 
   state.meshObj = meshObj;
   scene.add(meshObj.mesh);
-  state.furnitureObj = furnitureObj;
-  if (furnitureObj) scene.add(furnitureObj.group);
   state.roomIdx = idx;
   state.room = room;
 
-  // physics world + floor walk FX
+  // physics world + floor walk FX (+ glass obstacle halos)
   state.world = new WalkWorld(room);
   state.fx = new WalkFX(scene, room);
   controls.setWorld(state.world);
   controls.setRoom(room);
-  audio.setRoom(room.audio || {});
+  // Stage 1.6.1: elastic radial walk envelope (+ door/obstacle channels)
+  controls.setEnvelope(computeEnvelope(room));
 
   // one verified doorway waypoint → routed next room
   const { target } = routeFor(idx);
   const wp = new Waypoint(room.portals[0], state.db.rooms[target]);
+  // dome-fit: keep the ring floating 0.30 m in front of the TRUE relief wall
+  fitWaypointToDome(wp, room, meshObj);
   scene.add(wp.group);
   state.waypoint = wp;
 
@@ -343,6 +298,65 @@ async function loadRoom(idx) {
 
   hud.setLoadProgress(1);
   setTimeout(() => prefetchRoom(state.db.rooms[target]), 1500);
+}
+
+/* --------------------------------------------------- Stage 1.6.1 helpers */
+
+/**
+ * Controlled metric walk envelope (owner spec): elastic radial boundary
+ * around the capture centre (base r from the bake, 1.1-1.35 m) with smooth
+ * cos² channels toward each doorway ring and each obstacle collider, so
+ * walk-in portals and furniture bumps stay reachable inside the dome.
+ */
+function computeEnvelope(room) {
+  const c = room.camera;
+  const base = (room.walk && room.walk.envelope && room.walk.envelope.r) || 1.2;
+  const channels = [];
+
+  const p = room.portals && room.portals[0] && room.portals[0].position;
+  if (p) {
+    const dx = p[0] - c.x, dz = p[2] - c.z;
+    const dist = Math.hypot(dx, dz);
+    const reach = dist - 1.0;                    // player stops ≤ 1.0 m from ring
+    if (reach > base + 0.05) {
+      channels.push({ ang: Math.atan2(dz, dx), reach, half: THREE.MathUtils.degToRad(22) });
+    }
+  }
+  for (const o of (room.walk && room.walk.obstacles) || []) {
+    const dx = o.x - c.x, dz = o.z - c.z;
+    const dist = Math.hypot(dx, dz) || 1e-6;
+    const ux = dx / dist, uz = dz / dist;
+    // directional extent: how far the collider surface lies along the
+    // capture->centre ray (box = first face crossed; cyl = radius)
+    const ext = o.type === "cylinder"
+      ? (o.r || 0)
+      : Math.min((o.hw || 0) / Math.max(Math.abs(ux), 1e-3),
+                 (o.hd || 0) / Math.max(Math.abs(uz), 1e-3));
+    const reach = dist - ext - 0.30 + 0.06;      // player reaches THROUGH to
+    // the collider face (touch = dist-ext-playerR, +6cm so the bump event
+    // genuinely fires and the halo is bumpable)
+    if (reach > base + 0.05) {
+      channels.push({ ang: Math.atan2(dz, dx), reach, half: THREE.MathUtils.degToRad(16) });
+    }
+  }
+  return { cx: c.x, cz: c.z, r: base, channels };
+}
+
+/** Pull the doorway ring to 0.30 m in front of the relief-dome wall. */
+function fitWaypointToDome(wp, room, meshObj) {
+  if (!meshObj || !meshObj.wallDistAt) return;
+  const c = room.camera;
+  const p = room.portals[0].position;
+  const dx = p[0] - c.x, dz = p[2] - c.z;
+  const dist = Math.hypot(dx, dz);
+  const theta = Math.atan2(dz, -dx);             // pano convention (shader)
+  const wall = meshObj.wallDistAt(theta);
+  if (!wall || !isFinite(wall)) return;
+  const maxR = wall - 0.30;
+  if (dist > maxR && maxR > 0.6) {
+    const k = maxR / dist;
+    wp.group.position.set(c.x + dx * k, p[1], c.z + dz * k);
+  }
 }
 
 /* ------------------------------------------------------------- warp */
@@ -391,6 +405,7 @@ function handleBump(bump) {
   const label = bump.label[i18n.lang] || bump.label.en;
   hud.showBump(`${i18n.t.bump_prefix} ${label}`);
   audio.bump();
+  if (state.fx && state.fx.halos && bump.ob) state.fx.halos.flash(bump.ob);  // glass halo flash
   // ripple at the obstacle's screen position
   const hitX = camera.position.x + bump.nx * 1.2;
   const hitZ = camera.position.z + bump.nz * 1.2;

@@ -1,0 +1,6 @@
+{
+ "label": "cabin @ spawn",
+ "shot": "/tmp/render/qa_cabin_spawn.jpg",
+ "text": "Upon close inspection of the provided mobile viewport screenshot, the visual integrity is exceptionally high. The architectural elements, including the curved ceiling panels and the wall surfaces, are smooth and free from any \"exploding triangles\" or saw-tooth jagged edges. There are no signs of blurry inpainted smudges or AI-generated artifacts on the walls or furniture. The lighting from the skylight is rendered with a clean gradient, and the textures on the bedding and wood surfaces appear consistent and well-defined.\n\nSCORE: 10/10\n",
+ "score": 10.0
+}

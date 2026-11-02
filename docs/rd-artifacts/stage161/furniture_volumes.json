@@ -1,0 +1,126 @@
+{
+ "anniversary_lounge": {
+  "backend": "zai",
+  "model": "glm-5v-turbo",
+  "cache_hit": false,
+  "pieces_returned": 7,
+  "guarded_changes": [
+   {
+    "idx": 0,
+    "label": "sofa",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.82,
+    "rot": 0.0
+   },
+   {
+    "idx": 1,
+    "label": "cabinet",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.92,
+    "rot": 0.0
+   },
+   {
+    "idx": 2,
+    "label": "table",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.48,
+    "rot": 0.35
+   },
+   {
+    "idx": 3,
+    "label": "sofa",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.85,
+    "rot": 0.55
+   },
+   {
+    "idx": 4,
+    "label": "sofa",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.85,
+    "rot": 0.65
+   },
+   {
+    "idx": 5,
+    "label": "Armchair",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.85,
+    "rot": 0.45
+   },
+   {
+    "idx": 6,
+    "label": "Sideboard",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.92,
+    "rot": 0
+   }
+  ]
+ },
+ "cabin": {
+  "backend": "zai",
+  "model": "glm-5v-turbo",
+  "cache_hit": false,
+  "pieces_returned": 5,
+  "guarded_changes": [
+   {
+    "idx": 0,
+    "label": "bed",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.55,
+    "rot": 0.0
+   },
+   {
+    "idx": 1,
+    "label": "bed",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.85,
+    "rot": 0.0
+   },
+   {
+    "idx": 2,
+    "label": "sofa",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.9,
+    "rot": -0.5
+   },
+   {
+    "idx": 3,
+    "label": "bed",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.98,
+    "rot": 0.0
+   },
+   {
+    "idx": 4,
+    "label": "Cabinet",
+    "moved": false,
+    "sized": false,
+    "labeled": false,
+    "h": 0.8,
+    "rot": 0.0
+   }
+  ]
+ }
+}

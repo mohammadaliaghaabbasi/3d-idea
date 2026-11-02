@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+# ============================================================================
+# ⛔ STAGE 1.6.1 QUARANTINE NOTICE (owner live-site audit, 2026-11-02) ⛔
+# The outputs of this converter are BANNED FROM PRODUCTION:
+#   · depth-cut furniture GLBs (edge tearing + back-caps) exploded into
+#     spiky shards / saw-tooth skirts on the live iPhone build (cabin,
+#     anniversary_lounge);
+#   · the 122px Telea parallax-guard shells left huge blurry smudges on
+#     the 4K walls.
+# DO NOT RUN against the production DB/assets.  Superseded by:
+#   skills/stage161_dome_relief.py  (smooth σ=18px radial relief fields)
+#   + public/js/room.js buildDomeGeometry (watertight relief dome).
+# Kept for history/R&D only.
+# ============================================================================
 """
 PANODROME — skill_360_to_walkable_3d.py  (STAGE 1.6 PRODUCTION SKILL)
 ====================================================================
