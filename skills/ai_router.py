@@ -6,20 +6,30 @@ ONE unified entry point for every AI call in this repo. Enforces the
 4-Tier Model Selection Law (locked in CLAUDE.md / .cursorrules /
 MEMORY_STATE.json) with disk caching for ZERO wasted tokens.
 
-THE 4-TIER LAW
---------------
-  TIER 0  Disk cache (`.cache/ai_responses/`)   — repeated prompt+image
-          SHA-256 → instant replay, 0 tokens. Checked BEFORE any API.
-  TIER 1  Heavy Spatial Architect — 3D room-layout math, precise 2D/3D
-          furniture bounding boxes & segmentation masks, complex WebGL
-          shader design → gemini-2.5-pro, fallback gemini-2.5-flash
-          → z-ai chat. (Pro quota reserved for geometry ONLY.)
-  TIER 2  Persian Architecture & Vision QA — fluent Iranian-architect
-          Persian copy, material hotspot analysis, doorway crop
-          verification → gemini-2.5-flash, fallback z-ai vision.
-  TIER 3  Bulk / smoke tests — simple JSON checks, E2E screenshot
-          sanity, routine tasks → gemini-2.5-flash-lite (fallback
-          gemini-2.0-flash) → z-ai chat.
+THE 4-TIER LAW (owner revision 2026-11-02 — TOKEN ECONOMY EDITION)
+------------------------------------------------------------------
+  TIER 0  Disk cache (`.cache/ai_responses/`) — checked FIRST, every
+          call, text or vision: hash (tier, task, system, prompt,
+          image_sha256, json, temp, maxtok) → instant replay, 0 tokens.
+  TIER 1  Lead 3D Spatial Architect & Final Visual QA Judge —
+          `gemini-3.6-flash` ONLY: (a) 3D reconstruction math /
+          calibration / furniture bounding volumes from panoramas,
+          (b) auditing final rendered screenshots. Fallback: z-ai.
+  TIER 2  Fast structured JSON & copywriting — `gemini-3.5-flash`,
+          auto-fallback `gemini-3.5-flash-lite` → z-ai. Input images are
+          compressed to ≤1024px long-edge JPEG q82 before sending
+          (~70% image-token reduction).
+  TIER 3  Routine coding / bulk checks / simple text — **z-ai CLI by
+          default (0 cost to the Gemini quota)**; gemini-3.5-flash-lite
+          only as fallback with maxOutputTokens 512.
+
+QUOTA GUARDS (hard, always on):
+  · Live-call cap: max 15 live Gemini HTTP calls in a rolling 6h
+    window (ledger `.cache/ai_router_ledger.json`; env AI_ROUTER_CALL_CAP
+    overrides; `--cap-reset` clears). Over cap → Google is skipped and
+    the call falls straight to the z-ai floor.
+  · Every attempt (success or failure) is recorded with its token usage;
+    `--stats` prints the cache + quota report.
 
 FALLBACK TRIGGERS (auto, per law): HTTP 429 / 403 quota, 400
 FAILED_PRECONDITION (geo-block), 401, network timeout, 5xx after one
@@ -40,7 +50,9 @@ Unset -> direct generativelanguage.googleapis.com access.
 
 USAGE
 -----
-  CLI:  python3 skills/ai_router.py --probe
+  CLI:  python3 skills/ai_router.py --stats        (token-economy report)
+        python3 skills/ai_router.py --cap-reset    (clear the live-call cap)
+        python3 skills/ai_router.py --probe
         python3 skills/ai_router.py --tier 1 -p "compute room box..." --json
         python3 skills/ai_router.py --tier 2 -p "توضیح معماری..." -i crop.jpg
         python3 skills/ai_router.py --tier 3 -p "is this JSON valid? {...}" 
@@ -145,42 +157,52 @@ class TierSpec:
     thinking_budget: Optional[int]  # None = model default; >=1 = explicit budget
     timeout_s: int
     zai_timeout_s: int = 240
+    prefer_zai: bool = False          # T3 law: z-ai CLI FIRST (0 Gemini quota)
+    default_max_tokens: Optional[int] = None  # applied when caller passes None
 
 
 TIERS: dict[int, TierSpec] = {
-    # Tier→role mapping is the OWNER'S LAW (CLAUDE.md); model names are the
-    # measured-current Gemini 3.x successors of the original 2.5 picks.
+    # Tier→role mapping is the OWNER'S LAW (CLAUDE.md); ladders re-assigned
+    # 2026-11-02 (token-economy edition, owner directive):
+    #   T1 = gemini-3.6-flash ONLY (lead 3D architect + final visual QA judge)
+    #   T2 = gemini-3.5-flash -> 3.5-flash-lite (fast JSON / copy, 1024px imgs)
+    #   T3 = z-ai CLI by default; gemini-3.5-flash-lite fallback, 512 tokens
     1: TierSpec(
         number=1,
-        name="heavy_spatial_architect",
-        desc="3D room-layout math, precise 2D/3D furniture bounding boxes & "
-        "segmentation masks, complex WebGL shader design",
-        models=["gemini-3.1-pro-preview", "gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash"],  # 3.6 = measured live free-tier floor
-        zai_chat_or_vision="chat",
-        thinking_budget=None,  # Pro thinking ON — spatial math needs it
+        name="lead_3d_architect_and_qa_judge",
+        desc="3D spatial-reconstruction math & calibration, furniture "
+             "bounding volumes from panoramas, FINAL rendered-screenshot "
+             "QA audit",
+        models=["gemini-3.6-flash"],
+        zai_chat_or_vision="vision",
+        thinking_budget=None,
         timeout_s=180,
     ),
     2: TierSpec(
         number=2,
-        name="persian_arch_vision_qa",
-        desc="Fluent Iranian-architectural Persian copywriting, material "
-        "hotspot analysis, doorway crop verification",
-        models=["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash"],  # 3.6 = measured live
+        name="fast_json_and_copy",
+        desc="Fast structured JSON, copywriting, Persian text, routine "
+             "vision checks (images auto-compressed to 1024px q82)",
+        models=["gemini-3.5-flash", "gemini-3.5-flash-lite"],
         zai_chat_or_vision="vision",
-        thinking_budget=None,  # NB: flash-lite 400-rejects explicit thinkingBudget=0
+        thinking_budget=None,
         timeout_s=120,
     ),
     3: TierSpec(
         number=3,
         name="bulk_smoke",
-        desc="Simple JSON checks, automated E2E screenshot sanity checks, "
-        "routine tasks",
-        models=["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.5-flash"],  # flash-latest = 429 quota-0 (measured)
+        desc="Routine coding help, bulk checks, simple text — z-ai CLI by "
+             "default (0 Gemini quota); flash-lite fallback capped at 512 "
+             "output tokens",
+        models=["gemini-3.5-flash-lite"],
         zai_chat_or_vision="chat",
         thinking_budget=None,
         timeout_s=60,
+        prefer_zai=True,
+        default_max_tokens=512,
     ),
 }
+
 
 
 # --------------------------------------------------------------------------- #
@@ -226,6 +248,103 @@ def _read_image_b64(path: Path) -> tuple[str, str]:
         mime = "image/jpeg"
     data = base64.b64encode(path.read_bytes()).decode("ascii")
     return data, mime
+
+
+# --------------------------------------------------------------------------- #
+# QUOTA GUARD — rolling live-call ledger (owner law: max 15 live Gemini
+# calls per rolling 6h window). Cache hits & z-ai calls are free, never
+# recorded. Env AI_ROUTER_CALL_CAP overrides; --cap-reset clears.
+# --------------------------------------------------------------------------- #
+DEFAULT_LEDGER = REPO_ROOT / ".cache" / "ai_router_ledger.json"
+CALL_CAP_DEFAULT = 15
+CALL_WINDOW_S = 6 * 3600
+
+
+class QuotaLedger:
+    def __init__(self, path: Path = DEFAULT_LEDGER):
+        self.path = Path(path)
+        self.cap = int(os.environ.get("AI_ROUTER_CALL_CAP", CALL_CAP_DEFAULT))
+        self.window_s = CALL_WINDOW_S
+
+    def _load(self) -> dict:
+        try:
+            d = json.loads(self.path.read_text())
+            if isinstance(d.get("calls"), list):
+                return d
+        except Exception:
+            pass
+        return {"calls": []}
+
+    def _save(self, d: dict) -> None:
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self.path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(d, ensure_ascii=False))
+        os.replace(tmp, self.path)
+
+    def calls_in_window(self) -> list:
+        now = time.time()
+        return [c for c in self._load()["calls"] if now - c.get("ts", 0) < self.window_s]
+
+    def exhausted(self) -> bool:
+        return len(self.calls_in_window()) >= self.cap
+
+    def record(self, model: str, tier: int, ok: bool, usage: Optional[dict] = None) -> None:
+        d = self._load()
+        d["calls"].append({
+            "ts": time.time(), "iso": _now_iso(), "model": model,
+            "tier": tier, "ok": bool(ok),
+            "tokens": sum(v for v in (usage or {}).values() if isinstance(v, int)),
+        })
+        self._save(d)
+
+    def reset(self) -> None:
+        self._save({"calls": []})
+
+    def stats(self) -> dict:
+        w = self.calls_in_window()
+        by_model: dict = {}
+        for c in w:
+            by_model[c.get("model", "?")] = by_model.get(c.get("model", "?"), 0) + 1
+        return {
+            "live_calls_in_window": len(w),
+            "cap": self.cap,
+            "window_hours": self.window_s / 3600,
+            "by_model": by_model,
+            "tokens_spent_in_window": sum(c.get("tokens", 0) for c in w),
+            "ledger": str(self.path),
+        }
+
+
+# --------------------------------------------------------------------------- #
+# IMAGE ECONOMY — compress to <=1024px long-edge JPEG q82 before sending to
+# Gemini (~70% image-token reduction, owner law 2026-11-02). Originals are
+# untouched (cache keys stay stable); z-ai keeps the originals.
+# --------------------------------------------------------------------------- #
+_IMG_ECONOMY_DIR = DEFAULT_CACHE_DIR / "img1024"
+
+
+def _gemini_image(path: Path) -> Path:
+    try:
+        from PIL import Image
+
+        src = Image.open(path)
+        src.load()
+        w, h = src.size
+        if max(w, h) <= 1024 and path.suffix.lower() in (".jpg", ".jpeg"):
+            return path
+        out_path = _IMG_ECONOMY_DIR / (path.stem + "_" + _file_sha256(path)[:10] + ".jpg")
+        if out_path.is_file():
+            return out_path
+        _IMG_ECONOMY_DIR.mkdir(parents=True, exist_ok=True)
+        im = src.convert("RGB")
+        scale = 1024.0 / max(w, h)
+        if scale < 1.0:
+            im = im.resize((max(1, int(w * scale)), max(1, int(h * scale))), Image.LANCZOS)
+        im.save(out_path, "JPEG", quality=82)
+        return out_path
+    except Exception:
+        return path  # economy must never break a call
+
 
 
 def _now_iso() -> str:
@@ -476,6 +595,8 @@ class Router:
         if tier not in TIERS:
             raise ValueError(f"tier must be one of {sorted(TIERS)}")
         spec = TIERS[tier]
+        if max_tokens is None and spec.default_max_tokens is not None:
+            max_tokens = spec.default_max_tokens   # T3 law: 512-token ceiling
         images = [Path(i) for i in (images or [])]
         for img in images:
             if not img.is_file():
@@ -493,11 +614,28 @@ class Router:
                     print(f"[router] TIER 0 cache HIT (0 tokens): {key[:16]}…", file=sys.stderr)
                 return RouteResult(hit)
 
-        # ---- Google chain --------------------------------------------------
+        # ---- backends (T3 law: z-ai CLI FIRST, 0 Gemini quota) ----------
         trace: list[dict] = []
         started = time.time()
         text = usage = model = backend = None
-        if not self._gemini_disabled and self.key and not self._google_disabled_reason:
+        ledger = QuotaLedger()
+
+        def google_chain() -> None:
+            nonlocal text, usage, model, backend
+            if self._gemini_disabled:
+                trace.append({"info": "gemini disabled by env (AI_ROUTER_NO_GEMINI)"})
+                return
+            if not self.key:
+                trace.append({"info": "no GOOGLE_API_KEY (env/.env) — Google tiers inactive"})
+                return
+            if self._google_disabled_reason:
+                trace.append({"attempt": "gemini", "skipped": self._google_disabled_reason})
+                return
+            if ledger.exhausted():
+                trace.append({"info": f"QUOTA CAP: {ledger.cap} live Gemini calls in the last "
+                                       f"{ledger.window_s / 3600:.0f}h — Google skipped, z-ai floor"})
+                return
+            gimgs = [_gemini_image(i) for i in images]   # <=1024px q82 economy
             for m in spec.models:
                 if self._google_disabled_reason:
                     trace.append({"attempt": f"gemini:{m}", "skipped": self._google_disabled_reason})
@@ -508,7 +646,7 @@ class Router:
                         model=m,
                         key=self.key,
                         prompt=prompt,
-                        images=images,
+                        images=gimgs,
                         system=system,
                         json_mode=json_mode,
                         temperature=temperature,
@@ -516,10 +654,12 @@ class Router:
                         thinking_budget=thinking_budget if thinking_budget is not None else spec.thinking_budget,
                         timeout_s=spec.timeout_s,
                     )
+                    ledger.record(m, tier, True, out.get("usage"))
                     text, usage, model, backend = out["text"], out["usage"], out["model"], "gemini"
                     trace.append({"attempt": f"gemini:{m}", "ok": True, "latency_s": round(time.time() - t0, 2)})
-                    break
+                    return
                 except GeminiError as exc:
+                    ledger.record(m, tier, False)
                     reason = exc.reason
                     trace.append(
                         {"attempt": f"gemini:{m}", "ok": False, "reason": reason, "latency_s": round(time.time() - t0, 2)}
@@ -534,23 +674,26 @@ class Router:
                         time.sleep(1.5)
                         try:
                             out = _gemini_call(
-                                model=m, key=self.key, prompt=prompt, images=images, system=system,
+                                model=m, key=self.key, prompt=prompt, images=gimgs, system=system,
                                 json_mode=json_mode, temperature=temperature, max_tokens=max_tokens,
                                 thinking_budget=thinking_budget if thinking_budget is not None else spec.thinking_budget,
                                 timeout_s=spec.timeout_s,
                             )
+                            ledger.record(m, tier, True, out.get("usage"))
                             text, usage, model, backend = out["text"], out["usage"], out["model"], "gemini"
                             trace.append({"attempt": f"gemini:{m} (retry)", "ok": True})
-                            break
+                            return
                         except GeminiError as exc2:
+                            ledger.record(m, tier, False)
                             trace.append({"attempt": f"gemini:{m} (retry)", "ok": False, "reason": exc2.reason})
-        elif not self.key:
-            trace.append({"info": "no GOOGLE_API_KEY (env/.env) — Google tiers inactive"})
 
-        # ---- z-ai floor -----------------------------------------------------
-        if text is None:
+        def zai_floor(raise_on_fail: bool) -> bool:
+            nonlocal text, usage, model, backend
             if self._zai_disabled:
-                raise RuntimeError("all backends failed (z-ai disabled): " + json.dumps(trace))
+                if raise_on_fail:
+                    raise RuntimeError("all backends failed (z-ai disabled): " + json.dumps(trace))
+                trace.append({"info": "z-ai disabled by env (AI_ROUTER_NO_ZAI)"})
+                return False
             t0 = time.time()
             try:
                 out = _zai_call(
@@ -562,9 +705,23 @@ class Router:
                 )
                 text, usage, model, backend = out["text"], out["usage"], out["model"], "zai"
                 trace.append({"attempt": "z-ai:" + spec.zai_chat_or_vision, "ok": True, "latency_s": round(time.time() - t0, 2)})
+                return True
             except GeminiError as exc:
                 trace.append({"attempt": "z-ai:" + spec.zai_chat_or_vision, "ok": False, "reason": exc.reason})
-                raise RuntimeError("all backends failed: " + json.dumps(trace)) from exc
+                if raise_on_fail:
+                    raise RuntimeError("all backends failed: " + json.dumps(trace)) from exc
+                return False
+
+        if spec.prefer_zai:
+            zai_floor(raise_on_fail=False)      # T3: z-ai CLI by default
+            if text is None:
+                google_chain()                  # fallback: flash-lite (512-tok cap)
+                if text is None:
+                    zai_floor(raise_on_fail=True)
+        else:
+            google_chain()
+            if text is None:
+                zai_floor(raise_on_fail=True)
 
         entry = {
             "schema": CACHE_SCHEMA,
@@ -764,6 +921,8 @@ def main(argv: Optional[list] = None) -> int:
     ap = argparse.ArgumentParser(description="Panodrome Smart Model Router (4-Tier Law)")
     ap.add_argument("--probe", action="store_true", help="audit key auth matrix + model access + z-ai floors")
     ap.add_argument("--cache-stats", action="store_true")
+    ap.add_argument("--stats", action="store_true", help="cache + live-quota ledger report (token economy)")
+    ap.add_argument("--cap-reset", action="store_true", help="reset the live-call quota ledger")
     ap.add_argument("--tier", type=int, choices=sorted(TIERS), help="tier 1|2|3 (law in CLAUDE.md)")
     ap.add_argument("-p", "--prompt", help="prompt text")
     ap.add_argument("-i", "--image", action="append", default=[], help="image path (repeatable)")
@@ -785,8 +944,17 @@ def main(argv: Optional[list] = None) -> int:
     if args.cache_stats:
         print(json.dumps(DiskCache().stats(), ensure_ascii=False, indent=1))
         return 0
+    if args.cap_reset:
+        QuotaLedger().reset()
+        print("quota ledger reset (live-call cap window cleared)")
+    if args.stats:
+        print(json.dumps({
+            "quota": QuotaLedger().stats(),
+            "cache": DiskCache().stats(),
+        }, ensure_ascii=False, indent=1))
+        return 0
     if not (args.tier and args.prompt):
-        ap.error("--tier and --prompt are required (or use --probe / --cache-stats)")
+        ap.error("--tier and --prompt are required (or use --probe / --cache-stats / --stats)")
         return 3
 
     router = Router()
