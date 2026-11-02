@@ -60,6 +60,28 @@ The previous Phase 2.5/3/4 build **failed architectural quality standards** (ver
 3. `docs/` = archive. Open a doc ONLY when a task explicitly targets that doc's topic.
 4. Never re-derive decisions already listed under "Locked Decisions" above.
 
+## Smart Model Router Law (locked 2026-11-02 — owner mission)
+
+**ALL AI calls in this repo go through `skills/ai_router.py`** — never call Gemini or `z-ai` directly in new code. Zero wasted tokens.
+
+| Tier | Task type | Primary backend | Fallback chain (auto: 429/quota/geo/timeout/5xx) |
+|---|---|---|---|
+| **0** | ANY repeated prompt + image (content-SHA-256 keyed) | local disk cache `.cache/ai_responses/` (git-ignored) | — checked BEFORE any API; a hit spends **0 tokens** |
+| **1** | Heavy Spatial Architect: 3D room-layout math, precise 2D/3D furniture bounding boxes & segmentation masks, complex WebGL shader design | `gemini-3.1-pro-preview` ¹ | `gemini-3.8-flash` → `z-ai chat` |
+| **2** | Persian Architecture & Vision QA: fluent Iranian-architect Persian copy, material hotspot analysis, doorway crop verification | `gemini-3.8-flash` ¹ | `z-ai vision` |
+| **3** | Bulk / smoke: simple JSON checks, E2E screenshot sanity, routine tasks | `gemini-3.5-flash-lite` ¹ | `gemini-flash-latest` → `z-ai chat` |
+
+¹ Measured 2026-11-02: the Gemini 2.5/2.0 family returns 404 "no longer available to new users"; official successors: 2.5-pro→`gemini-3.1-pro-preview`, 2.5-flash→`gemini-3.8-flash`, 2.5-flash-lite→`gemini-3.5-flash-lite`, 2.0-flash→`gemini-3.8-flash`.
+
+**Router laws:**
+- `GOOGLE_API_KEY` lives ONLY in `.env` (git-ignored, chmod 600) or the env var — NEVER in tracked files, cache entries, or logs.
+- Key verified VALID 2026-11-02 (differential proof: garbage key → 401 "API key not valid"; our key passes auth). From this sandbox egress (Hong Kong) Google flash models are geo-blocked (`400 FAILED_PRECONDITION`) and pro-preview free-tier quota = 0 → router auto-falls to `z-ai` (glm-4-plus / glm-5v-turbo); tiers stay armed for supported regions.
+- `x-goog-api-key` header and `?key=` param are the valid auth methods; `Authorization: Bearer` is NOT (401 — OAuth-only).
+- Cache key = SHA-256(tier, task, system, prompt, **image content hashes**, json/temp/maxtok) — model-agnostic by design.
+- Geo-block disables the Google backends for the rest of the process (no retry storms); 429/403/5xx walk down the chain immediately (one same-model retry only for transient 5xx/network).
+- `thinkingBudget: 0` is never sent cross-model (`gemini-3.5-flash-lite` 400-rejects it); only an explicit `--thinking-budget N` (N≥1) sends the knob.
+- CLI: `python3 skills/ai_router.py --probe` (key/model/egress audit) · `--tier N -p "..." [-i img] [--json-out]` · `--cache-stats`.
+
 ## Repo Map
 
 | Path | Role |

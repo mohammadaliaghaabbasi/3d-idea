@@ -40,3 +40,17 @@
 - Stage 1.5 (true first-person physics: room-volume projection + sliding collision + routing modes + soft audio + 10 rooms) = DELIVERED, awaiting owner inspection on the live URL. Stages 2–5 are LOCKED: FORBIDDEN to start until the owner explicitly approves Stage 1.5.
 - Architectural integrity law (permanent, Stage 1.5 revision): flat floor + plumb walls ALWAYS — walking is real camera translation with sliding collision, NEVER vertex displacement, NEVER FOV zoom (fov fixed 68° desktop / 75° touch). Persian = Vazirmatn always. No naked-oscillator footsteps ever (filtered noise <180 Hz + quiet sub support).
 - Stripped modules recoverable from git history commit `3203ae2`.
+
+## Smart Model Router Law (locked 2026-11-02 — mirrors CLAUDE.md)
+- ALL AI calls go through `skills/ai_router.py` — NEVER call Gemini or z-ai directly in new code. Zero wasted tokens.
+- TIER 0 disk cache `.cache/ai_responses/` (git-ignored): SHA-256(tier, task, system, prompt, image content hashes, params) — checked BEFORE any API; a hit = 0 tokens. Model-agnostic.
+- TIER 1 heavy spatial architect (3D layout math, furniture bboxes/masks, WebGL shaders): `gemini-3.1-pro-preview` → fallback `gemini-3.8-flash` → `z-ai chat`.
+- TIER 2 Persian architecture & vision QA (Persian copy, hotspot analysis, doorway crops): `gemini-3.8-flash` → fallback `z-ai vision`.
+- TIER 3 bulk/smoke (JSON checks, E2E sanity): `gemini-3.5-flash-lite` → `gemini-flash-latest` → `z-ai chat`.
+- Gemini 2.5/2.0 family is 404-deprecated for new users (measured 2026-11-02); 3.x names above are the official successors.
+- GOOGLE_API_KEY lives ONLY in `.env` (git-ignored) or env var — NEVER in tracked files, cache entries, or logs. Key proven VALID via differential probe (garbage→401, ours passes auth).
+- From this sandbox egress (HK): Google flash = geo-blocked (400 FAILED_PRECONDITION), pro-preview = free-tier quota 0 → router auto-falls to z-ai (glm-4-plus / glm-5v-turbo); law stays armed for supported regions.
+- Auth: `x-goog-api-key` header or `?key=` param (Bearer is OAuth-only — 401).
+- Geo-block disables Google for the whole process (no retry storms); 429/403 → next model immediately; one same-model retry only for transient 5xx/network.
+- NEVER send `thinkingBudget: 0` cross-model (flash-lite 400-rejects it); explicit --thinking-budget N (N≥1) only.
+- CLI: `python3 skills/ai_router.py --probe | --tier N -p "..." [-i img] [--json-out] | --cache-stats`.

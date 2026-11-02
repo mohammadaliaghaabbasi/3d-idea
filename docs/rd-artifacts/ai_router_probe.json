@@ -1,0 +1,85 @@
+{
+ "schema": "panodrome.ai_router.probe.v1",
+ "timestamp": "2026-11-02T10:13:13Z",
+ "python": "3.12.16",
+ "key": {
+  "present": true,
+  "source": ".env",
+  "masked": "AQ.…(53ch)"
+ },
+ "requests_lib": true,
+ "auth_matrix": {
+  "x-goog-api-key header": {
+   "http": 400,
+   "status": "FAILED_PRECONDITION",
+   "message": "User location is not supported for the API use."
+  },
+  "?key= query param": {
+   "http": 400,
+   "status": "FAILED_PRECONDITION",
+   "message": "User location is not supported for the API use."
+  },
+  "Authorization: Bearer": {
+   "http": 401,
+   "status": "UNAUTHENTICATED",
+   "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authenticatio"
+  },
+  "control: garbage key": {
+   "http": 401,
+   "status": "UNAUTHENTICATED",
+   "message": "API key not valid. Please pass a valid API key."
+  }
+ },
+ "model_tests": {
+  "gemini-3.1-pro-preview": {
+   "ok": false,
+   "reason": "http_429:RESOURCE_EXHAUSTED:You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/"
+  },
+  "gemini-3.8-flash": {
+   "ok": false,
+   "reason": "http_400:FAILED_PRECONDITION:User location is not supported for the API use."
+  },
+  "gemini-3.5-flash-lite": {
+   "ok": false,
+   "reason": "http_400:FAILED_PRECONDITION:User location is not supported for the API use."
+  },
+  "gemini-2.5-pro": {
+   "ok": false,
+   "reason": "http_404:NOT_FOUND:This model models/gemini-2.5-pro is no longer available to new users. Please update your code to use models/gemini-3.1-pro-preview for the latest features and i"
+  }
+ },
+ "egress": {
+  "ip": "8.212.10.159",
+  "city": "Hong Kong",
+  "country": "HK",
+  "org": "AS45102 Alibaba (US) Technology Co., Ltd."
+ },
+ "zai": {
+  "chat": {
+   "ok": true,
+   "model": "glm-4-plus",
+   "text": "ZAI-PROBE-OK"
+  },
+  "vision": {
+   "ok": true,
+   "model": "glm-5v-turbo",
+   "text": "ZAI-VISION-OK"
+  }
+ },
+ "sdk": {
+  "installed": true,
+  "ok": false,
+  "error": "400 FAILED_PRECONDITION. {'error': {'code': 400, 'message': 'User location is not supported for the API use.', 'status': 'FAILED_PRECONDITION'}}",
+  "geo_blocked": true,
+  "version": "2.34.0"
+ },
+ "verdict": {
+  "key_valid": true,
+  "key_proof": "garbage key -> 401 'API key not valid' while our key passes auth (400 geo-block / 404 deprecation / 429 quota are all POST-auth errors)",
+  "gemini_callable_from_here": false,
+  "geo_blocked": true,
+  "quota_zero_on_free_tier": true,
+  "zai_floor_ok": true,
+  "router_mode": "z-ai-only from this egress — Gemini key VALID but geo-blocked (flash) and/or free-tier quota 0 (pro); tiers stay armed for supported regions"
+ }
+}
