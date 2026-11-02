@@ -1,19 +1,25 @@
 /**
- * PANODROME — Stage 1 · Doorway Waypoint
+ * PANODROME — Stage 1.5 · Doorway Waypoint + Portal Routing Modes
  *
- * ONE verified doorway per room, rendered as a refined, minimal 32px pulsing
- * glass ring — zero giant boxes, zero text clutter until hovered/tapped.
+ * ONE VLM-verified doorway per room, rendered as the refined 32px pulsing
+ * glass ring (Stage-1 visual language, unchanged). New in Stage 1.5:
  *
- * The ring is a billboard sprite kept at a CONSTANT 32 px screen size
- * (world scale recomputed per frame from camera.fov), breathing gently.
- * Its position comes from the VLM-verified + depth-solved doorway
- * coordinates in rooms_db.json (origin: vlm_verified_doorway) — it projects
- * dead-centre on the real doorway at a truthful distance.
+ *   · PORTAL ROUTING MODES (user-driven exploration, restored from 3203ae2
+ *     with cleaner semantics):
+ *       architect — the next space by the SAME architect / creator
+ *       style     — same style family (modern / classic / cozy / historic /
+ *                   open_air), falling back to the closest style_tags match
+ *       room_type — same type group (residential / hospitality / heritage /
+ *                   outdoor)
+ *       random    — serendipitous discovery
+ *   · WALK-INTO-DOORWAY: walking physically within 1.1 m of the ring
+ *     triggers the portal transition — like walking through a real door.
  */
 import * as THREE from "three";
 
 const RING_SCREEN_PX = 32;   // constant on-screen ring size
 const PULSE_HZ = 1.35;
+export const WALK_IN_DIST = 1.1;   // m — walk into the doorway to travel
 
 function ringTexture() {
   const S = 256;
@@ -45,14 +51,13 @@ function ringTexture() {
   ctx.beginPath(); ctx.arc(c, c, S * 0.045, 0, Math.PI * 2); ctx.fill();
 
   const tex = new THREE.CanvasTexture(cv);
-  tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
 }
 
 export class Waypoint {
   /**
-   * @param {object} def    portal definition (rooms_db.json, *_door)
-   * @param {object} targetRoom  the room this doorway leads to
+   * @param {object} def        portal definition (rooms_db.json, *_door)
+   * @param {object} targetRoom the room this doorway leads to
    */
   constructor(def, targetRoom) {
     this.def = def;
@@ -84,6 +89,11 @@ export class Waypoint {
     this._opacity = 0;
   }
 
+  /** Retarget the same doorway at a new destination (routing-mode change). */
+  retarget(targetRoom) {
+    this.targetRoom = targetRoom;
+  }
+
   /** Constant-32px world scale for the current camera. */
   update(t, dt, camera, hovered) {
     this.hovered = !!hovered;
@@ -101,9 +111,12 @@ export class Waypoint {
     this.mat.opacity = this._opacity * (0.9 + 0.1 * Math.sin(t * Math.PI * 2 * PULSE_HZ + this.phase));
   }
 
-  colliderMeshes() { return [this.collider]; }
+  /** Horizontal distance from the player to the doorway (walk-in trigger). */
+  playerDist(camera) {
+    const p = this.group.position;
+    return Math.hypot(camera.position.x - p.x, camera.position.z - p.z);
+  }
 
-  /** World position of the doorway (warp target direction). */
   doorPos() { return this.group.position.clone(); }
 
   dispose() {
@@ -113,6 +126,59 @@ export class Waypoint {
     this.collider.geometry.dispose();
     this.collider.material.dispose();
   }
+}
+
+/* ============================================================ routing */
+
+export const ROUTING_MODES = ["architect", "style", "room_type", "random"];
+
+/**
+ * Where does this doorway lead?
+ * @returns {{target:number, reason:string}} index into rooms
+ */
+export function computeRoutes(rooms, currentIndex, mode) {
+  const n = rooms.length;
+  const cur = rooms[currentIndex];
+  const next = (i) => (i + 1) % n;
+
+  if (mode === "architect") {
+    const me = (cur.attribution?.creator || "").trim();
+    for (let k = 1; k < n; k++) {
+      const i = (currentIndex + k) % n;
+      const other = (rooms[i].attribution?.creator || "").trim();
+      if (i !== currentIndex && other && other === me) return { target: i, reason: "architect" };
+    }
+    return { target: next(currentIndex), reason: "architect_fallback" };
+  }
+
+  if (mode === "style") {
+    const family = cur.style_family;
+    for (let k = 1; k < n; k++) {
+      const i = (currentIndex + k) % n;
+      if (rooms[i].style_family === family) return { target: i, reason: "style" };
+    }
+    // closest style_tags overlap
+    let best = -1, bestScore = -1;
+    for (let i = 0; i < n; i++) {
+      if (i === currentIndex) continue;
+      const score = (rooms[i].style_tags || []).filter((t) => (cur.style_tags || []).includes(t)).length;
+      if (score > bestScore) { bestScore = score; best = i; }
+    }
+    return { target: best >= 0 ? best : next(currentIndex), reason: "style_near" };
+  }
+
+  if (mode === "room_type") {
+    const group = cur.type_group;
+    for (let k = 1; k < n; k++) {
+      const i = (currentIndex + k) % n;
+      if (rooms[i].type_group === group) return { target: i, reason: "room_type" };
+    }
+    return { target: next(currentIndex), reason: "room_type_fallback" };
+  }
+
+  // random serendipity
+  const pool = [...Array(n).keys()].filter((i) => i !== currentIndex);
+  return { target: pool[Math.floor(Math.random() * pool.length)], reason: "random" };
 }
 
 /** Project a world position to CSS pixel coords. Returns {x, y, behind}. */

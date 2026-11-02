@@ -1,19 +1,34 @@
 /**
- * PANODROME — Stage 1 · main
- * Zero-Distortion Spatial Experience & Clean UI.
+ * PANODROME — Stage 1.5 · main
+ * True First-Person Spatial Experience.
  *
- * Boot → intro → room lifecycle (pristine sphere, one doorway waypoint,
- * optical glide) → GSAP optical warp transitions.
+ * Boot → intro → room lifecycle (true room volume + physics walking,
+ * doorway waypoint with routing modes) → GSAP warp transitions.
  *
- * SILENT BY DESIGN: no audio engine is loaded in Stage 1
- * (real spatial audio arrives in Stage 3, built properly).
+ * Stage 1.5 laws (locked 2026-11-02):
+ *   · camera.fov is FIXED — 68° desktop / 75° touch. Walking is real
+ *     position translation, never a focal-length zoom.
+ *   · The room renders on a true metric room volume (room.js) — walls and
+ *     floor stay perfectly flat and plumb, forever.
+ *   · Walking is resolved against room_bounds + obstacle_colliders
+ *     (collider.js) with sliding response — bump into the grand piano and
+ *     you stop, then glide along it.
+ *   · Walking physically into the doorway ring (< 1.1 m) travels to the
+ *     next room by the active routing mode.
+ *   · Audio is the warm acoustic engine (audio.js): soft low-passed
+ *     footsteps every 0.65 m of real travel + gentle room air.
  */
 import * as THREE from "three";
 import { i18n } from "./i18n.js";
-import { buildRoomSphere, prefetchRoom } from "./sphere.js";
-import { OpticalControls } from "./controls.js";
-import { Waypoint, projectToScreen } from "./portals.js";
+import { buildRoomVolume, prefetchRoom } from "./room.js";
+import { WalkingControls } from "./controls.js";
+import { WalkWorld, WalkFX } from "./collider.js";
+import { Waypoint, computeRoutes, projectToScreen, WALK_IN_DIST } from "./portals.js";
+import { AudioEngine } from "./audio.js";
 import { HUD } from "./hud.js";
+
+const FOV_DESKTOP = 68;      // FIXED — walking is translation, never zoom
+const FOV_TOUCH = 75;        // FIXED
 
 const state = {
   db: null,
@@ -21,16 +36,22 @@ const state = {
   room: null,
   meshObj: null,
   waypoint: null,
+  world: null,
+  fx: null,
   started: false,
   transitioning: false,
+  mode: "architect",
+  walkInArmedAt: 0,
 };
 
-let renderer, scene, camera, controls, hud;
+let renderer, scene, camera, controls, hud, audio;
 const clock = new THREE.Clock();
 const raycaster = new THREE.Raycaster();
 const pointerNdc = new THREE.Vector2();
+const floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 let hoveredWaypoint = false;
 const isTouch = matchMedia("(pointer: coarse)").matches;
+const FOV = isTouch ? FOV_TOUCH : FOV_DESKTOP;
 
 main();
 
@@ -47,10 +68,11 @@ async function main() {
   document.getElementById("scene").appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(70, innerWidth / innerHeight, 0.1, 1200);
+  camera = new THREE.PerspectiveCamera(FOV, innerWidth / innerHeight, 0.05, 200);
   camera.rotation.order = "YXZ";
 
   hud = new HUD();
+  audio = new AudioEngine();
 
   const saved = localStorage.getItem("panodrome_lang");
   i18n.setLang(saved === "fa" ? "fa" : "en");
@@ -65,10 +87,16 @@ async function main() {
     return;
   }
 
-  controls = new OpticalControls(camera, renderer.domElement);
+  controls = new WalkingControls(camera, renderer.domElement);
   controls.onClick = (x, y) => handleClick(x, y);
   controls.onDouble = (x, y) => handleDouble(x, y);
-  hud.bindWalkPad(controls);
+  controls.onStep = (material) => audio.step(material);
+  controls.onBump = (bump) => handleBump(bump);
+
+  hud.bindJoystick((v) => { controls.joy.x = v.x; controls.joy.y = v.y; });
+  hud.setMuted(audio.muted);
+  audio.onMuteChange = (m) => hud.setMuted(m);
+  hud.onSoundToggle(() => audio.setMuted(!audio.muted));
 
   hud.initIntro(state.db.rooms[0].preview, onEnter);
   hud.onLangToggle(() => {
@@ -78,7 +106,7 @@ async function main() {
     if (state.room) hud.setRoom(state.room, state.roomIdx, state.db.rooms.length);
   });
   hud.onViewButton(() => {
-    if (controls.glided) {
+    if (controls.moved) {
       controls.resetView();          // "بازگشت به مرکز فضا"
     } else {
       toggleFullscreen();
@@ -87,6 +115,12 @@ async function main() {
   hud.onNavigate((dir) => {
     const n = state.db.rooms.length;
     navigateTo((state.roomIdx + dir + n) % n);
+  });
+  hud.onModeChange((mode) => {
+    if (mode === state.mode) return;
+    state.mode = mode;
+    hud.setMode(mode);
+    retargetWaypoint();
   });
   hud.onWaypointChip(() => state.waypoint && warpThrough(state.waypoint));
 
@@ -101,25 +135,38 @@ async function main() {
     camera,
     get controls() { return controls; },
     get hud() { return hud; },
+    get world() { return state.world; },
+    get audio() { return audio; },
     rooms: () => state.db.rooms,
-    spherePurity: () => (state.meshObj ? state.meshObj.radiusDeviation : null),
-    textureSize: () => (state.meshObj ? [state.meshObj.texture.image.width, state.meshObj.texture.image.height] : null),
+    fov: () => camera.fov,
+    fovMust: () => FOV,
+    pos: () => [camera.position.x, camera.position.y, camera.position.z].map((v) => Math.round(v * 1000) / 1000),
+    movedFromStart: () => Math.hypot(controls.pos.x - controls.start.x, controls.pos.z - controls.start.z),
+    travelled: () => Math.round(controls.travelled * 100) / 100,
+    roomStats: () => (state.meshObj ? state.meshObj.stats : null),
+    textureSize: () => (state.meshObj ? state.meshObj.stats.textureSize : null),
     waypointScreen: () => {
       if (!state.waypoint) return null;
       const p = projectToScreen(state.waypoint.group.position, camera);
       return {
         ...p,
         dist: Math.round(camera.position.distanceTo(state.waypoint.group.position) * 100) / 100,
+        walkDist: Math.round(state.waypoint.playerDist(camera) * 100) / 100,
         target: state.waypoint.targetRoom.id,
         x: Math.round(p.x), y: Math.round(p.y),
       };
     },
-    setGlide: (v) => controls.glideTo(v),
+    walkTo: (x, z) => controls.walkTo(new THREE.Vector3(x, 0, z)),
+    setMode: (m) => { state.mode = m; hud.setMode(m); retargetWaypoint(); },
     resetView: () => controls.resetView(),
     warpNext: () => state.waypoint && warpThrough(state.waypoint),
     uiBounds: () => {
       const vw = innerWidth, vh = innerHeight;
-      const ids = ["room-pill", "btn-lang", "btn-view", "nav-capsule", "walk-pad", "wp-chip", "btn-enter"];
+      const ids = [
+        "room-pill", "btn-sound", "btn-lang", "btn-view", "mode-bar",
+        "mode-architect", "mode-style", "mode-room_type", "mode-random",
+        "nav-capsule", "bump-toast", "joystick", "wp-chip", "btn-enter",
+      ];
       const out = [];
       for (const id of ids) {
         const el = document.getElementById(id);
@@ -148,6 +195,8 @@ function toggleFullscreen() {
 async function onEnter() {
   if (state.started) return;
   state.started = true;
+  audio.unlock();                       // user gesture → warm acoustic engine
+  hud.setMuted(audio.muted);
   hud.hideIntro();
   hud.showLoading(true);
   hud.setLoadProgress(0.1);
@@ -156,21 +205,36 @@ async function onEnter() {
   hud.showLoading(false);
   hud.showHud();
 
-  // cinematic settle-in: a soft wide→rest fov breath
-  controls.enabled = false;
-  controls.w = -0.6; controls.wTarget = 0; controls.wVel = 0;
-  requestAnimationFrame(() => {
-    controls.enabled = true;
-    state._settleGuard = performance.now() + 1600;
-  });
+  // a soft step in — the player arrives in the space
+  controls.enabled = true;
 }
 
 /* ------------------------------------------------------------- room lifecycle */
 
+function routeFor(idx) {
+  return computeRoutes(state.db.rooms, idx, state.mode);
+}
+
+function retargetWaypoint() {
+  if (!state.waypoint || state.roomIdx < 0) return;
+  const { target } = routeFor(state.roomIdx);
+  state.waypoint.retarget(state.db.rooms[target]);
+  if (hoveredWaypoint) {
+    const p = projectToScreen(state.waypoint.group.position, camera);
+    hud.showWaypointChip(state.waypoint.targetRoom, p.x, p.y);
+  }
+  prefetchRoom(state.db.rooms[target]);
+}
+
 async function loadRoom(idx) {
   const room = state.db.rooms[idx];
-  state.roomIdx = idx;
-  state.room = room;
+  hud.hideWaypointChip();
+
+  // build FIRST — the swap below is atomic, so state.room / world / waypoint
+  // can never disagree (no walking in the previous room's collision world)
+  hud.setLoadProgress(0.15);
+  const meshObj = await buildRoomVolume(room, renderer);
+  hud.setLoadProgress(0.85);
 
   if (state.meshObj) {
     scene.remove(state.meshObj.mesh);
@@ -182,32 +246,41 @@ async function loadRoom(idx) {
     state.waypoint.dispose();
     state.waypoint = null;
   }
-  hud.hideWaypointChip();
+  if (state.fx) {
+    state.fx.dispose(scene);
+    state.fx = null;
+  }
 
-  hud.setLoadProgress(0.15);
-  const meshObj = await buildRoomSphere(room, renderer);
-  hud.setLoadProgress(0.85);
   state.meshObj = meshObj;
   scene.add(meshObj.mesh);
+  state.roomIdx = idx;
+  state.room = room;
 
-  // one verified doorway waypoint → next room in the curated sequence
-  const n = state.db.rooms.length;
-  const nextRoom = state.db.rooms[(idx + 1) % n];
-  const wp = new Waypoint(room.portals[0], nextRoom);
+  // physics world + floor walk FX
+  state.world = new WalkWorld(room);
+  state.fx = new WalkFX(scene, room);
+  controls.setWorld(state.world);
+  controls.setRoom(room);
+  audio.setRoom(room.audio || {});
+
+  // one verified doorway waypoint → routed next room
+  const { target } = routeFor(idx);
+  const wp = new Waypoint(room.portals[0], state.db.rooms[target]);
   scene.add(wp.group);
   state.waypoint = wp;
 
-  controls.setRoom(room);
-  camera.fov = 70;
+  // FIXED FOV — never a zoom, never touched while walking
+  camera.fov = FOV;
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
-  hud.setRoom(room, idx, n);
+  hud.setRoom(room, idx, state.db.rooms.length);
+  state.walkInArmedAt = performance.now() + 700;   // walk-in trigger arming
 
   hud.setLoadProgress(1);
-  setTimeout(() => prefetchRoom(nextRoom), 1500);
+  setTimeout(() => prefetchRoom(state.db.rooms[target]), 1500);
 }
 
-/* ------------------------------------------------------------- optical warp */
+/* ------------------------------------------------------------- warp */
 
 function warpThrough(waypoint) {
   if (state.transitioning) return;
@@ -219,31 +292,45 @@ function navigateTo(idx, dirWorld) {
   if (state.transitioning || idx === state.roomIdx) return;
   state.transitioning = true;
   controls.enabled = false;
+  controls.walkTarget = null;
+  controls.vel.set(0, 0);
   hud.hideWaypointChip();
+  audio.warp();
 
   const dir = (dirWorld || new THREE.Vector3()).clone();
   dir.y = 0;
   if (dir.lengthSq() < 1e-6) camera.getWorldDirection(dir).setY(0);
   dir.normalize();
 
-  const start = camera.position.clone();
-  const end = start.clone().addScaledVector(dir, 0.18);   // micro-parallax lean-in
+  // step INTO the doorway: tween controls.pos (the single position source —
+  // camera follows it every frame, so the warp never fights the walk loop)
+  const start = controls.pos.clone();
+  const end = start.clone().addScaledVector(dir, 0.55);
 
   const tl = gsap.timeline({
     onComplete: async () => {
       await loadRoom(idx);
-      camera.fov = 70;
-      camera.updateProjectionMatrix();
-      // arrival breath: slightly wide fov springs back to rest
-      controls.w = -0.55; controls.wTarget = 0; controls.wVel = 0;
       gsap.to("#fade", { opacity: 0, duration: 0.8, ease: "power2.out" });
       controls.enabled = true;
       state.transitioning = false;
     },
   });
-  tl.to(camera.position, { x: end.x, y: start.y, z: end.z, duration: 0.9, ease: "power2.in" }, 0);
-  tl.to(camera, { fov: 38, duration: 0.9, ease: "power2.in", onUpdate: () => camera.updateProjectionMatrix() }, 0);
-  tl.to("#fade", { opacity: 1, duration: 0.48, ease: "power1.in" }, 0.42);
+  tl.to(controls.pos, { x: end.x, z: end.z, duration: 0.55, ease: "power2.in" }, 0);
+  tl.to("#fade", { opacity: 1, duration: 0.4, ease: "power1.in" }, 0.15);
+}
+
+/* ------------------------------------------------------------- collisions */
+
+function handleBump(bump) {
+  if (!bump) return;
+  const label = bump.label[i18n.lang] || bump.label.en;
+  hud.showBump(`${i18n.t.bump_prefix} ${label}`);
+  audio.bump();
+  // ripple at the obstacle's screen position
+  const hitX = camera.position.x + bump.nx * 1.2;
+  const hitZ = camera.position.z + bump.nz * 1.2;
+  const p = projectToScreen(new THREE.Vector3(hitX, 1.0, hitZ), camera);
+  if (!p.behind) hud.ripple(p.x, p.y);
 }
 
 /* ------------------------------------------------------------- pointer logic */
@@ -286,28 +373,28 @@ function handleClick(x, y) {
     }
     return;
   }
-  // tapping out: step back to the centre of the space
   hud.hideWaypointChip();
-  if (controls.glided) {
-    controls.resetView();
-  }
 }
 
 function handleDouble(x, y) {
   if (!state.started || state.transitioning) return;
   if (raycastWaypoint(x, y)) { warpThrough(state.waypoint); return; }
 
-  // turn toward the tapped point and glide in optically
+  // walk TO the tapped floor point — a real walk across the room
   pointerNdc.set((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1);
   raycaster.setFromCamera(pointerNdc, camera);
-  let dir = null;
-  if (state.meshObj) {
-    const hit = raycaster.intersectObject(state.meshObj.mesh, false)[0];
-    if (hit) dir = hit.point.clone().sub(camera.position).normalize();
+  const hit = new THREE.Vector3();
+  if (raycaster.ray.intersectPlane(floorPlane, hit)) {
+    // clamp the destination into the walkable area
+    const b = state.world?.bounds;
+    if (b) {
+      hit.x = THREE.MathUtils.clamp(hit.x, b.minX, b.maxX);
+      hit.z = THREE.MathUtils.clamp(hit.z, b.minZ, b.maxZ);
+    }
+    const dir = hit.clone().sub(camera.position).normalize();
+    controls.lookToward(dir);
+    controls.walkTo(hit);
   }
-  if (!dir) camera.getWorldDirection((dir = new THREE.Vector3()));
-  controls.lookToward(dir);
-  controls.glideTo(0.85, dir);
 }
 
 /* ------------------------------------------------------------- loop */
@@ -318,11 +405,21 @@ function tick() {
 
   controls.update(dt);
 
-  if (state.waypoint) {
+  if (state.fx) state.fx.update(dt, controls.pos, controls.speed);
+
+  if (state.waypoint && !state.transitioning) {
     state.waypoint.update(t, dt, camera, hoveredWaypoint);
+
+    // walk physically INTO the doorway → travel
+    if (state.started && performance.now() > state.walkInArmedAt) {
+      const d = state.waypoint.playerDist(camera);
+      if (d < WALK_IN_DIST) {
+        warpThrough(state.waypoint);
+      }
+    }
   }
 
-  hud.setGlided(controls.glided);
+  hud.setMoved(controls.moved);
   renderer.render(scene, camera);
 }
 

@@ -5,10 +5,12 @@
 
 ## Project
 - Name: **Panodrome** (locked 2026-11-01, Issue #1) — "Spatial & Living Architecture Pinterest".
-- Core: 360° equirect panoramas → walkable 6DoF 3D meshes (depth estimation + Three.js displaced sphere),
-  AI Smart Portals with 4 routing modes (All / Room-Type / Style / Random), spatial audio, AI material inspector.
+- Core: 360° equirect panoramas → true first-person walkable ROOM VOLUMES (Stage 1.5: metric shoebox
+  projection — flat floor, plumb walls, per-fragment equirect shader), real multi-metre walking with
+  sliding furniture collision, doorway portals with 4 routing modes (Architect / Style / Room Type /
+  Random — walk into the ring to travel), warm low-passed acoustic footsteps + ambience.
 - Language: English-first + full RTL Persian (`fa`) from Day 1.
-- Stack: Three.js + GSAP (free) + WebGL + PolyHaven CC0.
+- Stack: Three.js + GSAP (free) + WebGL + PolyHaven CC0 + Wikimedia Commons.
 
 ## Locked decisions (do not revisit)
 - Name = Panodrome · EN-first + FA RTL · Three.js/GSAP/PolyHaven CC0 · straight to Phase 1 (no static mockups).
@@ -34,6 +36,7 @@
 
 ## 5-Stage Gated Pipeline (SYSTEM RESET — 2026-11-02)
 - Previous Phase 2.5/3/4 build FAILED architectural QA (vertex-warped walls, oscillator fake footsteps, mobile overflow, Tahoma fallback, random pins, churches/stations). System reset applied.
-- Stage 1 (zero-distortion core) = DELIVERED, awaiting owner inspection on the live URL. Stages 2–5 are LOCKED: FORBIDDEN to start until the owner explicitly approves Stage 1.
-- Architectural integrity law (permanent): straight verticals ALWAYS — walking illusion is optical (FOV 78↔42 spring + ≤0.18 m micro-parallax), NEVER vertex displacement. Persian = Vazirmatn always. Stage 1 is SILENT (real audio only in Stage 3).
+- Stage 1 (zero-distortion core) = INSPECTED by owner 2026-11-02: typography approved, movement rejected ("camera zooming, not walking") → owner ordered the Stage 1.5 upgrade.
+- Stage 1.5 (true first-person physics: room-volume projection + sliding collision + routing modes + soft audio + 10 rooms) = DELIVERED, awaiting owner inspection on the live URL. Stages 2–5 are LOCKED: FORBIDDEN to start until the owner explicitly approves Stage 1.5.
+- Architectural integrity law (permanent, Stage 1.5 revision): flat floor + plumb walls ALWAYS — walking is real camera translation with sliding collision, NEVER vertex displacement, NEVER FOV zoom (fov fixed 68° desktop / 75° touch). Persian = Vazirmatn always. No naked-oscillator footsteps ever (filtered noise <180 Hz + quiet sub support).
 - Stripped modules recoverable from git history commit `3203ae2`.

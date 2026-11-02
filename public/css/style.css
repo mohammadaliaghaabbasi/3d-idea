@@ -1,5 +1,5 @@
 /* ============================================================
-   PANODROME — Stage 1 · Luxury "Invisible UI"
+   PANODROME — Stage 1.5 · Luxury "Invisible UI" + True Walking
    92% of the viewport stays pure, unobstructed architecture.
    Typography: Vazirmatn (fa) + Inter (en) — never Tahoma/Arial.
    Zero-overflow guarantee on every viewport ≥ 320px, LTR & RTL.
@@ -16,6 +16,7 @@
   --pill-max: 260px;
   --btn-size: 38px;
   --edge: max(14px, env(safe-area-inset-left, 0px));
+  --bottom-stack: max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px));
 }
 
 /* ---------- base: locked, unscrollable, gesture-owned canvas ---------- */
@@ -72,7 +73,7 @@ button {
   position: absolute;
   top: max(14px, env(safe-area-inset-top, 0px));
   inset-inline-start: var(--edge);
-  max-width: min(var(--pill-max), calc(100vw - 32px));
+  max-width: min(var(--pill-max), calc(100vw - 32px - 3 * var(--btn-size) - 20px - 20px));
   padding: 10px 16px 11px;
   border-radius: 16px;
   overflow: hidden;
@@ -124,7 +125,7 @@ button {
 .source-badge:hover { background: rgba(190, 225, 255, 0.16); }
 
 /* ============================================================
-   TOP-INLINE-END — two 38px circular glass buttons
+   TOP-INLINE-END — three 38px circular glass buttons
    ============================================================ */
 
 #view-actions {
@@ -149,17 +150,53 @@ button {
 .round-btn:active { transform: scale(0.94); }
 
 #btn-lang { font-weight: 500; letter-spacing: 0.2px; }
+#btn-sound { color: var(--ink-dim); }
+#btn-sound.on { color: var(--ink); }
 
 /* ============================================================
-   BOTTOM-CENTRE — floating navigation capsule
+   BOTTOM-CENTRE — routing-mode bar + navigation capsule (stack)
    ============================================================ */
+
+#mode-bar {
+  position: absolute;
+  bottom: calc(var(--bottom-stack) + 64px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 6px;
+  border-radius: 999px;
+  max-width: calc(100vw - 20px);
+}
+
+.mode-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6.5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-dim);
+  white-space: nowrap;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+.mode-chip svg { flex-shrink: 0; opacity: 0.75; }
+.mode-chip:hover { background: rgba(255, 255, 255, 0.08); color: var(--ink); }
+.mode-chip.active {
+  background: rgba(190, 225, 255, 0.14);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(190, 225, 255, 0.32);
+}
+.mode-chip.active svg { opacity: 1; }
 
 #nav-capsule {
   position: absolute;
-  bottom: max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px));
+  bottom: var(--bottom-stack);
   left: 50%;
   transform: translateX(-50%);
-  max-width: calc(100vw - 32px);
+  max-width: calc(100vw - 20px);
   width: max-content;
   display: flex;
   align-items: center;
@@ -224,20 +261,90 @@ button {
 }
 
 /* ============================================================
-   TOUCH — minimal thumb pad
+   COLLISION TOAST + RIPPLE
    ============================================================ */
 
-#walk-pad {
+#bump-toast {
   position: absolute;
-  inset-inline-end: max(14px, env(safe-area-inset-right, 0px));
-  top: 50%;
-  transform: translateY(-50%);
-  display: none;
-  flex-direction: column;
-  gap: 12px;
+  left: 50%;
+  bottom: calc(var(--bottom-stack) + 118px);
+  transform: translateX(-50%);
+  padding: 7px 15px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink);
+  white-space: nowrap;
+  max-width: calc(100vw - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+  z-index: 6;
 }
-body.touch #walk-pad { display: flex; }
-@media (pointer: coarse) { #walk-pad { display: flex; } }
+#bump-toast.show { opacity: 1; transform: translateX(-50%) translateY(-3px); }
+
+#ripple-host { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+
+.bump-ripple {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  border: 1.6px solid rgba(210, 230, 255, 0.85);
+  box-shadow: 0 0 18px rgba(190, 225, 255, 0.35);
+  animation: ripple 0.62s ease-out forwards;
+}
+@keyframes ripple {
+  from { transform: scale(0.7); opacity: 0.95; }
+  to   { transform: scale(8.2); opacity: 0; }
+}
+
+/* ============================================================
+   TOUCH — analog walk joystick
+   ============================================================ */
+
+#joystick {
+  position: absolute;
+  inset-inline-end: max(16px, env(safe-area-inset-right, 0px));
+  bottom: calc(var(--bottom-stack) + 132px);
+  display: none;
+}
+body.touch #joystick { display: block; }
+@media (pointer: coarse) { #joystick { display: block; } }
+
+#joy-base {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  position: relative;
+  touch-action: none;
+}
+#joy-base::after {
+  content: "";
+  position: absolute;
+  inset: 26px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+}
+#joy-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 50%;
+  background: rgba(238, 242, 248, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 0.08s linear;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+#joystick.live #joy-knob { transition: none; background: rgba(190, 225, 255, 0.28); }
 
 /* ============================================================
    WAYPOINT CHIP
@@ -429,19 +536,23 @@ body.touch #walk-pad { display: flex; }
 html[dir="rtl"] #nav-prev svg { transform: scaleX(-1); }
 html[dir="rtl"] #nav-next svg { transform: scaleX(-1); }
 html[dir="rtl"] .wordmark { letter-spacing: 1px; }
-body.fa .nav-roomline, body.fa #room-title, body.fa #wp-chip { letter-spacing: 0; }
+body.fa .nav-roomline, body.fa #room-title, body.fa #wp-chip, body.fa .mode-chip { letter-spacing: 0; }
 
 /* ============================================================
    MOBILE — 390×844 and below
    ============================================================ */
 
 @media (max-width: 768px) {
-  :root { --pill-max: 210px; --btn-size: 38px; }
+  :root { --pill-max: 200px; --btn-size: 38px; --bottom-stack: max(12px, calc(env(safe-area-inset-bottom, 0px) + 10px)); }
 
   #room-pill { padding: 9px 13px 10px; border-radius: 14px; }
   #room-title { font-size: 13.5px; }
   .pill-meta { font-size: 10.5px; gap: 6px; }
   .source-badge { font-size: 9px; padding: 2px 7px; }
+
+  #mode-bar { bottom: calc(var(--bottom-stack) + 60px); padding: 4px 5px; gap: 2px; }
+  .mode-chip { padding: 6px 9.5px; font-size: 11.5px; gap: 5px; }
+  .mode-chip svg { display: none; }             /* keep chips compact + inside bounds */
 
   #nav-capsule { padding: 6px 8px; gap: 2px; }
   .nav-roomline { font-size: 12.5px; max-width: 52vw; gap: 6px; }
@@ -449,11 +560,18 @@ body.fa .nav-roomline, body.fa #room-title, body.fa #wp-chip { letter-spacing: 0
   #nav-hint { font-size: 9.5px; max-width: 52vw; }
   .nav-btn { width: 32px; height: 32px; }
 
+  #joystick { bottom: calc(var(--bottom-stack) + 128px); }
+  #joy-base { width: 88px; height: 88px; }
+  #joy-knob { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
+
+  #bump-toast { bottom: calc(var(--bottom-stack) + 112px); font-size: 11px; }
+
   .tagline { max-width: 34ch; }
   #btn-enter { padding: 12px 26px; font-size: 13.5px; margin-top: 28px; }
 }
 
 @media (max-width: 360px) {
-  :root { --pill-max: 180px; }
+  :root { --pill-max: 168px; }
   #nav-hint { display: none; }   /* keep the capsule strictly inside the viewport */
+  .mode-chip { padding: 6px 8px; font-size: 11px; }
 }

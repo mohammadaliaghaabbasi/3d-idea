@@ -1,8 +1,10 @@
 {
-  "schema": "panodrome.rooms_db/1",
+  "schema": "panodrome/rooms-db@2",
   "project": "Panodrome",
   "generated_at": "2026-11-02T00:00:00",
-  "content_source": "PolyHaven CC0 — 6 curated pure interior-architecture spaces",
+  "stage": "stage1.5_true_first_person_walk",
+  "content_source": "PolyHaven CC0 (9) + Wikimedia Commons CC BY-SA 4.0 (1) — 10 curated design spaces, VLM-verified doorways, true room-box geometry with walk colliders",
+  "geometry_law": "room box = width x depth centred at world origin x/z, floor y=0, ceiling y=height; pano capture point = room.camera; equirect projected per-fragment from the capture point; walls/floor stay perfectly flat — zero vertex displacement, forever",
   "rooms": [
     {
       "id": "anniversary_lounge",
@@ -26,10 +28,6 @@
         2048
       ],
       "preview": "assets/preview/anniversary_lounge.jpg",
-      "depth_map": "assets/depth/anniversary_lounge_depth.png",
-      "depth_encoding": "uint16-two-channel-rgb",
-      "depth_backend": "procedural",
-      "depth_max": 4.515,
       "room_shape": {
         "width": 4.6,
         "height": 2.8,
@@ -48,11 +46,11 @@
           "id": "anniversary_lounge_door",
           "origin": "vlm_verified_doorway",
           "fraction": 0.02,
-          "pitch": -7.25,
-          "distance": 2.34,
+          "pitch": -7.37,
+          "distance": 2.32,
           "position": [
-            -1.954,
-            1.349,
+            -1.953,
+            1.3,
             0.247
           ]
         }
@@ -69,7 +67,62 @@
         "license": "CC0",
         "url": "https://polyhaven.com/a/anniversary_lounge"
       },
-      "source_platform": "PolyHaven"
+      "source_platform": "PolyHaven",
+      "style_family": "classic",
+      "type_group": "residential",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -1.7,
+          "maxX": 1.7,
+          "minZ": -2.4,
+          "maxZ": 2.4
+        },
+        "obstacles": [
+          {
+            "type": "box",
+            "x": -1.95,
+            "z": -1.3,
+            "hw": 0.32,
+            "hd": 1.0,
+            "label": {
+              "en": "Sofa",
+              "fa": "مبل راحتی"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": -1.25,
+            "z": -1.3,
+            "r": 0.5,
+            "label": {
+              "en": "Coffee Table",
+              "fa": "میز عسلی"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": -1.1,
+            "z": -2.35,
+            "r": 0.55,
+            "label": {
+              "en": "Armchair",
+              "fa": "صندلی راحتی"
+            }
+          },
+          {
+            "type": "box",
+            "x": 0.9,
+            "z": 2.75,
+            "hw": 0.85,
+            "hd": 0.3,
+            "label": {
+              "en": "Sideboard",
+              "fa": "بوفه چوبی"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "art_studio",
@@ -93,10 +146,6 @@
         2048
       ],
       "preview": "assets/preview/art_studio.jpg",
-      "depth_map": "assets/depth/art_studio_depth.png",
-      "depth_encoding": "uint16-two-channel-rgb",
-      "depth_backend": "procedural",
-      "depth_max": 5.048,
       "room_shape": {
         "width": 5.0,
         "height": 3.2,
@@ -115,11 +164,11 @@
           "id": "art_studio_door",
           "origin": "vlm_verified_doorway",
           "fraction": 0.058,
-          "pitch": -6.25,
-          "distance": 2.69,
+          "pitch": -6.4,
+          "distance": 2.68,
           "position": [
-            -2.172,
-            1.345,
+            -2.173,
+            1.3,
             0.829
           ]
         }
@@ -136,7 +185,72 @@
         "license": "CC0",
         "url": "https://polyhaven.com/a/art_studio"
       },
-      "source_platform": "PolyHaven"
+      "source_platform": "PolyHaven",
+      "style_family": "modern",
+      "type_group": "residential",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -1.9,
+          "maxX": 1.9,
+          "minZ": -2.9,
+          "maxZ": 2.9
+        },
+        "obstacles": [
+          {
+            "type": "cylinder",
+            "x": -1.8,
+            "z": 1.3,
+            "r": 0.65,
+            "label": {
+              "en": "Work Table",
+              "fa": "میز کار"
+            }
+          },
+          {
+            "type": "box",
+            "x": -0.4,
+            "z": 3.1,
+            "hw": 0.65,
+            "hd": 0.5,
+            "label": {
+              "en": "Studio Stairs",
+              "fa": "پله‌های استودیو"
+            }
+          },
+          {
+            "type": "box",
+            "x": 1.7,
+            "z": 0.6,
+            "hw": 0.85,
+            "hd": 0.6,
+            "label": {
+              "en": "Paint Table",
+              "fa": "میز نقاشی"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": 1.9,
+            "z": -1.9,
+            "r": 0.6,
+            "label": {
+              "en": "Table",
+              "fa": "میز"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": 0.5,
+            "z": -3.0,
+            "r": 0.5,
+            "label": {
+              "en": "Easel",
+              "fa": "چوب‌قاب نقاشی"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "cabin",
@@ -160,10 +274,6 @@
         2048
       ],
       "preview": "assets/preview/cabin.jpg",
-      "depth_map": "assets/depth/cabin_depth.png",
-      "depth_encoding": "uint16-two-channel-rgb",
-      "depth_backend": "procedural",
-      "depth_max": 3.634,
       "room_shape": {
         "width": 3.5,
         "height": 2.4,
@@ -183,11 +293,11 @@
           "origin": "vlm_verified_doorway",
           "fraction": 0.355,
           "pitch": -6.0,
-          "distance": 2.87,
+          "distance": 2.86,
           "position": [
-            1.537,
-            1.336,
-            1.981
+            1.535,
+            1.3,
+            1.98
           ]
         }
       ],
@@ -203,7 +313,63 @@
         "license": "CC0",
         "url": "https://polyhaven.com/a/cabin"
       },
-      "source_platform": "PolyHaven"
+      "source_platform": "PolyHaven",
+      "style_family": "cozy",
+      "type_group": "residential",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -1.15,
+          "maxX": 1.15,
+          "minZ": -1.7,
+          "maxZ": 1.7
+        },
+        "obstacles": [
+          {
+            "type": "box",
+            "x": 0.0,
+            "z": -1.55,
+            "hw": 1.25,
+            "hd": 0.7,
+            "label": {
+              "en": "Bed",
+              "fa": "تخت‌خواب"
+            }
+          },
+          {
+            "type": "box",
+            "x": 0.0,
+            "z": 2.0,
+            "hw": 0.75,
+            "hd": 0.38,
+            "label": {
+              "en": "Desk",
+              "fa": "میز کار"
+            }
+          },
+          {
+            "type": "box",
+            "x": 1.25,
+            "z": 1.75,
+            "hw": 0.4,
+            "hd": 0.42,
+            "label": {
+              "en": "Cabinet",
+              "fa": "کمد"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": 1.35,
+            "z": 0.35,
+            "r": 0.5,
+            "label": {
+              "en": "Chair",
+              "fa": "صندلی"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "comfy_cafe",
@@ -227,10 +393,6 @@
         2048
       ],
       "preview": "assets/preview/comfy_cafe.jpg",
-      "depth_map": "assets/depth/comfy_cafe_depth.png",
-      "depth_encoding": "uint16-two-channel-rgb",
-      "depth_backend": "procedural",
-      "depth_max": 5.048,
       "room_shape": {
         "width": 5.0,
         "height": 3.0,
@@ -250,11 +412,11 @@
           "origin": "vlm_verified_doorway",
           "fraction": 0.685,
           "pitch": -4.5,
-          "distance": 3.83,
+          "distance": 3.81,
           "position": [
-            1.378,
-            1.327,
-            -3.183
+            1.376,
+            1.3,
+            -3.179
           ]
         }
       ],
@@ -270,7 +432,255 @@
         "license": "CC0",
         "url": "https://polyhaven.com/a/comfy_cafe"
       },
-      "source_platform": "PolyHaven"
+      "source_platform": "PolyHaven",
+      "style_family": "cozy",
+      "type_group": "hospitality",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -1.9,
+          "maxX": 1.9,
+          "minZ": -2.9,
+          "maxZ": 2.9
+        },
+        "obstacles": [
+          {
+            "type": "cylinder",
+            "x": -2.0,
+            "z": 0.0,
+            "r": 0.55,
+            "label": {
+              "en": "Café Table",
+              "fa": "میز کافه"
+            }
+          },
+          {
+            "type": "box",
+            "x": -1.4,
+            "z": 2.6,
+            "hw": 0.75,
+            "hd": 0.45,
+            "label": {
+              "en": "Sofa",
+              "fa": "مبل"
+            }
+          },
+          {
+            "type": "box",
+            "x": 0.9,
+            "z": 3.0,
+            "hw": 0.9,
+            "hd": 0.45,
+            "label": {
+              "en": "Sofa Bench",
+              "fa": "نیمکت"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": 1.9,
+            "z": 1.9,
+            "r": 0.55,
+            "label": {
+              "en": "Café Table",
+              "fa": "میز کافه"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": 2.1,
+            "z": 0.4,
+            "r": 0.5,
+            "label": {
+              "en": "Café Table",
+              "fa": "میز کافه"
+            }
+          },
+          {
+            "type": "box",
+            "x": -0.8,
+            "z": -3.0,
+            "hw": 0.85,
+            "hd": 0.45,
+            "label": {
+              "en": "Sofa Bench",
+              "fa": "نیمکت"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "large_corridor",
+      "room_type": "corridor",
+      "style_tags": [
+        "victorian",
+        "classic"
+      ],
+      "name": {
+        "en": "Grand Entrance Corridor",
+        "fa": "هشتی ورودی بزرگ"
+      },
+      "description": {
+        "en": "A Victorian entrance hall with arched doorways and tiled floor.",
+        "fa": "هشتی ورودی مجلل با در دو لته قوسی، بخاری سفالی تزیینی و پارکت هندسی؛ نخستین برداشت از خانه."
+      },
+      "panorama": "assets/panoramas/large_corridor.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/large_corridor.jpg",
+      "room_shape": {
+        "width": 3.4,
+        "height": 4.2,
+        "depth": 13.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": -1.5
+      },
+      "initial_view": {
+        "facing": 0.596
+      },
+      "portals": [
+        {
+          "id": "large_corridor_door",
+          "origin": "vlm_verified_doorway",
+          "fraction": 0.105,
+          "pitch": -7.94,
+          "distance": 2.15,
+          "position": [
+            -1.423,
+            1.3,
+            -0.396
+          ]
+        }
+      ],
+      "floor_material": "stone",
+      "audio": {
+        "ambient": "hall_air",
+        "reverb": 0.6,
+        "footsteps": "stone"
+      },
+      "attribution": {
+        "creator": "Sergej Majboroda",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/large_corridor"
+      },
+      "source_platform": "PolyHaven",
+      "style_family": "classic",
+      "type_group": "heritage",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -1.1,
+          "maxX": 1.1,
+          "minZ": -5.9,
+          "maxZ": 5.9
+        },
+        "obstacles": [
+          {
+            "type": "box",
+            "x": 1.45,
+            "z": 4.9,
+            "hw": 0.45,
+            "hd": 0.45,
+            "label": {
+              "en": "Ceramic Stove",
+              "fa": "بخاری سفالی"
+            }
+          },
+          {
+            "type": "box",
+            "x": -1.45,
+            "z": 0.7,
+            "hw": 0.45,
+            "hd": 0.45,
+            "label": {
+              "en": "Tiled Stove",
+              "fa": "بخاری کاشی‌کاری"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "castle_zavelstein_cellar",
+      "room_type": "cellar",
+      "style_tags": [
+        "gothic",
+        "historic",
+        "stone"
+      ],
+      "name": {
+        "en": "Castle Vaulted Cellar",
+        "fa": "سرداب قلعه زاول‌اشتاین"
+      },
+      "description": {
+        "en": "Gothic brick vaults beneath the castle, cool and echoing.",
+        "fa": "سرداب سنگی قلعه با طاق آهنگ، کف سنگ لایی و روزنه‌های عمیق؛ خنکی و سکوت سنگ."
+      },
+      "panorama": "assets/panoramas/castle_zavelstein_cellar.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/castle_zavelstein_cellar.jpg",
+      "room_shape": {
+        "width": 3.6,
+        "height": 2.9,
+        "depth": 10.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.6
+      },
+      "portals": [
+        {
+          "id": "castle_zavelstein_cellar_door",
+          "origin": "vlm_verified_doorway",
+          "fraction": 0.11,
+          "pitch": -7.32,
+          "distance": 2.34,
+          "position": [
+            -1.53,
+            1.3,
+            1.266
+          ]
+        }
+      ],
+      "floor_material": "stone",
+      "audio": {
+        "ambient": "cellar_drip",
+        "reverb": 0.8,
+        "footsteps": "stone"
+      },
+      "attribution": {
+        "creator": "Andreas Mischok",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/castle_zavelstein_cellar"
+      },
+      "source_platform": "PolyHaven",
+      "style_family": "historic",
+      "type_group": "heritage",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -1.2,
+          "maxX": 1.2,
+          "minZ": -4.4,
+          "maxZ": 4.4
+        },
+        "obstacles": []
+      }
     },
     {
       "id": "ballroom",
@@ -294,10 +704,6 @@
         2048
       ],
       "preview": "assets/preview/ballroom.jpg",
-      "depth_map": "assets/depth/ballroom_depth.png",
-      "depth_encoding": "uint16-two-channel-rgb",
-      "depth_backend": "procedural",
-      "depth_max": 10.109,
       "room_shape": {
         "width": 9.0,
         "height": 5.5,
@@ -316,12 +722,12 @@
           "id": "ballroom_door",
           "origin": "vlm_verified_doorway",
           "fraction": 0.335,
-          "pitch": -2.0,
-          "distance": 8.14,
+          "pitch": -2.11,
+          "distance": 8.13,
           "position": [
-            3.961,
-            1.328,
-            6.698
+            3.962,
+            1.3,
+            6.699
           ]
         }
       ],
@@ -337,7 +743,249 @@
         "license": "CC0",
         "url": "https://polyhaven.com/a/ballroom"
       },
-      "source_platform": "PolyHaven"
+      "source_platform": "PolyHaven",
+      "style_family": "classic",
+      "type_group": "hospitality",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -3.9,
+          "maxX": 3.9,
+          "minZ": -6.4,
+          "maxZ": 6.4
+        },
+        "obstacles": [
+          {
+            "type": "box",
+            "x": -3.6,
+            "z": 2.3,
+            "hw": 0.85,
+            "hd": 1.1,
+            "label": {
+              "en": "Grand Piano",
+              "fa": "پیانو گرند"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "school_hall",
+      "room_type": "auditorium",
+      "style_tags": [
+        "institutional",
+        "timber",
+        "hall"
+      ],
+      "name": {
+        "en": "Old School Hall",
+        "fa": "تالار مدرسه قدیمی"
+      },
+      "description": {
+        "en": "A wooden-floored assembly hall with a stage and tall windows.",
+        "fa": "تالار اجتماعات مدرسه با سکوی چوبی، قوس پیشانه و سقف بتنی در اکسپوز؛ سادگی صادقانه."
+      },
+      "panorama": "assets/panoramas/school_hall.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/school_hall.jpg",
+      "room_shape": {
+        "width": 9.0,
+        "height": 6.0,
+        "depth": 16.0
+      },
+      "camera": {
+        "x": 0.0,
+        "y": 1.6,
+        "z": 0.0
+      },
+      "initial_view": {
+        "facing": 0.75
+      },
+      "portals": [
+        {
+          "id": "school_hall_door",
+          "origin": "vlm_verified_doorway",
+          "fraction": 0.594,
+          "pitch": -3.17,
+          "distance": 5.42,
+          "position": [
+            4.209,
+            1.3,
+            -2.822
+          ]
+        }
+      ],
+      "floor_material": "wood",
+      "audio": {
+        "ambient": "hall_air",
+        "reverb": 0.6,
+        "footsteps": "wood"
+      },
+      "attribution": {
+        "creator": "Dimitrios Savva, Jarod Guest",
+        "source": "PolyHaven",
+        "license": "CC0",
+        "url": "https://polyhaven.com/a/school_hall"
+      },
+      "source_platform": "PolyHaven",
+      "style_family": "historic",
+      "type_group": "heritage",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -3.9,
+          "maxX": 3.9,
+          "minZ": -7.4,
+          "maxZ": 7.4
+        },
+        "obstacles": [
+          {
+            "type": "box",
+            "x": 0.0,
+            "z": -6.8,
+            "hw": 4.5,
+            "hd": 1.6,
+            "label": {
+              "en": "Stage",
+              "fa": "سکوی مدرسه"
+            }
+          },
+          {
+            "type": "box",
+            "x": 0.0,
+            "z": -4.3,
+            "hw": 3.4,
+            "hd": 0.55,
+            "label": {
+              "en": "Chair Rows",
+              "fa": "ردیف صندلی‌ها"
+            }
+          },
+          {
+            "type": "box",
+            "x": 0.0,
+            "z": -2.9,
+            "hw": 3.4,
+            "hd": 0.55,
+            "label": {
+              "en": "Chair Rows",
+              "fa": "ردیف صندلی‌ها"
+            }
+          },
+          {
+            "type": "box",
+            "x": -3.8,
+            "z": -1.6,
+            "hw": 0.8,
+            "hd": 1.05,
+            "label": {
+              "en": "Piano",
+              "fa": "پیانو"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "leipzig_festsaal",
+      "room_type": "banquet_hall",
+      "style_tags": [
+        "renaissance",
+        "civic",
+        "wood",
+        "historic"
+      ],
+      "name": {
+        "en": "Leipzig Old Town Hall",
+        "fa": "تالار خانه شهری لایپزیگ"
+      },
+      "description": {
+        "en": "Renaissance civic halls of 1556 — carved wooden ceilings, portal stonework and merchant grandeur.",
+        "fa": "تالارهای شهری رنسانس ۱۵۵۶؛ سقف چوبی کنده‌کاری، سنگ‌کاری درگاه‌ها و شکوه دوره بازرگانی."
+      },
+      "panorama": "assets/panoramas/leipzig_festsaal.jpg",
+      "panorama_size": [
+        4096,
+        2048
+      ],
+      "preview": "assets/preview/leipzig_festsaal.jpg",
+      "room_shape": {
+        "width": 10,
+        "height": 7,
+        "depth": 16
+      },
+      "camera": {
+        "x": 0,
+        "y": 1.6,
+        "z": 0
+      },
+      "initial_view": {
+        "facing": 0.49
+      },
+      "portals": [
+        {
+          "id": "leipzig_festsaal_door",
+          "origin": "vlm_verified_doorway",
+          "fraction": 0.78,
+          "pitch": -2.11,
+          "distance": 8.14,
+          "position": [
+            -1.46,
+            1.3,
+            -7.656
+          ]
+        }
+      ],
+      "floor_material": "wood",
+      "audio": {
+        "ambient": "room_tone",
+        "reverb": 0.5,
+        "footsteps": "wood"
+      },
+      "attribution": {
+        "creator": "Joachim Köhler",
+        "source": "Wikimedia Commons",
+        "license": "CC BY-SA 4.0",
+        "url": "https://commons.wikimedia.org/wiki/Leipzig-Altes-Rathaus-1OG-zw-Festsaal-und-Ratsstube-IMG_6628-8x5B-360x180G-PanoS-04-03-2025.jpg"
+      },
+      "source_platform": "Heritage 360",
+      "style_family": "classic",
+      "type_group": "hospitality",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -4.4,
+          "maxX": 4.4,
+          "minZ": -7.4,
+          "maxZ": 7.4
+        },
+        "obstacles": [
+          {
+            "type": "box",
+            "x": 4.7,
+            "z": 0.3,
+            "hw": 0.32,
+            "hd": 0.95,
+            "label": {
+              "en": "Stone Fireplace",
+              "fa": "شومینه سنگی"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": 3.7,
+            "z": -2.7,
+            "r": 0.45,
+            "label": {
+              "en": "Statue",
+              "fa": "مجسمه"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "quadrangle_sunny",
@@ -361,10 +1009,6 @@
         2048
       ],
       "preview": "assets/preview/quadrangle_sunny.jpg",
-      "depth_map": "assets/depth/quadrangle_sunny_depth.png",
-      "depth_encoding": "uint16-two-channel-rgb",
-      "depth_backend": "procedural",
-      "depth_max": 51.26,
       "room_shape": {
         "width": 24.0,
         "height": 45.0,
@@ -383,11 +1027,11 @@
           "id": "quadrangle_sunny_door",
           "origin": "vlm_verified_doorway",
           "fraction": 0.49,
-          "pitch": -1.5,
-          "distance": 12.03,
+          "pitch": -1.43,
+          "distance": 12.02,
           "position": [
             11.651,
-            1.294,
+            1.3,
             0.733
           ]
         }
@@ -404,8 +1048,51 @@
         "license": "CC0",
         "url": "https://polyhaven.com/a/quadrangle_sunny"
       },
-      "source_platform": "PolyHaven"
+      "source_platform": "PolyHaven",
+      "style_family": "open_air",
+      "type_group": "outdoor",
+      "walk": {
+        "player_radius": 0.3,
+        "bounds": {
+          "minX": -11.4,
+          "maxX": 11.4,
+          "minZ": -11.4,
+          "maxZ": 11.4
+        },
+        "obstacles": [
+          {
+            "type": "box",
+            "x": 0.0,
+            "z": 11.2,
+            "hw": 3.2,
+            "hd": 0.55,
+            "label": {
+              "en": "Manicured Hedge",
+              "fa": "دیوار سبز"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": -11.0,
+            "z": 2.5,
+            "r": 0.8,
+            "label": {
+              "en": "Tree",
+              "fa": "درخت"
+            }
+          },
+          {
+            "type": "cylinder",
+            "x": -11.1,
+            "z": -3.5,
+            "r": 0.8,
+            "label": {
+              "en": "Tree",
+              "fa": "درخت"
+            }
+          }
+        ]
+      }
     }
-  ],
-  "stage": "stage1_zero_distortion_core"
+  ]
 }

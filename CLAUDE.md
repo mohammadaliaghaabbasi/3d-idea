@@ -7,10 +7,13 @@
 
 **Panodrome** — the "Spatial & Living Architecture Pinterest".
 
-Transform 360° equirectangular panoramas of curated interiors into a **zero-distortion
-walkable spatial experience** (pristine high-density sphere + optical focal glide —
-the Kuula/Matterport approach), connected by **VLM-verified doorway waypoints**
-with GSAP optical warp transitions. EN/FA (RTL, Vazirmatn) from Day 1.
+Transform 360° equirectangular panoramas of curated interiors into a **true
+first-person walkable spatial experience** (Stage 1.5: metric room-volume
+projection — flat floor, plumb walls — real multi-metre walking with sliding
+furniture collision, FIXED FOV), connected by **VLM-verified doorway waypoints
+with routing modes** (Architect / Style / Room Type / Random — walk into the
+ring to travel). Warm low-passed acoustic footsteps + room air. EN/FA (RTL,
+Vazirmatn) from Day 1.
 
 ## Locked Decisions (do not revisit)
 
@@ -27,15 +30,16 @@ The previous Phase 2.5/3/4 build **failed architectural quality standards** (ver
 
 | Stage | Scope | Status |
 |---|---|---|
-| **1** | Zero-Distortion Spatial Core: pristine sphere (NO depth displacement ever), optical walk (FOV 78↔42 spring + 0.18 m micro-parallax), 6 curated interiors, Vazirmatn invisible-UI, 1 VLM-verified doorway ring + optical warp, SILENT by design | **DELIVERED — awaiting owner inspection on live URL** |
-| 2 | Full portal/waypoint & navigation system (preview of Stage 2 = today's ring/warp) | 🔒 LOCKED |
-| 3 | Real spatial audio (footsteps, ambience — built properly, no oscillators) | 🔒 LOCKED |
+| **1** | Zero-Distortion Spatial Core: pristine sphere, optical walk, 6 curated interiors, Vazirmatn invisible-UI, 1 VLM-verified doorway ring + optical warp, silent | **INSPECTED by owner 2026-11-02** — typography/layout approved; movement judged "camera zooming, not walking" → owner ordered Stage 1.5 |
+| **1.5** | TRUE first-person game physics: metric room-volume projection (flat floor y=0, plumb walls, filleted corners), real multi-metre walking (FOV FIXED 68/75 — never zoom), sliding collision vs room bounds (0.6 m inset) + furniture colliders, walk-into-doorway portals (<1.1 m) with restored routing modes, warm low-passed footsteps every 0.65 m + ambience + 🔊/🔇, 10 curated rooms, floor grid + walk ring FX | **DELIVERED — awaiting owner inspection on live URL** |
+| 2 | Full portal/waypoint & navigation system (beyond the Stage-1.5 preview) | 🔒 LOCKED |
+| 3 | Real spatial audio beyond Stage 1.5's soft engine (per-owner direction) | 🔒 LOCKED |
 | 4 | TBD by owner | 🔒 LOCKED |
 | 5 | TBD by owner | 🔒 LOCKED |
 
-**IRON RULE: Stages 2–5 are FORBIDDEN until the owner explicitly inspects and approves Stage 1 on the live URL.** Stripped modules (audio/commerce/hotspots/moodboard/narrator/upload_studio, 12 non-interior rooms) are recoverable from git history commit `3203ae2`.
+**IRON RULE: Stages 2–5 are FORBIDDEN until the owner explicitly inspects and approves Stage 1.5 on the live URL.** Stripped modules (commerce/hotspots/moodboard/narrator/upload_studio) are recoverable from git history commit `3203ae2`.
 
-**Architectural integrity law (permanent):** a 360° architectural render must keep 100% plumb-straight verticals at all times — the walking illusion is produced optically (FOV glide + micro-parallax), NEVER by displacing sphere vertices. Persian UI text always renders in Vazirmatn (never system Arabic/Tahoma fallback).
+**Architectural integrity law (permanent, Stage 1.5 revision):** a 360° architectural render must keep 100 % plumb-straight verticals and a perfectly flat floor at all times. Walking = real camera translation across the room-volume floor, resolved by sliding collision — NEVER vertex displacement, NEVER FOV zoom (fov is fixed at 68° desktop / 75° touch). Persian UI text always renders in Vazirmatn (never system Arabic/Tahoma fallback). No naked-oscillator footsteps ever — steps are filtered noise bodies (<180 Hz) + quiet sub support.
 
 ## Repository Topology (Anti-Fragmentation Lock — 2026-11-02)
 
@@ -62,7 +66,7 @@ The previous Phase 2.5/3/4 build **failed architectural quality standards** (ver
 |---|---|
 | `MEMORY_STATE.json` | Active brain — phase, modules, skills status, next action |
 | `skills/` | Ingestion / processing skill scripts (`ingest_polyhaven.py` = first skill) |
-| `data/rooms_db.json` | Canonical rooms database (panorama + depth + portals + audio + EN/FA metadata) |
+| `data/rooms_db.json` | Canonical rooms database (10 rooms: room_shape + camera + portals + walk.bounds/obstacles + style_family/type_group + EN/FA metadata) |
 | `public/` | Panodrome Spatial Engine — static app (`index.html` + `js/` + `assets/`); deploy root for GitHub Pages / Cloudflare |
 | `scripts/` | GitHub publish/issue automation (token passed via env `T`, never stored) |
 | `docs/` | Archived research & decisions (00 source chat … 11 naming) |
