@@ -24,11 +24,14 @@ export class HUD {
       "room-pill", "room-title", "room-badge", "room-designer", "room-source",
       "view-actions", "btn-sound", "snd-on", "snd-off", "btn-lang",
       "btn-view", "btn-view-reset", "btn-view-full",
+      "btn-radar", "btn-dollhouse", "btn-photo",
       "mode-bar", "mode-architect", "mode-style", "mode-room_type", "mode-random",
       "nav-capsule", "nav-prev", "nav-next", "nav-name", "nav-count", "nav-hint",
       "bump-toast", "bump-label", "ripple-host",
       "joystick", "joy-base", "joy-knob",
       "wp-chip", "wp-chip-label",
+      "radar-wrap", "radar", "radar-label",
+      "view-pill", "view-pill-label",
       "loading", "load-fill", "load-text",
       "intro", "intro-bg", "intro-tag", "intro-sub", "btn-enter", "intro-hint", "intro-credit",
       "fade", "webgl-error",
@@ -45,6 +48,10 @@ export class HUD {
 
     this.el.wpChip?.addEventListener("click", () => this._onChip && this._onChip(this._chipRoom));
     this.el.btnSound?.addEventListener("click", () => this._onSound && this._onSound());
+    this._onRadar = null; this._onDollhouse = null; this._onPhoto = null;
+    this.el.btnRadar?.addEventListener("click", () => this._onRadar && this._onRadar());
+    this.el.btnDollhouse?.addEventListener("click", () => this._onDollhouse && this._onDollhouse());
+    this.el.btnPhoto?.addEventListener("click", () => this._onPhoto && this._onPhoto());
     for (const id of MODE_IDS) {
       this.el[camel(id)]?.addEventListener("click", () => {
         const mode = id.replace("mode-", "").replace("_", "_");
@@ -59,12 +66,18 @@ export class HUD {
   _applyIntroStrings() {
     const t = i18n.t;
     this.el.introTag.textContent = t.tagline;
-    this.el.introSub.textContent = t.intro_sub;
-    this.el.introHint.textContent = t.intro_hint;
+    this.el.introSub.textContent = t.intro_sub_21;
+    this.el.introHint.textContent = t.hint_21;
     this.el.btnEnter.querySelector("span").textContent = t.enter;
     this.el.introCredit.textContent = t.credit;
     this.el.btnLang.textContent = t.lang_btn;
-    this.el.navHint.textContent = matchMedia("(pointer: coarse)").matches ? t.hint_touch : t.hint;
+    this.el.navHint.textContent = matchMedia("(pointer: coarse)").matches ? t.hint_21_touch : t.hint_21;
+    this.el.btnRadar?.setAttribute("aria-label", t.radar_btn);
+    this.el.btnRadar?.setAttribute("title", t.radar_btn);
+    this.el.btnDollhouse?.setAttribute("aria-label", t.dollhouse_btn);
+    this.el.btnDollhouse?.setAttribute("title", t.dollhouse_btn);
+    this.el.btnPhoto?.setAttribute("aria-label", t.photo_btn);
+    this.el.btnPhoto?.setAttribute("title", t.photo_btn);
     this.el.navPrev.setAttribute("aria-label", t.nav_prev);
     this.el.navNext.setAttribute("aria-label", t.nav_next);
     this.el.loadText.textContent = t.loading;
@@ -73,6 +86,7 @@ export class HUD {
     this._setSoundTitles();
     this._setViewTitles();
     if (this._room) this.setRoom(this._room, this._idx, this._total);
+    if (this._viewMode) this.setViewMode(this._viewMode);
   }
 
   _setModeLabels() {
@@ -121,7 +135,7 @@ export class HUD {
   hideIntro() { this.el.intro.classList.add("gone"); }
 
   showHud() {
-    for (const key of ["roomPill", "viewActions", "modeBar", "navCapsule"]) {
+    for (const key of ["roomPill", "viewActions", "modeBar", "navCapsule", "viewPill"]) {
       this.el[key]?.classList.remove("hud-hidden");
     }
     if (matchMedia("(pointer: coarse)").matches) {
@@ -141,7 +155,7 @@ export class HUD {
     const name = room.name[L] || room.name.en;
     this.el.roomTitle.textContent = name;
     this.el.roomTitle.title = name;
-    // badge (owner law 3): 🧊 true-3D rooms vs 🌐 zero-warp 4K panorama rooms
+    // badge (stage 2.1): every room is true-3D walkable (+ 360° photo ref)
     const badge = (room.badge && (room.badge[L] || room.badge.en)) || "";
     this.el.roomBadge.textContent = badge;
     this.el.roomBadge.title = badge;
@@ -152,6 +166,32 @@ export class HUD {
     this.el.navName.textContent = name;
     this.el.navName.title = name;
     this.el.navCount.textContent = t.counter(idx + 1, total);
+    // stage 2.1: the 🌐 photo toggle needs a panorama (villa = true-3D only)
+    const hasPano = !!room.panorama;
+    this.el.btnPhoto.style.display = hasPano ? "" : "none";
+    if (this.el.radarLabel) this.el.radarLabel.textContent = t.radar_btn.split("(")[0].trim();
+  }
+
+  /* ------------------------------------------------------------ stage 2.1 modes */
+
+  onRadarToggle(fn) { this._onRadar = fn; }
+  onDollhouseToggle(fn) { this._onDollhouse = fn; }
+  onPhotoToggle(fn) { this._onPhoto = fn; }
+
+  /** Reflect the current view mode on the HUD (pill + button states). */
+  setViewMode(mode) {
+    const t = i18n.t;
+    this._viewMode = mode;
+    const labels = { walk: "🚶 " + t.mode_walk, photo: "🌐 " + t.mode_photo, dollhouse: "🏠 " + t.mode_dollhouse };
+    if (this.el.viewPillLabel) this.el.viewPillLabel.textContent = labels[mode] || mode;
+    this.el.btnDollhouse?.classList.toggle("on", mode === "dollhouse");
+    this.el.btnPhoto?.classList.toggle("on", mode === "photo");
+    const titles = { walk: t.view_walk, photo: t.view_photo, dollhouse: t.view_dollhouse };
+    if (this.el.viewPill) this.el.viewPill.title = titles[mode] || "";
+  }
+
+  showViewPill(show) {
+    this.el.viewPill?.classList.toggle("hud-hidden", !show);
   }
 
   /* ------------------------------------------------------------ view button */

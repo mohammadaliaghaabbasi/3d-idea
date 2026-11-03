@@ -1,0 +1,6 @@
+{
+ "label": "ballroom 3D walk",
+ "shot": "/tmp/render/qa_walk_ballroom.jpg",
+ "verdict": "PASS",
+ "raw": "The room renders coherently: floor, walls, and ceiling are present, two framed mirrors/windows hang on the far wall, a window is visible on the right, and HUD elements are readable without problematic overlap. No void, no floating/intersecting geometry, no black screen.\n\nVERDICT: PASS\n"
+}

@@ -1,0 +1,6 @@
+{
+ "label": "modern_3d_villa dollhouse",
+ "shot": "/tmp/render/qa_dollhouse_modern_3d_villa.jpg",
+ "verdict": "PASS",
+ "raw": "The scene shows a coherent dollhouse-style room: floor, walls, windows, rug, sofa, floor lamp, and decorative panels all render correctly. The lamp pole passing through the shade and flat-shaded furniture are minor stylisations, not defects. HUD elements are readable and don't overlap problematically.\n\nVERDICT: PASS\n"
+}

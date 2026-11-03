@@ -1,0 +1,397 @@
+{
+ "oak": {
+  "rough": 0.42,
+  "metal": 0.0,
+  "name": {
+   "en": "Light Oak",
+   "fa": "\u0628\u0644\u0648\u0637 \u0631\u0648\u0634\u0646"
+  },
+  "map": "mats/oak.jpg"
+ },
+ "herringbone": {
+  "rough": 0.4,
+  "metal": 0.0,
+  "name": {
+   "en": "Herringbone Oak",
+   "fa": "\u067e\u0627\u0631\u06a9\u062a \u062c\u0646\u0627\u063a\u06cc \u0628\u0644\u0648\u0637"
+  },
+  "map": "mats/herringbone.jpg"
+ },
+ "parquet_dark": {
+  "rough": 0.4,
+  "metal": 0.0,
+  "name": {
+   "en": "Walnut Parquet",
+   "fa": "\u067e\u0627\u0631\u06a9\u062a \u06af\u0631\u062f\u0648\u06cc\u06cc"
+  },
+  "map": "mats/parquet_dark.jpg"
+ },
+ "timber": {
+  "rough": 0.62,
+  "metal": 0.0,
+  "name": {
+   "en": "Cabin Timber",
+   "fa": "\u0686\u0648\u0628 \u06a9\u0627\u0628\u06cc\u0646"
+  },
+  "map": "mats/timber.jpg"
+ },
+ "walnut": {
+  "rough": 0.5,
+  "metal": 0.0,
+  "name": {
+   "en": "Walnut Wood",
+   "fa": "\u0686\u0648\u0628 \u06af\u0631\u062f\u0648\u06cc\u06cc"
+  },
+  "map": "mats/walnut.jpg"
+ },
+ "calacatta": {
+  "rough": 0.28,
+  "metal": 0.0,
+  "name": {
+   "en": "Calacatta Gold Marble",
+   "fa": "\u0645\u0631\u0645\u0631 \u0633\u0641\u06cc\u062f \u0631\u06af\u0647\u200c\u0637\u0644\u0627\u06cc\u06cc (\u06a9\u0627\u0644\u0627\u06a9\u0627\u062a\u0627)"
+  },
+  "map": "mats/calacatta.jpg"
+ },
+ "marble_black": {
+  "rough": 0.22,
+  "metal": 0.05,
+  "name": {
+   "en": "Black Marble",
+   "fa": "\u0645\u0631\u0645\u0631 \u0645\u0634\u06a9\u06cc"
+  },
+  "map": "mats/marble_black.jpg"
+ },
+ "travertine": {
+  "rough": 0.55,
+  "metal": 0.0,
+  "name": {
+   "en": "Travertine",
+   "fa": "\u0633\u0646\u06af \u062a\u0631\u0627\u0648\u0631\u062a\u0646"
+  },
+  "map": "mats/travertine.jpg"
+ },
+ "microcement": {
+  "rough": 0.72,
+  "metal": 0.0,
+  "name": {
+   "en": "Microcement",
+   "fa": "\u0628\u062a\u0646 \u0627\u06a9\u0633\u067e\u0648\u0632 (\u0645\u06cc\u06a9\u0631\u0648\u0633\u0645\u0646\u062a)"
+  },
+  "map": "mats/microcement.jpg"
+ },
+ "stonefloor": {
+  "rough": 0.66,
+  "metal": 0.0,
+  "name": {
+   "en": "Old Flagstone",
+   "fa": "\u0633\u0646\u06af \u06a9\u0641 \u0642\u062f\u06cc\u0645\u06cc"
+  },
+  "map": "mats/stonefloor.jpg"
+ },
+ "terrazzo": {
+  "rough": 0.34,
+  "metal": 0.0,
+  "name": {
+   "en": "Terrazzo Granite",
+   "fa": "\u062a\u0631\u0627\u0632\u0648 \u06af\u0631\u0627\u0646\u06cc\u062a"
+  },
+  "map": "mats/terrazzo.jpg"
+ },
+ "brick": {
+  "rough": 0.85,
+  "metal": 0.0,
+  "name": {
+   "en": "Old Brick",
+   "fa": "\u0622\u062c\u0631 \u06a9\u0647\u0646\u0647"
+  },
+  "map": "mats/brick.jpg"
+ },
+ "tiles_stove": {
+  "rough": 0.25,
+  "metal": 0.0,
+  "name": {
+   "en": "Ceramic Stove Tiles",
+   "fa": "\u06a9\u0627\u0634\u06cc \u0633\u0641\u0627\u0644\u06cc \u0627\u062c\u0627\u0642"
+  },
+  "map": "mats/tiles_stove.jpg"
+ },
+ "plaster": {
+  "rough": 0.92,
+  "metal": 0.0,
+  "name": {
+   "en": "Plaster",
+   "fa": "\u06af\u0686"
+  },
+  "map": "mats/plaster.jpg"
+ },
+ "plaster_warm": {
+  "rough": 0.92,
+  "metal": 0.0,
+  "name": {
+   "en": "Warm Cream Plaster",
+   "fa": "\u06af\u0686 \u06a9\u0631\u0645 \u06af\u0631\u0645"
+  },
+  "map": "mats/plaster_warm.jpg"
+ },
+ "cream_gold": {
+  "rough": 0.55,
+  "metal": 0.15,
+  "name": {
+   "en": "Cream & Gold Molding",
+   "fa": "\u06a9\u0631\u0645\u200c\u0637\u0644\u0627\u06cc\u06cc \u06a9\u0644\u0627\u0633\u06cc\u06a9"
+  },
+  "map": "mats/cream_gold.jpg"
+ },
+ "velvet_green": {
+  "rough": 0.95,
+  "metal": 0.0,
+  "name": {
+   "en": "Green Velvet",
+   "fa": "\u0645\u062e\u0645\u0644 \u0633\u0628\u0632"
+  },
+  "map": "mats/velvet_green.jpg"
+ },
+ "boucle": {
+  "rough": 0.96,
+  "metal": 0.0,
+  "name": {
+   "en": "Cream Boucl\u00e9",
+   "fa": "\u0628\u0648\u0641\u0647\u0654 \u06a9\u0631\u0645"
+  },
+  "map": "mats/boucle.jpg"
+ },
+ "boucleL": {
+  "rough": 0.96,
+  "metal": 0.0,
+  "name": {
+   "en": "Light Boucl\u00e9",
+   "fa": "\u0628\u0648\u0641\u0647\u0654 \u0631\u0648\u0634\u0646"
+  },
+  "map": "mats/boucleL.jpg"
+ },
+ "duvet": {
+  "rough": 0.96,
+  "metal": 0.0,
+  "name": {
+   "en": "White Duvet",
+   "fa": "\u067e\u062a\u0648\u06cc \u0633\u0641\u06cc\u062f"
+  },
+  "map": "mats/duvet.jpg"
+ },
+ "fabric_ochre": {
+  "rough": 0.94,
+  "metal": 0.0,
+  "name": {
+   "en": "Ochre Weave",
+   "fa": "\u067e\u0627\u0631\u0686\u0647\u0654 \u0627\u062e\u0631\u0627\u06cc\u06cc"
+  },
+  "map": "mats/fabric_ochre.jpg"
+ },
+ "curtain": {
+  "rough": 0.9,
+  "metal": 0.0,
+  "name": {
+   "en": "Linen Curtain",
+   "fa": "\u067e\u0631\u062f\u0647\u0654 \u06a9\u062a\u0627\u0646\u06cc"
+  },
+  "map": "mats/curtain.jpg"
+ },
+ "rug_villa": {
+  "rough": 0.98,
+  "metal": 0.0,
+  "name": {
+   "en": "Minimal Rug",
+   "fa": "\u0641\u0631\u0634 \u0645\u06cc\u0646\u06cc\u0645\u0627\u0644"
+  },
+  "map": "mats/rug_villa.jpg"
+ },
+ "rug_classic": {
+  "rough": 0.98,
+  "metal": 0.0,
+  "name": {
+   "en": "Classic Medallion Rug",
+   "fa": "\u0641\u0631\u0634 \u06a9\u0644\u0627\u0633\u06cc\u06a9 \u0645\u062f\u0627\u0644\u06cc\u0648\u0646"
+  },
+  "map": "mats/rug_classic.jpg"
+ },
+ "grass": {
+  "rough": 0.95,
+  "metal": 0.0,
+  "name": {
+   "en": "Lawn",
+   "fa": "\u0686\u0645\u0646"
+  },
+  "map": "mats/grass.jpg"
+ },
+ "gravel": {
+  "rough": 0.9,
+  "metal": 0.0,
+  "name": {
+   "en": "Gravel",
+   "fa": "\u0634\u0646 \u0622\u0647\u0627\u0631\u06cc"
+  },
+  "map": "mats/gravel.jpg"
+ },
+ "hedge": {
+  "rough": 0.98,
+  "metal": 0.0,
+  "name": {
+   "en": "Hedge",
+   "fa": "\u0628\u0648\u062a\u0647\u0654 \u0686\u0645\u0646\u06cc"
+  },
+  "map": "mats/hedge.jpg"
+ },
+ "foliage": {
+  "rough": 0.95,
+  "metal": 0.0,
+  "name": {
+   "en": "Foliage",
+   "fa": "\u0628\u0631\u06af \u0633\u0628\u0632"
+  },
+  "map": "mats/foliage.jpg"
+ },
+ "art_field": {
+  "rough": 0.9,
+  "metal": 0.0,
+  "name": {
+   "en": "Colour-field Painting",
+   "fa": "\u0646\u0642\u0627\u0634\u06cc \u0632\u0645\u06cc\u0646\u0647\u0654 \u0631\u0646\u06af\u06cc"
+  },
+  "map": "mats/art_field.jpg"
+ },
+ "art_line": {
+  "rough": 0.9,
+  "metal": 0.0,
+  "name": {
+   "en": "Line Study",
+   "fa": "\u0637\u0631\u062d \u062e\u0637\u06cc"
+  },
+  "map": "mats/art_line.jpg"
+ },
+ "art_landscape": {
+  "rough": 0.9,
+  "metal": 0.0,
+  "name": {
+   "en": "Forest Light",
+   "fa": "\u0646\u0648\u0631 \u062c\u0646\u06af\u0644"
+  },
+  "map": "mats/art_landscape.jpg"
+ },
+ "art_classic1": {
+  "rough": 0.9,
+  "metal": 0.0,
+  "name": {
+   "en": "Classical Portrait",
+   "fa": "\u067e\u0631\u062a\u0631\u0647\u0654 \u06a9\u0644\u0627\u0633\u06cc\u06a9"
+  },
+  "map": "mats/art_classic1.jpg"
+ },
+ "art_classic2": {
+  "rough": 0.9,
+  "metal": 0.0,
+  "name": {
+   "en": "Classical Landscape",
+   "fa": "\u0645\u0646\u0638\u0631\u0647\u0654 \u06a9\u0644\u0627\u0633\u06cc\u06a9"
+  },
+  "map": "mats/art_classic2.jpg"
+ },
+ "white_paint": {
+  "rough": 0.6,
+  "metal": 0.0,
+  "name": {
+   "en": "White Paint",
+   "fa": "\u0631\u0646\u06af \u0633\u0641\u06cc\u062f"
+  },
+  "color": [
+   0.93,
+   0.91,
+   0.88
+  ]
+ },
+ "brass": {
+  "rough": 0.28,
+  "metal": 0.95,
+  "name": {
+   "en": "Brass",
+   "fa": "\u0628\u0631\u0646\u062c"
+  },
+  "color": [
+   0.78,
+   0.6,
+   0.38
+  ]
+ },
+ "black_gloss": {
+  "rough": 0.18,
+  "metal": 0.4,
+  "name": {
+   "en": "Black Gloss",
+   "fa": "\u0645\u0634\u06a9\u06cc \u0628\u0631\u0627\u0642"
+  },
+  "color": [
+   0.05,
+   0.05,
+   0.06
+  ]
+ },
+ "iron_dark": {
+  "rough": 0.42,
+  "metal": 0.8,
+  "name": {
+   "en": "Dark Iron",
+   "fa": "\u0622\u0647\u0646 \u062a\u06cc\u0631\u0647"
+  },
+  "color": [
+   0.16,
+   0.16,
+   0.17
+  ]
+ },
+ "mirror": {
+  "rough": 0.05,
+  "metal": 1.0,
+  "name": {
+   "en": "Mirror",
+   "fa": "\u0622\u06cc\u0646\u0647"
+  },
+  "color": [
+   0.82,
+   0.86,
+   0.9
+  ]
+ },
+ "glass": {
+  "rough": 0.06,
+  "metal": 0.1,
+  "name": {
+   "en": "Glass",
+   "fa": "\u0634\u06cc\u0634\u0647"
+  },
+  "color": [
+   0.78,
+   0.86,
+   0.92
+  ],
+  "alpha": 0.16
+ },
+ "lamp_glow": {
+  "rough": 0.5,
+  "metal": 0.0,
+  "name": {
+   "en": "Warm Glow",
+   "fa": "\u0646\u0648\u0631 \u06af\u0631\u0645"
+  },
+  "color": [
+   1.0,
+   0.98,
+   0.9
+  ],
+  "emissive": [
+   1.0,
+   0.82,
+   0.55
+  ],
+  "emissiveIntensity": 1.35
+ }
+}

@@ -213,6 +213,27 @@
       "distance": 8
      }
     ]
+   },
+   "mats": {
+    "floor": [
+     "oak",
+     "calacatta",
+     "herringbone",
+     "travertine",
+     "microcement"
+    ],
+    "wall": [
+     "plaster",
+     "plaster_warm",
+     "microcement",
+     "calacatta"
+    ],
+    "furn": [
+     "boucle",
+     "velvet_green",
+     "fabric_ochre",
+     "walnut"
+    ]
    }
   },
   {
@@ -282,65 +303,37 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -1.7,
-     "maxX": 1.7,
-     "minZ": -2.4,
-     "maxZ": 2.4
+     "minX": -1.88,
+     "maxX": 1.88,
+     "minZ": -2.58,
+     "maxZ": 2.58
     },
     "obstacles": [
+     {
+      "type": "cylinder",
+      "x": 1.01,
+      "z": -1.41,
+      "r": 1.02,
+      "h": 0.82,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Green Sofa",
+       "fa": "مبل سبز"
+      }
+     },
      {
       "type": "cylinder",
       "x": -1.1,
       "z": -2.35,
       "r": 0.55,
+      "h": 0.85,
+      "rot": 0.45,
+      "source": "vlm-verified",
       "label": {
        "en": "Armchair",
        "fa": "صندلی راحتی"
-      },
-      "h": 0.85,
-      "rot": 0.45,
-      "source": "authored"
-     },
-     {
-      "type": "box",
-      "x": 0.9,
-      "z": 2.75,
-      "hw": 0.85,
-      "hd": 0.3,
-      "label": {
-       "en": "Sideboard",
-       "fa": "بوفه چوبی"
-      },
-      "h": 0.92,
-      "source": "authored"
-     },
-     {
-      "label": {
-       "en": "sofa",
-       "fa": "مبل"
-      },
-      "x": 1.01,
-      "z": -1.41,
-      "type": "cylinder",
-      "r": 1.02,
-      "h": 0.82,
-      "rot": 0.0,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
-     },
-     {
-      "label": {
-       "en": "cabinet",
-       "fa": "کابینت"
-      },
-      "x": 1.67,
-      "z": 1.11,
-      "type": "cylinder",
-      "r": 0.69,
-      "h": 0.92,
-      "rot": 0.0,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      }
      },
      {
       "type": "cylinder",
@@ -349,12 +342,11 @@
       "r": 0.45,
       "h": 0.85,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Armchair",
        "fa": "صندلی راحتی"
-      },
-      "source": "authored",
-      "verified": "vision-audit-2026-11-03"
+      }
      },
      {
       "type": "cylinder",
@@ -363,12 +355,52 @@
       "r": 0.45,
       "h": 0.85,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Armchair",
        "fa": "صندلی راحتی"
-      },
+      }
+     },
+     {
+      "type": "box",
+      "x": 0.0,
+      "z": -0.55,
+      "hw": 0.55,
+      "hd": 0.55,
+      "h": 0.42,
+      "rot": 0.0,
       "source": "authored",
-      "verified": "vision-audit-2026-11-03"
+      "label": {
+       "en": "Glass Coffee Table",
+       "fa": "میز قهوه شیشه‌ای"
+      }
+     },
+     {
+      "type": "box",
+      "x": 0.9,
+      "z": 2.75,
+      "hw": 0.85,
+      "hd": 0.3,
+      "h": 0.92,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Sideboard",
+       "fa": "بوفه"
+      }
+     },
+     {
+      "type": "cylinder",
+      "x": 1.67,
+      "z": 1.11,
+      "r": 0.69,
+      "h": 0.92,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Curio Cabinet",
+       "fa": "ویترینی"
+      }
      },
      {
       "type": "cylinder",
@@ -377,12 +409,56 @@
       "r": 0.3,
       "h": 0.5,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Side Table",
-       "fa": "میز کنار"
-      },
-      "source": "authored",
-      "verified": "vision-audit-2026-11-03"
+       "fa": "میز کنسول"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       10,
+       6,
+       2
+      ],
+      "intensity": 1.5,
+      "color": "#ffeeda"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       2.1,
+       -0.6
+      ],
+      "intensity": 0.7,
+      "color": "#ffd9a8",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       1.4,
+       1.9,
+       1.4
+      ],
+      "intensity": 0.45,
+      "color": "#ffe6c4",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.6,
+       1.4,
+       -2.2
+      ],
+      "intensity": 0.4,
+      "color": "#ffdcae",
+      "distance": 5
      }
     ]
    },
@@ -400,8 +476,41 @@
     "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/anniversary_lounge.glb",
+   "sky": {
+    "zenith": "#8fbbe0",
+    "horizon": "#f2eee4",
+    "sun": "#ffeecc",
+    "sun_dir": [
+     -0.5,
+     0.6,
+     0.3
+    ]
+   },
+   "mats": {
+    "floor": [
+     "parquet_dark",
+     "calacatta",
+     "herringbone",
+     "travertine",
+     "microcement"
+    ],
+    "wall": [
+     "plaster_warm",
+     "plaster",
+     "cream_gold",
+     "microcement"
+    ],
+    "furn": [
+     "velvet_green",
+     "boucle",
+     "fabric_ochre",
+     "walnut"
+    ]
    }
   },
   {
@@ -471,10 +580,10 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -1.9,
-     "maxX": 1.9,
-     "minZ": -2.9,
-     "maxZ": 2.9
+     "minX": -2.08,
+     "maxX": 2.08,
+     "minZ": -3.08,
+     "maxZ": 3.08
     },
     "obstacles": [
      {
@@ -482,11 +591,13 @@
       "x": -1.8,
       "z": 1.3,
       "r": 0.65,
+      "h": 0.8,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Work Table",
        "fa": "میز کار"
-      },
-      "source": "authored"
+      }
      },
      {
       "type": "box",
@@ -494,48 +605,87 @@
       "z": 3.1,
       "hw": 0.65,
       "hd": 0.5,
+      "h": 1.6,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Studio Stairs",
-       "fa": "پله‌های استودیو"
-      },
-      "source": "authored"
+       "fa": "پلهٔ استودیو"
+      }
      },
      {
-      "label": {
-       "en": "Furniture",
-       "fa": "مبلمان"
-      },
+      "type": "cylinder",
       "x": 1.86,
       "z": -2.28,
-      "type": "cylinder",
       "r": 0.83,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      "h": 1.9,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Canvas Rack",
+       "fa": "قفسهٔ بوم"
+      }
      },
      {
-      "label": {
-       "en": "cabinet",
-       "fa": "کابینت"
-      },
+      "type": "cylinder",
       "x": 0.16,
       "z": -1.9,
-      "type": "cylinder",
       "r": 0.53,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      "h": 0.55,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Flat File",
+       "fa": "کابینت نقشه"
+      }
      },
      {
-      "label": {
-       "en": "cabinet",
-       "fa": "کابینت"
-      },
+      "type": "box",
       "x": 2.03,
       "z": 2.5,
-      "type": "box",
       "hw": 0.45,
       "hd": 0.95,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      "h": 1.95,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Cabinet",
+       "fa": "کمد"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       -2,
+       9,
+       -9
+      ],
+      "intensity": 2.2,
+      "color": "#eef3ff"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       1.86,
+       2.4,
+       -2.28
+      ],
+      "intensity": 0.4,
+      "color": "#ffe6c4",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.8,
+       2.6,
+       1.3
+      ],
+      "intensity": 0.45,
+      "color": "#ffe6c4",
+      "distance": 6
      }
     ]
    },
@@ -553,8 +703,41 @@
     "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/art_studio.glb",
+   "sky": {
+    "zenith": "#7db3e8",
+    "horizon": "#eef2f4",
+    "sun": "#fff3dd",
+    "sun_dir": [
+     -0.62,
+     0.55,
+     0.22
+    ]
+   },
+   "mats": {
+    "floor": [
+     "microcement",
+     "oak",
+     "calacatta",
+     "terrazzo",
+     "travertine"
+    ],
+    "wall": [
+     "plaster",
+     "plaster_warm",
+     "microcement",
+     "calacatta"
+    ],
+    "furn": [
+     "walnut",
+     "white_paint",
+     "walnut",
+     "walnut"
+    ]
    }
   },
   {
@@ -624,10 +807,10 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -1.15,
-     "maxX": 1.15,
-     "minZ": -1.7,
-     "maxZ": 1.7
+     "minX": -1.33,
+     "maxX": 1.33,
+     "minZ": -1.88,
+     "maxZ": 1.88
     },
     "obstacles": [
      {
@@ -636,14 +819,13 @@
       "z": -0.5,
       "hw": 0.45,
       "hd": 1.55,
-      "h": 0.55,
+      "h": 1.55,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Bunk Bed",
        "fa": "تخت طبقه‌دار"
-      },
-      "source": "authored",
-      "verified": "vision-audit-2026-11-03"
+      }
      },
      {
       "type": "box",
@@ -651,14 +833,13 @@
       "z": -1.35,
       "hw": 0.55,
       "hd": 0.7,
-      "h": 0.55,
+      "h": 0.8,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Bed",
        "fa": "تخت"
-      },
-      "source": "authored",
-      "verified": "vision-audit-2026-11-03"
+      }
      },
      {
       "type": "cylinder",
@@ -667,12 +848,11 @@
       "r": 0.72,
       "h": 0.85,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "sofa",
        "fa": "مبل"
-      },
-      "source": "authored",
-      "verified": "vision-2026-11-02"
+      }
      },
      {
       "type": "cylinder",
@@ -681,12 +861,11 @@
       "r": 0.35,
       "h": 0.45,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Round Table",
        "fa": "میز گرد"
-      },
-      "source": "authored",
-      "verified": "vision-audit-2026-11-03"
+      }
      },
      {
       "type": "box",
@@ -696,11 +875,45 @@
       "hd": 0.42,
       "h": 0.8,
       "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Cabinet",
        "fa": "کمد"
-      },
-      "source": "authored"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "spot",
+      "pos": [
+       0.75,
+       2.1,
+       0.75
+      ],
+      "intensity": 0.85,
+      "color": "#ffd9a4",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -0.9,
+       1.3,
+       -0.5
+      ],
+      "intensity": 0.35,
+      "color": "#ffc98e",
+      "distance": 4
+     },
+     {
+      "type": "sun",
+      "pos": [
+       4,
+       8,
+       -6
+      ],
+      "intensity": 0.9,
+      "color": "#dfe8f5"
      }
     ]
    },
@@ -718,8 +931,41 @@
     "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/cabin.glb",
+   "sky": {
+    "zenith": "#86aed6",
+    "horizon": "#f4ead8",
+    "sun": "#ffe9c0",
+    "sun_dir": [
+     0.4,
+     0.55,
+     -0.4
+    ]
+   },
+   "mats": {
+    "floor": [
+     "oak",
+     "timber",
+     "calacatta",
+     "herringbone",
+     "microcement"
+    ],
+    "wall": [
+     "timber",
+     "plaster_warm",
+     "plaster",
+     "microcement"
+    ],
+    "furn": [
+     "fabric_ochre",
+     "velvet_green",
+     "boucle",
+     "walnut"
+    ]
    }
   },
   {
@@ -789,106 +1035,171 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -1.9,
-     "maxX": 1.9,
-     "minZ": -2.9,
-     "maxZ": 2.9
+     "minX": -2.08,
+     "maxX": 2.08,
+     "minZ": -3.08,
+     "maxZ": 3.08
     },
     "obstacles": [
+     {
+      "type": "cylinder",
+      "x": -1.3,
+      "z": 0.63,
+      "r": 0.79,
+      "h": 0.8,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Booth Bench",
+       "fa": "نیمکت بوت"
+      }
+     },
+     {
+      "type": "cylinder",
+      "x": 0.11,
+      "z": 2.13,
+      "r": 0.99,
+      "h": 0.8,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Booth Sofa",
+       "fa": "مبل بوت"
+      }
+     },
+     {
+      "type": "cylinder",
+      "x": -1.82,
+      "z": -1.42,
+      "r": 0.64,
+      "h": 0.8,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Booth Bench",
+       "fa": "نیمکت بوت"
+      }
+     },
+     {
+      "type": "cylinder",
+      "x": -0.66,
+      "z": -2.83,
+      "r": 0.61,
+      "h": 0.8,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Booth Bench",
+       "fa": "نیمکت بوت"
+      }
+     },
      {
       "type": "cylinder",
       "x": 1.9,
       "z": 1.9,
       "r": 0.55,
+      "h": 0.75,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Café Table",
        "fa": "میز کافه"
-      },
-      "source": "authored"
+      }
      },
      {
-      "label": {
-       "en": "sofa",
-       "fa": "مبل"
-      },
-      "x": -1.3,
-      "z": 0.63,
       "type": "cylinder",
-      "r": 0.79,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
-     },
-     {
-      "label": {
-       "en": "table",
-       "fa": "میز"
-      },
       "x": -0.58,
       "z": 1.6,
-      "type": "cylinder",
       "r": 0.74,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      "h": 0.75,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Sharing Table",
+       "fa": "میز مشترک"
+      }
      },
      {
-      "label": {
-       "en": "sofa",
-       "fa": "مبل"
-      },
-      "x": 0.11,
-      "z": 2.13,
       "type": "cylinder",
-      "r": 0.99,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
-     },
-     {
-      "label": {
-       "en": "sofa",
-       "fa": "مبل"
-      },
-      "x": -1.82,
-      "z": -1.42,
-      "type": "cylinder",
-      "r": 0.64,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
-     },
-     {
-      "label": {
-       "en": "Plant",
-       "fa": "گیاه"
-      },
-      "x": 2.17,
-      "z": 0.6,
-      "type": "cylinder",
-      "r": 0.38,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
-     },
-     {
-      "label": {
-       "en": "table",
-       "fa": "میز"
-      },
       "x": -1.27,
       "z": -2.34,
-      "type": "cylinder",
       "r": 0.55,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      "h": 0.75,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Café Table",
+       "fa": "میز کافه"
+      }
      },
      {
-      "label": {
-       "en": "sofa",
-       "fa": "مبل"
-      },
-      "x": -0.66,
-      "z": -2.83,
       "type": "cylinder",
-      "r": 0.61,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      "x": 2.17,
+      "z": 0.6,
+      "r": 0.38,
+      "h": 1.2,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Plant",
+       "fa": "گلدان"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       -8,
+       8,
+       0
+      ],
+      "intensity": 1.2,
+      "color": "#ffeeda"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       1.9,
+       2.5,
+       1.9
+      ],
+      "intensity": 0.55,
+      "color": "#ffd9a8",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -0.6,
+       2.5,
+       1.6
+      ],
+      "intensity": 0.55,
+      "color": "#ffd9a8",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.3,
+       2.5,
+       -2.3
+      ],
+      "intensity": 0.45,
+      "color": "#ffd9a8",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0.1,
+       2.5,
+       2.1
+      ],
+      "intensity": 0.5,
+      "color": "#ffd9a8",
+      "distance": 6
      }
     ]
    },
@@ -906,8 +1217,41 @@
     "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/comfy_cafe.glb",
+   "sky": {
+    "zenith": "#86aed6",
+    "horizon": "#f4ead8",
+    "sun": "#ffe9c0",
+    "sun_dir": [
+     0.4,
+     0.55,
+     -0.4
+    ]
+   },
+   "mats": {
+    "floor": [
+     "oak",
+     "herringbone",
+     "terrazzo",
+     "calacatta",
+     "microcement"
+    ],
+    "wall": [
+     "plaster_warm",
+     "plaster",
+     "microcement",
+     "calacatta"
+    ],
+    "furn": [
+     "fabric_ochre",
+     "velvet_green",
+     "boucle",
+     "walnut"
+    ]
    }
   },
   {
@@ -976,10 +1320,10 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -1.1,
-     "maxX": 1.1,
-     "minZ": -5.9,
-     "maxZ": 5.9
+     "minX": -1.28,
+     "maxX": 1.28,
+     "minZ": -6.08,
+     "maxZ": 6.08
     },
     "obstacles": [
      {
@@ -988,11 +1332,13 @@
       "z": 4.9,
       "hw": 0.45,
       "hd": 0.45,
+      "h": 1.9,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Ceramic Stove",
-       "fa": "بخاری سفالی"
-      },
-      "source": "authored"
+       "fa": "اجاق سفالی"
+      }
      },
      {
       "type": "box",
@@ -1000,11 +1346,69 @@
       "z": 0.7,
       "hw": 0.45,
       "hd": 0.45,
+      "h": 1.9,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Tiled Stove",
-       "fa": "بخاری کاشی‌کاری"
-      },
-      "source": "authored"
+       "fa": "اجاق کاشی‌کاری"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       9,
+       7,
+       0
+      ],
+      "intensity": 1.1,
+      "color": "#ffeeda"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.5,
+       2.4,
+       -4.6
+      ],
+      "intensity": 0.35,
+      "color": "#ffc98e",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.5,
+       2.4,
+       -1.8
+      ],
+      "intensity": 0.35,
+      "color": "#ffc98e",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.5,
+       2.4,
+       1.6
+      ],
+      "intensity": 0.35,
+      "color": "#ffc98e",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.5,
+       2.4,
+       4.2
+      ],
+      "intensity": 0.35,
+      "color": "#ffc98e",
+      "distance": 5
      }
     ]
    },
@@ -1022,8 +1426,41 @@
     "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/large_corridor.glb",
+   "sky": {
+    "zenith": "#8fbbe0",
+    "horizon": "#f2eee4",
+    "sun": "#ffeecc",
+    "sun_dir": [
+     -0.5,
+     0.6,
+     0.3
+    ]
+   },
+   "mats": {
+    "floor": [
+     "stonefloor",
+     "calacatta",
+     "terrazzo",
+     "oak",
+     "microcement"
+    ],
+    "wall": [
+     "plaster",
+     "plaster_warm",
+     "cream_gold",
+     "microcement"
+    ],
+    "furn": [
+     "tiles_stove",
+     "walnut",
+     "walnut",
+     "walnut"
+    ]
    }
   },
   {
@@ -1093,16 +1530,163 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -1.2,
-     "maxX": 1.2,
-     "minZ": -4.4,
-     "maxZ": 4.4
+     "minX": -1.3800000000000001,
+     "maxX": 1.3800000000000001,
+     "minZ": -4.58,
+     "maxZ": 4.58
     },
-    "obstacles": []
+    "obstacles": [
+     {
+      "type": "box",
+      "x": 1.42,
+      "z": -2.85,
+      "hw": 0.33,
+      "hd": 0.65,
+      "h": 0.9,
+      "rot": 0.0,
+      "source": "authored",
+      "label": {
+       "en": "Wine Barrels",
+       "fa": "بشکه‌های شراب"
+      }
+     },
+     {
+      "type": "box",
+      "x": -1.42,
+      "z": 1.95,
+      "hw": 0.33,
+      "hd": 0.65,
+      "h": 0.9,
+      "rot": 0.0,
+      "source": "authored",
+      "label": {
+       "en": "Wine Barrels",
+       "fa": "بشکه‌های شراب"
+      }
+     },
+     {
+      "type": "box",
+      "x": -1.5,
+      "z": 5.4,
+      "hw": 0.24,
+      "hd": 0.9,
+      "h": 1.05,
+      "rot": 0.0,
+      "source": "authored",
+      "label": {
+       "en": "Bottle Rack",
+       "fa": "قفسهٔ بطری"
+      }
+     },
+     {
+      "type": "box",
+      "x": 1.5,
+      "z": -5.4,
+      "hw": 0.24,
+      "hd": 0.9,
+      "h": 1.05,
+      "rot": 0.0,
+      "source": "authored",
+      "label": {
+       "en": "Bottle Rack",
+       "fa": "قفسهٔ بطری"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "spot",
+      "pos": [
+       -1.5,
+       1.8,
+       -3.6
+      ],
+      "intensity": 0.9,
+      "color": "#ff9c4a",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.5,
+       1.8,
+       0.0
+      ],
+      "intensity": 0.9,
+      "color": "#ff9c4a",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -1.5,
+       1.8,
+       3.6
+      ],
+      "intensity": 0.9,
+      "color": "#ff9c4a",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       2.6,
+       -5.0
+      ],
+      "intensity": 0.4,
+      "color": "#ffae5e",
+      "distance": 6
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       2.6,
+       5.0
+      ],
+      "intensity": 0.4,
+      "color": "#ffae5e",
+      "distance": 6
+     }
+    ]
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/castle_zavelstein_cellar.glb",
+   "sky": {
+    "zenith": "#1c2430",
+    "horizon": "#2c3442",
+    "sun": "#4a5468",
+    "sun_dir": [
+     0.3,
+     0.8,
+     -0.2
+    ]
+   },
+   "mats": {
+    "floor": [
+     "stonefloor",
+     "travertine",
+     "microcement",
+     "oak",
+     "calacatta"
+    ],
+    "wall": [
+     "brick",
+     "stonefloor",
+     "microcement",
+     "timber"
+    ],
+    "furn": [
+     "timber",
+     "walnut",
+     "walnut",
+     "walnut"
+    ]
    }
   },
   {
@@ -1172,10 +1756,10 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -3.9,
-     "maxX": 3.9,
-     "minZ": -6.4,
-     "maxZ": 6.4
+     "minX": -4.08,
+     "maxX": 4.08,
+     "minZ": -6.58,
+     "maxZ": 6.58
     },
     "obstacles": [
      {
@@ -1184,11 +1768,69 @@
       "z": 2.3,
       "hw": 0.85,
       "hd": 1.1,
+      "h": 1.1,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Grand Piano",
        "fa": "پیانو گرند"
-      },
-      "source": "authored"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       -10,
+       10,
+       0
+      ],
+      "intensity": 1.8,
+      "color": "#fff3e2"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       3.9,
+       -2.2
+      ],
+      "intensity": 0.9,
+      "color": "#ffd9a8",
+      "distance": 9
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       3.9,
+       2.6
+      ],
+      "intensity": 0.9,
+      "color": "#ffd9a8",
+      "distance": 9
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -3.6,
+       2.5,
+       2.3
+      ],
+      "intensity": 0.35,
+      "color": "#fff0dd",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       3.5,
+       2.5,
+       -4.0
+      ],
+      "intensity": 0.35,
+      "color": "#ffe8cd",
+      "distance": 5
      }
     ]
    },
@@ -1206,8 +1848,41 @@
     "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/ballroom.glb",
+   "sky": {
+    "zenith": "#8fbbe0",
+    "horizon": "#f2eee4",
+    "sun": "#ffeecc",
+    "sun_dir": [
+     -0.5,
+     0.6,
+     0.3
+    ]
+   },
+   "mats": {
+    "floor": [
+     "herringbone",
+     "calacatta",
+     "marble_black",
+     "terrazzo",
+     "microcement"
+    ],
+    "wall": [
+     "cream_gold",
+     "plaster_warm",
+     "plaster",
+     "calacatta"
+    ],
+    "furn": [
+     "black_gloss",
+     "walnut",
+     "brass",
+     "velvet_green"
+    ]
    }
   },
   {
@@ -1277,10 +1952,10 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -3.9,
-     "maxX": 3.9,
-     "minZ": -7.4,
-     "maxZ": 7.4
+     "minX": -4.08,
+     "maxX": 4.08,
+     "minZ": -7.58,
+     "maxZ": 7.58
     },
     "obstacles": [
      {
@@ -1289,35 +1964,85 @@
       "z": -6.8,
       "hw": 4.5,
       "hd": 1.6,
+      "h": 0.9,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Stage",
-       "fa": "سکوی مدرسه"
-      },
-      "source": "authored"
+       "fa": "سکو"
+      }
      },
      {
       "type": "box",
       "x": 0.0,
-      "z": -4.3,
+      "z": -4.22,
       "hw": 3.4,
-      "hd": 0.55,
+      "hd": 1.05,
+      "h": 0.9,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Chair Rows",
        "fa": "ردیف صندلی‌ها"
-      },
-      "source": "authored"
+      }
      },
      {
-      "label": {
-       "en": "piano",
-       "fa": "پیانو"
-      },
+      "type": "cylinder",
       "x": -3.52,
       "z": -0.83,
-      "type": "cylinder",
       "r": 0.82,
-      "source": "auto",
-      "verified": "vision-2026-11-02"
+      "h": 1.15,
+      "rot": 0.0,
+      "source": "vlm-verified",
+      "label": {
+       "en": "Piano",
+       "fa": "پیانو"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       -9,
+       10,
+       0
+      ],
+      "intensity": 1.9,
+      "color": "#fff3e2"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       5.4,
+       -5.2
+      ],
+      "intensity": 1.0,
+      "color": "#ffd9a8",
+      "distance": 10
+     },
+     {
+      "type": "spot",
+      "pos": [
+       -3.52,
+       2.4,
+       -0.83
+      ],
+      "intensity": 0.4,
+      "color": "#ffe6c4",
+      "distance": 5
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       5.2,
+       2.0
+      ],
+      "intensity": 0.5,
+      "color": "#ffe6c4",
+      "distance": 10
      }
     ]
    },
@@ -1335,8 +2060,41 @@
     "method": "dav2-small + guided edge-align + multi-start measured shell v1.6"
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/school_hall.glb",
+   "sky": {
+    "zenith": "#7ba6cc",
+    "horizon": "#efe9dc",
+    "sun": "#ffe8bc",
+    "sun_dir": [
+     -0.55,
+     0.5,
+     0.35
+    ]
+   },
+   "mats": {
+    "floor": [
+     "oak",
+     "herringbone",
+     "calacatta",
+     "terrazzo",
+     "microcement"
+    ],
+    "wall": [
+     "plaster",
+     "plaster_warm",
+     "cream_gold",
+     "microcement"
+    ],
+    "furn": [
+     "walnut",
+     "fabric_ochre",
+     "velvet_green",
+     "walnut"
+    ]
    }
   },
   {
@@ -1407,10 +2165,10 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -4.4,
-     "maxX": 4.4,
-     "minZ": -7.4,
-     "maxZ": 7.4
+     "minX": -4.58,
+     "maxX": 4.58,
+     "minZ": -7.58,
+     "maxZ": 7.58
     },
     "obstacles": [
      {
@@ -1419,28 +2177,135 @@
       "z": 0.3,
       "hw": 0.32,
       "hd": 0.95,
+      "h": 1.5,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Stone Fireplace",
-       "fa": "شومینه سنگی"
-      },
-      "source": "authored"
+       "fa": "شومینهٔ سنگی"
+      }
      },
      {
       "type": "cylinder",
       "x": 3.7,
       "z": -2.7,
       "r": 0.45,
+      "h": 1.7,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Statue",
        "fa": "مجسمه"
-      },
-      "source": "authored"
+      }
+     },
+     {
+      "type": "box",
+      "x": 0.0,
+      "z": 1.5,
+      "hw": 0.72,
+      "hd": 2.4,
+      "h": 0.8,
+      "rot": 0.0,
+      "source": "authored",
+      "label": {
+       "en": "Banquet Table",
+       "fa": "میز ضیافت"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       -10,
+       12,
+       0
+      ],
+      "intensity": 2.0,
+      "color": "#fff3e2"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       5.4,
+       -2.5
+      ],
+      "intensity": 0.9,
+      "color": "#ffd9a8",
+      "distance": 10
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       5.4,
+       2.2
+      ],
+      "intensity": 0.9,
+      "color": "#ffd9a8",
+      "distance": 10
+     },
+     {
+      "type": "spot",
+      "pos": [
+       4.3,
+       0.9,
+       0.3
+      ],
+      "intensity": 0.8,
+      "color": "#ff8a3c",
+      "distance": 4
+     },
+     {
+      "type": "spot",
+      "pos": [
+       3.7,
+       2.0,
+       -2.7
+      ],
+      "intensity": 0.35,
+      "color": "#ffe6c4",
+      "distance": 5
      }
     ]
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/leipzig_festsaal.glb",
+   "sky": {
+    "zenith": "#8fbbe0",
+    "horizon": "#f2eee4",
+    "sun": "#ffeecc",
+    "sun_dir": [
+     -0.5,
+     0.6,
+     0.3
+    ]
+   },
+   "mats": {
+    "floor": [
+     "parquet_dark",
+     "calacatta",
+     "herringbone",
+     "terrazzo",
+     "microcement"
+    ],
+    "wall": [
+     "cream_gold",
+     "plaster_warm",
+     "plaster",
+     "calacatta"
+    ],
+    "furn": [
+     "walnut",
+     "velvet_green",
+     "walnut",
+     "brass"
+    ]
    }
   },
   {
@@ -1510,10 +2375,10 @@
    "walk": {
     "player_radius": 0.3,
     "bounds": {
-     "minX": -11.4,
-     "maxX": 11.4,
-     "minZ": -11.4,
-     "maxZ": 11.4
+     "minX": -11.58,
+     "maxX": 11.58,
+     "minZ": -11.58,
+     "maxZ": 11.58
     },
     "obstacles": [
      {
@@ -1522,39 +2387,114 @@
       "z": 11.2,
       "hw": 3.2,
       "hd": 0.55,
+      "h": 0.8,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Manicured Hedge",
-       "fa": "دیوار سبز"
-      },
-      "source": "authored"
+       "fa": "بوتهٔ چمن‌زنی"
+      }
      },
      {
       "type": "cylinder",
       "x": -11.0,
       "z": 2.5,
       "r": 0.8,
+      "h": 4.2,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Tree",
        "fa": "درخت"
-      },
-      "source": "authored"
+      }
      },
      {
       "type": "cylinder",
       "x": -11.1,
       "z": -3.5,
       "r": 0.8,
+      "h": 3.8,
+      "rot": 0.0,
+      "source": "vlm-verified",
       "label": {
        "en": "Tree",
        "fa": "درخت"
-      },
-      "source": "authored"
+      }
+     },
+     {
+      "type": "cylinder",
+      "x": 0.0,
+      "z": 6.5,
+      "r": 1.5,
+      "h": 1.25,
+      "rot": 0.0,
+      "source": "authored",
+      "label": {
+       "en": "Fountain",
+       "fa": "فواره"
+      }
+     }
+    ],
+    "lights": [
+     {
+      "type": "sun",
+      "pos": [
+       -18,
+       26,
+       10
+      ],
+      "intensity": 3.0,
+      "color": "#fff6e8"
+     },
+     {
+      "type": "spot",
+      "pos": [
+       0,
+       6,
+       6.5
+      ],
+      "intensity": 0.3,
+      "color": "#cfe8ff",
+      "distance": 12
      }
     ]
    },
    "badge": {
-    "en": "🌐 4K zero-warp panorama",
-    "fa": "🌐 پانورامای ۴K بدون اعوجاج"
+    "en": "🚶 True-3D Walk · 🌐 360° Photo",
+    "fa": "🚶 قدم‌زدن سه‌بعدی · 🌐 عکس ۳۶۰ اصلی"
+   },
+   "type": "hybrid",
+   "glb": "assets/true3d/quadrangle_sunny.glb",
+   "sky": {
+    "zenith": "#6fa8e8",
+    "horizon": "#f6f2e6",
+    "sun": "#fffbe8",
+    "sun_dir": [
+     -0.55,
+     0.62,
+     0.3
+    ]
+   },
+   "mats": {
+    "floor": [
+     "gravel",
+     "stonefloor",
+     "terrazzo",
+     "travertine",
+     "microcement"
+    ],
+    "wall": [
+     "travertine",
+     "stonefloor",
+     "microcement",
+     "calacatta"
+    ],
+    "furn": [
+     "hedge",
+     "travertine",
+     "walnut",
+     "travertine"
+    ]
    }
   }
  ]

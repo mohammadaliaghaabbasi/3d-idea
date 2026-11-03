@@ -589,3 +589,68 @@ body.fa .nav-roomline, body.fa #room-title, body.fa #wp-chip, body.fa .mode-chip
   #nav-hint { display: none; }   /* keep the capsule strictly inside the viewport */
   .mode-chip { padding: 6px 8px; font-size: 11px; }
 }
+
+/* ============================================================
+   STAGE 2.1 — TRUE-WALK EVERYWHERE · radar / view pill / mode buttons
+   ============================================================ */
+
+#view-actions { gap: 8px; }            /* six buttons now — tighten */
+@media (max-width: 480px) {
+  #view-actions { gap: 6px; }
+  .round-btn { --btn-size: 34px; width: 34px; height: 34px; }
+}
+
+#btn-radar.on, #btn-dollhouse.on, #btn-photo.on {
+  background: var(--glass-bg-strong);
+  box-shadow: inset 0 0 0 1px rgba(214, 234, 255, 0.55);
+}
+
+/* live 2D floorplan radar — corner, collapsible; grows in dollhouse mode */
+#radar-wrap {
+  position: absolute;
+  inset-inline-start: max(14px, env(safe-area-inset-left, 0px));
+  bottom: calc(var(--bottom-stack) + 14px);
+  padding: 8px;
+  border-radius: 16px;
+  z-index: 4;
+  pointer-events: none;
+  transition: transform 0.35s ease;
+}
+#radar-wrap.collapsed { display: none; }
+#radar { display: block; border-radius: 10px; }
+#radar-label {
+  font-size: 10px;
+  color: var(--ink-dim);
+  text-align: center;
+  margin-top: 5px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#radar-wrap.plan { padding: 12px; }
+body.touch #radar-wrap, body.fa #radar-wrap { bottom: calc(var(--bottom-stack) + 140px); }
+
+/* current view-mode pill (walk / photo / dollhouse) */
+#view-pill {
+  position: absolute;
+  top: max(64px, calc(env(safe-area-inset-top, 0px) + 56px));
+  inset-inline-end: var(--edge);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  color: var(--ink);
+  z-index: 4;
+  max-width: 42vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* QA: pristine photo frames for the identity gates (E2E sets this class) */
+body.qa-hidden #room-pill, body.qa-hidden #view-actions, body.qa-hidden #mode-bar,
+body.qa-hidden #nav-capsule, body.qa-hidden #bump-toast, body.qa-hidden #radar-wrap,
+body.qa-hidden #view-pill, body.qa-hidden #wp-chip, body.qa-hidden #joystick,
+body.qa-hidden #ripple-host {
+  display: none !important;
+}

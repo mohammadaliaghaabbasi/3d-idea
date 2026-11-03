@@ -1,0 +1,6 @@
+{
+ "label": "cabin 360 photo (owner scene)",
+ "shot": "/tmp/render/qa21_cabin_bed.jpg",
+ "verdict": "PASS",
+ "raw": "This appears to be a photographic-style view of a cabin interior (bed, pillows, wall lamp, nightstand with papers, mirror), not a broken render. The view is coherent: walls, ceiling, and furniture are all present, no void, no black screen, no self-intersecting geometry, and the HUD elements (top bar, joystick, bottom tabs) are readable and don't obscure critical content. Empty wall space above the lamp is normal.\n\nVERDICT: PASS\n"
+}

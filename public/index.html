@@ -36,8 +36,17 @@
     </div>
   </div>
 
-  <!-- top-inline-end: three 38px circular glass buttons [🔊] [EN/فا] [⛶/reset] -->
+  <!-- top-inline-end: six 38px circular glass buttons [📐] [🏠] [🌐] [🔊] [EN/فا] [⛶/reset] -->
   <div id="view-actions" class="hud-hidden">
+    <button id="btn-radar" class="glass round-btn" aria-label="">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>
+    </button>
+    <button id="btn-dollhouse" class="glass round-btn" aria-label="">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 9.5V21h14V9.5"/><path d="M3 11h18"/><path d="M10 21v-5h4v5"/></svg>
+    </button>
+    <button id="btn-photo" class="glass round-btn" aria-label="">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>
+    </button>
     <button id="btn-sound" class="glass round-btn" aria-label="">
       <svg id="snd-on" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.2 6a8.6 8.6 0 0 1 0 12"/></svg>
       <svg id="snd-off" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
@@ -94,6 +103,15 @@
 
   <!-- doorway waypoint chip (hover / tap) -->
   <button id="wp-chip" class="glass hud-hidden"><span id="wp-chip-label"></span></button>
+
+  <!-- Stage 2.1: live 2D floorplan radar (grows into the dollhouse plan) -->
+  <div id="radar-wrap" class="glass hud-hidden">
+    <canvas id="radar"></canvas>
+    <div id="radar-label"></div>
+  </div>
+
+  <!-- Stage 2.1: current view-mode chip (walk / photo / dollhouse) -->
+  <div id="view-pill" class="glass hud-hidden"><span id="view-pill-label"></span></div>
 
   <!-- loading -->
   <div id="loading" class="overlay hud-hidden">
