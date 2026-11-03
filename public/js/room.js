@@ -30,8 +30,8 @@ export const CORNER_FILLET = 0.35;   // m — box-fallback corner fillet radius
 export const FLOOR_COVE = 0.15;      // m — box-fallback floor/wall cove radius
 const FILLET_SEG = 10;
 
-const DOME_SEG = 320;                // azimuth bins (1.125°)
-const DOME_ROWS = 144;               // elevation rows (1.25°)
+const DOME_SEG = 384;                // azimuth bins (0.94°)
+const DOME_ROWS = 168;               // elevation rows (1.07°)
 
 /* ------------------------------------------------------------ box fallback */
 
@@ -263,6 +263,32 @@ export function buildDomeGeometry(field, capture) {
   let minR = Infinity, maxR = 0;
   for (let i = 0; i < rad.length; i++) { minR = Math.min(minR, rad[i]); maxR = Math.max(maxR, rad[i]); }
 
+  // 4) PLUMB-LINE proof (owner law 1.6.2): in the WALL band (φ 2..15°) the
+  //    horizontal distance R·cosφ must be constant per azimuth wherever the
+  //    surface is structural wall (furniture bulges deviate — they are
+  //    objects, not structure).  Band 2..15° matches the bake-side proof:
+  //    every room's photographed ceiling starts ABOVE 15° elevation
+  //    (tightest: ballroom far bays 18.9°), so measured ceilings/chandeliers
+  //    at 15-30° never pollute the structural verdict.
+  const devs = [];
+  const r2d = Math.PI / 180;
+  for (let i = 0; i < SEG; i++) {
+    const col = [];
+    for (let j = 0; j < ROWS; j++) {
+      const phi = (0.5 - (j + 0.5) / ROWS) * Math.PI;
+      if (phi < 2 * r2d || phi > 15 * r2d) continue;
+      col.push(rad[j * SEG + i] * Math.cos(phi));
+    }
+    if (col.length < 3) continue;
+    col.sort((a, b) => a - b);
+    const med = col[Math.floor(col.length / 2)];
+    for (const h of col) devs.push(Math.abs(h - med));
+  }
+  devs.sort((a, b) => a - b);
+  const pct = (q) => (devs.length ? devs[Math.min(devs.length - 1, Math.floor(q * devs.length))] : 0);
+  const plumbP50 = pct(0.5);
+  const plumbP90 = pct(0.9);
+
   const stats = {
     dome: {
       verts: SEG * ROWS + 2,
@@ -271,6 +297,8 @@ export function buildDomeGeometry(field, capture) {
       maxR: Math.round(maxR * 1000) / 1000,
       zigzag: Math.round(zigzag * 1000) / 1000,
       exactFloor: Math.round(exactFloor * 100000) / 100000,
+      plumbP50: Math.round(plumbP50 * 10000) / 10000,
+      plumbP90: Math.round(plumbP90 * 10000) / 10000,
     },
     floorFlatness: Math.round(exactFloor * 100000) / 100000,   // strict law
     floorPlanarity: Math.round(floorDev * 100000) / 100000,    // incl. skirts
@@ -280,19 +308,93 @@ export function buildDomeGeometry(field, capture) {
 
 /* ---------------------------------------------------------------- shaders */
 
-const FRAG = /* glsl */`
+/* STITCH DE-SHEAR (stage 1.6.2c): the source pano's own stitcher seam
+ * excursion (measured per edge in the survey skills) is undone at
+ * SAMPLING time — u' = u + lut(v)·win(u) — so the sheared source columns
+ * land back on true plumb fragment columns.  Rule A: the pano file is
+ * NEVER modified.  The per-edge LUT is a 64-bin u16-packed DataTexture
+ * (same R=hi/G=lo packing as the relief field; hardware filtering would
+ * corrupt the byte packing, so NearestFilter + manual linear interp).
+ */
+const STITCH_UNIFORMS = /* glsl */`
+  uniform sampler2D uStTex;   // 64 x N u16-packed de-shear LUTs
+  uniform int uStN;          // number of measured edges (0..4)
+  uniform vec4 uStBand;      // (r0, r1, lo, range) -- V band + LUT packing
+  uniform vec4 uStA[4];      // per edge: (u, half, blend, 0)
+`;
+const STITCH_CODE = /* glsl */`
+    float vS = 1.0 - v;
+    float rowGate = smoothstep(uStBand.x - 0.03, uStBand.x + 0.03, vS)
+                 * (1.0 - smoothstep(uStBand.y - 0.03, uStBand.y + 0.03, vS));
+    if (rowGate > 0.001) {
+      float span = max(uStBand.y - uStBand.x, 1e-4);
+      float pos = clamp((vS - uStBand.x) / span, 0.0, 0.9999) * 64.0;
+      float b0 = floor(pos), ft = pos - b0;
+      for (int k = 0; k < 4; k++) {
+        if (k >= uStN) break;
+        vec4 A = uStA[k];
+        float du = u - A.x;
+        du -= floor(du + 0.5);
+        float w = 1.0 - smoothstep(A.y, A.y + A.z, abs(du));
+        if (w > 0.002) {
+          float ty = (float(k) + 0.5) / float(uStN);
+          vec4 t0 = texture2D(uStTex, vec2((b0 + 0.5) / 64.0, ty));
+          vec4 t1 = texture2D(uStTex, vec2((min(b0 + 1.0, 63.0) + 0.5) / 64.0, ty));
+          float q = mix(t0.r * 256.0 + t0.g, t1.r * 256.0 + t1.g, ft);
+          u += (uStBand.z + q / 65535.0 * uStBand.w) * w * rowGate;
+        }
+      }
+    }
+`;
+
+function buildFrag(stitch) {
+  return /* glsl */`
   uniform sampler2D map;
   uniform vec3 uCenter;
   uniform float uFade;
   varying vec3 vWorldPos;
+  ${stitch ? STITCH_UNIFORMS : ""}
   void main() {
     vec3 d = normalize(vWorldPos - uCenter);
     float u = atan(d.z, -d.x) / 6.28318530718;                  // equirect longitude
     float v = 1.0 - acos(clamp(d.y, -1.0, 1.0)) / 3.14159265359; // equirect latitude
+    ${stitch ? STITCH_CODE : ""}
     vec4 tex = texture2D(map, vec2(u, v));
     gl_FragColor = vec4(tex.rgb * uFade, 1.0);
   }
 `;
+}
+
+/** Build the de-shear uniforms + LUT texture from room.walk.relief.stitch.
+ *  @returns {{uniforms, texture}|null} */
+function buildStitch(room, renderer) {
+  const st = room.walk && room.walk.relief && room.walk.relief.stitch;
+  if (!st || !Array.isArray(st.edges) || st.edges.length === 0) return null;
+  const n = Math.min(st.edges.length, 4);
+  const bins = st.bins || 64;
+  const lo = st.lo, range = Math.max(st.range, 1e-9);
+  const data = new Uint8Array(bins * n * 4);
+  for (let k = 0; k < n; k++) {
+    const lut = st.edges[k].lut || [];
+    for (let b = 0; b < bins; b++) {
+      const val = b < lut.length ? lut[b] : 0;
+      const q = Math.max(0, Math.min(65535, Math.round((val - lo) / range * 65535)));
+      const o = (k * bins + b) * 4;
+      data[o] = q >> 8; data[o + 1] = q & 255;
+    }
+  }
+  const tex = new THREE.DataTexture(data, bins, n, THREE.RGBAFormat, THREE.UnsignedByteType);
+  tex.minFilter = THREE.NearestFilter;
+  tex.magFilter = THREE.NearestFilter;
+  tex.needsUpdate = true;
+  const uniforms = {
+    uStTex: { value: tex },
+    uStN: { value: n },
+    uStBand: { value: new THREE.Vector4(st.r0, st.r1, lo, range) },
+    uStA: { value: st.edges.slice(0, 4).map(e => new THREE.Vector4(e.u, e.half, e.blend, 0)) },
+  };
+  return { uniforms, texture: tex };
+}
 const VERT_SHADER = /* glsl */`
   varying vec3 vWorldPos;
   void main() {
@@ -361,14 +463,15 @@ export function buildRoomVolume(room, renderer) {
       }
       stats.textureSize = [texture.image.width, texture.image.height];
 
+      const stitch = buildStitch(room, renderer);
       const mat = new THREE.ShaderMaterial({
         vertexShader: VERT_SHADER,
-        fragmentShader: FRAG,
-        uniforms: {
+        fragmentShader: buildFrag(!!stitch),
+        uniforms: Object.assign({
           map: { value: texture },
           uCenter: { value: capture.clone() },
           uFade: { value: 1 },
-        },
+        }, stitch ? stitch.uniforms : {}),
         side: THREE.DoubleSide,
         depthWrite: true,
       });
@@ -388,6 +491,7 @@ export function buildRoomVolume(room, renderer) {
         dispose() {
           geo.dispose();
           texture.dispose();
+          if (stitch) { stitch.texture.dispose(); }
           mat.dispose();
         },
       });

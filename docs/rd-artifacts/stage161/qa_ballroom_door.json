@@ -1,0 +1,12 @@
+{
+ "label": "ballroom @ walked + identity control (owner binary gate, 3 rolls)",
+ "rolls": [
+  "roll1=10.0",
+  "roll2=0.0",
+  "roll3=0.0"
+ ],
+ "score": 10.0,
+ "text": "**(A)** In IMAGE 1, following the vertical jamb/casing lines lintel-to-baseboard: the left-side casing and open door edge show a noticeable bow/curvature — the line near the top of the frame drifts and then bows outward mid-height before kicking back at the baseboard. It is not a straight vertical line. **No.**\n\n**(B)** In IMAGE 2 (the pixel-exact reference), the same vertical casing/jamb lines run straight and plumb, with only mild lens softness — no S-shaped waviness. IMAGE 1's bowing mid-line is a *new* rubber-like warp introduced by the re-projection during the walk, not the character of the original. **No.**\n\n**(C)** The walkway through the doorway in IMAGE 1 — the tile floor and opening — is clear, with no obstruction or rendering artifact blocking passage. **Yes.**\n\nSince A and B both fail, the owner's law is not satisfied.\n\nVERDICT: FAIL\n",
+ "shot": "/tmp/render/qa_ballroom_door.jpg",
+ "identity": "/tmp/render/qa_ballroom_door_identity.jpg"
+}

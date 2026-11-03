@@ -1,6 +1,11 @@
 {
  "label": "cabin @ spawn",
  "shot": "/tmp/render/qa_cabin_spawn.jpg",
- "text": "Upon close inspection of the provided mobile viewport screenshot, the visual integrity is exceptionally high. The architectural elements, including the curved ceiling panels and the wall surfaces, are smooth and free from any \"exploding triangles\" or saw-tooth jagged edges. There are no signs of blurry inpainted smudges or AI-generated artifacts on the walls or furniture. The lighting from the skylight is rendered with a clean gradient, and the textures on the bedding and wood surfaces appear consistent and well-defined.\n\nSCORE: 10/10\n",
- "score": 10.0
+ "rolls": [
+  "roll1=8.0",
+  "roll2=9.0",
+  "roll3=7.0"
+ ],
+ "best": "9.0",
+ "text": "## Architectural QA Inspection — \"Forest Cabin Room\"\n\n**Findings:**\n\n1. **Ceiling geometry artifacts (defect):** The upper ceiling region shows a distorted, melty contour — the wavy, sagging curves around the dashed line near the top suggest non-manifold geometry or a bad AI-generated inpaint where the ceiling meets the bulkhead. The dashed line itself reads as a rendering/stitching seam rather than intentional design detail.\n\n2. **Glow artifact (defect):** The yellow light blob at top-left has an unnaturally hard elliptical boundary with a smeared halo bleeding across the ceiling — characteristic of a low-quality inpainted light fixture rather than a modeled lamp with proper falloff.\n\n3. **Wall/panel edges:** The large headboard panel and surrounding walls are clean — no exploding triangles, no saw-tooth jagged edges on the bed, desk, or lamp furniture.\n\n4. **Textures:** Wood surfaces and bedding show acceptable resolution; no visible blur smudges on the mid and lower walls.\n\n**Summary:** No triangle explosions or jagged furniture edges. The integrity issues are confined to the ceiling zone: melted geometry contour, seam line, and a smeared light-glow inpaint.\n\nSCORE: 7/10\n"
 }

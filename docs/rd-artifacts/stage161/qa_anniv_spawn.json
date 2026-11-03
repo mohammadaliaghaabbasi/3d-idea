@@ -1,6 +1,11 @@
 {
  "label": "anniversary_lounge @ spawn",
  "shot": "/tmp/render/qa_anniv_spawn.jpg",
- "text": "Based on a thorough inspection of the provided mobile viewport screenshot:\n\nThe image displays high visual integrity. The architectural lines of the room, including the ceiling-to-wall junction and window frame, are clean and straight without any \"exploding triangles\" or geometric distortions. The furniture, specifically the green upholstered chair in the foreground, features smooth, natural curves consistent with fabric texture; there are no saw-tooth jagged edges or digital artifacts on its silhouette. The wall surfaces and background elements appear sharp and well-defined, showing no signs of blurry inpainted smudges or AI-generation artifacts. The lighting and shadows are coherent with the scene's perspective.\n\nSCORE: 10/10\n",
- "score": 10.0
+ "rolls": [
+  "roll1=9.0",
+  "roll2=9.0",
+  "roll3=9.0"
+ ],
+ "best": "9.0",
+ "text": "Inspecting the mobile viewport screenshot as an architectural QA critic:\n\n**Checklist review:**\n- **Exploding triangles:** None. No geometric mesh artifacts, no stray polygons breaking through surfaces.\n- **Saw-tooth jagged edges on furniture:** The green velvet sofa in the foreground shows clean, organic contours. The curtain drape edges are natural fabric folds, not aliasing artifacts.\n- **Blurry inpainted smudges on walls:** The yellow-ochre wall shows consistent texture and lighting. The vent grille near the ceiling is crisp, and the cornice/ceiling junction is continuous. No smeared patches or ghosted regions.\n- **Other observations:** The window glare is consistent with a real photographic capture (likely a 360° panorama, per the \"PolyHaven · CC0\" credit), not a generative fill. UI overlays (chips, joystick, bottom navigation) are intentional interface elements, not defects.\n\nThe image reads as an authentic photographic texture with intact geometry and clean edges throughout the visible frame.\n\nSCORE: 9/10\n"
 }

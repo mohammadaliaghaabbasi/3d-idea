@@ -80,6 +80,32 @@
         },
         "obstacles": [
           {
+            "type": "cylinder",
+            "x": -1.1,
+            "z": -2.35,
+            "r": 0.55,
+            "label": {
+              "en": "Armchair",
+              "fa": "صندلی راحتی"
+            },
+            "h": 0.85,
+            "rot": 0.45,
+            "source": "authored"
+          },
+          {
+            "type": "box",
+            "x": 0.9,
+            "z": 2.75,
+            "hw": 0.85,
+            "hd": 0.3,
+            "label": {
+              "en": "Sideboard",
+              "fa": "بوفه چوبی"
+            },
+            "h": 0.92,
+            "source": "authored"
+          },
+          {
             "label": {
               "en": "sofa",
               "fa": "مبل"
@@ -89,7 +115,9 @@
             "type": "cylinder",
             "r": 1.02,
             "h": 0.82,
-            "rot": 0.0
+            "rot": 0.0,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -101,7 +129,9 @@
             "type": "cylinder",
             "r": 0.69,
             "h": 0.92,
-            "rot": 0.0
+            "rot": 0.0,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -113,7 +143,9 @@
             "type": "cylinder",
             "r": 0.32,
             "h": 0.48,
-            "rot": 0.35
+            "rot": 0.35,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -126,7 +158,9 @@
             "hw": 0.55,
             "hd": 0.2,
             "h": 0.85,
-            "rot": 0.55
+            "rot": 0.55,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -139,37 +173,15 @@
             "hw": 0.48,
             "hd": 0.24,
             "h": 0.85,
-            "rot": 0.65
-          },
-          {
-            "type": "cylinder",
-            "x": -1.1,
-            "z": -2.35,
-            "r": 0.55,
-            "label": {
-              "en": "Armchair",
-              "fa": "صندلی راحتی"
-            },
-            "h": 0.85,
-            "rot": 0.45
-          },
-          {
-            "type": "box",
-            "x": 0.9,
-            "z": 2.75,
-            "hw": 0.85,
-            "hd": 0.3,
-            "label": {
-              "en": "Sideboard",
-              "fa": "بوفه چوبی"
-            },
-            "h": 0.92
+            "rot": 0.65,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           }
         ],
         "relief": {
           "url": "assets/relief/anniversary_lounge.png",
-          "rmin": 0.568,
-          "rmax": 6.867,
+          "rmin": 0.849,
+          "rmax": 7.329,
           "w": 512,
           "h": 256
         },
@@ -265,37 +277,6 @@
         },
         "obstacles": [
           {
-            "label": {
-              "en": "Furniture",
-              "fa": "مبلمان"
-            },
-            "x": 1.86,
-            "z": -2.28,
-            "type": "cylinder",
-            "r": 0.83
-          },
-          {
-            "label": {
-              "en": "cabinet",
-              "fa": "کابینت"
-            },
-            "x": 0.16,
-            "z": -1.9,
-            "type": "cylinder",
-            "r": 0.53
-          },
-          {
-            "label": {
-              "en": "cabinet",
-              "fa": "کابینت"
-            },
-            "x": 2.03,
-            "z": 2.5,
-            "type": "box",
-            "hw": 0.45,
-            "hd": 0.95
-          },
-          {
             "type": "cylinder",
             "x": -1.8,
             "z": 1.3,
@@ -303,7 +284,8 @@
             "label": {
               "en": "Work Table",
               "fa": "میز کار"
-            }
+            },
+            "source": "authored"
           },
           {
             "type": "box",
@@ -314,13 +296,51 @@
             "label": {
               "en": "Studio Stairs",
               "fa": "پله‌های استودیو"
-            }
+            },
+            "source": "authored"
+          },
+          {
+            "label": {
+              "en": "Furniture",
+              "fa": "مبلمان"
+            },
+            "x": 1.86,
+            "z": -2.28,
+            "type": "cylinder",
+            "r": 0.83,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "x": 0.16,
+            "z": -1.9,
+            "type": "cylinder",
+            "r": 0.53,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
+          },
+          {
+            "label": {
+              "en": "cabinet",
+              "fa": "کابینت"
+            },
+            "x": 2.03,
+            "z": 2.5,
+            "type": "box",
+            "hw": 0.45,
+            "hd": 0.95,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           }
         ],
         "relief": {
           "url": "assets/relief/art_studio.png",
-          "rmin": 0.628,
-          "rmax": 7.482,
+          "rmin": 0.938,
+          "rmax": 7.959,
           "w": 512,
           "h": 256
         },
@@ -416,6 +436,20 @@
         },
         "obstacles": [
           {
+            "type": "box",
+            "x": 1.25,
+            "z": 1.75,
+            "hw": 0.4,
+            "hd": 0.42,
+            "label": {
+              "en": "Cabinet",
+              "fa": "کمد"
+            },
+            "h": 0.8,
+            "rot": 0.0,
+            "source": "authored"
+          },
+          {
             "label": {
               "en": "bed",
               "fa": "تخت"
@@ -425,7 +459,9 @@
             "type": "cylinder",
             "r": 1.22,
             "h": 0.55,
-            "rot": 0.0
+            "rot": 0.0,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -437,7 +473,9 @@
             "type": "cylinder",
             "r": 0.7,
             "h": 0.85,
-            "rot": 0.0
+            "rot": 0.0,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -449,7 +487,9 @@
             "type": "cylinder",
             "r": 0.72,
             "h": 0.9,
-            "rot": -0.5
+            "rot": -0.5,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -461,31 +501,20 @@
             "type": "cylinder",
             "r": 0.34,
             "h": 0.98,
-            "rot": 0.0
-          },
-          {
-            "type": "box",
-            "x": 1.25,
-            "z": 1.75,
-            "hw": 0.4,
-            "hd": 0.42,
-            "label": {
-              "en": "Cabinet",
-              "fa": "کمد"
-            },
-            "h": 0.8,
-            "rot": 0.0
+            "rot": 0.0,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           }
         ],
         "relief": {
           "url": "assets/relief/cabin.png",
-          "rmin": 0.49,
-          "rmax": 6.18,
+          "rmin": 0.729,
+          "rmax": 5.681,
           "w": 512,
           "h": 256
         },
         "envelope": {
-          "r": 1.09
+          "r": 1.15
         }
       },
       "measured": {
@@ -576,6 +605,17 @@
         },
         "obstacles": [
           {
+            "type": "cylinder",
+            "x": 1.9,
+            "z": 1.9,
+            "r": 0.55,
+            "label": {
+              "en": "Café Table",
+              "fa": "میز کافه"
+            },
+            "source": "authored"
+          },
+          {
             "label": {
               "en": "sofa",
               "fa": "مبل"
@@ -583,7 +623,9 @@
             "x": -1.3,
             "z": 0.63,
             "type": "cylinder",
-            "r": 0.79
+            "r": 0.79,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -593,7 +635,9 @@
             "x": -0.58,
             "z": 1.6,
             "type": "cylinder",
-            "r": 0.74
+            "r": 0.74,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -603,7 +647,9 @@
             "x": 0.11,
             "z": 2.13,
             "type": "cylinder",
-            "r": 0.99
+            "r": 0.99,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -613,7 +659,9 @@
             "x": -1.82,
             "z": -1.42,
             "type": "cylinder",
-            "r": 0.64
+            "r": 0.64,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -623,7 +671,9 @@
             "x": 2.17,
             "z": 0.6,
             "type": "cylinder",
-            "r": 0.38
+            "r": 0.38,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -633,7 +683,9 @@
             "x": -1.27,
             "z": -2.34,
             "type": "cylinder",
-            "r": 0.55
+            "r": 0.55,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           },
           {
             "label": {
@@ -643,23 +695,15 @@
             "x": -0.66,
             "z": -2.83,
             "type": "cylinder",
-            "r": 0.61
-          },
-          {
-            "type": "cylinder",
-            "x": 1.9,
-            "z": 1.9,
-            "r": 0.55,
-            "label": {
-              "en": "Café Table",
-              "fa": "میز کافه"
-            }
+            "r": 0.61,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           }
         ],
         "relief": {
           "url": "assets/relief/comfy_cafe.png",
-          "rmin": 0.705,
-          "rmax": 7.757,
+          "rmin": 0.969,
+          "rmax": 8.339,
           "w": 512,
           "h": 256
         },
@@ -754,16 +798,6 @@
         },
         "obstacles": [
           {
-            "label": {
-              "en": "Door",
-              "fa": "درب"
-            },
-            "x": 0.54,
-            "z": -2.31,
-            "type": "cylinder",
-            "r": 0.29
-          },
-          {
             "type": "box",
             "x": 1.45,
             "z": 4.9,
@@ -772,7 +806,8 @@
             "label": {
               "en": "Ceramic Stove",
               "fa": "بخاری سفالی"
-            }
+            },
+            "source": "authored"
           },
           {
             "type": "box",
@@ -783,18 +818,19 @@
             "label": {
               "en": "Tiled Stove",
               "fa": "بخاری کاشی‌کاری"
-            }
+            },
+            "source": "authored"
           }
         ],
         "relief": {
           "url": "assets/relief/large_corridor.png",
-          "rmin": 0.346,
-          "rmax": 9.433,
+          "rmin": 0.631,
+          "rmax": 9.107,
           "w": 512,
           "h": 256
         },
         "envelope": {
-          "r": 0.84
+          "r": 0.89
         }
       },
       "measured": {
@@ -886,8 +922,8 @@
         "obstacles": [],
         "relief": {
           "url": "assets/relief/castle_zavelstein_cellar.png",
-          "rmin": 1.3,
-          "rmax": 5.309,
+          "rmin": 1.301,
+          "rmax": 5.361,
           "w": 512,
           "h": 256
         },
@@ -970,28 +1006,6 @@
         },
         "obstacles": [
           {
-            "label": {
-              "en": "radiator",
-              "fa": "رادیاتور"
-            },
-            "x": -0.82,
-            "z": -4.49,
-            "type": "box",
-            "hw": 1.82,
-            "hd": 0.73
-          },
-          {
-            "label": {
-              "en": "cabinet",
-              "fa": "کابینت"
-            },
-            "x": 1.59,
-            "z": -4.19,
-            "type": "box",
-            "hw": 0.77,
-            "hd": 0.18
-          },
-          {
             "type": "box",
             "x": -3.6,
             "z": 2.3,
@@ -1000,13 +1014,14 @@
             "label": {
               "en": "Grand Piano",
               "fa": "پیانو گرند"
-            }
+            },
+            "source": "authored"
           }
         ],
         "relief": {
           "url": "assets/relief/ballroom.png",
-          "rmin": 1.199,
-          "rmax": 15.117,
+          "rmin": 1.51,
+          "rmax": 16.121,
           "w": 512,
           "h": 256
         },
@@ -1102,16 +1117,6 @@
         },
         "obstacles": [
           {
-            "label": {
-              "en": "piano",
-              "fa": "پیانو"
-            },
-            "x": -3.52,
-            "z": -0.83,
-            "type": "cylinder",
-            "r": 0.82
-          },
-          {
             "type": "box",
             "x": 0.0,
             "z": -6.8,
@@ -1120,7 +1125,8 @@
             "label": {
               "en": "Stage",
               "fa": "سکوی مدرسه"
-            }
+            },
+            "source": "authored"
           },
           {
             "type": "box",
@@ -1131,13 +1137,26 @@
             "label": {
               "en": "Chair Rows",
               "fa": "ردیف صندلی‌ها"
-            }
+            },
+            "source": "authored"
+          },
+          {
+            "label": {
+              "en": "piano",
+              "fa": "پیانو"
+            },
+            "x": -3.52,
+            "z": -0.83,
+            "type": "cylinder",
+            "r": 0.82,
+            "source": "auto",
+            "verified": "vision-2026-11-02"
           }
         ],
         "relief": {
           "url": "assets/relief/school_hall.png",
-          "rmin": 0.427,
-          "rmax": 16.223,
+          "rmin": 0.67,
+          "rmax": 16.986,
           "w": 512,
           "h": 256
         },
@@ -1242,7 +1261,8 @@
             "label": {
               "en": "Stone Fireplace",
               "fa": "شومینه سنگی"
-            }
+            },
+            "source": "authored"
           },
           {
             "type": "cylinder",
@@ -1252,13 +1272,14 @@
             "label": {
               "en": "Statue",
               "fa": "مجسمه"
-            }
+            },
+            "source": "authored"
           }
         ],
         "relief": {
           "url": "assets/relief/leipzig_festsaal.png",
-          "rmin": 1.6,
-          "rmax": 11.159,
+          "rmin": 1.601,
+          "rmax": 10.613,
           "w": 512,
           "h": 256
         },
@@ -1349,7 +1370,8 @@
             "label": {
               "en": "Manicured Hedge",
               "fa": "دیوار سبز"
-            }
+            },
+            "source": "authored"
           },
           {
             "type": "cylinder",
@@ -1359,7 +1381,8 @@
             "label": {
               "en": "Tree",
               "fa": "درخت"
-            }
+            },
+            "source": "authored"
           },
           {
             "type": "cylinder",
@@ -1369,13 +1392,14 @@
             "label": {
               "en": "Tree",
               "fa": "درخت"
-            }
+            },
+            "source": "authored"
           }
         ],
         "relief": {
           "url": "assets/relief/quadrangle_sunny.png",
-          "rmin": 1.6,
-          "rmax": 29.995,
+          "rmin": 1.601,
+          "rmax": 45.416,
           "w": 512,
           "h": 256
         },

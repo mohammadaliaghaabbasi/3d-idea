@@ -1,6 +1,11 @@
 {
  "label": "cabin @ joystick walk toward bed",
  "shot": "/tmp/render/qa_cabin_walked.jpg",
- "text": "Based on a detailed inspection of the provided mobile viewport screenshot, the image exhibits high visual integrity. The architectural elements, such as the curved ceiling panels and the wall surfaces, are smooth and free from \"exploding triangles\" or jagged artifacts. The furniture, including the bed and lamp, maintains clean, well-defined edges without saw-tooth distortions. There are no visible blurry inpainted smudges or AI-generated artifacts on the walls. The lighting from the skylight is rendered with soft gradients, and the overall composition is coherent.\n\nSCORE: 10/10\n",
- "score": 10.0
+ "rolls": [
+  "roll1=9.0",
+  "roll2=7.0",
+  "roll3=9.0"
+ ],
+ "best": "9.0",
+ "text": "## Visual QA Inspection — Mobile Viewport\n\n**Geometry check:**\n- No exploding/inverted triangles detected. Polygons on the wall panel, headboard, and lampshade appear cleanly wound.\n- Furniture edges (bed, headboard, nightstand, wall sconce) are straight and well-formed — no saw-tooth artifacts on silhouettes.\n\n**Texture/inpainting check:**\n- The ceiling panel seams (wavy recessed lines) look intentional, not inpainted smudges.\n- Slight softness on the ceiling surface near the top-left light glow is consistent with the emissive light bloom, not an AI inpaint artifact.\n- Wall texture shows a normal photographic grain; no ghosting, duplicated patterns, or smudged blotches.\n- The white panel above the bed has a smooth, coherent finish with clean border seams.\n\n**Lighting/material:**\n- Warm light falloff on the headboard and wall is physically plausible; shadow gradients are smooth.\n- The yellow floor marker (nav ellipse) is a UI overlay, not a defect.\n\n**Minor note (non-blocking):** The ceiling's wavy trim lines lose a little sharpness toward the top edge — acceptable given perspective compression at grazing angle.\n\nNo blocking defects found. Visual integrity is solid.\n\nSCORE: 9/10\n"
 }

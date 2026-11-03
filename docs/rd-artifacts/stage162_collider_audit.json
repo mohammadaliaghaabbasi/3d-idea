@@ -1,0 +1,257 @@
+{
+ "generated": "2026-11-03T06:23:16",
+ "rooms": [
+  {
+   "id": "anniversary_lounge",
+   "authored": 2,
+   "auto_before": 5,
+   "removed": [],
+   "auto_kept": 5,
+   "door_corridor": [
+    {
+     "label": "table",
+     "source": "auto",
+     "seg_m": 0.61
+    },
+    {
+     "label": "sofa",
+     "source": "auto",
+     "seg_m": 0.07
+    },
+    {
+     "label": "sofa",
+     "source": "auto",
+     "seg_m": 0.4
+    }
+   ]
+  },
+  {
+   "id": "art_studio",
+   "authored": 2,
+   "auto_before": 3,
+   "removed": [],
+   "auto_kept": 3,
+   "door_corridor": [
+    {
+     "label": "Work Table",
+     "source": "authored",
+     "seg_m": 0.57
+    }
+   ]
+  },
+  {
+   "id": "cabin",
+   "authored": 1,
+   "auto_before": 4,
+   "removed": [],
+   "auto_kept": 4,
+   "door_corridor": [
+    {
+     "label": "Cabinet",
+     "source": "authored",
+     "seg_m": 0.08
+    },
+    {
+     "label": "sofa",
+     "source": "auto",
+     "seg_m": 0.85
+    }
+   ]
+  },
+  {
+   "id": "comfy_cafe",
+   "authored": 1,
+   "auto_before": 7,
+   "removed": [],
+   "auto_kept": 7,
+   "door_corridor": []
+  },
+  {
+   "id": "large_corridor",
+   "authored": 2,
+   "auto_before": 1,
+   "removed": [
+    {
+     "idx": 0,
+     "label": "Door",
+     "rule": "label=Door (structure)"
+    }
+   ],
+   "auto_kept": 0,
+   "door_corridor": []
+  },
+  {
+   "id": "ballroom",
+   "authored": 1,
+   "auto_before": 2,
+   "removed": [
+    {
+     "idx": 0,
+     "label": "radiator",
+     "rule": "wall-buried 1.80m"
+    },
+    {
+     "idx": 0,
+     "label": "cabinet",
+     "rule": "no visual evidence (vision saw: 'NONE')"
+    }
+   ],
+   "auto_kept": 0,
+   "door_corridor": []
+  },
+  {
+   "id": "school_hall",
+   "authored": 2,
+   "auto_before": 1,
+   "removed": [],
+   "auto_kept": 1,
+   "door_corridor": [
+    {
+     "label": "Chair Rows",
+     "source": "authored",
+     "seg_m": 3.57
+    }
+   ]
+  },
+  {
+   "id": "leipzig_festsaal",
+   "authored": 2,
+   "auto_before": 0,
+   "removed": [],
+   "auto_kept": 0,
+   "door_corridor": []
+  },
+  {
+   "id": "quadrangle_sunny",
+   "authored": 3,
+   "auto_before": 0,
+   "removed": [],
+   "auto_kept": 0,
+   "door_corridor": []
+  }
+ ],
+ "removed": [],
+ "kept_auto": [
+  {
+   "room": "anniversary_lounge",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 1.7
+  },
+  {
+   "room": "anniversary_lounge",
+   "label": "cabinet",
+   "seen": "cabinet",
+   "dist_m": 2.0
+  },
+  {
+   "room": "anniversary_lounge",
+   "label": "table",
+   "seen": "table",
+   "dist_m": 0.6
+  },
+  {
+   "room": "anniversary_lounge",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 1.6
+  },
+  {
+   "room": "anniversary_lounge",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 1.8
+  },
+  {
+   "room": "art_studio",
+   "label": "Furniture",
+   "seen": "easel",
+   "dist_m": 2.5,
+   "note": "label-adjusted"
+  },
+  {
+   "room": "art_studio",
+   "label": "cabinet",
+   "seen": "cabinet",
+   "dist_m": 1.9
+  },
+  {
+   "room": "art_studio",
+   "label": "cabinet",
+   "seen": "cabinet",
+   "dist_m": 3.2
+  },
+  {
+   "room": "cabin",
+   "label": "bed",
+   "seen": "bed",
+   "dist_m": 2.2
+  },
+  {
+   "room": "cabin",
+   "label": "bed",
+   "seen": "bed",
+   "dist_m": 2.3
+  },
+  {
+   "room": "cabin",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 2.5
+  },
+  {
+   "room": "cabin",
+   "label": "bed",
+   "seen": "bed",
+   "dist_m": 2.4
+  },
+  {
+   "room": "comfy_cafe",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 3.5
+  },
+  {
+   "room": "comfy_cafe",
+   "label": "table",
+   "seen": "table",
+   "dist_m": 3.8
+  },
+  {
+   "room": "comfy_cafe",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 3.7
+  },
+  {
+   "room": "comfy_cafe",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 3.6
+  },
+  {
+   "room": "comfy_cafe",
+   "label": "Plant",
+   "seen": "plant",
+   "dist_m": 4.2
+  },
+  {
+   "room": "comfy_cafe",
+   "label": "table",
+   "seen": "table",
+   "dist_m": 4.0
+  },
+  {
+   "room": "comfy_cafe",
+   "label": "sofa",
+   "seen": "sofa",
+   "dist_m": 3.4
+  },
+  {
+   "room": "school_hall",
+   "label": "piano",
+   "seen": "piano",
+   "dist_m": 4.8
+  }
+ ]
+}

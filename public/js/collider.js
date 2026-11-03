@@ -236,19 +236,24 @@ export class ObstacleHalos {
   get count() { return this.items.length; }
 
   update(dt, playerPos) {
+    // PROXIMITY-GATED (owner spec: the halo renders "when the user walks
+    // toward" the obstacle — invisible at range so wide spawn views stay
+    // 100% photograph, fading in within 1.5 m of the collider surface)
     for (const it of this.items) {
       const dx = playerPos.x - it.cx, dz = playerPos.z - it.cz;
       const dist = Math.hypot(dx, dz);
-      const gap = Math.max(0, dist - it.effR - 0.3);
-      const prox = THREE.MathUtils.clamp(1 - gap / 1.5, 0, 1);
+      const surface = Math.max(0, dist - it.effR);        // distance to the surface
+      const prox = THREE.MathUtils.clamp(1 - surface / 1.5, 0, 1);
       it.prox += (prox - it.prox) * Math.min(1, dt * 5);
       it.flash = Math.max(0, it.flash - dt * 1.8);
-      const breathe = 0.02 * Math.sin(performance.now() * 0.0012 + it.phase);
-      it.line.material.opacity = 0.07 + 0.30 * it.prox * it.prox + 0.50 * it.flash + breathe;
-      it.fill.material.opacity = 0.022 + 0.09 * it.prox * it.prox + 0.22 * it.flash;
+      const breathe = 0.02 * Math.sin(performance.now() * 0.0012 + it.phase) * it.prox;
+      it.line.material.opacity = 0.26 * it.prox * it.prox + 0.50 * it.flash;
+      it.fill.material.opacity = 0.085 * it.prox * it.prox + 0.22 * it.flash;
       const s = 1 + 0.045 * it.flash;
       it.line.scale.set(s, 1, s);
       it.fill.scale.set(s, s, 1);
+      it.line.visible = it.line.material.opacity > 0.006;
+      it.fill.visible = it.fill.material.opacity > 0.004;
     }
   }
 

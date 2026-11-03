@@ -177,6 +177,17 @@ async function main() {
     setMode: (m) => { state.mode = m; hud.setMode(m); retargetWaypoint(); },
     resetView: () => controls.resetView(),
     warpNext: () => state.waypoint && warpThrough(state.waypoint),
+    // deterministic room jump for E2E (nav-next clicks are swallowed mid-warp)
+    gotoRoom: async (id) => {
+      const i = state.db.rooms.findIndex((r) => r.id === id);
+      if (i < 0 || i === state.roomIdx) return state.room?.id ?? null;
+      if (state.transitioning) { await new Promise((r) => setTimeout(r, 300)); }
+      await navigateTo(i);
+      for (let k = 0; k < 60 && state.transitioning; k++) {
+        await new Promise((r) => setTimeout(r, 100));
+      }
+      return state.room?.id ?? null;
+    },
     uiBounds: () => {
       const vw = innerWidth, vh = innerHeight;
       const ids = [

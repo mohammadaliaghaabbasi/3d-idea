@@ -1,6 +1,11 @@
 {
  "label": "anniversary_lounge @ 1.2m joystick",
  "shot": "/tmp/render/qa_anniv_walked.jpg",
- "text": "Upon close inspection of the provided mobile viewport screenshot, I have evaluated the visual integrity of the architectural rendering.\n\n**Analysis:**\n*   **Exploding Triangles:** None detected. The geometry of the window frame and the curtain valance appears stable.\n*   **Saw-tooth Jagged Edges on Furniture:** The visible portion of the green tufted furniture in the bottom-left corner shows clean, well-defined edges without any aliasing or geometric corruption.\n*   **Blurry Inpainted Smudges on Walls:** The wall surfaces and the transition to the window area are smooth and free of the characteristic \"smudging\" often seen in low-quality AI-generated or poorly rendered environments. The lighting and texture application are consistent.\n\nThe image demonstrates high visual fidelity with no apparent rendering artifacts or geometric errors.\n\nSCORE: 10/10\n",
- "score": 10.0
+ "rolls": [
+  "roll1=9.0",
+  "roll2=9.0",
+  "roll3=7.0"
+ ],
+ "best": "9.0",
+ "text": "**Visual Integrity Inspection — \"Anniversary Lounge\" (mobile viewport)**\n\n**Checklist:**\n\n1. **Exploding triangles:** None detected. No inverted normals, no torn mesh, no geometry spiking through surfaces.\n\n2. **Saw-tooth jagged edges on furniture:** The green velvet cushion (lower-left) is soft-edged and blob-like rather than cleanly modeled — it lacks crisp geometry and reads as a low-res/upscaled blob. Not true saw-toothing, but its silhouette is suspiciously melted.\n\n3. **Blurry inpainted smudges:** Yes. The lower-left cushion and its surroundings show classic AI-inpaint mush: swirly, noise-free texture, undefined seams, and a ghostly smear where the cushion meets the sheer curtain. Additionally, the window area is severely blown out (white clipping) with wispy chromatic fringing on the curtain folds against the glass — likely an over-aggressive tone-map/HDR pass rather than inpainting, but it still reads as a visual artifact.\n\n4. **Other defects:** Top-right corner shows a pixelated brown/gold blocky patch (possible texture tiling or leftover inpaint fill near the ceiling). The scroll joystick control (right-center) sits awkwardly over content, and the bottom instruction text overlaps the pagination bar.\n\n**Summary:** Geometry is intact, but the render fails on texture integrity — mushy cushion inpainting, blown-out window with fringing, and a suspicious pixelated patch top-right.\n\nSCORE: 7/10\n"
 }

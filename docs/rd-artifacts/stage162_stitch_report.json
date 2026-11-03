@@ -1,0 +1,111 @@
+{
+  "generated": "2026-11-03T09:10:16",
+  "law": "Stage 1.6.2 stitch-shear survey: vertical 3D lines must map to constant-u equirect columns; measured doorway shear (stitcher artifact) stored as a sampling-time de-shear profile (Rule A: the original pano file is NEVER modified)",
+  "results": [
+    {
+      "id": "anniversary_lounge",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    },
+    {
+      "id": "art_studio",
+      "applied": false,
+      "edges": [
+        {
+          "u": 126.45485018355183,
+          "b_px": -0.0263087236196589,
+          "c_px": 7.832269079741118e-05,
+          "maxdev_px": 2.570296277186171,
+          "cov": 0.5958485958485958,
+          "resid_px": 1.7699087945987528
+        },
+        {
+          "u": 192.98903335150527,
+          "b_px": 0.002310198487951995,
+          "c_px": 7.463545270073797e-06,
+          "maxdev_px": 2.184300594574401,
+          "cov": 0.5409035409035409,
+          "resid_px": 1.9372512345476025
+        },
+        {
+          "u": 192.98982806169712,
+          "b_px": 0.0018777682605389107,
+          "c_px": 8.684129429894413e-06,
+          "maxdev_px": 2.2110073058662207,
+          "cov": 0.5409035409035409,
+          "resid_px": 1.9746831756302399
+        }
+      ],
+      "profile": null
+    },
+    {
+      "id": "cabin",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    },
+    {
+      "id": "comfy_cafe",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    },
+    {
+      "id": "large_corridor",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    },
+    {
+      "id": "castle_zavelstein_cellar",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    },
+    {
+      "id": "ballroom",
+      "applied": true,
+      "edges": [
+        {
+          "u": 1306.3694090291553,
+          "b_px": 0.0060061636186694006,
+          "c_px": -2.4552456356856555e-05,
+          "maxdev_px": 1.2341312882759545,
+          "cov": 0.6068376068376068,
+          "resid_px": 2.075524219843343
+        }
+      ],
+      "b_pxrow": 0.00601,
+      "c_pxrow2": -2.455e-05,
+      "profile": {
+        "u0": 0.335,
+        "half": 0.03333,
+        "blend": 0.02778,
+        "r0": 0.26,
+        "r1": 0.66,
+        "b": 0.0030031,
+        "c": -0.025141715,
+        "maxdev_px": 6.6
+      }
+    },
+    {
+      "id": "school_hall",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    },
+    {
+      "id": "leipzig_festsaal",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    },
+    {
+      "id": "quadrangle_sunny",
+      "applied": false,
+      "edges": [],
+      "profile": null
+    }
+  ]
+}
