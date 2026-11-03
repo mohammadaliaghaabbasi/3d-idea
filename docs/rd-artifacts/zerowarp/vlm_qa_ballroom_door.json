@@ -3,5 +3,5 @@
  "shot": "/tmp/render/qa_ballroom_door.jpg",
  "verdict": "PASS",
  "supplementary": true,
- "text": "Inspecting the image:\n\n1. **Line bending/melting:** Door frames, cornices, and wall mouldings all read as straight and clean. The slight perspective convergence is normal photographic projection, not renderer warping.\n2. **Texture stretching:** Parquet floor pattern repeats evenly; wall panels and door surfaces show no smearing or directional pulling.\n3. **Hard seam lines:** No artificial seam cutting across the floor, door, or furniture; all lines trace real architectural edges.\n\nVERDICT: PASS\n"
+ "text": "Inspecting the image:\n\n1. **Bending/melting of straight lines**: The door frame, crown molding, wainscoting rails, and picture frame lines all appear straight and consistent. Any slight curvature is consistent with natural perspective distortion from the panoramic projection, not rubber-like warping.\n\n2. **Texture stretching**: The parquet floor pattern and wall paneling look uniform and undistorted. No smeared or stretched textures on walls or surfaces.\n\n3. **Hard seam lines**: No artificial seam lines cutting across the floor, walls, or through the doorway. The transition through the door into the next room looks photo-native.\n\nAll three checks are clean.\n\nVERDICT: PASS\n"
 }

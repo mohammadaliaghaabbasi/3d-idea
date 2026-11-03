@@ -3,5 +3,5 @@
  "shot": "/tmp/render/qa_cabin_bed.jpg",
  "verdict": "PASS",
  "supplementary": true,
- "text": "Inspecting the screenshot:\n\n1. **Bending/melting of straight lines:** The wall panel seams, door frame edges, and furniture lines all appear straight and consistent — no bows or S-curves visible.\n\n2. **Texture stretching:** The bedding and pillows show natural fabric folds; no smeared or stretched texture running up the wall. Wood grain on the nightstand looks normal.\n\n3. **New hard seam lines:** No artificial seam cutting across the floor or furniture; the panel joints are photo-native wall paneling.\n\nVERDICT: PASS\n"
+ "text": "Inspecting the screenshot:\n\n1. **Bending/melting of straight lines:** The vertical panel seams and door/ceiling frames look straight and consistent; any curvature near edges is normal panoramic projection, not rubber-like warping.\n2. **Texture stretching:** The bedding, pillows, and lampshade show natural folds with no smearing up walls.\n3. **Hard seam lines:** No renderer-added seam cutting across floors or furniture; panel joints are photo-native.\n\nVERDICT: PASS\n"
 }

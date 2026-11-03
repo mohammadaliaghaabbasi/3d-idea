@@ -219,6 +219,22 @@ if [ "$CUR" != "cabin" ]; then
 fi
 
 echo "--- 5) LAW 2: virtual furniture collision + footstep target ring ---"
+# R5 LESSON (honesty about the gate, not the engine): after the input storm
+# the virtual body sits at an arbitrary point; gliding to the sofa from there
+# was legally blocked by a DIFFERENT collider (bump "Bed", d=1.53, no
+# penetration) — the collision worked, but the stop-band is path-dependent.
+# Product feature resetView() ("بازگشت به مرکز فضا") glides the virtual body
+# home; poll until it rests at spawn so the sofa approach is DETERMINISTIC
+# (from spawn it stops exactly at the collider face + player radius).
+EV_D "(() => { const P = window.__panodrome; P.resetView(); return 'gliding the virtual body home'; })()" >/dev/null
+RESET_OK=false
+for i in $(seq 1 40); do
+  agent-browser --session d wait 400 >/dev/null 2>&1
+  RD="$(EV_D "(() => { const c = window.__panodrome.controls; return Math.hypot(c.pos.x - c.start.x, c.pos.z - c.start.z).toFixed(3); })()")"
+  python3 -c "exit(0 if float('${RD:-9}') < 0.06 else 1)" 2>/dev/null && { RESET_OK=true; break; }
+done
+echo "    virtual body back at spawn: $RESET_OK (d=${RD} m after ${i} polls)"
+expect "LAW 2 pre: virtual body at spawn (deterministic start)" "$RESET_OK" json_true
 EV_D "(() => { const P = window.__panodrome; window.__plog = []; P.controls.onBump = (b) => window.__plog.push(b.label.en); P.walkTo(1.22, 0.19); return 'gliding to the sofa'; })()" >/dev/null
 expect "footstep target ring visible (double-tap/walkTo marker)" "$(EV_D "(() => { const P = window.__panodrome; return (P.state.fx.target.visible && P.state.fx.target.position.x === 1.15) ? 'true' : 'false'; })()")" json_true
 SOFA_BUMP="no"
@@ -230,6 +246,11 @@ done
 echo "    cabin sofa bump: $SOFA_BUMP"
 expect "LAW 2: virtual sofa collision event fires" "$SOFA_BUMP" contains "yes:"
 expect "LAW 2: virtual position blocked outside the sofa collider" "$(EV_D "(() => { const P = window.__panodrome; const p = P.controls.pos; const d = Math.hypot(p.x - 1.22, p.z - 0.19); return (d > 0.95 && d < 1.35) ? 'stopped-at-face' : 'd=' + d.toFixed(2); })()")" eq "stopped-at-face"
+# PATH-INDEPENDENT LAW 2 INVARIANT (the real statement of the law): wherever
+# the glide came from, the resting virtual body must sit outside EVERY
+# collider's exclusion zone (raw volume grown by the player radius; 3 cm
+# sliding-contact tolerance). No hardcoded geometry can fake this.
+expect "LAW 2: virtual body outside EVERY collider exclusion zone (no penetration)" "$(EV_D "(() => { const P = window.__panodrome; const p = P.controls.pos; const pr = (P.state.room.walk.player_radius || 0.3); for (const o of P.state.room.walk.obstacles) { if (o.type === 'cylinder') { if (Math.hypot(p.x - o.x, p.z - o.z) < o.r + pr - 0.03) return 'PENETRATED:' + o.label.en; } else { if (Math.abs(p.x - o.x) < o.hw + pr - 0.03 && Math.abs(p.z - o.z) < o.hd + pr - 0.03) return 'PENETRATED:' + o.label.en; } } return 'clean'; })()")" eq "clean"
 
 echo "--- 6) doorway walk-in (virtual glide INTO the ring) ---"
 # anniversary_lounge: a clear glide path to its doorway ring (the cabin is a

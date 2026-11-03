@@ -3,5 +3,5 @@
  "shot": "/tmp/render/qa_cabin_ceiling.jpg",
  "verdict": "PASS",
  "supplementary": true,
- "text": "Inspecting the screenshot:\n\n1. **Bending/melting of straight lines:** The ceiling plank lines run straight and parallel; wall panel seams and the wood frame edges are clean verticals with no bows or S-curves. No rubber-like warping.\n\n2. **Texture stretching:** The wall, lampshade, and mirror reflection all show normal, undistorted texture. No smeared or smeared-up-the-wall stretching.\n\n3. **New hard seam lines:** No artificial seams cutting across surfaces — the visible vertical lines are natural wall panel joints (photo-native).\n\nVERDICT: PASS\n"
+ "text": "Inspecting the screenshot:\n\n1. **Bending/melting of straight lines**: The ceiling panel seams run straight and parallel with no rubber-like warping. Wall and cabinet edges are clean. No bowing or S-curves visible.\n2. **Texture stretching**: The lampshade, bedding, and wall surfaces show no smeared or stretched fabric artifacts.\n3. **New hard seam lines**: No artificial seam cutting across the floor, bed, or furniture — visible joints (ceiling panels, cabinet edge) are photo-native architecture.\n\nVERDICT: PASS\n"
 }
