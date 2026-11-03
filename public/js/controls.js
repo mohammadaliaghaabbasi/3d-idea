@@ -1,35 +1,47 @@
 /**
- * PANODROME — Stage 1.5 · True First-Person Walking Controls
+ * PANODROME — Stage 2.0 · Zero-Warp Walking Controls (owner law 2026-11-03)
+ * ============================================================================
+ * TWO WALK MODES — one per room kind:
  *
- * REAL WALKING, NOT ZOOMING (locked 2026-11-02):
- *   · camera.fov is FIXED (68° desktop / 75° mobile) — set once by main.js,
- *     NEVER touched here. Walking = true translation of camera.position.x/z
- *     across the floor in real metres (a full room crossing), resolved
- *     against the collision world (collider.js) with sliding response.
- *   · Natural footstep head-bob: camera.position.y = 1.65 + 0.028·sin(bob),
- *     bob phase driven by metres travelled (one cycle every 0.65 m — the
- *     same law that triggers the soft footstep sound).
+ * MICRO (360° pano rooms — LAW 1 + LAW 2):
+ *   The camera lives in a strict ZERO-DISTORTION MICRO-PARALLAX SPHERE:
+ *   max offset 0.08 m from the capture origin.  Inside that budget the
+ *   photo shows genuine (tiny) parallax; beyond it the photograph would
+ *   smear, so motion becomes a MATTERPORT-STYLE OPTICAL STEP-GLIDE:
+ *     · a VIRTUAL walk position travels real metres through the collision
+ *       world (collider.js) — sliding, furniture bumps, doorway walk-ins;
+ *     · each step is a smooth optical glide pulse: FOV 72° → ~52° → 72°
+ *       (owner spec), subtle walk head-bob, and acoustic footsteps every
+ *       0.65 m of virtual travel;
+ *     · the 3D floor grid / footstep target ring / glass furniture proxies
+ *       (collider.js) move in true 3D perspective around the camera while
+ *       the 4K photograph stays 100% un-bent, un-stretched, crystal clear.
  *
- * Inputs:
- *   · drag            = look around
- *   · wheel           = walk forward / back (momentum, like real steps)
- *   · two-finger drag = walk forward / back (touch)
- *   · W A S D / arrows= game walking (A/D strafe, ←/→ turn)
- *   · double-tap      = walk TO the tapped floor point (raycast by main)
- *   · virtual joystick(touch HUD) = analog walking
- *   · reset button    = "بازگشت به مرکز فضا" — glide back to the capture point
+ * FREE (true-3D rooms — LAW 3):
+ *   Full multi-metre 6DoF WASD/joystick walking across the real floor,
+ *   camera.fov LOCKED at 72°, resolved against the exact furniture Box3
+ *   colliders.  Real meshes never warp, so there is nothing to protect —
+ *   walk 5 metres around the sofa if you like.
+ *
+ * Inputs (both modes): drag = look · wheel / two-finger drag = walk ·
+ * W A S D / arrows · double-tap floor = walk TO the tapped point ·
+ * virtual joystick (touch HUD) · reset button = glide home.
  */
 import * as THREE from "three";
 
-export const EYE_HEIGHT = 1.65;   // player eye (m) — camera.y = EYE + bob
+export const EYE_HEIGHT = 1.65;   // m — true-3D player eye (y = EYE + bob)
 export const STEP_LEN = 0.65;     // m per footstep (audio + bob cycle)
-const WALK_SPEED = 1.9;           // m/s hold-input speed
-const BOOST_MAX = 4.2;            // m/s peak scroll momentum
+export const MICRO_PARALLAX = 0.08; // m — owner law: max camera offset from capture origin
+export const FOV_BASE = 72;       // owner law: base FOV (pano step-glide + true-3D locked)
+export const FOV_GLIDE = 52;      // owner law: deepest step-glide zoom
+const WALK_SPEED = 1.55;          // m/s virtual walk speed (calm museum pace)
+const BOOST_MAX = 3.0;            // m/s peak scroll momentum
 const BOOST_DECAY = 2.1;          // 1/s exponential momentum decay
 const ACCEL = 8.5;                // 1/s input acceleration smoothing
-const BOB_AMP = 0.028;            // m head-bob amplitude
+const BOB_AMP = 0.02;             // m head-bob amplitude (subtle, owner spec)
 const TURN_SPEED = 1.7;           // rad/s arrow-key turn
-const STOP_EPS = 0.04;            // m — arrived at walkTo target
+const STOP_EPS = 0.05;            // m — arrived at walkTo target
+const STEP_PERIOD = 0.85;         // s — one step-glide cycle (FOV pulse + bob + footstep)
 
 export class WalkingControls {
   constructor(camera, dom) {
@@ -42,25 +54,37 @@ export class WalkingControls {
     this.pitch = 0;
     this.sensitivity = 0.0031;
 
-    // walk state
-    this.pos = new THREE.Vector3();          // player position (y = floor logic)
-    this.vel = new THREE.Vector2();          // world-space velocity m/s (x, z)
-    this.boost = new THREE.Vector2();        // scroll momentum (x, z)
+    // mode + origin
+    this.mode = "micro";                       // "micro" | "free"
+    this.origin = new THREE.Vector3();         // capture point (micro) / spawn (free)
+    this.freeEye = EYE_HEIGHT;
+
+    // virtual walk state (the ONLY position that travels metres — micro)
+    this.pos = new THREE.Vector3();            // virtual position (x/z on the floor)
+    this.vel = new THREE.Vector2();            // world-space velocity m/s (x, z)
+    this.boost = new THREE.Vector2();          // scroll momentum (x, z)
     this.keys = new Set();
-    this.joy = { x: 0, y: 0 };               // joystick: x strafe, y forward (-1..1)
-    this.walkTarget = null;                  // Vector3 | null (double-tap destination)
-    this.start = new THREE.Vector3();        // room capture point (reset target)
+    this.joy = { x: 0, y: 0 };
+    this.walkTarget = null;                    // Vector3 | null (double-tap destination)
+    this.start = new THREE.Vector3();          // reset target (== origin xz)
     this.room = null;
+
+    // step-glide engine (micro)
+    this.stepPhase = 0;                        // 0..1 — one step cycle
+    this.fov = FOV_BASE;                       // current eased FOV
+    this.minFovSeen = FOV_BASE;
+    this.maxFovSeen = FOV_BASE;
+    this.maxOffsetSeen = 0;                    // m — camera offset from origin (E2E proof)
 
     // bob / steps
     this.bobPhase = 0;
-    this.travelled = 0;                      // metres walked this room
-    this.onStep = null;                      // (material) fired every STEP_LEN m
+    this.travelled = 0;                        // virtual metres walked this room
+    this.onStep = null;                        // (material) fired every STEP_LEN m
     this.stepMaterial = "wood";
 
-    // collision world (set per room via setWorld)
+    // collision world
     this.world = null;
-    this.onBump = null;                      // (bump) fired on real collisions
+    this.onBump = null;
 
     this._pointers = new Map();
     this._down = null;
@@ -69,8 +93,8 @@ export class WalkingControls {
     this._resetTween = null;
     this._stepAccum = 0;
 
-    this.onClick = null;                     // (x, y)
-    this.onDouble = null;                    // (x, y)
+    this.onClick = null;
+    this.onDouble = null;
     this._fwd = new THREE.Vector3();
 
     this._bind();
@@ -81,14 +105,21 @@ export class WalkingControls {
   setRoom(room) {
     this.room = room;
     const c = room.camera;
-    this.start.set(c.x, EYE_HEIGHT, c.z);
-    this.pos.copy(this.start);
+    this.mode = room.type === "true_3d" ? "free" : "micro";
+    this.origin.set(c.x, this.mode === "free" ? EYE_HEIGHT : c.y, c.z);
+    this.start.set(c.x, 0, c.z);
+    this.pos.set(c.x, 0, c.z);
     this.vel.set(0, 0);
     this.boost.set(0, 0);
     this.walkTarget = null;
     this.travelled = 0;
     this.bobPhase = 0;
+    this.stepPhase = 0;
     this._stepAccum = 0;
+    this.fov = FOV_BASE;
+    this.minFovSeen = FOV_BASE;
+    this.maxFovSeen = FOV_BASE;
+    this.maxOffsetSeen = 0;
     this.stepMaterial = room.floor_material || "wood";
     this.lookAtFraction(room.initial_view.facing);
     if (this._resetTween) { this._resetTween.kill(); this._resetTween = null; }
@@ -96,96 +127,62 @@ export class WalkingControls {
 
   setWorld(world) { this.world = world; }
 
-  /* ------------------------------------------------------------ walk envelope
-   * Stage 1.6.1 (owner order): controlled metric walk envelope — an ELASTIC
-   * radial boundary (base radius 1.1–1.35 m from the capture centre, per
-   * room) with smooth spring damping from 78% of the radius and a hard
-   * radial clamp + tangential slide at 100%.  Smooth cos² "channels"
-   * extend the reach toward each doorway ring and each obstacle collider
-   * so walk-in portals and furniture bumps stay fully reachable.
-   */
-  setEnvelope(env) {
-    // env = { cx, cz, r, channels: [{ ang, reach, half }] } | null
-    this.envelope = env || null;
-    if (this.envelope && this.walkTarget) this.walkTarget = this._clampEnv(this.walkTarget);
-  }
+  /* ------------------------------------------------------------ walk API */
 
-  _rEnv(ang) {
-    const e = this.envelope;
-    let R = e.r;
-    for (const c of e.channels) {
-      let da = ang - c.ang;
-      da = Math.atan2(Math.sin(da), Math.cos(da));         // wrap [-π,π]
-      if (Math.abs(da) < c.half && c.reach > R) {
-        const w = Math.cos((Math.PI / 2) * (da / c.half)) ** 2;
-        R = Math.max(R, e.r + (c.reach - e.r) * w);
-      }
+  /** Walk (virtually, micro / really, free) TO a world point on the floor.
+   *  Returns the clamped target actually used. */
+  walkTo(point) {
+    if (!this.world) return null;
+    const p = point.clone();
+    p.y = 0;
+    const b = this.world.bounds;
+    if (b) {
+      p.x = THREE.MathUtils.clamp(p.x, b.minX, b.maxX);
+      p.z = THREE.MathUtils.clamp(p.z, b.minZ, b.maxZ);
     }
-    return R;
+    this.walkTarget = p;
+    return p;
   }
 
-  _clampEnv(p) {
-    const e = this.envelope;
-    const dx = p.x - e.cx, dz = p.z - e.cz;
-    const d = Math.hypot(dx, dz);
-    if (d < 1e-6) return p.clone();
-    const R = this._rEnv(Math.atan2(dz, dx)) * 0.99;
-    if (d <= R) return p.clone();
-    const k = R / d;
-    return new THREE.Vector3(e.cx + dx * k, p.y, e.cz + dz * k);
+  /** "بازگشت به مرکز فضا" — glide the virtual position home. */
+  resetView() {
+    this.walkTarget = null;
+    this.vel.set(0, 0);
+    this.boost.set(0, 0);
+    if (this._resetTween) this._resetTween.kill();
+    const self = this;
+    const from = this.pos.clone();
+    const to = new THREE.Vector3(this.start.x, 0, this.start.z);
+    const dist = Math.hypot(to.x - from.x, to.z - from.z);
+    if (dist < 0.05) return;
+    this._resetTween = gsap.to({ t: 0 }, {
+      t: 1, duration: Math.min(1.4, 0.35 + dist * 0.22), ease: "power2.inOut",
+      onUpdate() {
+        const t = this.targets()[0].t;
+        self.pos.x = from.x + (to.x - from.x) * t;
+        self.pos.z = from.z + (to.z - from.z) * t;
+      },
+      onComplete() { self._resetTween = null; },
+    });
   }
 
-  /** Elastic boundary physics — called after world.resolve each frame. */
-  _resolveEnvelope(dt) {
-    const e = this.envelope;
-    const dx = this.pos.x - e.cx, dz = this.pos.z - e.cz;
-    const d = Math.hypot(dx, dz);
-    if (d < 1e-6) return;
-    const ang = Math.atan2(dz, dx);
-    const R = this._rEnv(ang);
-    const soft = R - 0.25;                          // fixed 25cm elastic band
-    if (d >= R) {
-      // hard boundary: radial clamp, tangential slide (like the walls)
-      const k = R / d;
-      this.pos.x = e.cx + dx * k;
-      this.pos.z = e.cz + dz * k;
-      const nx = dx / d, nz = dz / d;
-      const vr = this.vel.x * nx + this.vel.y * nz;
-      if (vr > 0) { this.vel.x -= vr * nx; this.vel.y -= vr * nz; }
-      if (this.walkTarget) {
-        const tdx = this.walkTarget.x - this.pos.x, tdz = this.walkTarget.z - this.pos.z;
-        const td = Math.hypot(tdx, tdz);
-        if (td > 0.35 && (tdx * nx + tdz * nz) / td > 0.6) this.walkTarget = null;
-      }
-    } else if (d > soft && !this.walkTarget) {
-      // elastic damping: resist outward motion + a gentle spring pull-back.
-      // AUTO-WALK (double-tap) is exempt: its target is already clamped
-      // inside the envelope, so the walk glides at full speed to obstacle
-      // contacts and doorway rings (bump events fire with real impact).
-      // Human input (joystick / WASD / wheel) feels the full elastic band.
-      const over = Math.min(1, (d - soft) / 0.25);         // 0..1
-      const nx = dx / d, nz = dz / d;
-      const vr = this.vel.x * nx + this.vel.y * nz;
-      if (vr > 0) {
-        const g = Math.exp(-2.2 * over * over);            // gentle, tunable
-        this.vel.x -= vr * (1 - g) * nx;
-        this.vel.y -= vr * (1 - g) * nz;
-      }
-      const pull = 0.15 * over * over;                     // m/s spring-back
-      this.pos.x -= nx * pull * dt;
-      this.pos.z -= nz * pull * dt;
-    }
+  /** The position doorway walk-ins and proximity FX measure against. */
+  effectivePos() {
+    return this.pos;                            // virtual metres in micro, real in free
   }
 
-  /** E2E helper: envelope state at the player. */
-  envelopeState() {
-    const e = this.envelope;
-    if (!e) return null;
-    const dx = this.pos.x - e.cx, dz = this.pos.z - e.cz;
-    const d = Math.hypot(dx, dz);
-    const R = this._rEnv(Math.atan2(dz, dx));
-    return { base: e.r, channels: e.channels.length, d: Math.round(d * 100) / 100, r: Math.round(R * 100) / 100, inside: d <= R + 1e-6 };
+  /** Camera offset from the capture origin (micro-parallax proof, E2E). */
+  cameraOffset() {
+    const dx = this.camera.position.x - this.origin.x;
+    const dy = this.camera.position.y - this.origin.y;
+    const dz = this.camera.position.z - this.origin.z;
+    return Math.sqrt(dx * dx + dy * dy + dz * dz);
   }
+
+  get moved() { return Math.hypot(this.pos.x - this.start.x, this.pos.z - this.start.z) > 0.4; }
+  get speed() { return this.vel.length(); }
+  get fovCur() { return this.camera.fov; }
+  get fovMust() { return FOV_BASE; }
 
   /** Orient yaw/pitch toward a horizontal image fraction f (0..1). */
   lookAtFraction(f) {
@@ -221,52 +218,15 @@ export class WalkingControls {
     });
   }
 
-  /* ------------------------------------------------------------ walk API */
-
-  /** Walk TO a world point on the floor (double-tap). */
-  walkTo(point) {
-    if (!this.world) return;
-    const p = point.clone();
-    p.y = 0;
-    this.walkTarget = this.envelope ? this._clampEnv(p) : p;
-  }
-
-  /** "بازگشت به مرکز فضا" — glide back to the capture point. */
-  resetView() {
-    this.walkTarget = null;
-    this.vel.set(0, 0);
-    this.boost.set(0, 0);
-    if (this._resetTween) this._resetTween.kill();
-    const self = this;
-    const from = this.pos.clone();
-    const to = this.start.clone();
-    const dist = Math.hypot(to.x - from.x, to.z - from.z);
-    if (dist < 0.05) return;
-    this._resetTween = gsap.to({ t: 0 }, {
-      t: 1, duration: Math.min(1.4, 0.35 + dist * 0.22), ease: "power2.inOut",
-      onUpdate() {
-        const t = this.targets()[0].t;
-        self.pos.x = from.x + (to.x - from.x) * t;
-        self.pos.z = from.z + (to.z - from.z) * t;
-      },
-      onComplete() { self._resetTween = null; },
-    });
-  }
-
-  get moved() { return Math.hypot(this.pos.x - this.start.x, this.pos.z - this.start.z) > 0.4; }
-  get speed() { return this.vel.length(); }
-  get fov() { return this.camera.fov; }   // fixed — walking NEVER zooms
-
   /* ------------------------------------------------------------ frame loop */
 
   update(dt) {
     const cam = this.camera;
 
-    // ---- desired velocity from all inputs ----
+    // ---- desired virtual velocity from all inputs ----
     const wish = new THREE.Vector2(0, 0);   // world-space (x, z)
 
     if (this.enabled) {
-      // keyboard: local axes → world
       let ix = 0, iz = 0;   // strafe, forward
       if (this.keys.has("KeyW") || this.keys.has("ArrowUp")) iz += 1;
       if (this.keys.has("KeyS") || this.keys.has("ArrowDown")) iz -= 1;
@@ -275,7 +235,6 @@ export class WalkingControls {
       if (this.keys.has("ArrowLeft")) this.yaw += TURN_SPEED * dt;
       if (this.keys.has("ArrowRight")) this.yaw -= TURN_SPEED * dt;
 
-      // joystick: local axes → world
       ix += this.joy.x;
       iz += this.joy.y;
 
@@ -288,7 +247,7 @@ export class WalkingControls {
         wish.y += (iz * -cosY + ix * -sinY) * s;
       }
 
-      // double-tap destination
+      // double-tap destination (virtual walk target)
       if (this.walkTarget) {
         const dx = this.walkTarget.x - this.pos.x;
         const dz = this.walkTarget.z - this.pos.z;
@@ -311,34 +270,84 @@ export class WalkingControls {
     this.boost.multiplyScalar(boostDecay);
     if (this.boost.lengthSq() < 1e-4) this.boost.set(0, 0);
 
-    // ---- integrate + slide against the collision world ----
+    // ---- integrate the VIRTUAL position + slide against the collision world ----
     const bx = this.pos.x, bz = this.pos.z;
     this.pos.x += this.vel.x * dt;
     this.pos.z += this.vel.y * dt;
     let bump = null;
     if (this.world) {
       bump = this.world.resolve(this.pos, this.vel);
-      // any real obstacle contact completes a double-tap destination (you
-      // walked up to the thing you aimed at); hard head-on walls cancel too
       if (this.walkTarget && bump && (bump.ob || bump.impact > 0.7)) this.walkTarget = null;
     }
-    if (this.envelope) this._resolveEnvelope(dt);
     const movedDist = Math.hypot(this.pos.x - bx, this.pos.z - bz);
+    const spd = this.vel.length();
+    const moving = spd > 0.22;
 
-    // ---- metres travelled → bob + footsteps ----
+    // ---- metres travelled → footsteps ----
     this.travelled += movedDist;
     this._stepAccum += movedDist;
-    if (this._stepAccum >= STEP_LEN) {
-      this._stepAccum -= STEP_LEN;
-      this.onStep && this.onStep(this.stepMaterial);
-    }
-    const spd = this.vel.length();
-    this.bobPhase += movedDist * (Math.PI / STEP_LEN);
-    const bobAmt = Math.min(1, spd / 1.1);
-    const bob = BOB_AMP * Math.sin(this.bobPhase) * bobAmt;
 
-    // ---- apply to camera (FOV stays FIXED — no zooming, ever) ----
-    cam.position.set(this.pos.x, EYE_HEIGHT + bob, this.pos.z);
+    // ---- step-glide engine (micro): FOV 72↔52 pulse + bob + footstep ----
+    let bob = 0;
+    let fovTarget = FOV_BASE;
+    if (this.mode === "micro") {
+      if (moving) {
+        const prev = this.stepPhase;
+        this.stepPhase = (this.stepPhase + dt / STEP_PERIOD) % 1;
+        // one warm acoustic footstep per completed step-glide cycle
+        if (this.stepPhase < prev) this.onStep && this.onStep(this.stepMaterial);
+      } else if (this.stepPhase > 0 && this.stepPhase < 1) {
+        // finish the current step gracefully, then rest at base FOV
+        this.stepPhase = Math.min(1, this.stepPhase + dt / STEP_PERIOD);
+        if (this.stepPhase >= 1) this.stepPhase = 0;
+      }
+      const speedK = Math.min(1, spd / WALK_SPEED);
+      const pulse = Math.sin(Math.PI * this.stepPhase) ** 2;   // 0→1→0 per step
+      const dip = (FOV_BASE - FOV_GLIDE) * Math.max(pulse * 0.65 + speedK * 0.35, pulse);
+      fovTarget = FOV_BASE - dip * (this.stepPhase > 0 ? 1 : 0);
+      bob = BOB_AMP * Math.sin(2 * Math.PI * this.stepPhase) * Math.max(0.35, speedK);
+    } else {
+      // free mode: FOV locked; natural bob driven by real travel
+      if (this._stepAccum >= STEP_LEN) {
+        this._stepAccum -= STEP_LEN;
+        this.onStep && this.onStep(this.stepMaterial);
+      }
+      this.bobPhase += movedDist * (Math.PI / STEP_LEN);
+      bob = BOB_AMP * Math.sin(this.bobPhase) * Math.min(1, spd / 1.1);
+    }
+
+    // ease the FOV (never in free mode — it stays locked at FOV_BASE)
+    if (this.mode === "micro") {
+      this.fov += (fovTarget - this.fov) * Math.min(1, dt * 7);
+      if (Math.abs(this.fov - cam.fov) > 0.01) {
+        cam.fov = this.fov;
+        cam.updateProjectionMatrix();
+      }
+      this.minFovSeen = Math.min(this.minFovSeen, this.fov);
+      this.maxFovSeen = Math.max(this.maxFovSeen, this.fov);
+    }
+
+    // ---- apply to camera ----
+    if (this.mode === "micro") {
+      // ZERO-DISTORTION MICRO-PARALLAX SPHERE (owner law): the camera NEVER
+      // leaves a 0.08 m sphere around the capture origin — total 3D offset,
+      // head-bob included — no matter how far the virtual position glides.
+      // The photograph can never smear.
+      let dx = this.pos.x - this.origin.x;
+      let dz = this.pos.z - this.origin.z;
+      const dy = bob;
+      const hMax = Math.sqrt(Math.max(0, MICRO_PARALLAX * MICRO_PARALLAX - dy * dy));
+      const d = Math.hypot(dx, dz);
+      if (d > hMax) {
+        const k = hMax / Math.max(d, 1e-9);
+        dx *= k; dz *= k;
+      }
+      cam.position.set(this.origin.x + dx, this.origin.y + dy, this.origin.z + dz);
+    } else {
+      cam.position.set(this.pos.x, EYE_HEIGHT + bob, this.pos.z);
+    }
+    const off = this.cameraOffset();
+    if (off > this.maxOffsetSeen) this.maxOffsetSeen = off;
     cam.rotation.order = "YXZ";
     cam.rotation.set(this.pitch, this.yaw, 0);
 

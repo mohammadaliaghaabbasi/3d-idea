@@ -21,7 +21,7 @@ export class HUD {
     this.el = {};
     const camel = (s) => s.replace(/-(.)/g, (_, c) => c.toUpperCase());
     for (const id of [
-      "room-pill", "room-title", "room-designer", "room-source",
+      "room-pill", "room-title", "room-badge", "room-designer", "room-source",
       "view-actions", "btn-sound", "snd-on", "snd-off", "btn-lang",
       "btn-view", "btn-view-reset", "btn-view-full",
       "mode-bar", "mode-architect", "mode-style", "mode-room_type", "mode-random",
@@ -141,6 +141,11 @@ export class HUD {
     const name = room.name[L] || room.name.en;
     this.el.roomTitle.textContent = name;
     this.el.roomTitle.title = name;
+    // badge (owner law 3): 🧊 true-3D rooms vs 🌐 zero-warp 4K panorama rooms
+    const badge = (room.badge && (room.badge[L] || room.badge.en)) || "";
+    this.el.roomBadge.textContent = badge;
+    this.el.roomBadge.title = badge;
+    this.el.roomBadge.style.display = badge ? "" : "none";
     this.el.roomDesigner.textContent = room.attribution.creator;
     this.el.roomSource.textContent = `${room.attribution.source} · ${room.attribution.license}`;
     this.el.roomSource.href = room.attribution.url;

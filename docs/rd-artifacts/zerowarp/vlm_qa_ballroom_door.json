@@ -1,0 +1,7 @@
+{
+ "label": "ballroom doorway",
+ "shot": "/tmp/render/qa_ballroom_door.jpg",
+ "verdict": "PASS",
+ "supplementary": true,
+ "text": "Inspecting the image:\n\n1. **Line bending/melting:** Door frames, cornices, and wall mouldings all read as straight and clean. The slight perspective convergence is normal photographic projection, not renderer warping.\n2. **Texture stretching:** Parquet floor pattern repeats evenly; wall panels and door surfaces show no smearing or directional pulling.\n3. **Hard seam lines:** No artificial seam cutting across the floor, door, or furniture; all lines trace real architectural edges.\n\nVERDICT: PASS\n"
+}

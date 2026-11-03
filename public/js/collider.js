@@ -1,26 +1,23 @@
 /**
- * PANODROME — Stage 1.6.1 · Walk World (physics + glass floor halos)
+ * PANODROME — Stage 2.0 · Walk World (collision + 3D overlay FX)
  * ============================================================================
- * Game-engine walking physics for the relief-dome rooms (owner order
- * 2026-11-02 — Rule C: furniture collision stays REAL):
- *   · room_bounds  — the walkable perimeter (authored box inset 0.6 m):
- *     an outer safety clamp; the primary boundary is the elastic radial
- *     walk envelope (controls.js).
- *   · obstacle_colliders — metric boxes (optionally YAWED — OBB) / cylinders
- *     at the real world coordinates of furniture (sofa groups, grand
- *     piano, café tables, cabin bed, stoves…).  Sliding response with
- *     tangent glide; direct bumps surface as events (HUD toast + ripple +
- *     soft thud + halo flash).
- *   · OBSTACLE HALOS — a sleek, subtle GLASS BOUNDING CONTOUR + soft floor
- *     exclusion fill around every obstacle: proximity-faded, breathing
- *     softly, flashing on impact.  The player SEES the collider boundary
- *     before feeling it — no invisible walls, ever.
+ * LAW 2 (owner order 2026-11-03): spatial depth + floor grounding + furniture
+ * interaction INSIDE the pure 360° sphere — WITHOUT bending a single photo
+ * pixel.  All of these are independent REAL 3D objects in world space:
+ *   · WALK WORLD — virtual walk position resolved against room_bounds +
+ *     obstacle_colliders (exact furniture volumes) with sliding response;
+ *     direct bumps surface as events (toast + ripple + soft thud + flash).
+ *   · 3D PERSPECTIVE FLOOR GRID — fades in while stepping.
+ *   · PLAYER RING — the micro-parallax marker under the camera.
+ *   · FOOTSTEP TARGET RING — the double-tap destination marker, pulsing in
+ *     true 3D perspective on the floor plane until you arrive.
+ *   · 3D GLASS FURNITURE BOUNDING PROXIES — translucent glass volumes with
+ *     crisp edge contours at every obstacle's true world bounds; proximity
+ *     fades them in, bumps flash them, and they are tap targets (hotspots):
+ *     double-tap a proxy to glide up to that furniture piece.
  */
 import * as THREE from "three";
 
-// Bump events fire on CONTACT TRANSITIONS (Stage 1.6.1): entering contact
-// with a body surfaces the event once — deliberate slow auto-walk touches
-// and fast human strides behave identically.  0.9 s per-body cooldown.
 const BUMP_COOLDOWN_MS = 900;
 
 export class WalkWorld {
@@ -144,17 +141,20 @@ export class WalkWorld {
   }
 }
 
-function wallBump(vel, nx, nz) {
-  return { label: { en: "Wall", fa: "دیوار" }, nx, nz, impact: Math.hypot(vel.x, vel.y), ob: null };
-}
-
 /* ============================================================ walk FX */
 
 const GRID_COLOR = 0x9fc6ec;
 const HALO_LINE_COLOR = 0xeaf5ff;
 const HALO_FILL_COLOR = 0xaacfe8;
+const PROXY_FILL_COLOR = 0xaad4f2;
+const PROXY_EDGE_COLOR = 0xeaf7ff;
+const TARGET_RING_COLOR = 0xd8ecff;
 
-/** Floor footpath grid + player ring + obstacle halos. */
+/**
+ * 3D floor grid + player ring + footstep target ring + obstacle halos +
+ * 3D glass furniture proxies.  All REAL 3D objects inside the pano sphere —
+ * they move in true perspective while the photograph stays untouched.
+ */
 export class WalkFX {
   constructor(scene, room) {
     const { width, depth } = room.room_shape;
@@ -163,6 +163,7 @@ export class WalkFX {
     this.grid.position.y = 0.02;
     scene.add(this.grid);
 
+    // player ring — under the CAMERA (micro-parallax marker)
     this.ring = new THREE.Mesh(
       new THREE.RingGeometry(0.5, 0.55, 48),
       new THREE.MeshBasicMaterial({
@@ -174,15 +175,52 @@ export class WalkFX {
     this.ring.position.y = 0.021;
     scene.add(this.ring);
 
+    // FOOTSTEP TARGET RING (LAW 2): double-tap destination marker — an
+    // outer ring + soft inner disc, pulsing on the true floor plane.
+    this.target = new THREE.Group();
+    const tRing = new THREE.Mesh(
+      new THREE.RingGeometry(0.30, 0.36, 48),
+      new THREE.MeshBasicMaterial({
+        color: TARGET_RING_COLOR, transparent: true, opacity: 0,
+        side: THREE.DoubleSide, depthWrite: false,
+      })
+    );
+    tRing.rotation.x = -Math.PI / 2;
+    const tDisc = new THREE.Mesh(
+      new THREE.CircleGeometry(0.30, 40),
+      new THREE.MeshBasicMaterial({
+        color: TARGET_RING_COLOR, transparent: true, opacity: 0,
+        side: THREE.DoubleSide, depthWrite: false,
+      })
+    );
+    tDisc.rotation.x = -Math.PI / 2;
+    this.targetRing = tRing;
+    this.targetDisc = tDisc;
+    this.target.add(tRing, tDisc);
+    this.target.position.y = 0.022;
+    this.target.visible = false;
+    this._targetFade = 0;
+    this._targetPulse = 0;
+    scene.add(this.target);
+
     this.halos = new ObstacleHalos(scene, room.walk.obstacles || []);
+    this.proxies = new FurnitureProxies(scene, room.walk.obstacles || []);
 
     this._gridOpacity = 0;
     this._ringOpacity = 0;
     this._pulse = 0;
   }
 
-  /** @param {THREE.Vector3} pos  player position  · moving {boolean} */
-  update(dt, pos, speed) {
+  /** Show the footstep target marker at a floor point (double-tap). */
+  showTarget(p) {
+    this.target.position.set(p.x, 0.022, p.z);
+    this.target.visible = true;
+    this._targetFade = 1;
+    this._targetPulse = 0;
+  }
+
+  /** @param vpos virtual walk position · camPos camera (real) · speed m/s */
+  update(dt, vpos, camPos, speed) {
     const moving = speed > 0.15;
     this._pulse += dt * 1.6;
 
@@ -194,31 +232,48 @@ export class WalkFX {
     this.grid.material.transparent = true;
     this.ring.material.opacity = this._ringOpacity;
 
-    this.ring.position.x = pos.x;
-    this.ring.position.z = pos.z;
+    // player ring follows the CAMERA — the true micro-parallax position
+    this.ring.position.x = camPos.x;
+    this.ring.position.z = camPos.z;
     const s = 1 + Math.min(speed / 2.2, 1) * 0.16 + 0.03 * Math.sin(this._pulse * Math.PI * 2);
     this.ring.scale.setScalar(s);
 
-    this.halos.update(dt, pos);
+    // footstep target ring: pulse until it fades (arrival / new target)
+    if (this.target.visible) {
+      this._targetPulse += dt;
+      const arrived = Math.hypot(vpos.x - this.target.position.x, vpos.z - this.target.position.z) < 0.25;
+      if (arrived) this._targetFade = Math.max(0, this._targetFade - dt * 2.4);
+      const pulse = 0.55 + 0.30 * Math.sin(this._targetPulse * Math.PI * 2.4);
+      this.targetRing.material.opacity = 0.85 * this._targetFade * pulse;
+      this.targetDisc.material.opacity = 0.14 * this._targetFade * pulse;
+      const ps = 1 + 0.06 * Math.sin(this._targetPulse * Math.PI * 2.4);
+      this.targetRing.scale.setScalar(ps);
+      if (this._targetFade <= 0.01 && arrived) this.target.visible = false;
+    }
+
+    this.halos.update(dt, vpos);
+    this.proxies.update(dt, vpos, moving);
   }
 
   dispose(scene) {
     scene.remove(this.grid);
     scene.remove(this.ring);
+    scene.remove(this.target);
     this.grid.geometry.dispose();
     this.grid.material.dispose();
     this.ring.geometry.dispose();
     this.ring.material.dispose();
+    this.targetRing.geometry.dispose(); this.targetRing.material.dispose();
+    this.targetDisc.geometry.dispose(); this.targetDisc.material.dispose();
     this.halos.dispose(scene);
+    this.proxies.dispose(scene);
   }
 }
 
 /* ------------------------------------------------------------ glass halos */
 
 /**
- * Sleek glass bounding contours on the floor around every obstacle
- * (owner spec: "3D Glass Bounding Contour / Floor Exclusion Halo").
- * Subtle constant visibility, proximity-fades in, bump-flashes.
+ * Glass floor contours around every obstacle (proximity-fade, bump-flash).
  */
 export class ObstacleHalos {
   constructor(scene, obstacles) {
@@ -236,9 +291,6 @@ export class ObstacleHalos {
   get count() { return this.items.length; }
 
   update(dt, playerPos) {
-    // PROXIMITY-GATED (owner spec: the halo renders "when the user walks
-    // toward" the obstacle — invisible at range so wide spawn views stay
-    // 100% photograph, fading in within 1.5 m of the collider surface)
     for (const it of this.items) {
       const dx = playerPos.x - it.cx, dz = playerPos.z - it.cz;
       const dist = Math.hypot(dx, dz);
@@ -278,6 +330,106 @@ export class ObstacleHalos {
   }
 }
 
+/* ------------------------------------------- 3D glass furniture proxies */
+
+/**
+ * LAW 2: clean 3D GLASS BOUNDING PROXIES — a translucent glass volume with
+ * a crisp edge contour at every obstacle's TRUE world bounds (exact height
+ * h from the collider).  Proximity fades them in (they read as elegant
+ * glass furniture ghosts), bumps flash them, and the volumes are RAYCAST
+ * HOTSPOTS: main.js double-tap = glide up to that furniture piece.
+ */
+export class FurnitureProxies {
+  constructor(scene, obstacles) {
+    this.items = [];
+    this.meshes = [];                       // raycast targets (hotspots)
+    for (const o of obstacles || []) {
+      const it = buildProxy(o);
+      if (!it) continue;
+      scene.add(it.fill);
+      scene.add(it.edges);
+      it.fill.userData.obstacle = o;
+      it.edges.userData.obstacle = o;
+      this.items.push(it);
+      this.meshes.push(it.fill, it.edges);
+    }
+    this._scene = scene;
+  }
+
+  get count() { return this.items.length; }
+
+  update(dt, playerPos, moving) {
+    // LAW 1+2 balance: the glass volumes appear ONLY while the user is walking
+    // (speed > 0.15 m/s) — still views stay 100% pristine photograph.  They
+    // stay raycastable at opacity 0 (hotspot taps work at rest).
+    for (const it of this.items) {
+      const dx = playerPos.x - it.cx, dz = playerPos.z - it.cz;
+      const dist = Math.hypot(dx, dz);
+      const surface = Math.max(0, dist - it.effR);
+      const prox = moving ? THREE.MathUtils.clamp(1 - surface / 2.2, 0, 1) : 0;
+      it.prox += (prox - it.prox) * Math.min(1, dt * 4.5);
+      it.flash = Math.max(0, it.flash - dt * 1.8);
+      const breathe = 1 + 0.012 * Math.sin(performance.now() * 0.0011 + it.phase);
+      it.fill.material.opacity = 0.05 * it.prox * it.prox + 0.16 * it.flash;
+      it.edges.material.opacity = 0.22 * it.prox * it.prox + 0.62 * it.flash;
+      const s = (1 + 0.035 * it.flash) * breathe;
+      it.fill.scale.setScalar(s);
+      it.edges.scale.setScalar(s);
+    }
+  }
+
+  flash(ob) {
+    if (!ob) return;
+    const it = this.items.find((i) => i.ob === ob || i.ob === ob.raw);
+    if (it) it.flash = 1;
+  }
+
+  dispose(scene) {
+    const sc = scene || this._scene;
+    for (const it of this.items) {
+      sc.remove(it.fill);
+      sc.remove(it.edges);
+      it.fill.geometry.dispose(); it.fill.material.dispose();
+      it.edges.geometry.dispose(); it.edges.material.dispose();
+    }
+    this.items = [];
+    this.meshes = [];
+  }
+}
+
+function buildProxy(o) {
+  const h = Math.max(0.25, o.h ?? 0.8);
+  const rot = o.rot || 0;
+  let geo, effR;
+  if (o.type === "box") {
+    const hw = o.hw ?? 0.4, hd = o.hd ?? 0.4;
+    effR = Math.hypot(hw, hd);
+    geo = new THREE.BoxGeometry(hw * 2, h, hd * 2);
+  } else {
+    const r = o.r ?? 0.5;
+    effR = r;
+    geo = new THREE.CylinderGeometry(r, r, h, 28, 1, true);
+  }
+  const fill = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+    color: PROXY_FILL_COLOR, transparent: true, opacity: 0,
+    depthWrite: false, side: THREE.DoubleSide,
+  }));
+  const edges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(geo, 25),
+    new THREE.LineBasicMaterial({
+      color: PROXY_EDGE_COLOR, transparent: true, opacity: 0, depthWrite: false,
+    })
+  );
+  const y = h / 2;
+  fill.position.set(o.x, y, o.z);
+  edges.position.set(o.x, y, o.z);
+  fill.rotation.y = -rot;
+  edges.rotation.y = -rot;
+  return { fill, edges, cx: o.x, cz: o.z, effR, h, ob: o, prox: 0, flash: 0, phase: Math.random() * Math.PI * 2 };
+}
+
+/* ------------------------------------------------------------ halo build */
+
 function buildHalo(o) {
   const isCyl = o.type !== "box";
   const rot = o.rot || 0;
@@ -310,7 +462,6 @@ function buildHalo(o) {
     effR = Math.hypot(hw, hd);
     const cr = Math.min(hw, hd) * 0.35;                 // rounded corners
     const ow = hw + 0.03, od = hd + 0.03;               // outline margin
-    // rounded-rect outline (sampled)
     const pts = [];
     const seg = 10;
     const corners = [
@@ -333,7 +484,6 @@ function buildHalo(o) {
     line = new THREE.LineLoop(geo, new THREE.LineBasicMaterial({
       color: HALO_LINE_COLOR, transparent: true, opacity: 0.07, depthWrite: false,
     }));
-    // soft fill (rounded-rect shape)
     const shape = roundedRectShape(hw + 0.01, hd + 0.01, Math.min(hw, hd) * 0.35);
     fill = new THREE.Mesh(
       new THREE.ShapeGeometry(shape, 8),

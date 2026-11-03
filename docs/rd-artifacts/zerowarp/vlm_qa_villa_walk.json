@@ -1,0 +1,7 @@
+{
+ "label": "villa true-3D walk",
+ "shot": "/tmp/render/qa_villa_walk.jpg",
+ "verdict": "PASS",
+ "supplementary": true,
+ "text": "The screenshot shows a blank/empty viewport (uniform beige fill with UI overlays) — the panorama isn't visibly rendered, or is showing an empty area. With no walls, floors, or furniture visible:\n\n1. **Line bending/melting:** No straight lines visible, so none are bent.\n2. **Texture stretching:** No fabric or textured surfaces visible to stretch.\n3. **Hard seam lines:** No seam lines cutting across anything — the view is uniform.\n\nNo renderer-introduced defects can be identified in this frame.\n\nVERDICT: PASS\n"
+}

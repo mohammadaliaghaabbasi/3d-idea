@@ -111,10 +111,10 @@ export class Waypoint {
     this.mat.opacity = this._opacity * (0.9 + 0.1 * Math.sin(t * Math.PI * 2 * PULSE_HZ + this.phase));
   }
 
-  /** Horizontal distance from the player to the doorway (walk-in trigger). */
-  playerDist(camera) {
+  /** Horizontal distance from the player (effective/virtual position) to the doorway. */
+  playerDist(pos) {
     const p = this.group.position;
-    return Math.hypot(camera.position.x - p.x, camera.position.z - p.z);
+    return Math.hypot(pos.x - p.x, pos.z - p.z);
   }
 
   doorPos() { return this.group.position.clone(); }

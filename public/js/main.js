@@ -1,40 +1,29 @@
 /**
- * PANODROME — Stage 1.5 · main
- * True First-Person Spatial Experience.
- *
- * Boot → intro → room lifecycle (true room volume + physics walking,
- * doorway waypoint with routing modes) → GSAP warp transitions.
- *
- * Stage 1.6.1 (owner emergency order 2026-11-02): the furniture GLB layer
- * and inpainted shells are PURGED (spike/smudge audit).  Rooms render as a
- * smooth RELIEF DOME (room.js) textured with the crisp original pano; real
- * physics colliders + glass floor halos stay (collider.js); walking is
- * bounded by the elastic radial envelope (controls.js).
- *
- * Stage 1.5 laws (locked 2026-11-02):
- *   · camera.fov is FIXED — 68° desktop / 75° touch. Walking is real
- *     position translation, never a focal-length zoom.
- *   · The room renders on a true metric room volume (room.js) — walls and
- *     floor stay perfectly flat and plumb, forever.
- *   · Walking is resolved against room_bounds + obstacle_colliders
- *     (collider.js) with sliding response — bump into the grand piano and
- *     you stop, then glide along it.
- *   · Walking physically into the doorway ring (< 1.1 m) travels to the
- *     next room by the active routing mode.
- *   · Audio is the warm acoustic engine (audio.js): soft low-passed
- *     footsteps every 0.65 m of real travel + gentle room air.
+ * PANODROME — Stage 2.0 · main (ZERO-WARP ARCHITECTURE)
+ * ============================================================================
+ * Owner law 2026-11-03:
+ *   · LAW 1 — the 10 360° pano rooms render on a pure SphereGeometry(500,
+ *     128, 96) (room.js) — ZERO vertex displacement, forever.  The camera
+ *     lives in a 0.08 m micro-parallax sphere around the capture point
+ *     (controls.js "micro" mode); walking is a Matterport-style optical
+ *     step-glide (FOV 72° ↔ 52°) over a VIRTUAL position that travels the
+ *     real collision world.
+ *   · LAW 2 — depth cues come from REAL 3D overlays inside the sphere: floor
+ *     grid, footstep target ring, 3D glass furniture proxies (hotspots).
+ *   · LAW 3 — Room #1 is a TRUE-3D .glb villa (modern_3d_villa) with full
+ *     multi-metre 6DoF walking and exact Box3 furniture collision
+ *     (controls.js "free" mode, fov LOCKED at 72°).
+ *   · LAW 4 — honest verification: numeric straightness gates + screenshots
+ *     (scripts/zerowarp_e2e.sh); no rubber judges.
  */
 import * as THREE from "three";
 import { i18n } from "./i18n.js";
 import { buildRoomVolume, prefetchRoom } from "./room.js";
-import { WalkingControls } from "./controls.js";
+import { WalkingControls, FOV_BASE } from "./controls.js";
 import { WalkWorld, WalkFX } from "./collider.js";
 import { Waypoint, computeRoutes, projectToScreen, WALK_IN_DIST } from "./portals.js";
 import { AudioEngine } from "./audio.js";
 import { HUD } from "./hud.js";
-
-const FOV_DESKTOP = 68;      // FIXED — walking is translation, never zoom
-const FOV_TOUCH = 75;        // FIXED
 
 const state = {
   db: null,
@@ -56,8 +45,8 @@ const raycaster = new THREE.Raycaster();
 const pointerNdc = new THREE.Vector2();
 const floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 let hoveredWaypoint = false;
+let hoveredProxy = null;
 const isTouch = matchMedia("(pointer: coarse)").matches;
-const FOV = isTouch ? FOV_TOUCH : FOV_DESKTOP;
 
 main();
 
@@ -71,10 +60,12 @@ async function main() {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;   // true-3D lights only —
+  renderer.toneMappingExposure = 1.05;                   // the pano is toneMapped:false
   document.getElementById("scene").appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(FOV, innerWidth / innerHeight, 0.05, 200);
+  camera = new THREE.PerspectiveCamera(FOV_BASE, innerWidth / innerHeight, 0.05, 1200);
   camera.rotation.order = "YXZ";
 
   hud = new HUD();
@@ -144,23 +135,33 @@ async function main() {
     get world() { return state.world; },
     get audio() { return audio; },
     rooms: () => state.db.rooms,
-    fov: () => camera.fov,
-    fovMust: () => FOV,
+    fov: () => Math.round(camera.fov * 100) / 100,
+    fovMust: () => controls.fovMust,
+    fovStats: () => ({
+      cur: Math.round(camera.fov * 100) / 100,
+      base: controls.fovMust,
+      minSeen: Math.round(controls.minFovSeen * 100) / 100,
+      maxSeen: Math.round(controls.maxFovSeen * 100) / 100,
+    }),
+    mode: () => controls.mode,
     pos: () => [camera.position.x, camera.position.y, camera.position.z].map((v) => Math.round(v * 1000) / 1000),
+    virtualPos: () => [controls.pos.x, controls.pos.z].map((v) => Math.round(v * 1000) / 1000),
+    offsetFromOrigin: () => Math.round(controls.cameraOffset() * 10000) / 10000,
+    maxOffsetSeen: () => Math.round(controls.maxOffsetSeen * 10000) / 10000,
     movedFromStart: () => Math.hypot(controls.pos.x - controls.start.x, controls.pos.z - controls.start.z),
     travelled: () => Math.round(controls.travelled * 100) / 100,
     roomStats: () => {
       if (!state.meshObj) return null;
       const s = { ...state.meshObj.stats };
-      s.isDome = !!state.meshObj.isDome;
-      s.textureUrl = state.room ? state.room.panorama : null;
+      s.kind = state.meshObj.kind;
+      s.textureUrl = state.room ? (state.room.panorama || state.room.glb) : null;
       s.obstacles = state.room?.walk?.obstacles?.length ?? 0;
-      s.envelope = controls.envelope ? controls.envelopeState() : null;
       s.halos = state.fx?.halos?.count ?? 0;
+      s.proxies = state.fx?.proxies?.count ?? 0;
       return s;
     },
-    envelope: () => controls.envelopeState(),
     halos: () => (state.fx && state.fx.halos ? state.fx.halos.count : 0),
+    proxies: () => (state.fx && state.fx.proxies ? state.fx.proxies.count : 0),
     textureSize: () => (state.meshObj ? state.meshObj.stats.textureSize : null),
     waypointScreen: () => {
       if (!state.waypoint) return null;
@@ -168,12 +169,16 @@ async function main() {
       return {
         ...p,
         dist: Math.round(camera.position.distanceTo(state.waypoint.group.position) * 100) / 100,
-        walkDist: Math.round(state.waypoint.playerDist(camera) * 100) / 100,
+        walkDist: Math.round(state.waypoint.playerDist(controls.effectivePos()) * 100) / 100,
         target: state.waypoint.targetRoom.id,
         x: Math.round(p.x), y: Math.round(p.y),
       };
     },
-    walkTo: (x, z) => controls.walkTo(new THREE.Vector3(x, 0, z)),
+    walkTo: (x, z) => {
+      const t = new THREE.Vector3(x, 0, z);
+      const used = controls.walkTo(t) || t;
+      state.fx?.showTarget(used);
+    },
     setMode: (m) => { state.mode = m; hud.setMode(m); retargetWaypoint(); },
     resetView: () => controls.resetView(),
     warpNext: () => state.waypoint && warpThrough(state.waypoint),
@@ -191,7 +196,7 @@ async function main() {
     uiBounds: () => {
       const vw = innerWidth, vh = innerHeight;
       const ids = [
-        "room-pill", "btn-sound", "btn-lang", "btn-view", "mode-bar",
+        "room-pill", "room-badge", "btn-sound", "btn-lang", "btn-view", "mode-bar",
         "mode-architect", "mode-style", "mode-room_type", "mode-random",
         "nav-capsule", "bump-toast", "joystick", "wp-chip", "btn-enter",
       ];
@@ -284,90 +289,28 @@ async function loadRoom(idx) {
   state.roomIdx = idx;
   state.room = room;
 
-  // physics world + floor walk FX (+ glass obstacle halos)
+  // physics world + 3D overlay FX (grid, rings, halos, glass proxies)
   state.world = new WalkWorld(room);
   state.fx = new WalkFX(scene, room);
   controls.setWorld(state.world);
   controls.setRoom(room);
-  // Stage 1.6.1: elastic radial walk envelope (+ door/obstacle channels)
-  controls.setEnvelope(computeEnvelope(room));
 
   // one verified doorway waypoint → routed next room
   const { target } = routeFor(idx);
   const wp = new Waypoint(room.portals[0], state.db.rooms[target]);
-  // dome-fit: keep the ring floating 0.30 m in front of the TRUE relief wall
-  fitWaypointToDome(wp, room, meshObj);
   scene.add(wp.group);
   state.waypoint = wp;
 
-  // FIXED FOV — never a zoom, never touched while walking
-  camera.fov = FOV;
+  // base FOV law: 72° (pano step-glide base · true-3D locked)
+  camera.fov = FOV_BASE;
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
+  audio.setRoom(room.audio || { ambient: "room_tone", reverb: 0.25 });
   hud.setRoom(room, idx, state.db.rooms.length);
   state.walkInArmedAt = performance.now() + 700;   // walk-in trigger arming
 
   hud.setLoadProgress(1);
   setTimeout(() => prefetchRoom(state.db.rooms[target]), 1500);
-}
-
-/* --------------------------------------------------- Stage 1.6.1 helpers */
-
-/**
- * Controlled metric walk envelope (owner spec): elastic radial boundary
- * around the capture centre (base r from the bake, 1.1-1.35 m) with smooth
- * cos² channels toward each doorway ring and each obstacle collider, so
- * walk-in portals and furniture bumps stay reachable inside the dome.
- */
-function computeEnvelope(room) {
-  const c = room.camera;
-  const base = (room.walk && room.walk.envelope && room.walk.envelope.r) || 1.2;
-  const channels = [];
-
-  const p = room.portals && room.portals[0] && room.portals[0].position;
-  if (p) {
-    const dx = p[0] - c.x, dz = p[2] - c.z;
-    const dist = Math.hypot(dx, dz);
-    const reach = dist - 1.0;                    // player stops ≤ 1.0 m from ring
-    if (reach > base + 0.05) {
-      channels.push({ ang: Math.atan2(dz, dx), reach, half: THREE.MathUtils.degToRad(22) });
-    }
-  }
-  for (const o of (room.walk && room.walk.obstacles) || []) {
-    const dx = o.x - c.x, dz = o.z - c.z;
-    const dist = Math.hypot(dx, dz) || 1e-6;
-    const ux = dx / dist, uz = dz / dist;
-    // directional extent: how far the collider surface lies along the
-    // capture->centre ray (box = first face crossed; cyl = radius)
-    const ext = o.type === "cylinder"
-      ? (o.r || 0)
-      : Math.min((o.hw || 0) / Math.max(Math.abs(ux), 1e-3),
-                 (o.hd || 0) / Math.max(Math.abs(uz), 1e-3));
-    const reach = dist - ext - 0.30 + 0.06;      // player reaches THROUGH to
-    // the collider face (touch = dist-ext-playerR, +6cm so the bump event
-    // genuinely fires and the halo is bumpable)
-    if (reach > base + 0.05) {
-      channels.push({ ang: Math.atan2(dz, dx), reach, half: THREE.MathUtils.degToRad(16) });
-    }
-  }
-  return { cx: c.x, cz: c.z, r: base, channels };
-}
-
-/** Pull the doorway ring to 0.30 m in front of the relief-dome wall. */
-function fitWaypointToDome(wp, room, meshObj) {
-  if (!meshObj || !meshObj.wallDistAt) return;
-  const c = room.camera;
-  const p = room.portals[0].position;
-  const dx = p[0] - c.x, dz = p[2] - c.z;
-  const dist = Math.hypot(dx, dz);
-  const theta = Math.atan2(dz, -dx);             // pano convention (shader)
-  const wall = meshObj.wallDistAt(theta);
-  if (!wall || !isFinite(wall)) return;
-  const maxR = wall - 0.30;
-  if (dist > maxR && maxR > 0.6) {
-    const k = maxR / dist;
-    wp.group.position.set(c.x + dx * k, p[1], c.z + dz * k);
-  }
 }
 
 /* ------------------------------------------------------------- warp */
@@ -392,8 +335,8 @@ function navigateTo(idx, dirWorld) {
   if (dir.lengthSq() < 1e-6) camera.getWorldDirection(dir).setY(0);
   dir.normalize();
 
-  // step INTO the doorway: tween controls.pos (the single position source —
-  // camera follows it every frame, so the warp never fights the walk loop)
+  // step INTO the doorway: tween the virtual position (the camera follows it
+  // every frame, clamped to the micro-parallax sphere in pano rooms)
   const start = controls.pos.clone();
   const end = start.clone().addScaledVector(dir, 0.55);
 
@@ -416,7 +359,10 @@ function handleBump(bump) {
   const label = bump.label[i18n.lang] || bump.label.en;
   hud.showBump(`${i18n.t.bump_prefix} ${label}`);
   audio.bump();
-  if (state.fx && state.fx.halos && bump.ob) state.fx.halos.flash(bump.ob);  // glass halo flash
+  if (state.fx && state.fx.halos && bump.ob) {
+    state.fx.halos.flash(bump.ob);       // glass halo flash
+    state.fx.proxies?.flash(bump.ob);    // 3D glass proxy flash
+  }
   // ripple at the obstacle's screen position
   const hitX = camera.position.x + bump.nx * 1.2;
   const hitZ = camera.position.z + bump.nz * 1.2;
@@ -429,16 +375,19 @@ function handleBump(bump) {
 function onPointerMove(e) {
   if (!state.started || state.transitioning || isTouch) return;
   const hit = raycastWaypoint(e.clientX, e.clientY);
+  const proxy = hit ? null : raycastProxy(e.clientX, e.clientY);
+  const cursor = hit || proxy ? "pointer" : "";
+  renderer.domElement.style.cursor = cursor;
   if (hit !== hoveredWaypoint) {
     hoveredWaypoint = hit;
-    renderer.domElement.style.cursor = hit ? "pointer" : "";
     if (hit) {
       const p = projectToScreen(state.waypoint.group.position, camera);
       hud.showWaypointChip(state.waypoint.targetRoom, p.x, p.y);
-    } else {
+    } else if (!proxy) {
       hud.hideWaypointChip();
     }
   }
+  hoveredProxy = proxy;
   if (hoveredWaypoint && state.waypoint) {
     const p = projectToScreen(state.waypoint.group.position, camera);
     hud.placeWaypointChip(p.x, p.y);
@@ -450,6 +399,16 @@ function raycastWaypoint(px, py) {
   pointerNdc.set((px / innerWidth) * 2 - 1, -(py / innerHeight) * 2 + 1);
   raycaster.setFromCamera(pointerNdc, camera);
   return raycaster.intersectObject(state.waypoint.collider, false).length > 0;
+}
+
+/** Raycast the 3D glass furniture proxies (LAW 2 interactive hotspots). */
+function raycastProxy(px, py) {
+  const meshes = state.fx?.proxies?.meshes;
+  if (!meshes || !meshes.length) return null;
+  pointerNdc.set((px / innerWidth) * 2 - 1, -(py / innerHeight) * 2 + 1);
+  raycaster.setFromCamera(pointerNdc, camera);
+  const hits = raycaster.intersectObjects(meshes, false);
+  return hits.length ? hits[0].object.userData.obstacle : null;
 }
 
 function handleClick(x, y) {
@@ -464,6 +423,16 @@ function handleClick(x, y) {
     }
     return;
   }
+  const proxy = raycastProxy(x, y);
+  if (proxy) {
+    // hotspot: single tap surfaces the furniture label (glass flash + ripple)
+    const label = proxy.label[i18n.lang] || proxy.label.en;
+    hud.showBump(label);
+    state.fx?.proxies?.flash(proxy);
+    const p = projectToScreen(new THREE.Vector3(proxy.x, (proxy.h ?? 0.8) * 0.6, proxy.z), camera);
+    if (!p.behind) hud.ripple(p.x, p.y);
+    return;
+  }
   hud.hideWaypointChip();
 }
 
@@ -471,7 +440,24 @@ function handleDouble(x, y) {
   if (!state.started || state.transitioning) return;
   if (raycastWaypoint(x, y)) { warpThrough(state.waypoint); return; }
 
-  // walk TO the tapped floor point — a real walk across the room
+  // LAW 2: double-tap a 3D glass furniture proxy → glide up to that piece
+  const proxy = raycastProxy(x, y);
+  if (proxy) {
+    const vpos = controls.effectivePos();
+    const dx = proxy.x - vpos.x, dz = proxy.z - vpos.z;
+    const d = Math.hypot(dx, dz) || 1e-6;
+    const stand = (proxy.type === "box"
+      ? Math.max(Math.abs((proxy.hw ?? 0.5) / Math.max(Math.abs(dx / d), 0.35)),
+                 Math.abs((proxy.hd ?? 0.5) / Math.max(Math.abs(dz / d), 0.35)))
+      : (proxy.r ?? 0.5)) + 0.55;
+    const t = new THREE.Vector3(proxy.x - (dx / d) * stand, 0, proxy.z - (dz / d) * stand);
+    controls.lookToward(t.clone().sub(vpos));
+    controls.walkTo(t);
+    state.fx.showTarget(t);
+    return;
+  }
+
+  // walk TO the tapped floor point — the footstep target ring marks it
   pointerNdc.set((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1);
   raycaster.setFromCamera(pointerNdc, camera);
   const hit = new THREE.Vector3();
@@ -485,6 +471,7 @@ function handleDouble(x, y) {
     const dir = hit.clone().sub(camera.position).normalize();
     controls.lookToward(dir);
     controls.walkTo(hit);
+    state.fx.showTarget(hit);
   }
 }
 
@@ -496,14 +483,16 @@ function tick() {
 
   controls.update(dt);
 
-  if (state.fx) state.fx.update(dt, controls.pos, controls.speed);
+  if (state.fx) {
+    state.fx.update(dt, controls.effectivePos(), camera.position, controls.speed);
+  }
 
   if (state.waypoint && !state.transitioning) {
     state.waypoint.update(t, dt, camera, hoveredWaypoint);
 
-    // walk physically INTO the doorway → travel
+    // walk (virtually, in pano rooms) INTO the doorway → travel
     if (state.started && performance.now() > state.walkInArmedAt) {
-      const d = state.waypoint.playerDist(camera);
+      const d = state.waypoint.playerDist(controls.effectivePos());
       if (d < WALK_IN_DIST) {
         warpThrough(state.waypoint);
       }
