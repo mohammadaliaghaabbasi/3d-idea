@@ -1,0 +1,11 @@
+{
+ "trellis2_session": {
+  "target": "microsoft/TRELLIS.2 full session flow",
+  "error": "AppError: The upstream Gradio app has raised an exception but has not enabled verbose error reporting. To enable, set show_error=True in launch().",
+  "trace": "^^^^^^^\n  File \"/home/z/.venv/lib/python3.12/site-packages/gradio_client/client.py\", line 1191, in _predict\n    raise AppError(\ngradio_client.exceptions.AppError: The upstream Gradio app has raised an exception but has not enabled verbose error reporting. To enable, set show_error=True in launch().\n"
+ },
+ "sharp_mirror": {
+  "target": "inoculatemedia/Apple-Sharp-Image-to-3D-View-Synthesis",
+  "error": "ReadTimeout: The read operation timed out"
+ }
+}

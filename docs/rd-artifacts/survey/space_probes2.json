@@ -1,0 +1,24 @@
+{
+ "sharp": {
+  "target": "gagndeep/Apple-Sharp-Image-to-3D-View-Synthesis (ZeroGPU)",
+  "error": "AppError: The upstream Gradio app has raised an exception but has not enabled verbose error reporting. To enable, set show_error=True in launch().",
+  "endpoints": [
+   "/run_sharp"
+  ],
+  "params": {
+   "/run_sharp": [
+    "image_path",
+    "trajectory_type",
+    "output_long_side",
+    "num_frames",
+    "fps",
+    "render_video"
+   ]
+  },
+  "trace": "^^^^^^^\n  File \"/home/z/.venv/lib/python3.12/site-packages/gradio_client/client.py\", line 1191, in _predict\n    raise AppError(\ngradio_client.exceptions.AppError: The upstream Gradio app has raised an exception but has not enabled verbose error reporting. To enable, set show_error=True in launch().\n"
+ },
+ "trellis2": {
+  "target": "microsoft/TRELLIS.2 image_to_3d (ZeroGPU)",
+  "error": "AppError: The upstream Gradio app has raised an exception but has not enabled verbose error reporting. To enable, set show_error=True in launch()."
+ }
+}

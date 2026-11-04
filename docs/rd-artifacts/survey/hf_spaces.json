@@ -1,0 +1,892 @@
+{
+ "queries": {
+  "spag4d": [],
+  "panosplat": [],
+  "panosplatt3r": [],
+  "mvsplat": [],
+  "splatter 360": [],
+  "sharp view synthesis": [
+   {
+    "id": "gagndeep/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 132,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "RobLi/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "inoculatemedia/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "owengillett/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "rajaai1/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "covert111/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Aeonicc/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Yosun/Apple-Sharp-Image-to-3D-View-Synthesis",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   }
+  ],
+  "wonderworld": [
+   {
+    "id": "Wonder-Griffin/wonderworld",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "docker",
+    "tags": [
+     "docker",
+     "autotrain",
+     "region:us"
+    ]
+   },
+   {
+    "id": "tsSachin/wonderWorldThemParkChatBotAPI",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "docker",
+    "tags": [
+     "docker",
+     "region:us"
+    ]
+   }
+  ],
+  "lgm": [
+   {
+    "id": "ashawkey/LGM",
+    "likes": 328,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "dylanebert/LGM-mini",
+    "likes": 122,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "dylanebert/LGM-tiny",
+    "likes": 10,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Mathdesenvnonimate/LGM",
+    "likes": 1,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Ryukijano/LGM",
+    "likes": 1,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "spark-ds549/lgm-inference",
+    "likes": 1,
+    "updatedAt": "",
+    "sdk": "docker",
+    "tags": [
+     "docker",
+     "region:us"
+    ]
+   },
+   {
+    "id": "cocktailpeanut/LGM",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "legolasyiu/LGM_Textto3D",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Eyaladir/LGM-mini",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "EliasGeo/LGMtest",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "gheng/lgms-cybersecurity-chatbot",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "brarnovidra/lgm",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "docker",
+    "tags": [
+     "docker",
+     "region:us"
+    ]
+   }
+  ],
+  "unique3d": [
+   {
+    "id": "Wuvin/Unique3D",
+    "likes": 799,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "hysts-duplicates/Unique3D",
+    "likes": 32,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "VIDraft/Unique3D",
+    "likes": 15,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "edwardwang1982/Unique3D-local-zerogpu",
+    "likes": 4,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "neil-ni/Unique3D",
+    "likes": 3,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "multimodalart/Unique3D-zerogpu",
+    "likes": 1,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "OjciecTadeusz/Unique3D",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "tabulasd/Unique3D",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "jafzak/unique3d",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "rkniazi840/Unique3D",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Painimy/unique3d-test-diana",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "AntCha/Unique3D2",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   }
+  ],
+  "flash3d": [
+   {
+    "id": "szymanowiczs/flash3d",
+    "likes": 8,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "einsafutdinov/flash3d",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Ryukijano/Flash3d",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "matthartman/flash3d",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   }
+  ],
+  "panorama gaussian": [],
+  "360 gaussian": [],
+  "panorama to 3d": [
+   {
+    "id": "MohammedAH/3D_End-to-end-Panorama-RoomLayoutReconstuctionII",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   }
+  ],
+  "gaussian splatting": [
+   {
+    "id": "blanchon/gaussian-splatting-kit",
+    "likes": 11,
+    "updatedAt": "",
+    "sdk": "docker",
+    "tags": [
+     "docker",
+     "region:us"
+    ]
+   },
+   {
+    "id": "gaet/Gaussian-Splatting",
+    "likes": 9,
+    "updatedAt": "",
+    "sdk": "docker",
+    "tags": [
+     "docker",
+     "region:us"
+    ]
+   },
+   {
+    "id": "avithal/repro-splattn-bridging-2d-and-3d-with-gaussian-soft-splatting-and-attention-for-point-cloud-comp",
+    "likes": 6,
+    "updatedAt": "",
+    "sdk": "static",
+    "tags": [
+     "static",
+     "trackio",
+     "trackio-logbook",
+     "open-experiment",
+     "icml2026-repro",
+     "paper-vTp9JToZl9",
+     "region:us"
+    ]
+   },
+   {
+    "id": "rahit/repro-beyond-heuristics-learnable-density-control-for-3d-gaussian-splatting",
+    "likes": 5,
+    "updatedAt": "",
+    "sdk": "static",
+    "tags": [
+     "static",
+     "trackio",
+     "trackio-logbook",
+     "open-experiment",
+     "icml2026-repro",
+     "paper-J3uM4v9vJv",
+     "region:us"
+    ]
+   }
+  ],
+  "room layout panorama": [],
+  "360 room layout": [],
+  "dreamscene360": [],
+  "pano2room": [],
+  "triposr": [
+   {
+    "id": "stabilityai/TripoSR",
+    "likes": 835,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "hansyan/perflow-triposr",
+    "likes": 63,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "cocktailpeanut/TripoSR",
+    "likes": 7,
+    "updatedAt": "",
+    "sdk": "docker",
+    "tags": [
+     "docker",
+     "region:us"
+    ]
+   },
+   {
+    "id": "WeReCooking2/Dust3R-TripoSR",
+    "likes": 6,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "image-to-3d",
+     "3d-reconstruction",
+     "triposr",
+     "dust3r",
+     "mcp-server",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Muffy1507/imaGEN-TripoSR",
+    "likes": 1,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Pheerakarn/TripoSR",
+    "likes": 1,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "Jose16062007/TripoSR",
+    "likes": 1,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "cocktailpeanut/perflow-triposr",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "elioonpc/TripoSRBlender",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "tsi-org/perflow-triposr",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "seawolf2357/TripoSR",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "mrdas/TripoSR",
+    "likes": 0,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   }
+  ],
+  "trellis": [
+   {
+    "id": "microsoft/TRELLIS",
+    "likes": 4771,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "microsoft/TRELLIS.2",
+    "likes": 2337,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "trellis-community/TRELLIS",
+    "likes": 798,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "mcp-server",
+     "region:us"
+    ]
+   },
+   {
+    "id": "theseanlavery/TRELLIS-3D",
+    "likes": 211,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "gokaygokay/Flux-TRELLIS",
+    "likes": 102,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "crevelop/Trellis",
+    "likes": 62,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "cavargas10/TRELLIS-Multiple3D",
+    "likes": 61,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "prithivMLmods/TRELLIS.2-Text-to-3D",
+    "likes": 57,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "mcp-server",
+     "region:us"
+    ]
+   },
+   {
+    "id": "innoai/TRELLIS",
+    "likes": 51,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "PUM4CH3N/TRELLIS_TextTo3D",
+    "likes": 18,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "cavargas10/TRELLIS-Imagen3D",
+    "likes": 17,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "region:us"
+    ]
+   },
+   {
+    "id": "hysts-mcp/TRELLIS",
+    "likes": 17,
+    "updatedAt": "",
+    "sdk": "gradio",
+    "tags": [
+     "gradio",
+     "mcp-server",
+     "region:us"
+    ]
+   }
+  ]
+ },
+ "runtimes": {
+  "microsoft/TRELLIS": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "microsoft/TRELLIS.2": {
+   "stage": "RUNNING",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "stabilityai/TripoSR": {
+   "stage": "RUNTIME_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "Wuvin/Unique3D": {
+   "stage": "RUNNING",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "trellis-community/TRELLIS": {
+   "stage": "RUNNING",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "ashawkey/LGM": {
+   "stage": "RUNNING",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "theseanlavery/TRELLIS-3D": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "gagndeep/Apple-Sharp-Image-to-3D-View-Synthesis": {
+   "stage": "RUNNING",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "dylanebert/LGM-mini": {
+   "stage": "RUNNING",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "gokaygokay/Flux-TRELLIS": {
+   "stage": "RUNNING",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "hansyan/perflow-triposr": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "crevelop/Trellis": {
+   "stage": "RUNTIME_ERROR",
+   "hardware": "cpu-basic",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "cavargas10/TRELLIS-Multiple3D": {
+   "stage": "RUNTIME_ERROR",
+   "hardware": "cpu-basic",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "hysts-duplicates/Unique3D": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "VIDraft/Unique3D": {
+   "stage": "PAUSED",
+   "hardware": "cpu-basic",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "blanchon/gaussian-splatting-kit": {
+   "stage": "BUILD_ERROR",
+   "hardware": "cpu-basic",
+   "sdk": "docker",
+   "sleeping": null
+  },
+  "dylanebert/LGM-tiny": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "gaet/Gaussian-Splatting": {
+   "stage": "RUNTIME_ERROR",
+   "hardware": "cpu-basic",
+   "sdk": "docker",
+   "sleeping": null
+  },
+  "cocktailpeanut/TripoSR": {
+   "stage": "RUNTIME_ERROR",
+   "hardware": "cpu-basic",
+   "sdk": "docker",
+   "sleeping": null
+  },
+  "avithal/repro-splattn-bridging-2d-and-3d-with-gaussian-soft-splatting-and-attention-for-point-cloud-comp": {
+   "stage": "RUNNING",
+   "hardware": null,
+   "sdk": "static",
+   "sleeping": null
+  },
+  "WeReCooking2/Dust3R-TripoSR": {
+   "stage": "RUNNING",
+   "hardware": "cpu-basic",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "rahit/repro-beyond-heuristics-learnable-density-control-for-3d-gaussian-splatting": {
+   "stage": "RUNNING",
+   "hardware": null,
+   "sdk": "static",
+   "sleeping": null
+  },
+  "edwardwang1982/Unique3D-local-zerogpu": {
+   "stage": "PAUSED",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "neil-ni/Unique3D": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "Mathdesenvnonimate/LGM": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "Ryukijano/LGM": {
+   "stage": "CONFIG_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  },
+  "spark-ds549/lgm-inference": {
+   "stage": "PAUSED",
+   "hardware": "t4-small",
+   "sdk": "docker",
+   "sleeping": null
+  },
+  "multimodalart/Unique3D-zerogpu": {
+   "stage": "RUNTIME_ERROR",
+   "hardware": "zero-a10g",
+   "sdk": "gradio",
+   "sleeping": null
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "route": "DAV2-small ONNX (Apache-2.0) + equirect unprojection \u2014 CPU only, zero training",
+ "pano": "cabin.jpg 4096x2048",
+ "depth_grid": [
+  1022,
+  518
+ ],
+ "stride": 2,
+ "splat_count": 132349,
+ "ply_mb": 32.82,
+ "times_s": {
+  "dav2_cpu": 5.68,
+  "unproj": 0.3,
+  "ply_export": 0.37,
+  "2_cpu_renders": 0.5,
+  "total": 6.35
+ },
+ "calibration": {
+  "scale_k": 7.153,
+  "cam_h_assumed_m": 1.5,
+  "floor_rows_used": 66430
+ }
+}

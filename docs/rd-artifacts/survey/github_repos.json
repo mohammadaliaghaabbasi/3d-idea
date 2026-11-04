@@ -1,0 +1,1597 @@
+{
+ "direct": {
+  "cat1_feedforward": {
+   "apple/ml-sharp": {
+    "full_name": "apple-aiml-research/ml-sharp",
+    "url": "https://github.com/apple-aiml-research/ml-sharp",
+    "stars": 9032,
+    "updated": "2026-09-11T16:04:32Z",
+    "created": "2025-12-12T03:46:09Z",
+    "license": "NOASSERTION",
+    "lang": "Python",
+    "desc": "Sharp Monocular View Synthesis in Less Than a Second",
+    "topics": [],
+    "archived": false
+   },
+   "3DTopia/LGM": {
+    "full_name": "3DTopia/LGM",
+    "url": "https://github.com/3DTopia/LGM",
+    "stars": 2124,
+    "updated": "2024-08-20T16:27:45Z",
+    "created": "2024-02-06T10:58:16Z",
+    "license": "MIT",
+    "lang": "Python",
+    "desc": "[ECCV 2024 Oral] LGM: Large Multi-View Gaussian Model for High-Resolution 3D Content Creation.",
+    "topics": [
+     "gaussian-splatting",
+     "image-to-3d",
+     "text-to-3d"
+    ],
+    "archived": false
+   },
+   "open-mmlab/GS-LRM": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "xxlong0/WonderWorld": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "AiuniAI/Unique3D": {
+    "full_name": "AiuniAI/Unique3D",
+    "url": "https://github.com/AiuniAI/Unique3D",
+    "stars": 3596,
+    "updated": "2025-07-17T21:29:05Z",
+    "created": "2024-05-30T18:37:51Z",
+    "license": "MIT",
+    "lang": "Python",
+    "desc": "[NeurIPS 2024] Unique3D: High-Quality and Efficient 3D Mesh Generation from a Single Image",
+    "topics": [
+     "3d-aigc",
+     "aigc",
+     "image-to-3d"
+    ],
+    "archived": false
+   },
+   "donydchen/MVSplat360": {
+    "full_name": "donydchen/mvsplat360",
+    "url": "https://github.com/donydchen/mvsplat360",
+    "stars": 327,
+    "updated": "2026-05-06T04:05:51Z",
+    "created": "2024-11-07T17:47:56Z",
+    "license": "MIT",
+    "lang": "Python",
+    "desc": "🎞️ [NeurIPS'24] MVSplat360: Feed-Forward 360 Scene Synthesis from Sparse Views",
+    "topics": [
+     "feed-forward-gaussian-splatting",
+     "gaussian-splatting",
+     "generative-models",
+     "neurips-2024",
+     "novel-view-synthesis",
+     "stable-video-diffusion",
+     "video-diffusion-model"
+    ],
+    "archived": false
+   },
+   "donydchen/MVSplat": {
+    "full_name": "donydchen/mvsplat",
+    "url": "https://github.com/donydchen/mvsplat",
+    "stars": 1321,
+    "updated": "2026-05-06T04:10:12Z",
+    "created": "2024-03-21T09:56:36Z",
+    "license": "MIT",
+    "lang": "Python",
+    "desc": "🌊 [ECCV'24 Oral] MVSplat: Efficient 3D Gaussian Splatting from Sparse Multi-View Images",
+    "topics": [
+     "cost-volume",
+     "eccv2024",
+     "feed-forward-gaussian-splatting",
+     "gaussian-splatting",
+     "novel-view-synthesis"
+    ],
+    "archived": false
+   },
+   "HengyiWang/DepthSplat": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "In3Dgame/Flash3D": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "imagine-imagine/Director3D": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "JK-Lee88/LayerPano3D": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "arthurchen0512/Pano2Room": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "chingswy/DreamScene360": {
+    "_error": "HTTP Error 404: Not Found"
+   }
+  },
+  "cat2_viewers": {
+   "sparkjsdev/spark": {
+    "full_name": "sparkjsdev/spark",
+    "url": "https://github.com/sparkjsdev/spark",
+    "stars": 3871,
+    "updated": "2026-10-20T04:12:52Z",
+    "created": "2025-05-23T15:52:14Z",
+    "license": "MIT",
+    "lang": "TypeScript",
+    "desc": ":sparkles:  An advanced 3D Gaussian Splatting renderer for THREE.js",
+    "topics": [],
+    "archived": false
+   },
+   "mkkellogg/GaussianSplats3D": {
+    "full_name": "mkkellogg/GaussianSplats3D",
+    "url": "https://github.com/mkkellogg/GaussianSplats3D",
+    "stars": 2938,
+    "updated": "2025-10-19T22:58:20Z",
+    "created": "2023-09-26T01:15:29Z",
+    "license": "MIT",
+    "lang": "JavaScript",
+    "desc": "Three.js-based implementation of 3D Gaussian splatting",
+    "topics": [
+     "3d-gaussian-splatting",
+     "gaussian-splatting",
+     "javascript",
+     "three-js",
+     "threejs",
+     "webgl"
+    ],
+    "archived": false
+   },
+   "playcanvas/supersplat": {
+    "full_name": "playcanvas/supersplat",
+    "url": "https://github.com/playcanvas/supersplat",
+    "stars": 10584,
+    "updated": "2026-10-31T22:22:37Z",
+    "created": "2023-10-19T14:45:07Z",
+    "license": "MIT",
+    "lang": "TypeScript",
+    "desc": "3D Gaussian Splat Editor",
+    "topics": [
+     "3d-gaussian-splatting",
+     "3dgs",
+     "gaussian-splatting",
+     "pcui",
+     "playcanvas",
+     "typescript",
+     "webgl",
+     "webgpu"
+    ],
+    "archived": false
+   },
+   "nianticlabs/spz": {
+    "full_name": "nianticlabs/spz",
+    "url": "https://github.com/nianticlabs/spz",
+    "stars": 942,
+    "updated": "2026-11-02T22:32:17Z",
+    "created": "2024-09-16T20:58:31Z",
+    "license": "MIT",
+    "lang": "C++",
+    "desc": "File format for 3D Gaussian splats. About 10x smaller than the PLY equivalent with virtually no perceptible loss in visual quality. Offered as open source by Niantic Labs. More details at https://scan",
+    "topics": [
+     "3dgs",
+     "compression",
+     "gaussian-splatting",
+     "splat"
+    ],
+    "archived": false
+   },
+   "antimatter15/splat": {
+    "full_name": "antimatter15/splat",
+    "url": "https://github.com/antimatter15/splat",
+    "stars": 3084,
+    "updated": "2025-11-16T20:20:59Z",
+    "created": "2023-09-11T02:24:56Z",
+    "license": "MIT",
+    "lang": "JavaScript",
+    "desc": "WebGL 3D Gaussian Splat Viewer",
+    "topics": [],
+    "archived": false
+   },
+   "playcanvas/engine": {
+    "full_name": "playcanvas/engine",
+    "url": "https://github.com/playcanvas/engine",
+    "stars": 17189,
+    "updated": "2026-11-04T02:13:58Z",
+    "created": "2014-05-12T11:24:30Z",
+    "license": "MIT",
+    "lang": "JavaScript",
+    "desc": "Powerful web graphics runtime built on WebGL, WebGPU, WebXR and glTF",
+    "topics": [
+     "3d-gaussian-splatting",
+     "3dgs",
+     "game-development",
+     "game-engine",
+     "gamedev",
+     "gaussian-splatting",
+     "gltf",
+     "hacktoberfest",
+     "javascript",
+     "nodejs"
+    ],
+    "archived": false
+   },
+   "graphdeco-inria/gaussian-splatting": {
+    "full_name": "graphdeco-inria/gaussian-splatting",
+    "url": "https://github.com/graphdeco-inria/gaussian-splatting",
+    "stars": 24414,
+    "updated": "2025-10-17T14:28:15Z",
+    "created": "2023-07-04T07:51:38Z",
+    "license": "NOASSERTION",
+    "lang": "Python",
+    "desc": "Original reference implementation of \"3D Gaussian Splatting for Real-Time Radiance Field Rendering\"",
+    "topics": [
+     "computer-graphics",
+     "computer-vision",
+     "radiance-field"
+    ],
+    "archived": false
+   }
+  },
+  "cat3_layout": {
+   "sunghoonho/HorizonNet": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "chengsunh/led2-net": {
+    "_error": "HTTP Error 404: Not Found"
+   },
+   "cvlab-epfl/HoHoNet": {
+    "_error": "HTTP Error 404: Not Found"
+   }
+  }
+ },
+ "search": [
+  {
+   "query": "PanoSplat",
+   "total": 3,
+   "items": [
+    {
+     "full_name": "zhichu99/PanoSplatt3R",
+     "url": "https://github.com/zhichu99/PanoSplatt3R",
+     "stars": 35,
+     "updated": "2025-10-17T06:19:32Z",
+     "created": "2025-05-19T13:26:02Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "[ICCV 2025] PanoSplatt3R: Leveraging Perspective Pretraining for Generalized Unposed Wide-Baseline Panorama Reconstruction",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "guoxf304/PanoSplat",
+     "url": "https://github.com/guoxf304/PanoSplat",
+     "stars": 0,
+     "updated": "2026-06-17T07:28:20Z",
+     "created": "2026-05-20T09:07:59Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "ss00sxt/PanoSplat",
+     "url": "https://github.com/ss00sxt/PanoSplat",
+     "stars": 0,
+     "updated": "2026-08-12T06:33:06Z",
+     "created": "2026-08-12T01:05:18Z",
+     "license": "Apache-2.0",
+     "lang": "Python",
+     "desc": "From panoramas to explorable scenes",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "Splatter-360",
+   "total": 2,
+   "items": [
+    {
+     "full_name": "thucz/splatter360",
+     "url": "https://github.com/thucz/splatter360",
+     "stars": 179,
+     "updated": "2025-09-29T02:02:50Z",
+     "created": "2024-12-02T03:23:57Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "[CVPR 2025] Splatter-360: Generalizable 360 Gaussian Splatting for Wide-baseline Panoramic Images",
+     "topics": [
+      "360",
+      "3dgs"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "Isifo/-",
+     "url": "https://github.com/Isifo/-",
+     "stars": 0,
+     "updated": "2018-10-17T18:33:00Z",
+     "created": "2018-10-17T18:33:00Z",
+     "license": null,
+     "lang": null,
+     "desc": "# SimC Addon 1.10.7 # 8.0 Note: reforge= is being used as a hacky way to capture item context. This will be changed in 8.1  demonhunter=\"Isifo\" level=120 race=blood_elf region=eu server=burning_legion",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "panorama gaussian splatting",
+   "total": 24,
+   "items": [
+    {
+     "full_name": "chengzhag/PanSplat",
+     "url": "https://github.com/chengzhag/PanSplat",
+     "stars": 242,
+     "updated": "2026-04-19T23:22:49Z",
+     "created": "2024-12-14T04:37:09Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "🍳 [CVPR'25] PanSplat: 4K Panorama Synthesis with Feed-Forward Gaussian Splatting",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "cedarconnor/SPAG4d",
+     "url": "https://github.com/cedarconnor/SPAG4d",
+     "stars": 232,
+     "updated": "2026-06-12T13:55:51Z",
+     "created": "2026-01-15T05:11:34Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Convert 360° equirectangular panoramas into viewable 3D Gaussian Splat files.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "nerficg-project/SPaGS",
+     "url": "https://github.com/nerficg-project/SPaGS",
+     "stars": 70,
+     "updated": "2025-07-25T14:31:46Z",
+     "created": "2025-07-23T17:01:30Z",
+     "license": "MIT",
+     "lang": "Cuda",
+     "desc": "SPaGS: Fast and Accurate 3D Gaussian Splatting for Spherical Panoramas",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "jfirma1/ComfyUI-DreamScene360",
+     "url": "https://github.com/jfirma1/ComfyUI-DreamScene360",
+     "stars": 17,
+     "updated": "2026-07-23T12:50:50Z",
+     "created": "2026-03-27T22:11:09Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "ComfyUI custom node wrapping DreamScene360 (ECCV 2024). Converts a single 360° equirectangular panorama into a trained 3D Gaussian Splat point cloud using multi-crop depth estimation, global depth ali",
+     "topics": [
+      "3d-reconstruction",
+      "comfyui",
+      "comfyui-nodes",
+      "computer-vision",
+      "gaussian-splatting",
+      "panorama",
+      "point-cloud"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "jfirma1/comfyui-pano2room",
+     "url": "https://github.com/jfirma1/comfyui-pano2room",
+     "stars": 7,
+     "updated": "2026-04-11T01:47:56Z",
+     "created": "2026-04-08T17:22:24Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "ComfyUI Pano2Room brings the Pano2Room (SIGGRAPH 2024) research natively into ComfyUI, converting a single 360° panorama into a fully explorable 3D Gaussian Splatting (`.ply`) environment.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "DECK6/ringsplat",
+     "url": "https://github.com/DECK6/ringsplat",
+     "stars": 4,
+     "updated": "2026-04-25T16:29:41Z",
+     "created": "2026-04-25T16:29:39Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Equirectangular 360 panorama → 3D Gaussian Splat, end-to-end on Apple Silicon (MPS)",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "wild-deer/360-panorama-processor",
+     "url": "https://github.com/wild-deer/360-panorama-processor",
+     "stars": 4,
+     "updated": "2025-08-27T03:26:25Z",
+     "created": "2025-08-26T09:15:24Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "🚀 全景图片批量处理工具 - 将全景图转换为多个透视图，支持角度排除、垂直翻转等高级功能，基于OpenCV和NumPy的高效图像处理，适用于3d gaussian splatting 图片处理场景",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "Soham-Gaonkar/Pano-to-3D",
+     "url": "https://github.com/Soham-Gaonkar/Pano-to-3D",
+     "stars": 3,
+     "updated": "2025-08-04T08:27:30Z",
+     "created": "2025-06-25T07:19:48Z",
+     "license": null,
+     "lang": "Jupyter Notebook",
+     "desc": "This repository implements an end-to-end pipeline to convert a single 360-degree panorama or point cloud into a 3D Gaussian Splatting scene suitable for rendering, novel view synthesis, and downstream",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "Maloka-Labs/previz",
+     "url": "https://github.com/Maloka-Labs/previz",
+     "stars": 2,
+     "updated": "2026-09-18T12:49:56Z",
+     "created": "2026-03-21T09:11:29Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Generate explorable 3D worlds, 360° panoramas, and Gaussian splats directly in ComfyUI using the **World Labs Marble API**. Built for **shot composition**, **storyboarding**, and **spatial previs** in",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "bilalgurkansanli/BioSphereAI",
+     "url": "https://github.com/bilalgurkansanli/BioSphereAI",
+     "stars": 2,
+     "updated": "2026-10-28T10:05:40Z",
+     "created": "2026-10-27T11:28:46Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Turn a phone video into a 360° virtual tour: a from-scratch panorama stitching engine, web player with floor plans, measurement and VR, plus an experimental 3D Gaussian-splat walkthrough. Runs on your",
+     "topics": [
+      "360",
+      "360-panorama",
+      "3d-reconstruction",
+      "computer-vision",
+      "fastapi",
+      "gaussian-splatting",
+      "nextjs",
+      "open-source",
+      "opencv",
+      "panorama-stitching"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "cedarconnor/Pano2Splat",
+     "url": "https://github.com/cedarconnor/Pano2Splat",
+     "stars": 1,
+     "updated": "2026-03-15T22:26:00Z",
+     "created": "2026-03-08T16:43:50Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Single Panorama to Gaussian Splat",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "Uzshah/PIPANOGS",
+     "url": "https://github.com/Uzshah/PIPANOGS",
+     "stars": 1,
+     "updated": "2026-10-29T11:14:25Z",
+     "created": "2026-10-29T10:05:52Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Panorama-Aware 3D Gaussian Splatting from Sparse Omnidirectional Images",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "360 gaussian splatting",
+   "total": 86,
+   "items": [
+    {
+     "full_name": "cedarconnor/SPAG4d",
+     "url": "https://github.com/cedarconnor/SPAG4d",
+     "stars": 232,
+     "updated": "2026-06-12T13:55:51Z",
+     "created": "2026-01-15T05:11:34Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Convert 360° equirectangular panoramas into viewable 3D Gaussian Splat files.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "thucz/splatter360",
+     "url": "https://github.com/thucz/splatter360",
+     "stars": 179,
+     "updated": "2025-09-29T02:02:50Z",
+     "created": "2024-12-02T03:23:57Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "[CVPR 2025] Splatter-360: Generalizable 360 Gaussian Splatting for Wide-baseline Panoramic Images",
+     "topics": [
+      "360",
+      "3dgs"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "nicolasdiolez/360Extractor",
+     "url": "https://github.com/nicolasdiolez/360Extractor",
+     "stars": 156,
+     "updated": "2026-11-02T12:34:02Z",
+     "created": "2025-12-09T10:52:27Z",
+     "license": "AGPL-3.0",
+     "lang": "Python",
+     "desc": "High-performance desktop application for 360° video preprocessing. This tool generates optimized datasets for Gaussian Splatting and photogrammetry (COLMAP, RealityScan) by converting equirectangular ",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "ShijieZhou-UCLA/DreamScene360",
+     "url": "https://github.com/ShijieZhou-UCLA/DreamScene360",
+     "stars": 133,
+     "updated": "2026-05-13T05:51:26Z",
+     "created": "2024-09-26T22:59:14Z",
+     "license": "NOASSERTION",
+     "lang": "C++",
+     "desc": "[ECCV 2024] DreamScene360: Unconstrained Text-to-3D Scene Generation with Panoramic Gaussian Splatting",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "LeoDarcy/360GS",
+     "url": "https://github.com/LeoDarcy/360GS",
+     "stars": 107,
+     "updated": "2025-06-11T05:38:26Z",
+     "created": "2024-07-16T11:05:38Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Official code for \"360-GS: Layout-guided Panoramic Gaussian Splatting For Indoor Roaming\"",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "lukehollis/sphr",
+     "url": "https://github.com/lukehollis/sphr",
+     "stars": 65,
+     "updated": "2026-10-29T20:38:29Z",
+     "created": "2024-11-27T21:31:48Z",
+     "license": "MIT",
+     "lang": "TypeScript",
+     "desc": "Open, hackable 3d digital twin builder that supports 3d gaussian splatting, 360 images, and vfx",
+     "topics": [
+      "360-photo",
+      "3d-gaussian-splat",
+      "3d-gaussian-splatting",
+      "digital-twin",
+      "threejs",
+      "vfx",
+      "virtual-reality",
+      "virtual-tour"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "Mistral-Yu/360Cam-PGM-3DGS-Tools",
+     "url": "https://github.com/Mistral-Yu/360Cam-PGM-3DGS-Tools",
+     "stars": 62,
+     "updated": "2026-04-08T16:46:48Z",
+     "created": "2025-09-16T12:15:24Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "A toolkit for turning 360° video captures into photogrammetry (PGM) datasets or 3D Gaussian Splatting (3DGS) datasets.",
+     "topics": [
+      "360-camera",
+      "360-photo",
+      "3d-gaussian-splatting",
+      "lichtfeld-studio",
+      "metashape",
+      "photogrammetry",
+      "postshot",
+      "realitycapture",
+      "realityscan"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "dfki-av/Inpaint360GS",
+     "url": "https://github.com/dfki-av/Inpaint360GS",
+     "stars": 50,
+     "updated": "2026-02-28T15:59:15Z",
+     "created": "2025-09-18T17:49:32Z",
+     "license": "Apache-2.0",
+     "lang": "Jupyter Notebook",
+     "desc": "[WACV'26] Inpaint360GS: Efficient Object-Aware 3D Inpainting via Gaussian Splatting for 360° Scenes",
+     "topics": [
+      "3d-inpainting",
+      "3d-reconstruction",
+      "gaussian-splatting",
+      "scene-editing"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "chobao/Free360",
+     "url": "https://github.com/chobao/Free360",
+     "stars": 49,
+     "updated": "2025-07-07T07:45:43Z",
+     "created": "2025-04-01T04:09:43Z",
+     "license": null,
+     "lang": null,
+     "desc": "Code for \"Free360: Layered Gaussian Splatting for Unbounded 360-Degree View Synthesis from Extremely Sparse and Unposed Views\", CVPR 2025",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "stechdrive/Insta360Convert-GUI",
+     "url": "https://github.com/stechdrive/Insta360Convert-GUI",
+     "stars": 48,
+     "updated": "2026-10-08T13:25:40Z",
+     "created": "2025-06-04T07:37:21Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "GUI tool to extract multiple perspective views (pitch, yaw, FOV) from 360° equirectangular videos as MP4 clips or image sequences, plus COLMAP/RealityScan‑ready rig outputs for streamlined photogramme",
+     "topics": [
+      "360-photo",
+      "360-video",
+      "3d-gaussian-splatting",
+      "colmap-sfm",
+      "equirectangular",
+      "ffmpeg-wrapper",
+      "insta360",
+      "photogrammetry",
+      "realitycapture",
+      "realityscan"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "zcq15/PFGS360",
+     "url": "https://github.com/zcq15/PFGS360",
+     "stars": 37,
+     "updated": "2026-04-09T01:19:56Z",
+     "created": "2026-03-25T10:43:31Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Implementation of \"Pose-Free Omnidirectional Gaussian Splatting for 360-Degree Videos with Consistent Depth Priors\", CVPR 2026.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "jacobvanbeets/360_record",
+     "url": "https://github.com/jacobvanbeets/360_record",
+     "stars": 21,
+     "updated": "2026-03-11T16:04:03Z",
+     "created": "2026-02-13T15:54:15Z",
+     "license": "NOASSERTION",
+     "lang": "Python",
+     "desc": "Record video according a set track inside a gaussian splat.",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "panorama to 3D gaussian splatting created:>2024-06-01",
+   "total": 5,
+   "items": [
+    {
+     "full_name": "DECK6/ringsplat",
+     "url": "https://github.com/DECK6/ringsplat",
+     "stars": 4,
+     "updated": "2026-04-25T16:29:41Z",
+     "created": "2026-04-25T16:29:39Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Equirectangular 360 panorama → 3D Gaussian Splat, end-to-end on Apple Silicon (MPS)",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "Soham-Gaonkar/Pano-to-3D",
+     "url": "https://github.com/Soham-Gaonkar/Pano-to-3D",
+     "stars": 3,
+     "updated": "2025-08-04T08:27:30Z",
+     "created": "2025-06-25T07:19:48Z",
+     "license": null,
+     "lang": "Jupyter Notebook",
+     "desc": "This repository implements an end-to-end pipeline to convert a single 360-degree panorama or point cloud into a 3D Gaussian Splatting scene suitable for rendering, novel view synthesis, and downstream",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "vladimiralbrekhtccr/360-panorama-viewer",
+     "url": "https://github.com/vladimiralbrekhtccr/360-panorama-viewer",
+     "stars": 0,
+     "updated": "2026-10-21T09:54:50Z",
+     "created": "2026-05-11T09:11:49Z",
+     "license": null,
+     "lang": "HTML",
+     "desc": "Panoramas to 3D Gaussian Splatting scenes you can explore in the browser",
+     "topics": [
+      "3d-gaussian-splatting",
+      "panorama",
+      "threejs",
+      "webgl"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "vladimiralbrekhtccr/world-models",
+     "url": "https://github.com/vladimiralbrekhtccr/world-models",
+     "stars": 0,
+     "updated": "2026-07-02T05:58:03Z",
+     "created": "2026-05-01T10:36:58Z",
+     "license": null,
+     "lang": "HTML",
+     "desc": "Panorama and image to explorable 3D scenes: 3D Gaussian Splatting, DreamScene360, HunyuanWorld experiments",
+     "topics": [
+      "3d-gaussian-splatting",
+      "diffusion",
+      "panorama",
+      "world-models"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "guilhem0908/nav_3dgs_pano",
+     "url": "https://github.com/guilhem0908/nav_3dgs_pano",
+     "stars": 0,
+     "updated": "2026-10-07T14:31:18Z",
+     "created": "2026-05-07T01:02:54Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "360-degree navigation observations from 3D Gaussian Splatting scenes: occupancy grid, A*, feathered cubemap-to-equirectangular stitching (DISCOVERSE, MuJoCo)",
+     "topics": [
+      "a-star",
+      "cubemap",
+      "dataset-generation",
+      "discoverse",
+      "equirectangular",
+      "gaussian-splatting",
+      "mujoco",
+      "occupancy-grid",
+      "panorama",
+      "python"
+     ],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "equirectangular gaussian splatting",
+   "total": 16,
+   "items": [
+    {
+     "full_name": "cedarconnor/SPAG4d",
+     "url": "https://github.com/cedarconnor/SPAG4d",
+     "stars": 232,
+     "updated": "2026-06-12T13:55:51Z",
+     "created": "2026-01-15T05:11:34Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Convert 360° equirectangular panoramas into viewable 3D Gaussian Splat files.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "nicolasdiolez/360Extractor",
+     "url": "https://github.com/nicolasdiolez/360Extractor",
+     "stars": 156,
+     "updated": "2026-11-02T12:34:02Z",
+     "created": "2025-12-09T10:52:27Z",
+     "license": "AGPL-3.0",
+     "lang": "Python",
+     "desc": "High-performance desktop application for 360° video preprocessing. This tool generates optimized datasets for Gaussian Splatting and photogrammetry (COLMAP, RealityScan) by converting equirectangular ",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "stechdrive/Insta360Convert-GUI",
+     "url": "https://github.com/stechdrive/Insta360Convert-GUI",
+     "stars": 48,
+     "updated": "2026-10-08T13:25:40Z",
+     "created": "2025-06-04T07:37:21Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "GUI tool to extract multiple perspective views (pitch, yaw, FOV) from 360° equirectangular videos as MP4 clips or image sequences, plus COLMAP/RealityScan‑ready rig outputs for streamlined photogramme",
+     "topics": [
+      "360-photo",
+      "360-video",
+      "3d-gaussian-splatting",
+      "colmap-sfm",
+      "equirectangular",
+      "ffmpeg-wrapper",
+      "insta360",
+      "photogrammetry",
+      "realitycapture",
+      "realityscan"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "jfirma1/ComfyUI-DreamScene360",
+     "url": "https://github.com/jfirma1/ComfyUI-DreamScene360",
+     "stars": 17,
+     "updated": "2026-07-23T12:50:50Z",
+     "created": "2026-03-27T22:11:09Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "ComfyUI custom node wrapping DreamScene360 (ECCV 2024). Converts a single 360° equirectangular panorama into a trained 3D Gaussian Splat point cloud using multi-crop depth estimation, global depth ali",
+     "topics": [
+      "3d-reconstruction",
+      "comfyui",
+      "comfyui-nodes",
+      "computer-vision",
+      "gaussian-splatting",
+      "panorama",
+      "point-cloud"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "joseluissaorin/360-video-to-gaussian-splatting",
+     "url": "https://github.com/joseluissaorin/360-video-to-gaussian-splatting",
+     "stars": 10,
+     "updated": "2025-06-11T20:16:21Z",
+     "created": "2025-06-11T20:16:18Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "De vídeo 360º equirectangular a Gaussian Splatting 3D. Varios backends (gsplat/3DGUT, OpenSplat), modelos de cámara esféricos, reanudación, visor web y exportación a SPZ. MIT.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "DECK6/ringsplat",
+     "url": "https://github.com/DECK6/ringsplat",
+     "stars": 4,
+     "updated": "2026-04-25T16:29:41Z",
+     "created": "2026-04-25T16:29:39Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Equirectangular 360 panorama → 3D Gaussian Splat, end-to-end on Apple Silicon (MPS)",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "3GOVideo/colmap-360-rig-pipeline",
+     "url": "https://github.com/3GOVideo/colmap-360-rig-pipeline",
+     "stars": 1,
+     "updated": "2026-08-07T05:52:18Z",
+     "created": "2026-08-06T22:27:36Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Convert 360 equirectangular frames into a COLMAP camera rig and Brush-ready Gaussian Splat dataset.",
+     "topics": [
+      "360-video",
+      "brush",
+      "colmap",
+      "gaussian-splatting",
+      "photogrammetry",
+      "pycolmap",
+      "structure-from-motion"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "gnehs/gs360crop",
+     "url": "https://github.com/gnehs/gs360crop",
+     "stars": 1,
+     "updated": "2026-08-04T19:23:21Z",
+     "created": "2026-02-06T08:09:52Z",
+     "license": null,
+     "lang": "TypeScript",
+     "desc": "A lightweight tool for cropping 360° equirectangular videos into perspective-view clips, specifically designed for preparing training data for 3D Gaussian Splatting (3DGS).",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "3dhermit/equirectangular",
+     "url": "https://github.com/3dhermit/equirectangular",
+     "stars": 0,
+     "updated": "2026-10-29T20:52:12Z",
+     "created": "2026-10-29T20:36:33Z",
+     "license": null,
+     "lang": "JavaScript",
+     "desc": "Gaussian splat to equirectangular 360 pipeline in Three.js. CubeCamera six-face renders feeding a spherical-UV fragment shader for flying-through splat environments. WebXR-ready, HTTPS for GitHub Page",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "ConsciousDissonance/SPAG4d",
+     "url": "https://github.com/ConsciousDissonance/SPAG4d",
+     "stars": 0,
+     "updated": "2026-04-09T04:55:03Z",
+     "created": "2026-04-28T05:38:21Z",
+     "license": null,
+     "lang": null,
+     "desc": "Convert 360° equirectangular panoramas into viewable 3D Gaussian Splat files.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "guilhem0908/gaussian-projection-bench",
+     "url": "https://github.com/guilhem0908/gaussian-projection-bench",
+     "stars": 0,
+     "updated": "2026-10-07T14:31:54Z",
+     "created": "2026-10-07T14:31:45Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "How wrong is the splat? EWA linearisation vs the unscented transform for 3D Gaussians through pinhole, fisheye and equirectangular cameras, against Monte-Carlo.",
+     "topics": [
+      "3dgs",
+      "camera-models",
+      "computer-vision",
+      "equirectangular",
+      "ewa-splatting",
+      "fisheye",
+      "gaussian-splatting",
+      "monte-carlo",
+      "numerical-analysis",
+      "numpy"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "guilhem0908/nav_3dgs_pano",
+     "url": "https://github.com/guilhem0908/nav_3dgs_pano",
+     "stars": 0,
+     "updated": "2026-10-07T14:31:18Z",
+     "created": "2026-05-07T01:02:54Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "360-degree navigation observations from 3D Gaussian Splatting scenes: occupancy grid, A*, feathered cubemap-to-equirectangular stitching (DISCOVERSE, MuJoCo)",
+     "topics": [
+      "a-star",
+      "cubemap",
+      "dataset-generation",
+      "discoverse",
+      "equirectangular",
+      "gaussian-splatting",
+      "mujoco",
+      "occupancy-grid",
+      "panorama",
+      "python"
+     ],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "single image gaussian splatting feed-forward created:>2024-06-01",
+   "total": 3,
+   "items": [
+    {
+     "full_name": "coolho1129/InstantHand",
+     "url": "https://github.com/coolho1129/InstantHand",
+     "stars": 2,
+     "updated": "2026-11-02T08:50:44Z",
+     "created": "2026-09-26T15:22:29Z",
+     "license": "Apache-2.0",
+     "lang": "Python",
+     "desc": "Official implementation of \"InstantHand: Feed-Forward 3D Gaussian Splatting for Animatable Hand Avatar Reconstruction from a Single Image\" (NeurIPS 2026)",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "mnmly/mlx-swift-ml-sharp",
+     "url": "https://github.com/mnmly/mlx-swift-ml-sharp",
+     "stars": 2,
+     "updated": "2026-10-26T06:56:55Z",
+     "created": "2026-05-07T18:47:54Z",
+     "license": "NOASSERTION",
+     "lang": "Swift",
+     "desc": "mlx-swift port of Apple's ml-sharp: a feed-forward predictor that turns a single RGB image into a 3D Gaussian Splatting scene.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "kamranfotovat/diffusion-vs-feedforward-3d-generation",
+     "url": "https://github.com/kamranfotovat/diffusion-vs-feedforward-3d-generation",
+     "stars": 1,
+     "updated": "2026-09-03T15:57:38Z",
+     "created": "2026-09-03T15:55:55Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Diffusion vs. Feed-Forward 3D Generation Under a Compute Budget ▎ A measured comparison of diffusion (Hunyuan3D-2mv), feed-forward LRM (InstantMesh, TripoSR), Gaussian splatting (LGM) and visual-hull ",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "ODGS omni-directional gaussian splatting",
+   "total": 0,
+   "items": [],
+   "category": "cat1"
+  },
+  {
+   "query": "pano room gaussian created:>2025-01-01",
+   "total": 1,
+   "items": [
+    {
+     "full_name": "jfirma1/comfyui-pano2room",
+     "url": "https://github.com/jfirma1/comfyui-pano2room",
+     "stars": 7,
+     "updated": "2026-04-11T01:47:56Z",
+     "created": "2026-04-08T17:22:24Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "ComfyUI Pano2Room brings the Pano2Room (SIGGRAPH 2024) research natively into ComfyUI, converting a single 360° panorama into a fully explorable 3D Gaussian Splatting (`.ply`) environment.",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat1"
+  },
+  {
+   "query": "360 room layout estimation",
+   "total": 2,
+   "items": [
+    {
+     "full_name": "LIAGM/Bi_Layout",
+     "url": "https://github.com/LIAGM/Bi_Layout",
+     "stars": 17,
+     "updated": "2024-10-09T23:35:09Z",
+     "created": "2024-09-16T19:41:02Z",
+     "license": "Apache-2.0",
+     "lang": "Python",
+     "desc": "[CVPR 2024] No More Ambiguity in 360° Room Layout via Bi-Layout Estimation",
+     "topics": [
+      "360-image",
+      "bi-layout",
+      "computer-vision",
+      "cvpr",
+      "cvpr2024",
+      "layout-estimation",
+      "panorama",
+      "room-layout"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "zjngjng/Bi_Layout_Amazon",
+     "url": "https://github.com/zjngjng/Bi_Layout_Amazon",
+     "stars": 0,
+     "updated": "2024-09-17T20:18:43Z",
+     "created": "2024-09-17T20:13:43Z",
+     "license": "Apache-2.0",
+     "lang": "Python",
+     "desc": "[CVPR 2024] No More Ambiguity in 360° Room Layout via Bi-Layout Estimation",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat3"
+  },
+  {
+   "query": "panorama layout estimation",
+   "total": 6,
+   "items": [
+    {
+     "full_name": "Starrah/DMH-Net",
+     "url": "https://github.com/Starrah/DMH-Net",
+     "stars": 55,
+     "updated": "2023-07-06T22:44:29Z",
+     "created": "2022-07-19T02:31:01Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Code for 3D Room Layout Estimation from a Cubemap of Panorama Image via Deep Manhattan Hough Transform (ECCV 2022)",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "VCL3D/SingleShotCuboids",
+     "url": "https://github.com/VCL3D/SingleShotCuboids",
+     "stars": 27,
+     "updated": "2022-11-12T11:32:11Z",
+     "created": "2020-08-01T11:45:48Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Code accompanying the paper \"Single-Shot Cuboids: Geodesics-based End-to-end Manhattan Aligned Layout Estimation from Spherical Panoramas\".",
+     "topics": [
+      "360",
+      "3d-reconstruction",
+      "computer-vision",
+      "deep-learning",
+      "geodesic-distance",
+      "geodesics",
+      "layout-estimation",
+      "omnidirectional",
+      "pytorch",
+      "room-layout"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "LIAGM/Bi_Layout",
+     "url": "https://github.com/LIAGM/Bi_Layout",
+     "stars": 17,
+     "updated": "2024-10-09T23:35:09Z",
+     "created": "2024-09-16T19:41:02Z",
+     "license": "Apache-2.0",
+     "lang": "Python",
+     "desc": "[CVPR 2024] No More Ambiguity in 360° Room Layout via Bi-Layout Estimation",
+     "topics": [
+      "360-image",
+      "bi-layout",
+      "computer-vision",
+      "cvpr",
+      "cvpr2024",
+      "layout-estimation",
+      "panorama",
+      "room-layout"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "zhanght021/awesome-3D-Room-Layout-Estimation",
+     "url": "https://github.com/zhanght021/awesome-3D-Room-Layout-Estimation",
+     "stars": 15,
+     "updated": "2021-03-25T01:11:11Z",
+     "created": "2021-03-16T02:12:46Z",
+     "license": null,
+     "lang": null,
+     "desc": "paper list of 3D room layout estimation from panorama or perspective images",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "FlyreelAI/sslayout360",
+     "url": "https://github.com/FlyreelAI/sslayout360",
+     "stars": 12,
+     "updated": "2021-06-01T05:31:12Z",
+     "created": "2021-05-14T18:31:53Z",
+     "license": "Apache-2.0",
+     "lang": "Python",
+     "desc": "[CVPR 2021] Semi-Supervised Indoor Layout Estimation from 360-Degree Panorama",
+     "topics": [
+      "360-photo",
+      "computer-vision",
+      "cvpr2021",
+      "equirectangular-panorama",
+      "layout-estimation",
+      "panorama",
+      "semi-supervised-learning"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "Sbrunoberenguel/scaledLayout",
+     "url": "https://github.com/Sbrunoberenguel/scaledLayout",
+     "stars": 2,
+     "updated": "2022-04-28T10:39:26Z",
+     "created": "2022-03-24T15:06:51Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Python implementation for scaled layout estimation from non-central panoramas",
+     "topics": [
+      "computer-vision",
+      "deep-learning",
+      "geometry",
+      "layout-estimation",
+      "scene-understanding"
+     ],
+     "archived": false
+    }
+   ],
+   "category": "cat3"
+  },
+  {
+   "query": "AtlantaNet",
+   "total": 1,
+   "items": [
+    {
+     "full_name": "crs4/AtlantaNet",
+     "url": "https://github.com/crs4/AtlantaNet",
+     "stars": 84,
+     "updated": "2025-02-18T16:07:02Z",
+     "created": "2020-07-09T16:58:00Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "Pytorch implementation of the ECCV 2020 paper: AtlantaNet: Inferring the 3D Indoor Layout from a Single 360 Image beyond the Manhattan World Assumption",
+     "topics": [
+      "3d-reconstruction",
+      "computer-vision",
+      "indoor-scenes",
+      "panorama-image"
+     ],
+     "archived": false
+    }
+   ],
+   "category": "cat3"
+  },
+  {
+   "query": "DOPNet",
+   "total": 15,
+   "items": [
+    {
+     "full_name": "zhijieshen-bjtu/DOPNet",
+     "url": "https://github.com/zhijieshen-bjtu/DOPNet",
+     "stars": 57,
+     "updated": "2025-04-15T01:17:15Z",
+     "created": "2023-03-01T08:06:19Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "CVPR'2023:Disentangling Orthogonal Planes for Indoor Panoramic Room Layout Estimation with Cross-Scale Distortion Awareness",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "UCLRadarGroup/DopNet",
+     "url": "https://github.com/UCLRadarGroup/DopNet",
+     "stars": 25,
+     "updated": "2024-09-05T12:32:07Z",
+     "created": "2022-01-24T13:32:26Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "ngs00/DopNet",
+     "url": "https://github.com/ngs00/DopNet",
+     "stars": 14,
+     "updated": "2021-05-26T06:53:18Z",
+     "created": "2021-05-25T04:33:24Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "zhijieshen-bjtu/MV-DOPNet",
+     "url": "https://github.com/zhijieshen-bjtu/MV-DOPNet",
+     "stars": 10,
+     "updated": "2025-07-23T02:06:10Z",
+     "created": "2023-12-07T03:04:55Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "TPAMI'24: This is the pytorch implementation of our new work MV-DOPNet. The code will be made publicly avaliable.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "adamguos/dopnet-recognition",
+     "url": "https://github.com/adamguos/dopnet-recognition",
+     "stars": 6,
+     "updated": "2022-07-09T07:18:12Z",
+     "created": "2022-06-29T13:41:42Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Contains code for Mason, Mhaskar, and Guo (2022) -- \"A manifold learning approach for gesture recognition from micro-Doppler radar measurements\"",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "Ceoilmp/DOPNet",
+     "url": "https://github.com/Ceoilmp/DOPNet",
+     "stars": 4,
+     "updated": "2022-12-15T08:52:07Z",
+     "created": "2022-03-10T01:58:30Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "Dense Point Predict",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "Dopnet23/Dopnet",
+     "url": "https://github.com/Dopnet23/Dopnet",
+     "stars": 1,
+     "updated": "2024-08-18T19:09:23Z",
+     "created": "2024-08-18T18:55:11Z",
+     "license": null,
+     "lang": "JavaScript",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "daniloopinheiro/dopNetSentry",
+     "url": "https://github.com/daniloopinheiro/dopNetSentry",
+     "stars": 1,
+     "updated": "2026-01-28T14:20:10Z",
+     "created": "2026-01-26T00:31:38Z",
+     "license": "NOASSERTION",
+     "lang": "C#",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "daniloopinheiro/dopNetAngular14",
+     "url": "https://github.com/daniloopinheiro/dopNetAngular14",
+     "stars": 1,
+     "updated": "2026-02-06T06:39:07Z",
+     "created": "2023-03-01T18:38:25Z",
+     "license": null,
+     "lang": "TypeScript",
+     "desc": "SPA com Angular 14 e ASP.NET 8 (preview). Projeto fullstack moderno com CLI integrada, navegação via Angular Router, build automatizado com dotnet publish, testes com Karma e Protractor. Ideal para ap",
+     "topics": [
+      "angular",
+      "angularcli",
+      "aspnetcore",
+      "bootstrap",
+      "httpclient",
+      "typescript"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "daniloopinheiro/dopNetAngular8",
+     "url": "https://github.com/daniloopinheiro/dopNetAngular8",
+     "stars": 1,
+     "updated": "2026-02-04T07:38:50Z",
+     "created": "2023-03-01T18:35:46Z",
+     "license": null,
+     "lang": "TypeScript",
+     "desc": "Aplicação SPA integrada com ASP.NET Core 5 (back-end) e Angular 8 (front-end). Demonstra navegação com Angular Router, build automático com dotnet publish, e comunicação via HTTP Client entre Angular ",
+     "topics": [
+      "angular",
+      "angularcli",
+      "aspnet-core",
+      "bootstrap",
+      "httpclient",
+      "typescript"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "linkewanjia-crypto/Dopnet",
+     "url": "https://github.com/linkewanjia-crypto/Dopnet",
+     "stars": 0,
+     "updated": "2026-10-15T12:45:52Z",
+     "created": "2026-10-15T08:49:36Z",
+     "license": "MIT",
+     "lang": "Python",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "kittikhun62/Project-DOPnet",
+     "url": "https://github.com/kittikhun62/Project-DOPnet",
+     "stars": 0,
+     "updated": "2022-11-20T08:00:10Z",
+     "created": "2022-09-22T14:14:19Z",
+     "license": null,
+     "lang": "Jupyter Notebook",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat3"
+  },
+  {
+   "query": "HoHoNet layout",
+   "total": 0,
+   "items": [],
+   "category": "cat3"
+  },
+  {
+   "query": "panorama floorplan estimation created:>2023-06-01",
+   "total": 0,
+   "items": [],
+   "category": "cat3"
+  },
+  {
+   "query": "equirectangular room layout onnx",
+   "total": 0,
+   "items": [],
+   "category": "cat3"
+  },
+  {
+   "query": "Bi-Layout",
+   "total": 913,
+   "items": [
+    {
+     "full_name": "eonist/FlowLayout",
+     "url": "https://github.com/eonist/FlowLayout",
+     "stars": 180,
+     "updated": "2023-09-30T21:18:11Z",
+     "created": "2018-08-03T21:18:41Z",
+     "license": "MIT",
+     "lang": "Swift",
+     "desc": "Bi-directional layout framework for iOS",
+     "topics": [
+      "animation",
+      "apple",
+      "flowlayout",
+      "ios",
+      "swift",
+      "ui",
+      "uinavigationbar",
+      "uinavigationcontroller",
+      "uiview",
+      "ux"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "neochief/birman-typography-layouts-for-ubuntu",
+     "url": "https://github.com/neochief/birman-typography-layouts-for-ubuntu",
+     "stars": 114,
+     "updated": "2021-09-12T09:16:23Z",
+     "created": "2017-02-21T14:23:22Z",
+     "license": null,
+     "lang": "HTML",
+     "desc": "Типографские раскладки Ильи Бирмана для Ubuntu",
+     "topics": [
+      "keyboard-layout",
+      "typography",
+      "ubuntu"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "NatVanG/PBI-Inspector",
+     "url": "https://github.com/NatVanG/PBI-Inspector",
+     "stars": 109,
+     "updated": "2024-07-14T18:59:43Z",
+     "created": "2023-03-29T19:12:12Z",
+     "license": "MIT",
+     "lang": "C#",
+     "desc": "A rules-based Power BI report layout testing tool.",
+     "topics": [
+      "powerbi",
+      "powerbi-desktop",
+      "powerbi-visuals"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "smessmer/binary-layout",
+     "url": "https://github.com/smessmer/binary-layout",
+     "stars": 76,
+     "updated": "2024-12-13T05:02:05Z",
+     "created": "2021-05-01T05:56:09Z",
+     "license": "Apache-2.0",
+     "lang": "Rust",
+     "desc": "The binary-layout library allows type-safe, inplace, zero-copy access to structured binary data. You define a custom data layout and give it a slice of binary data, and it will allow you to read and w",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "bizibizi/BIZGrid4plus1CollectionViewLayout",
+     "url": "https://github.com/bizibizi/BIZGrid4plus1CollectionViewLayout",
+     "stars": 46,
+     "updated": "2016-01-05T02:16:40Z",
+     "created": "2015-12-11T16:49:07Z",
+     "license": "MIT",
+     "lang": "Objective-C",
+     "desc": "BIZGrid4plus1CollectionViewLayout is a subclass of UICollectionViewLayout that creates grid with cell order: 4 small + 1 big, 4 small, 1 big + 4 small, 4 small.",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "akashraje/BidirectionalCollectionViewLayout",
+     "url": "https://github.com/akashraje/BidirectionalCollectionViewLayout",
+     "stars": 46,
+     "updated": "2017-03-20T02:39:01Z",
+     "created": "2015-08-02T14:50:58Z",
+     "license": "MIT",
+     "lang": "Objective-C",
+     "desc": "CollectionView scrollable horizontally and vertically, supports cell reusability and option floating headers",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "vohidjon123/google",
+     "url": "https://github.com/vohidjon123/google",
+     "stars": 45,
+     "updated": "2022-04-13T14:01:22Z",
+     "created": "2022-04-13T14:01:22Z",
+     "license": null,
+     "lang": null,
+     "desc": "(function(sttc){/*     Copyright The Closure Library Authors.   SPDX-License-Identifier: Apache-2.0  */  var n;function aa(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "jcmkk3/bird-layout",
+     "url": "https://github.com/jcmkk3/bird-layout",
+     "stars": 36,
+     "updated": "2024-03-02T00:29:05Z",
+     "created": "2023-07-17T21:23:13Z",
+     "license": null,
+     "lang": null,
+     "desc": "A keyboard alpha layout for birds",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "Zerg00s/Power-BI-Backgrounds",
+     "url": "https://github.com/Zerg00s/Power-BI-Backgrounds",
+     "stars": 33,
+     "updated": "2025-04-18T17:37:22Z",
+     "created": "2024-02-12T02:07:26Z",
+     "license": null,
+     "lang": "JavaScript",
+     "desc": "An open-source tool for creating free, customizable backgrounds for Power BI reports. Choose layouts, set color schemes, and download SVG backgrounds to enhance your Power BI visualizations",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "jsuarezruiz/BindableLayoutPlayground",
+     "url": "https://github.com/jsuarezruiz/BindableLayoutPlayground",
+     "stars": 26,
+     "updated": "2020-04-20T17:39:39Z",
+     "created": "2019-01-13T12:23:18Z",
+     "license": null,
+     "lang": "C#",
+     "desc": "Xamarin.Forms BindableLayout Playground.",
+     "topics": [
+      "bindable-layout",
+      "css",
+      "xamarin-forms",
+      "xaml"
+     ],
+     "archived": false
+    },
+    {
+     "full_name": "andreinitescu/BindableLayoutsApp",
+     "url": "https://github.com/andreinitescu/BindableLayoutsApp",
+     "stars": 26,
+     "updated": "2018-12-08T07:27:05Z",
+     "created": "2018-12-07T18:06:18Z",
+     "license": "MIT",
+     "lang": "C#",
+     "desc": "",
+     "topics": [],
+     "archived": false
+    },
+    {
+     "full_name": "hk1ll3r/BidirectionalHorizontalLayoutGroup",
+     "url": "https://github.com/hk1ll3r/BidirectionalHorizontalLayoutGroup",
+     "stars": 23,
+     "updated": "2021-01-15T07:24:43Z",
+     "created": "2020-01-05T03:46:18Z",
+     "license": "MIT",
+     "lang": "C#",
+     "desc": "A horizontal layout group for Unity UI that supports both left-to-right and right-to-left.",
+     "topics": [],
+     "archived": false
+    }
+   ],
+   "category": "cat3"
+  },
+  {
+   "query": "horizon net layout panorama",
+   "total": 1,
+   "items": [
+    {
+     "full_name": "Shahzad-Khan9294/DuLaNet_HorizonNet_Implementation",
+     "url": "https://github.com/Shahzad-Khan9294/DuLaNet_HorizonNet_Implementation",
+     "stars": 1,
+     "updated": "2025-08-17T19:20:45Z",
+     "created": "2025-08-16T10:30:56Z",
+     "license": null,
+     "lang": "Python",
+     "desc": "The system processes panoramic indoor images to estimate the 3D layout of a room. A 360° panorama is provided as input, which undergoes preprocessing steps such as alignment using rotation matrices. N",
+     "topics": [],
+     "archived": true
+    }
+   ],
+   "category": "cat3"
+  }
+ ],
+ "_meta": {
+  "generated": "2026-11-04T08:51:48.618370",
+  "token_used": true
+ }
+}
