@@ -1,0 +1,5 @@
+{
+ "composite_psnr_vs_gt_db": 24.58,
+ "pearson_corr_identity": 0.923,
+ "mean_lum_ratio": 0.987
+}
