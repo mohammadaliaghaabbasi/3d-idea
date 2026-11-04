@@ -1,0 +1,15 @@
+{
+ "pano_ref_laplacian": 181.4,
+ "0.20m": {
+  "composite_laplacian": 170.0,
+  "retention_pct": 93.7
+ },
+ "0.75m": {
+  "composite_laplacian": 176.4,
+  "retention_pct": 97.2
+ },
+ "1.30m": {
+  "composite_laplacian": 181.4,
+  "retention_pct": 100.0
+ }
+}
