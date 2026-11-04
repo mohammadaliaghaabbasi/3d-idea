@@ -1,0 +1,41 @@
+{
+ "scene": "cabin",
+ "pano": {
+  "size": [
+   4096,
+   2048
+  ],
+  "md5": "253ecf743664887cdfe29936f01facb1"
+ },
+ "shell_profile": {
+  "bins": 144,
+  "min_m": 2.94,
+  "p10_m": 3.06,
+  "median_m": 4.12,
+  "open_azimuths_gt_5m": 52,
+  "SAFE_R_m": 1.3,
+  "method": "doc-12 measured cylindrical shell (eye-height band, 5th-pct per 2.5deg bin), margin 0.35m, capped at tested 1.30m"
+ },
+ "pipeline": {
+  "splat_count": 132349,
+  "ply_mb": 32.82,
+  "spz_kb": 1090.4,
+  "compression_x": 30.1,
+  "times_s": {
+   "dav2_cpu": 5.69,
+   "ply_export": 0.32,
+   "spz_encode": 0.39,
+   "total": 6.87
+  },
+  "calibration": {
+   "scale_k": 7.153,
+   "cam_h_assumed_m": 1.5,
+   "floor_rows": 66430
+  },
+  "peak_rss_mb": 954.4
+ },
+ "outputs": {
+  "ply": "/tmp/splat/cabin_splat.ply",
+  "spz_lab_asset": "/home/z/my-project/3d-idea/public/labs/engine-v1/assets/cabin_splat.spz"
+ }
+}
