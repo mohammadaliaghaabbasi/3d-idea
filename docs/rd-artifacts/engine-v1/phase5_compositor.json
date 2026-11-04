@@ -1,0 +1,16 @@
+{
+ "camera": {
+  "offset_m": 0.75,
+  "dir": "+x (URL %2Bx)",
+  "yaw_deg": 90,
+  "looking": "-x toward origin"
+ },
+ "state_verification": "pos=[0.75,0,0] blend=0/1/0.5 verified in-page at each capture",
+ "fade_math_psnr (M vs 0.5A+0.5B)": 34.3,
+ "brightness M vs synth": [
+  110.5,
+  110.4
+ ],
+ "ghosting_budget_psnr (A vs B)": 20.3,
+ "pixels_changed_gt20_pct": 27.4
+}

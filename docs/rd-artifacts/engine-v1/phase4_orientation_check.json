@@ -1,22 +1,16 @@
 {
- "screenshot": {
-  "w": 1280,
-  "h": 577,
-  "crop": [
-   179,
-   81,
-   921,
-   415
-  ]
+ "pure_splat_hypotheses": {
+  "identity(yaw-90)": 0.758,
+  "yaw+90": 0.032,
+  "yaw180": -0.066,
+  "yaw0": -0.087,
+  "pitch+40": 0.142
  },
- "hole_pct_screen": 0.95,
- "hypothesis_psnr_db": {
-  "correct(yaw=-90,pitch=-2)": 14.67,
-  "yaw=+90 (looking +z)": 13.3,
-  "yaw=180 (looking +x)": 13.06,
-  "yaw=0 (looking -z)": 12.33
- },
- "winner": "correct(yaw=-90,pitch=-2)",
- "margin_db": 1.37,
- "verdict": "CHECK FAILED"
+ "pure_splat_winner": "identity(yaw-90)",
+ "pure_splat_psnr_vs_gt": 16.7,
+ "pure_splat_mean_lum_ratio": 0.743,
+ "pure_splat_black_pct": 1.11,
+ "composite_psnr_vs_gt": 24.7,
+ "composite_pearson": 0.925,
+ "composite_lum_ratio": 0.987
 }

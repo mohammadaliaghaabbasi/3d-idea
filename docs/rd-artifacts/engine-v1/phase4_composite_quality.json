@@ -1,5 +1,16 @@
 {
- "composite_psnr_vs_gt_db": 24.58,
- "pearson_corr_identity": 0.923,
- "mean_lum_ratio": 0.987
+ "pure_splat_hypotheses": {
+  "identity(yaw-90)": 0.758,
+  "yaw+90": 0.032,
+  "yaw180": -0.066,
+  "yaw0": -0.087,
+  "pitch+40": 0.142
+ },
+ "pure_splat_winner": "identity(yaw-90)",
+ "pure_splat_psnr_vs_gt": 16.7,
+ "pure_splat_mean_lum_ratio": 0.743,
+ "pure_splat_black_pct": 1.11,
+ "composite_psnr_vs_gt": 24.7,
+ "composite_pearson": 0.925,
+ "composite_lum_ratio": 0.987
 }

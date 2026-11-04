@@ -9,11 +9,11 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
 const Q = new URLSearchParams(location.search);
 const scene  = Q.get('scene') || 'cabin';
 const PANO   = Q.get('pano') !== '0';
-const BLEND  = Q.get('blend') || 'auto';          // auto | 0 | 1
+let BLEND  = Q.get('blend') || 'auto';        // auto | 0 | 1 | <any value> — mutable via __lab.lockBlend
 const FADE_MS = parseFloat(Q.get('fade') || '350');
 const SAFE_R = parseFloat(Q.get('safeR') || '1.3');
 const OFF0   = parseFloat(Q.get('offset') || '0');
-const DIR0   = Q.get('dir') || '+x';
+const DIR0   = (Q.get('dir') || '+x').replace(/ /g, '+');   // URL '+' decodes to space — restore it
 const ERR = [];
 window.__labErrors = ERR;
 window.addEventListener('error', e => { ERR.push(String(e.message || e)); showErr(); });
@@ -41,9 +41,12 @@ if (PANO) {
   const tex = await new THREE.TextureLoader().loadAsync(`../../assets/panoramas/${scene}.jpg`);
   tex.colorSpace = THREE.SRGBColorSpace;
   const geo = new THREE.SphereGeometry(500, 128, 96);
-  panoMat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide, toneMapped: false, transparent: true, opacity: 1 });
+  // OPAQUE backdrop — deterministic layering: the opaque pass always renders before
+  // the splat transparent pass, so the splat composites OVER the pano (no sort ties).
+  panoMat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide, toneMapped: false, transparent: false, opacity: 1 });
   const mesh = new THREE.Mesh(geo, panoMat);
   mesh.frustumCulled = false;
+  mesh.renderOrder = -100;   // draw before everything
   scene3d.add(mesh);
 }
 
@@ -113,9 +116,9 @@ let sCur = BLEND === '1' ? 1 : 0;            // current splat blend
 let sTarget = sCur;
 const state = { mode: BLEND, offset0: pos.length() };
 function updateBlend(dt, dist) {
-  if (BLEND === '1') sTarget = 1;
-  else if (BLEND === '0') sTarget = 0;
-  else {
+  const b = parseFloat(BLEND);
+  if (!isNaN(b)) sTarget = Math.max(0, Math.min(1, b));   // locked numeric blend (deterministic capture)
+  else if (BLEND === 'auto') {
     // zone logic: pano is the main view at rest & beyond the safe radius;
     // the splat owns the view while actively walking inside the tested region.
     if (dist > SAFE_R + 1e-3) sTarget = 0;
@@ -185,6 +188,7 @@ window.__lab = {
   setOffset(dir, m) { pos.set(0, 0, 0); if (DIRV[dir]) pos.fromArray(DIRV[dir]).multiplyScalar(m); },
   look(y, p) { yaw = y; pitch = p; },
   forceBlend(v) { sCur = sTarget = v; },
+  lockBlend(v) { BLEND = (v === null ? 'auto' : String(v)); if (v !== null) sCur = sTarget = v; return BLEND; },
   crossfadeTest() {          // deterministic 0->1->0 sweep for PHASE 5 ghosting measurement
     return new Promise(res => {
       let t0 = null, phase = 0;
