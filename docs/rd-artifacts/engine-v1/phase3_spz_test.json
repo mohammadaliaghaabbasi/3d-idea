@@ -1,0 +1,98 @@
+{
+ "steps": [
+  {
+   "step": "load_ply_intermediate",
+   "pass": true,
+   "detail": "132,349 points loaded in 0.04s from cabin_splat.ply (32.82 MB, kept on disk)"
+  },
+  {
+   "step": "spz_encode",
+   "pass": true,
+   "detail": "encoded 32.82 MB PLY -> 1090 KB SPZ in 0.11s = 30.1x compression, magic=b'NGS', version byte=80"
+  },
+  {
+   "step": "spz_decode_count",
+   "pass": true,
+   "detail": "decoded 132,349 points in 0.02s (Zero loss of point count)"
+  },
+  {
+   "step": "roundtrip_positions",
+   "pass": true,
+   "detail": "position delta: max 0.12 mm, mean 0.0610 mm (<=5mm)"
+  },
+  {
+   "step": "roundtrip_scales",
+   "pass": true,
+   "detail": "scale delta: max 4.10 mm, mean 0.5075 mm"
+  },
+  {
+   "step": "roundtrip_colors",
+   "pass": true,
+   "detail": "color delta (SH DC): max 0.0130, mean 0.00654 (f_dc units)"
+  },
+  {
+   "step": "roundtrip_alphas",
+   "pass": true,
+   "detail": "opacity delta (linear): max 0.00098 (log-space 0.0205 -> linear ~0.001; SPZ quantizes alpha, constant 0.95 source)"
+  },
+  {
+   "step": "roundtrip_rotations",
+   "pass": true,
+   "detail": "rot delta max 0.0000 (ours are identity (1,0,0,0))"
+  },
+  {
+   "step": "orientation_preserved_x",
+   "pass": true,
+   "detail": "p1/p99 axis x: -4.63/9.26 vs -4.63/9.26 (no axis flip/swap)"
+  },
+  {
+   "step": "orientation_preserved_y",
+   "pass": true,
+   "detail": "p1/p99 axis y: -2.75/3.34 vs -2.75/3.34 (no axis flip/swap)"
+  },
+  {
+   "step": "orientation_preserved_z",
+   "pass": true,
+   "detail": "p1/p99 axis z: -4.87/10.40 vs -4.87/10.40 (no axis flip/swap)"
+  },
+  {
+   "step": "roundtrip_ply_reexport",
+   "pass": true,
+   "detail": "re-exported PLY 32.82 MB (original 32.82 MB, same INRIA schema); PLY source files untouched on disk"
+  },
+  {
+   "step": "render_quality_before_after",
+   "pass": true,
+   "detail": "PSNR(before,after) on jointly-covered pixels: origin 44.3 dB, +1.3m 43.3 dB, +0.9m z 45.5 dB; coverage-mask disagreement 0.74/0.39/0.78% (binary disk proxy flicker at lattice seams; Spark renders blended gaussians - final check there)"
+  }
+ ],
+ "verdict": "ALL SPZ PIPELINE CHECKS PASS",
+ "sizes": {
+  "ply_mb": 32.82,
+  "spz_kb": 1090.4,
+  "ratio": 30.1
+ },
+ "deltas": {
+  "pos_max_mm": 0.122,
+  "pos_mean_mm": 0.061,
+  "scale_max_mm": 4.103,
+  "color_max": 0.01298,
+  "alpha_max": 0.00098
+ },
+ "render_psnr": {
+  "origin": 44.3,
+  "off_1p3m_x": 43.3,
+  "off_0p9m_z": 45.5
+ },
+ "coverage_disagreement_pct": {
+  "origin": 0.74,
+  "off_1p3m_x": 0.39,
+  "off_0p9m_z": 0.78
+ },
+ "spz_version_byte": 80,
+ "times_s": {
+  "load_ply": 0.04,
+  "encode": 0.11,
+  "decode": 0.02
+ }
+}
