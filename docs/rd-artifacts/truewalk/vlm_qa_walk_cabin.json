@@ -1,6 +1,0 @@
-{
- "label": "cabin 3D walk",
- "shot": "/tmp/render/qa_walk_cabin.jpg",
- "verdict": "PASS",
- "raw": "The scene renders coherently: enclosed wooden walls, ceiling, floor visible at bottom, a window showing sky, furniture (beds/benches) placed plausibly, and HUD elements are readable without problematic overlap. No black view, no void, no floating/intersecting geometry apparent.\n\nVERDICT: PASS\n"
-}

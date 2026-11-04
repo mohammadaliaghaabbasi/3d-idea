@@ -1,6 +1,0 @@
-{
- "label": "anniversary_lounge 3D walk",
- "shot": "/tmp/render/qa_walk_anniversary_lounge.jpg",
- "verdict": "PASS",
- "raw": "The scene renders coherently: wooden floor, walls with trim, a red rug, a glass table with a brass base, and a large green upholstered object are all grounded properly. The semi-transparent tabletop is intentional glass rendering, not a glitch. No voids, no absurd floating, no self-intersection. HUD elements (title card, top toolbar, bottom controls) are readable and don't overlap destructively.\n\nVERDICT: PASS\n"
-}

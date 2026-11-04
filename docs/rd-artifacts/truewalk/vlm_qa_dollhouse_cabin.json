@@ -1,6 +1,0 @@
-{
- "label": "cabin dollhouse",
- "shot": "/tmp/render/qa_dollhouse_cabin.jpg",
- "verdict": "PASS",
- "raw": "The scene renders coherently: walls, floor, window opening, bunk bed, second bed, rug, table, and lamp are all present and properly grounded. The lamp hangs from an unseen ceiling point, which is acceptable at this camera angle. HUD elements are readable and don't obscure critical geometry. No voids, black views, or intersecting geometry.\n\nVERDICT: PASS\n"
-}

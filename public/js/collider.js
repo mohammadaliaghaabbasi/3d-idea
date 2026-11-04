@@ -214,28 +214,13 @@ export class WalkFX {
   /** Show the footstep target marker at a floor point (double-tap). */
   showTarget(p) {
     this.target.position.set(p.x, 0.022, p.z);
-    this.target.visible = this._fxVisible !== false;
+    this.target.visible = true;
     this._targetFade = 1;
     this._targetPulse = 0;
   }
 
-  /** Stage 2.1 mode visibility: 'walk' shows grounding FX only (the real
-   *  furniture is there now — glass ghosts stay hidden); photo/dollhouse
-   *  hide ALL overlays.  (Owner order 2026-11-03.) */
-  setMode(mode) {
-    const fx = mode === "walk";
-    this._fxVisible = fx;
-    this.grid.visible = fx;
-    this.ring.visible = fx;
-    this.target.visible = fx && this.target.visible;
-    for (const it of this.halos.items) { it.line.visible = false; it.fill.visible = false; }
-    for (const m of this.proxies.meshes) m.visible = false;
-    this._proxiesOn = false;
-  }
-
   /** @param vpos virtual walk position · camPos camera (real) · speed m/s */
   update(dt, vpos, camPos, speed) {
-    if (this._fxVisible === false) return;
     const moving = speed > 0.15;
     this._pulse += dt * 1.6;
 
@@ -266,10 +251,8 @@ export class WalkFX {
       if (this._targetFade <= 0.01 && arrived) this.target.visible = false;
     }
 
-    if (this._showGhosts) {              // Stage 2.1: real furniture replaces glass ghosts
-      this.halos.update(dt, vpos);
-      this.proxies.update(dt, vpos, moving);
-    }
+    this.halos.update(dt, vpos);
+    this.proxies.update(dt, vpos, moving);
   }
 
   dispose(scene) {

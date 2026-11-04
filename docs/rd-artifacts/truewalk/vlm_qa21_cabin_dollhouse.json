@@ -1,6 +1,0 @@
-{
- "label": "cabin dollhouse (mobile)",
- "shot": "/tmp/render/qa21_cabin_dollhouse.jpg",
- "verdict": "PASS",
- "raw": "The room renders coherently: wood walls, floor, bed, lamp, furniture all present, HUD readable.\n\nVERDICT: PASS\n"
-}

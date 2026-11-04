@@ -1,6 +1,0 @@
-{
- "label": "ballroom dollhouse",
- "shot": "/tmp/render/qa_dollhouse_ballroom.jpg",
- "verdict": "PASS",
- "raw": "The room renders coherently: complete floor, walls, windows, doors, chandeliers, furniture, and readable HUD elements with no overlaps. VERDICT: PASS\n"
-}

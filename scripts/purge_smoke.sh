@@ -64,6 +64,23 @@ expect "villa fov locked 72" "$(EV d 'window.__panodrome.fov()')" eq 72
 CARTOON404='(() => fetch("/assets/true3d/cabin.glb").then(r => r.status).catch(() => "ERR"))()'
 expect "cartoon cabin.glb = 404 on clean server" "$(EV d "$CARTOON404")" eq 404
 
+echo "--- A2) radar (ported from 6b1b51e, now actually visible) ---"
+for i in $(seq 1 12); do
+  RP=$(EV d 'window.__panodrome.radarPixels()')
+  [ "${RP:-0}" -gt 3000 ] 2>/dev/null && break
+  agent-browser --session d wait 1200
+done
+expect "btn-radar .on by default" "$(EV d 'document.getElementById("btn-radar").classList.contains("on")')" eq true
+expect "radar-wrap unhides (fixes upgrade bug)" "$(EV d 'document.getElementById("radar-wrap").classList.contains("hud-hidden")')" eq false
+expect "radar canvas draws (>3000 lit px)" "$(EV d 'window.__panodrome.radarPixels()')" num_gt 3000
+EV d 'document.getElementById("btn-radar").click()' >/dev/null 2>&1
+agent-browser --session d wait 700
+expect "radar collapses on toggle" "$(EV d 'window.__panodrome.radar.wrap.classList.contains("collapsed")')" eq true
+EV d 'document.getElementById("btn-radar").click()' >/dev/null 2>&1
+agent-browser --session d wait 700
+expect "radar re-expands on 2nd toggle" "$(EV d 'window.__panodrome.radar.wrap.classList.contains("collapsed")')" eq false
+expect "zero errors after radar interaction" "$(ERRCOUNT d)" eq 0
+
 echo "--- B) pano room cabin: pure sphere ---"
 EV d 'window.__panodrome.gotoRoom("cabin").then(r => "goto:" + r)' >/dev/null 2>&1
 agent-browser --session d wait 2600

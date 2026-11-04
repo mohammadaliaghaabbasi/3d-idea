@@ -1,6 +1,0 @@
-{
- "label": "anniversary_lounge dollhouse",
- "shot": "/tmp/render/qa_dollhouse_anniversary_lounge.jpg",
- "verdict": "PASS",
- "raw": "The scene renders as a coherent dollhouse view of a lounge: walls, wood floor, red rug, green furniture, chandelier, and side tables are all present and grounded. The HUD elements (title card, toolbar, bottom control bar) are readable and don't obstruct the scene critically. Furniture styles are simple/low-poly, which is acceptable stylisation, not a defect. No black view, no void, no absurd floating geometry, and no unreadable overlays.\n\nVERDICT: PASS\n"
-}

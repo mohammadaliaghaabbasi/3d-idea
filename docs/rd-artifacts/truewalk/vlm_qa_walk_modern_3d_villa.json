@@ -1,6 +1,0 @@
-{
- "label": "modern_3d_villa 3D walk",
- "shot": "/tmp/render/qa_walk_modern_3d_villa.jpg",
- "verdict": "PASS",
- "raw": "The scene shows a wall, doorway/window with sky visible outside, a floor lamp, baseboard, and wooden floor. HUD elements (top bar, bottom toolbar, navigation pill) are readable and non-overlapping. The lamp pole crossing the doorway is plausible perspective — a floor lamp standing in front of the opening — not geometry intersecting itself. No void, no floating geometry, no black view.\n\nVERDICT: PASS\n"
-}
