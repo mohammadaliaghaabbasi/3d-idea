@@ -1,0 +1,106 @@
+{
+ "checks": [
+  {
+   "check": "pano_md5_unchanged",
+   "pass": true,
+   "detail": "md5=253ecf743664887cdfe29936f01facb1 vs expected 253ecf743664887cdfe29936f01facb1"
+  },
+  {
+   "check": "pano_is_4k_equirect",
+   "pass": true,
+   "detail": "size 4096x2048 (2:1)"
+  },
+  {
+   "check": "dav2_output_finite",
+   "pass": true,
+   "detail": "grid (518, 1022), disp [0.213,6.861] @ 2.34s CPU"
+  },
+  {
+   "check": "floor_metric_calibration",
+   "pass": true,
+   "detail": "scale k=7.153, floor rows=66430, median floor y=-1.500 m (target -1.5), p10-p90 spread 0.33 m"
+  },
+  {
+   "check": "depth_magnitude_sane",
+   "pass": true,
+   "detail": "depth median=2.48 m, p99=12.9 m (clamped 0.3-60)"
+  },
+  {
+   "check": "unproj_u_convention_matches_room_js",
+   "pass": true,
+   "detail": "col 255: u=0.250000 == (col+0.5)/GW=0.250000  [room.js: u=atan2(dz,-dx)/2pi]"
+  },
+  {
+   "check": "unproj_v_convention_top_is_sky",
+   "pass": true,
+   "detail": "image row 0 -> phi=+89.8 deg (up/sky) as room.js expects; equator row 259 -> v_img=0.501 (=0.5)"
+  },
+  {
+   "check": "gaussian_count",
+   "pass": true,
+   "detail": "132,349 splats (GH/2 x GW/2 stride-2 selection)"
+  },
+  {
+   "check": "gaussian_params_sane",
+   "pass": true,
+   "detail": "opacity=0.95 const, scales in [0.020,0.14] m, colors in [0,1]: 0.000..1.000"
+  },
+  {
+   "check": "ply_header_inria_3dgs_schema",
+   "pass": true,
+   "detail": "vertex=132,349, properties=62 (x..nz + f_dc_0..2 + f_rest_0..44 + opacity + scales + rot)"
+  },
+  {
+   "check": "ply_size_consistent",
+   "pass": true,
+   "detail": "32.82 MB == header 1531B + 132349x62x4B"
+  },
+  {
+   "check": "ply_positions_finite_in_range",
+   "pass": true,
+   "detail": "all 62 cols finite; |x|max=20.6 m, y[-8.4,7.0], |z|max=26.7 m; floor-y median -1.46 m"
+  },
+  {
+   "check": "ply_opacity_rot_schema",
+   "pass": true,
+   "detail": "log-opacity=2.944 (=ln19, sigmoid->0.95), scale_0==scale_1==scale_2 (isotropic), rot_0..3=(1,0,0,0)"
+  },
+  {
+   "check": "render_identity_at_origin",
+   "pass": true,
+   "detail": "COMPOSITED origin view vs pano ground-truth: PSNR=29.1 dB (splat-only pixel match: mean|diff|=3.2/255), splat-only hole 4.04% -> zero user-visible holes (pano backdrop)"
+  },
+  {
+   "check": "parallax_at_1p3m_reproduced",
+   "pass": true,
+   "detail": "offset 1.30 m: sprite-proxy hole ratio 5.6% vs origin 4.04% (disocclusion = real parallax)"
+  }
+ ],
+ "times_s": {
+  "dav2_cpu": 2.34,
+  "identity_render": 0.2
+ },
+ "notes": [
+  "coverage: raw 1-sigma disk hole 24.7% (pessimistic); 2-sigma sprite-proxy hole 4.04% (far-field lattice seams: window/outdoor depth>8m). In the compositor these fall through to the pano layer (exact GT at origin) => user-visible holes at origin = 0."
+ ],
+ "peak_rss_mb": 819.0,
+ "total_wall_s": 3.02,
+ "ply_mb": 32.82,
+ "splat_count": 132349,
+ "calibration": {
+  "scale_k": 7.153,
+  "cam_h_assumed_m": 1.5,
+  "floor_rows_used": 66430,
+  "floor_y_median_m": -1.5,
+  "floor_y_p10_p90_m": [
+   -1.67,
+   -1.34
+  ]
+ },
+ "identity": {
+  "psnr_db": 29.1,
+  "mean_abs_diff_255": 3.2,
+  "hole_ratio_origin": 0.0404
+ },
+ "verdict": "ALL CHECKS PASS"
+}

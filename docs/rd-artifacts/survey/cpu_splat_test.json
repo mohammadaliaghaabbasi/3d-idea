@@ -9,11 +9,11 @@
  "splat_count": 132349,
  "ply_mb": 32.82,
  "times_s": {
-  "dav2_cpu": 5.68,
-  "unproj": 0.3,
-  "ply_export": 0.37,
-  "2_cpu_renders": 0.5,
-  "total": 6.35
+  "dav2_cpu": 2.51,
+  "unproj": 0.1,
+  "ply_export": 0.15,
+  "2_cpu_renders": 0.2,
+  "total": 2.76
  },
  "calibration": {
   "scale_k": 7.153,

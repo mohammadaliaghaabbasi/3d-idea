@@ -1,0 +1,234 @@
+[
+ {
+  "id": "dav2",
+  "repo": "LiheYoung/Depth-Anything-V2",
+  "role": "depth weights source repo",
+  "claim": "Apache-2.0 (owner claim)",
+  "error": "HTTP Error 404: Not Found"
+ },
+ {
+  "id": "spz",
+  "repo": "nianticlabs/spz",
+  "role": "PLY->SPZ compression (prod)",
+  "claim": "MIT (owner claim)",
+  "spdx": "MIT",
+  "license_name": "MIT License",
+  "stars": 942,
+  "pushed_at": "2026-11-02T22:32:17Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": "MIT License\n\nCopyright (c) 2024 Niantic Labs\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to"
+ },
+ {
+  "id": "spark",
+  "repo": "sparkjsdev/spark",
+  "role": "web splat viewer (target runtime)",
+  "claim": "MIT (owner claim)",
+  "spdx": "MIT",
+  "license_name": "MIT License",
+  "stars": 3871,
+  "pushed_at": "2026-10-20T04:12:52Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": "The MIT License\n\nCopyright © 2025 WORLD LABS TECHNOLOGIES, INC.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and t"
+ },
+ {
+  "id": "gs3d",
+  "repo": "mkkellogg/GaussianSplats3D",
+  "role": "fallback viewer (three 0.160)",
+  "claim": "MIT (owner claim)",
+  "spdx": "MIT",
+  "license_name": "MIT License",
+  "stars": 2938,
+  "pushed_at": "2025-10-19T22:58:20Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": "The MIT License (MIT)\n\nCopyright (c) 2023 Mark Kellogg\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit "
+ },
+ {
+  "id": "three",
+  "repo": "mrdoob/three.js",
+  "role": "webGL engine (prod 0.160 + lab 0.180)",
+  "claim": "MIT (owner claim)",
+  "spdx": "MIT",
+  "license_name": "MIT License",
+  "stars": 117536,
+  "pushed_at": "2026-11-04T10:07:21Z",
+  "archived": false,
+  "default_branch": "dev",
+  "license_head": "The MIT License\n\nCopyright © 2010-2026 three.js authors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit"
+ },
+ {
+  "id": "onnxruntime",
+  "repo": "microsoft/onnxruntime",
+  "role": "CPU inference runtime",
+  "claim": "MIT",
+  "spdx": "MIT",
+  "license_name": "MIT License",
+  "stars": 22220,
+  "pushed_at": "2026-11-04T07:52:55Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": "MIT License\n\nCopyright (c) Microsoft Corporation\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit person"
+ },
+ {
+  "id": "spag4d",
+  "repo": "cedarconnor/SPAG4d",
+  "role": "architecture reference (idea only, code NOT copied)",
+  "claim": "owner says now MIT — verify",
+  "spdx": null,
+  "license_name": null,
+  "stars": 232,
+  "pushed_at": "2026-06-12T13:55:51Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": null
+ },
+ {
+  "id": "ringsplat",
+  "repo": "DECK6/ringsplat",
+  "role": "unverified by owner — verify repo+license",
+  "claim": "MIT claimed by owner",
+  "spdx": "MIT",
+  "license_name": "MIT License",
+  "stars": 4,
+  "pushed_at": "2026-04-25T16:29:41Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": "MIT License\n\nCopyright (c) 2026 DECK6\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom t"
+ },
+ {
+  "id": "sharp",
+  "repo": "apple-aiml-research/ml-sharp",
+  "role": "RESTRICTED candidate",
+  "claim": "code: Apple Sample Code / weights: research-only",
+  "spdx": "NOASSERTION",
+  "license_name": "Other",
+  "stars": 9032,
+  "pushed_at": "2026-09-11T16:04:32Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": "Copyright (C) 2025 Apple Inc. All Rights Reserved.\n\nDisclaimer: IMPORTANT:  This Apple software is supplied to you by Apple\nInc. (\"Apple\") in consideration of your agreement to the following\nterms, and your use, installation, modification or redistribution of\nthis Apple software constitutes acceptance of these terms.  If you do\nnot agree with these terms, please do not use, install, modify or\nredi"
+ },
+ {
+  "id": "unisharp",
+  "repo": "Insta360-Research-Team/UniSHARP",
+  "role": "restricted candidate",
+  "claim": "NOASSERTION",
+  "spdx": "NOASSERTION",
+  "license_name": "Other",
+  "stars": 353,
+  "pushed_at": "2026-06-11T14:08:26Z",
+  "archived": false,
+  "default_branch": "main",
+  "license_head": "Copyright (c) 2026 Insta360 Research Team\n\nCreative Commons Attribution-NonCommercial 4.0 International Public License\n\nBy exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-NonCommercial 4.0 International Public License (\"Public License\"). To the extent this Public License may be interpreted as a contra"
+ },
+ {
+  "id": "search:DA360",
+  "repo": "antigravity-tech/DA360",
+  "stars": 123,
+  "spdx": "MIT",
+  "desc": "Depth Anything in 360°: Towards Scale Invariance in the Wild"
+ },
+ {
+  "id": "search:DA360",
+  "repo": "Enndee/SHARP_360_to_Splat",
+  "stars": 69,
+  "spdx": null,
+  "desc": "This tool uses Apple's SHARP to slice an equirectangular 360° photo into multiple pieces, runs SHARP over them to replic"
+ },
+ {
+  "id": "search:DA360",
+  "repo": "cn-ryw/Fastlab_world_fly",
+  "stars": 7,
+  "spdx": "Apache-2.0",
+  "desc": "ZJU FAST Lab 城市高速无人机研究项目：基于 CesiumJS、Google Photorealistic 3D Tiles、DA360 与 YOPO 的浏览器闭环仿真平台。"
+ },
+ {
+  "id": "search:DA360",
+  "repo": "websanju/da360",
+  "stars": 0,
+  "spdx": null,
+  "desc": ""
+ },
+ {
+  "id": "search:DA360",
+  "repo": "whdlgp/DA360_inference",
+  "stars": 0,
+  "spdx": "MIT",
+  "desc": "An unofficial inference-only implementation of DA360 for 360° equirectangular depth estimation"
+ },
+ {
+  "id": "search:OmniRoam",
+  "repo": "yuhengliu02/OmniRoam",
+  "stars": 129,
+  "spdx": "NOASSERTION",
+  "desc": "[SIGGRAPH 2026] OmniRoam: World Wandering via Long-Horizon Panoramic Video Generation"
+ },
+ {
+  "id": "search:OmniRoam",
+  "repo": "rghai/omniroam_internal",
+  "stars": 0,
+  "spdx": null,
+  "desc": ""
+ },
+ {
+  "id": "hf:onnx-community/depth-anything-v2-small",
+  "license_tag": [
+   "license:apache-2.0"
+  ],
+  "downloads": 134422
+ },
+ {
+  "id": "hf:depth-anything/Depth-Anything-V2-Small",
+  "license_tag": [
+   "license:apache-2.0"
+  ],
+  "downloads": 32981
+ },
+ {
+  "id": "spag4d_readme_lines",
+  "lines": [
+   "SPAG-4D takes an equirectangular panorama and turns it into a 3D Gaussian Splat using one of **four** generator backends. Three are depth-based (**DA360**, **DAP**, **PaGeR**) and project a depth map into Gaussians via spherical geometry; the fourth (**SHARP 360**) uses Apple's [SHARP](https://github.com/apple/ml-sharp) model to predict Gaussians directly from perspective face crops, with DA360 depth alignment for inter-face consistency.",
+   "Optional refinement fills disocclusion holes — areas behind foreground objects the single camera never saw — using novel-view generation from [OmniRoam](https://github.com/yuhengliu02/OmniRoam) (default), with optional [SeedVR2](https://github.com/TencentARC/SeedVR) video upscaling. A higher-quality alternative, [ArtiFixer3D](https://github.com/nv-tlabs/ArtiFixer) (NVIDIA SIL, 14B generative repair in WSL2/Docker), can be enabled as an optional backend — see [Refinement](#refinement).",
+   "  <img src=\"docs/images/demo.gif\" alt=\"SPAG-4D demo — a PaGeR Gaussian splat of a bell-tower interior\" width=\"520\">",
+   "<p align=\"center\"><em>A PaGeR splat of a bell-tower interior, explored in the built-in viewer.</em></p>",
+   "> Requires an NVIDIA GPU (6 GB+ VRAM for DA360/DAP, 8 GB+ for SHARP 360, 12 GB+ for PaGeR, 48 GB for OmniRoam refinement), [Git](https://git-scm.com/downloads), and ~30 GB disk space. The optional **ArtiFixer3D** refine backend additionally needs WSL2 + Docker and ~140 GB disk (see [Refinement](#refinement)).",
+   "| Generator | How it works | Speed | Quality | VRAM | License |",
+   "| **DA360** (default) | DA360 depth + SPAG spherical projection | ~2 s | Good, seamless poles | ~2 GB | Commercial-OK |",
+   "| **DAP** | DAP metric depth + SPAG projection | ~3 s | Good, metric scale | ~3 GB | Commercial-OK |",
+   "| **PaGeR** | DA3 cubemap depth + learned sky/normals + SPAG projection | ~15 s | Strongest outdoor depth | ~12 GB | **Non-commercial** |",
+   "| **SHARP 360** | Per-face SHARP prediction + DA360 alignment + merge | ~30 s | Highest per-face detail | ~8 GB | **Non-commercial** |",
+   "DA360 and DAP are the commercial-safe defaults. PaGeR and SHARP 360 use research weights with non-commercial licenses (see [License](#license)).",
+   "### DA360 / DAP / PaGeR (depth-based)",
+   "  → Depth estimation (DA360, DAP, or PaGeR)",
+   "Each pixel becomes one Gaussian (at stride 1) or every Nth pixel (stride 2, 4, …). No face stitching, no seam artifacts. **PaGeR** additionally emits a learned **sky mask** (excludes sky from the depth-range fit) and world-frame **surface normals** (sharper grazing-angle clipping); indoor/outdoor is auto-detected by a CLIP router.",
+   "### SHARP 360 (ML-based)",
+   "  → Apple SHARP prediction per face (Gaussians straight from the image)",
+   "  → DA360 depth alignment (smooth grid scale field for inter-face consistency)",
+   "SHARP predicts Gaussians directly from images — no separate depth model. The DA360 alignment makes faces agree on scale at their boundaries. **Pole-cap faces** (looking straight down/up) fill the holes the horizon ring leaves at the nadir and zenith, and the horizon/cap seam is tunable (see [SHARP 360 settings](#sharp-360-settings)).",
+   "### UniSHARP 360 (native ERP, optional)",
+   "A generator that runs [Insta360 UniSHARP](https://github.com/Insta360-Research-Team/UniSHARP) on the **whole equirectangular panorama at once** (`--camera panorama`) instead of decomposing it into cubemap faces — no face seams to reconcile. UniSHARP runs **out-of-process** in its own venv (Python 3.11 / torch 2.8) via subprocess; it is never imported into SPAG4d. It is a native-ERP **quality** upgrade (cleaner poles/seams), not a camera-travel jump — its novel-view baseline is small (0.2 m forward / 0.1 m rotate radius), same envelope as the per-face SHARP path.",
+   "**Setup (native Windows, one-time):** run `scripts\\setup_unisharp_windows.bat` (or answer \"y\" to the UniSHARP prompt in `install.bat`). It creates the isolated venv, installs torch 2.8, clones UniSHARP + UniK3D, patches inference to PLY-only (`--no-render`, so gsplat is never compiled), and downloads the checkpoint. No WSL needed — UniK3D's KNN CUDA op is eval-only and degrades gracefully. The script prints the four `SPAG4D_UNISHARP_*` env vars to set before launching the server.",
+   "**Use it** from the web UI (pick **UniSHARP 360** in the Generator dropdown) or the CLI (`--generator unisharp360`). The output is **reoriented** (UniSHARP emits an upside-down, +Y-down frame) and **denoised** (faint/isolated gaussians pruned) by default via PLY Mode **`convert`**; choose **`copy`** for the raw verbatim UniSHARP PLY (upside-down, supplement elements intact) when debugging.",
+   "Upload a 360° image, pick a generator, adjust settings, click **Convert**, and explore the result. Selecting **SHARP 360** or **PaGeR** reveals their extra controls inline. After a conversion, the refinement panel offers **OmniRoam v2** disocclusion repair.",
+   "# DA360 generator (default)",
+   "# DAP generator",
+   "# SHARP 360 (6 horizon faces + nadir/zenith caps)",
+   "# PaGeR (non-commercial; download weights first)",
+   "# UniSHARP 360 (native-ERP, optional; subprocess in its own venv)",
+   "#   SPAG4D_UNISHARP_REPO / _PYTHON / _CHECKPOINT / _NO_RENDER=1",
+   "  --unisharp-repo D:/repos/UniSHARP \\",
+   "#           copy = raw verbatim UniSHARP PLY (upside-down) for debugging.",
+   "python -m spag4d download-models               # DAP + DA360",
+   "python -m spag4d download-models --model pager  # PaGeR (~5.7 GB)",
+   "> Refinement (OmniRoam v2 / geometric) runs from the web UI **Refine** button or the Python API — there is no `--refine` CLI flag.",
+   "# DA360 (default)",
+   "# PaGeR with sky mask + normals",
+   "# SHARP 360 with pole caps + SeedVR2 face upscaling",
+   "A single-viewpoint panorama produces Gaussians with structural holes — behind foreground objects and at depth discontinuities the camera never observed. SPAG-4D fills these with novel-view generation. Two backends **augment** the existing cloud (OmniRoam v2, Geometric); a third, **ArtiFixer3D**, **rebuilds** the whole cloud through a generative repair model. All work on any PLY regardless of which generator produced it.",
+   "| **OmniRoam v2** | distill OmniRoam views into the cloud | WSL2, ~48 GB | minutes | web-UI default |",
+   "| **Geometric** | depth-align OmniRoam views, inject points | native Windows | minutes | diffusion-free |"
+  ]
+ }
+]
