@@ -1,0 +1,225 @@
+{
+ "note": "fps values are SwiftShader-relative (headless software GL); real-device absolute numbers come from ?autotest=1 on iPhone Safari",
+ "runs": [
+  {
+   "tag": "localhost/gen_v11_pano1",
+   "spz_ready_ms": 540,
+   "first_frame_ms": 233,
+   "marks": {
+    "boot": 0,
+    "pano_tex_ms": 12,
+    "first_frame_ms": 233,
+    "spz_ready_ms": 540
+   },
+   "resources": [
+    {
+     "file": "three-0.180.0.module.min.js",
+     "fetch_ms": 31,
+     "transfer_kb": 331,
+     "ttfb_ms": 5
+    },
+    {
+     "file": "spark.module.min.js",
+     "fetch_ms": 58,
+     "transfer_kb": 2786,
+     "ttfb_ms": 34
+    },
+    {
+     "file": "cabin.jpg",
+     "fetch_ms": 10,
+     "transfer_kb": 946,
+     "ttfb_ms": 4
+    }
+   ],
+   "wall_ms": 1526,
+   "idle_fps_swiftshader": 16.3,
+   "idle_p95_ms": 100,
+   "walk_fps_swiftshader": 13,
+   "walk_p95_ms": 100,
+   "heapMB_chromium": 16.3,
+   "errors": 0,
+   "profile": "localhost"
+  },
+  {
+   "tag": "localhost/gen_v11_pano0",
+   "spz_ready_ms": 475,
+   "first_frame_ms": 91,
+   "marks": {
+    "boot": 0,
+    "first_frame_ms": 91,
+    "spz_ready_ms": 475
+   },
+   "resources": [
+    {
+     "file": "three-0.180.0.module.min.js",
+     "fetch_ms": 5,
+     "transfer_kb": 331,
+     "ttfb_ms": 4
+    },
+    {
+     "file": "spark.module.min.js",
+     "fetch_ms": 40,
+     "transfer_kb": 2786,
+     "ttfb_ms": 6
+    }
+   ],
+   "wall_ms": 1413,
+   "idle_fps_swiftshader": 57.3,
+   "idle_p95_ms": 16.8,
+   "walk_fps_swiftshader": 23.1,
+   "walk_p95_ms": 100,
+   "heapMB_chromium": 12.8,
+   "errors": 0,
+   "profile": "localhost"
+  },
+  {
+   "tag": "fast3g_1.6mbps_150ms/gen_v11_pano1",
+   "spz_ready_ms": 6108,
+   "first_frame_ms": 5178,
+   "marks": {
+    "boot": 0,
+    "pano_tex_ms": 4998,
+    "first_frame_ms": 5178,
+    "spz_ready_ms": 6108
+   },
+   "resources": [
+    {
+     "file": "three-0.180.0.module.min.js",
+     "fetch_ms": 3546,
+     "transfer_kb": 331,
+     "ttfb_ms": 4
+    },
+    {
+     "file": "spark.module.min.js",
+     "fetch_ms": 18028,
+     "transfer_kb": 2786,
+     "ttfb_ms": 4
+    },
+    {
+     "file": "cabin.jpg",
+     "fetch_ms": 4996,
+     "transfer_kb": 946,
+     "ttfb_ms": 8
+    }
+   ],
+   "wall_ms": 30568,
+   "idle_fps_swiftshader": null,
+   "idle_p95_ms": null,
+   "walk_fps_swiftshader": null,
+   "walk_p95_ms": null,
+   "heapMB_chromium": 15.4,
+   "errors": 0,
+   "profile": "fast3g_1.6mbps_150ms"
+  },
+  {
+   "tag": "mbps15_1.5mbps_150ms/gen_v11_pano1",
+   "spz_ready_ms": 6548,
+   "first_frame_ms": 5490,
+   "marks": {
+    "boot": 0,
+    "pano_tex_ms": 5322,
+    "first_frame_ms": 5490,
+    "spz_ready_ms": 6548
+   },
+   "resources": [
+    {
+     "file": "three-0.180.0.module.min.js",
+     "fetch_ms": 3775,
+     "transfer_kb": 331,
+     "ttfb_ms": 2
+    },
+    {
+     "file": "spark.module.min.js",
+     "fetch_ms": 19223,
+     "transfer_kb": 2786,
+     "ttfb_ms": 3
+    },
+    {
+     "file": "cabin.jpg",
+     "fetch_ms": 5319,
+     "transfer_kb": 946,
+     "ttfb_ms": 6
+    }
+   ],
+   "wall_ms": 32639,
+   "idle_fps_swiftshader": null,
+   "idle_p95_ms": null,
+   "walk_fps_swiftshader": null,
+   "walk_p95_ms": null,
+   "heapMB_chromium": 16.3,
+   "errors": 0,
+   "profile": "mbps15_1.5mbps_150ms"
+  },
+  {
+   "tag": "slow3g_0.5mbps_400ms/gen_v11_pano1",
+   "spz_ready_ms": 18447,
+   "first_frame_ms": 16078,
+   "marks": {
+    "boot": 0,
+    "pano_tex_ms": 15907,
+    "first_frame_ms": 16078,
+    "spz_ready_ms": 18447
+   },
+   "resources": [
+    {
+     "file": "three-0.180.0.module.min.js",
+     "fetch_ms": 11254,
+     "transfer_kb": 331,
+     "ttfb_ms": 3
+    },
+    {
+     "file": "spark.module.min.js",
+     "fetch_ms": 57599,
+     "transfer_kb": 2786,
+     "ttfb_ms": 3
+    },
+    {
+     "file": "cabin.jpg",
+     "fetch_ms": 15906,
+     "transfer_kb": 946,
+     "ttfb_ms": 3
+    }
+   ],
+   "wall_ms": 94535,
+   "idle_fps_swiftshader": null,
+   "idle_p95_ms": null,
+   "walk_fps_swiftshader": null,
+   "walk_p95_ms": null,
+   "heapMB_chromium": 14.5,
+   "errors": 0,
+   "profile": "slow3g_0.5mbps_400ms"
+  },
+  {
+   "tag": "fast3g_1.6mbps_150ms/gen_v11_pano0",
+   "spz_ready_ms": 5936,
+   "first_frame_ms": 69,
+   "marks": {
+    "boot": 0,
+    "first_frame_ms": 69,
+    "spz_ready_ms": 5936
+   },
+   "resources": [
+    {
+     "file": "three-0.180.0.module.min.js",
+     "fetch_ms": 3547,
+     "transfer_kb": 331,
+     "ttfb_ms": 2
+    },
+    {
+     "file": "spark.module.min.js",
+     "fetch_ms": 18029,
+     "transfer_kb": 2786,
+     "ttfb_ms": 2
+    }
+   ],
+   "wall_ms": 25398,
+   "idle_fps_swiftshader": null,
+   "idle_p95_ms": null,
+   "walk_fps_swiftshader": null,
+   "walk_p95_ms": null,
+   "heapMB_chromium": 12.8,
+   "errors": 0,
+   "profile": "fast3g_1.6mbps_150ms"
+  }
+ ]
+}

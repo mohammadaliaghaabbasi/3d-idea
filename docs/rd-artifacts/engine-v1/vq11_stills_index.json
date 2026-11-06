@@ -1,0 +1,28 @@
+{
+ "dpr": {
+  "exp1": 2,
+  "exp2": 1
+ },
+ "states": {
+  "v11_exp2_pano_px": "/home/z/my-project/download/panodrome-vq11/stills/v11_exp2_pano_px.jpg",
+  "v11_exp2_pano_mx": "/home/z/my-project/download/panodrome-vq11/stills/v11_exp2_pano_mx.jpg"
+ },
+ "settle": {
+  "warm-v11-exp2-dpr1": {
+   "settled": true,
+   "ms": 60537,
+   "content": 1
+  },
+  "verify:v11_exp2_pano_px": {
+   "settled": true,
+   "ms": 13497,
+   "content": 1
+  },
+  "verify:v11_exp2_pano_mx": {
+   "settled": true,
+   "ms": 1738,
+   "content": 0.89
+  }
+ },
+ "errors": []
+}

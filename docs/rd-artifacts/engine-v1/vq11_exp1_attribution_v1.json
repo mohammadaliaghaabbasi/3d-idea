@@ -1,0 +1,57 @@
+{
+ "gen": "v1",
+ "states": {
+  "origin": {
+   "tag": "v1/origin",
+   "size": [
+    1170,
+    2532
+   ],
+   "holes_pct": 0.0,
+   "bleed_pct_px_gt12": 68.48,
+   "bleed_mean_rgb": 23.59,
+   "dot_grid_spectral_peak": 30830.1,
+   "sharpness": {
+    "pano": 1.6,
+    "splat": 3.1,
+    "both": 1.1,
+    "retention_pct": 68.5
+   },
+   "double_edge": {
+    "excess_edge_energy_pct": -63.87,
+    "n_border_px": 13833
+   },
+   "mean_lum": {
+    "pano": 113.7,
+    "splat": 124.6,
+    "both": 114.1
+   }
+  },
+  "off075": {
+   "tag": "v1/off075",
+   "size": [
+    1170,
+    2532
+   ],
+   "holes_pct": 0.0,
+   "bleed_pct_px_gt12": 57.11,
+   "bleed_mean_rgb": 19.75,
+   "dot_grid_spectral_peak": 35387.2,
+   "sharpness": {
+    "pano": 1.6,
+    "splat": 2.9,
+    "both": 2.0,
+    "retention_pct": 121.7
+   },
+   "double_edge": {
+    "excess_edge_energy_pct": -70.09,
+    "n_border_px": 14091
+   },
+   "mean_lum": {
+    "pano": 113.8,
+    "splat": 126.6,
+    "both": 118.0
+   }
+  }
+ }
+}
