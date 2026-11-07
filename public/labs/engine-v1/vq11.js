@@ -348,6 +348,18 @@ window.__vq = {
   hideUI() { for (const id of ['hud','dpad','badge','modes']) document.getElementById(id).style.display = 'none'; },
 };
 
+/* ---------- one-click walk demo (owner review 2026-11-07): diamond 0-0.75-0 m, 4 dirs ---------- */
+{
+  const b = document.getElementById('walkbtn');
+  if (b) b.addEventListener('click', async () => {
+    if (b.disabled) return;
+    b.disabled = true; b.textContent = '🚶 …';
+    const R = Math.min(SAFE_R, 0.75);
+    await runWalkPath([[0,0],[R,0],[0,0],[0,R],[0,0],[-R,0],[0,0],[0,-R],[0,0]], MOVE_MPS);
+    b.disabled = false; b.textContent = '🚶 Walk 0.75m';
+  });
+}
+
 /* ---------- autotest battery (real iPhone Safari) ---------- */
 if (AUTOTEST) (async () => {
   const rep = document.getElementById('report'), txt = document.getElementById('rep-json');
