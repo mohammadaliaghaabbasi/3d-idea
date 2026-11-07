@@ -38,6 +38,15 @@
   #modes button{background:rgba(0,25,15,.85);border:1px solid rgba(80,255,180,.5);color:#cfe;border-radius:8px;
        font-size:11px;padding:6px 9px;font-family:inherit}
   #modes button.on{background:rgba(60,255,170,.4)}
+  /* mobile: the 4-button row (pano/splat/both/walk ≈ 311px) overlaps the HUD on
+     narrow viewports — wrap the buttons into rows top-right, and wrap the HUD
+     text (pre-wrap, 40vw) so it stays inside its box instead of spilling under
+     the buttons (measured 2026-11-07 on a 390px phone: hud right 178px,
+     modes left 210px — 32px clear; desktop unchanged) */
+  @media (max-width:560px){
+    #modes{flex-wrap:wrap;justify-content:flex-end;max-width:44vw;row-gap:4px}
+    #hud{white-space:pre-wrap;max-width:40vw}
+  }
   #report{position:fixed;inset:8% 6%;z-index:20;display:none;flex-direction:column;background:rgba(0,18,10,.96);
        border:1px solid rgba(80,255,180,.5);border-radius:12px;padding:14px;font-size:12px}
   #report textarea{flex:1;margin-top:10px;background:#02140c;color:#bfe;color:inherit;border:1px solid rgba(80,255,180,.3);

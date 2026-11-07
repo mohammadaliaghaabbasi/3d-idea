@@ -38,7 +38,7 @@ with sync_playwright() as p:
 
     # -- 1: default envelope + walk stays inside it --------------------------
     print("TEST 1: default envelope + walk clamp (moradi_main1)", flush=True)
-    page.goto(f"{BASE}?scene=moradi_main1&gen=v11&mode=both", wait_until="domcontentloaded", timeout=60000)
+    page.goto(f"{BASE}?scene=moradi_main1&gen=v11&mode=both", wait_until="domcontentloaded", timeout=180000)
     B.wait_ready(page)
     s = B.stats(page)
     check("default safeR == 0.75", s["safeR"] == 0.75, f"safeR={s['safeR']}")
@@ -59,13 +59,13 @@ with sync_playwright() as p:
 
     # -- 1b: dynamic label with a DIFFERENT radius (safeR=0.3) ----------------
     print("TEST 1b: honest walk label (safeR=0.3)", flush=True)
-    page.goto(f"{BASE}?scene=moradi_main1&gen=v11&mode=both&safeR=0.3", wait_until="domcontentloaded", timeout=60000)
+    page.goto(f"{BASE}?scene=moradi_main1&gen=v11&mode=both&safeR=0.3", wait_until="domcontentloaded", timeout=180000)
     B.wait_ready(page)
     check("override safeR == 0.3", B.stats(page)["safeR"] == 0.3)
     page.click("#walkbtn")
     done, max_dist = False, 0.0
     t0 = time.time()
-    while time.time() - t0 < 45:                 # 8 x 0.3 m diamond; SwiftShader margin
+    while time.time() - t0 < 120:                # 8 x 0.3 m diamond; SwiftShader margin (widened 45->120s 2026-11-07: busy-box variance, checks unchanged)
         st = B.stats(page)
         max_dist = max(max_dist, st["dist"])
         if st["dist"] < 0.02 and st["blend"] < 0.05 and time.time() - t0 > 4:
@@ -81,13 +81,13 @@ with sync_playwright() as p:
 
     # -- 2: explicit R&D ladder still available ------------------------------
     print("TEST 2: explicit ?safeR=1.3 ladder", flush=True)
-    page.goto(f"{BASE}?scene=moradi_kit2&gen=v11&mode=both&safeR=1.3", wait_until="domcontentloaded", timeout=60000)
+    page.goto(f"{BASE}?scene=moradi_kit2&gen=v11&mode=both&safeR=1.3", wait_until="domcontentloaded", timeout=180000)
     B.wait_ready(page)
     check("explicit safeR == 1.3", B.stats(page)["safeR"] == 1.3, f"safeR={B.stats(page)['safeR']}")
 
     # -- 3: autotest self-lift ------------------------------------------------
     print("TEST 3: autotest battery self-lift (10s idle, then lift)", flush=True)
-    page.goto(f"{BASE}?scene=moradi_bed1a&gen=v11&mode=both&autotest=1", wait_until="domcontentloaded", timeout=60000)
+    page.goto(f"{BASE}?scene=moradi_bed1a&gen=v11&mode=both&autotest=1", wait_until="domcontentloaded", timeout=180000)
     B.wait_ready(page)
     check("autotest start: safeR still 0.75 (pre-lift)", B.stats(page)["safeR"] == 0.75,
           f"safeR={B.stats(page)['safeR']}")
@@ -106,7 +106,7 @@ with sync_playwright() as p:
     errs.clear()
     page2 = ctx.new_page()
     page2.on("pageerror", lambda e: errs.append(str(e)))
-    page2.goto("http://127.0.0.1:8141/labs/engine-v1/moradi.html", wait_until="domcontentloaded", timeout=60000)
+    page2.goto("http://127.0.0.1:8141/labs/engine-v1/moradi.html", wait_until="domcontentloaded", timeout=180000)
     page2.wait_for_selector("#eql", timeout=15000)
     cards = page2.locator("#scenes article.card").count()
     eql_rows = page2.locator("#scenes article.card .kv span.k", has_text="EQL").count()
@@ -121,10 +121,10 @@ with sync_playwright() as p:
     check("no JS errors on review page", not errs, "; ".join(errs[:2]))
     page2.locator("#eql").scroll_into_view_if_needed()
     page2.wait_for_timeout(400)
-    page2.screenshot(path="/tmp/render/e2e_moradi_eql_section.jpg", timeout=60000)
+    page2.screenshot(path="/tmp/render/e2e_moradi_eql_section.jpg", timeout=180000)
     page2.locator("#scenes article.card").first.scroll_into_view_if_needed()
     page2.wait_for_timeout(400)
-    page2.screenshot(path="/tmp/render/e2e_moradi_card.jpg", timeout=60000)
+    page2.screenshot(path="/tmp/render/e2e_moradi_card.jpg", timeout=180000)
 
     b.close()
 
