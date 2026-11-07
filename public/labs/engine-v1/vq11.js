@@ -22,6 +22,7 @@ const DIR0   = (Q.get('dir') || '+x').replace(/ /g, '+');
 const LOOK0  = Q.get('look') || 'back';          // back | fwd | perp (rel. to travel dir)
 const UI     = Q.get('ui') !== '0';
 const AUTOTEST = Q.get('autotest') === '1';
+const DEMO   = Q.get('demo') === '1';   // auto-run the 4-dir diamond walk once on load
 
 const ERR = [];
 window.__vqErrors = ERR;
@@ -82,7 +83,29 @@ if (MODE !== 'splat') {
 /* ---------- layer B: SPZ splat ---------- */
 const spark = new SparkRenderer({ renderer });
 scene3d.add(spark);
-const SPZ_URL = `assets/${scene}_splat${GEN === 'v11' ? '_v11' : ''}.spz`;
+/* SPZ resolution with existence check + generation fallback (v1 <-> v11).
+ * Rationale (owner review 2026-11-07): a missing generation must NEVER silently
+ * degrade to pano-only — that reads as "previous engine". HEAD both candidates,
+ * prefer the requested one, fall back to the other, surface the truth in the
+ * HUD + stats (genActual). */
+const SPZ_CANDIDATES = GEN === 'v11'
+  ? [`assets/${scene}_splat_v11.spz`, `assets/${scene}_splat.spz`]
+  : [`assets/${scene}_splat.spz`, `assets/${scene}_splat_v11.spz`];
+let SPZ_URL = SPZ_CANDIDATES[0];
+let GEN_ACTUAL = GEN;
+try {
+  const headT = performance.now();
+  let found = false;
+  for (const u of SPZ_CANDIDATES) {
+    const r = await fetch(u, { method: 'HEAD' });
+    if (r.ok) {
+      if (u !== SPZ_CANDIDATES[0]) { SPZ_URL = u; GEN_ACTUAL = u.includes('_v11.') ? 'v11' : 'v1'; }
+      found = true; break;
+    }
+  }
+  mark('spz_head_ms', performance.now() - headT);
+  if (!found) { ERR.push(`SPZ not found for scene "${scene}" (both generations checked)`); showErr(); }
+} catch { /* HEAD unsupported on this server — keep the default candidate */ }
 const constructT = performance.now();
 let spzReadyMs = null, splatCount = 0;
 const splat = new SplatMesh({
@@ -99,17 +122,18 @@ function setBg(name) {
   scene3d.background.set(name === 'magenta' ? 0xff00ff : 0x000000);
 }
 function applyMode(m) {
+  if (m !== 'pano' && m !== 'splat' && m !== 'both') return;   // guard: walkbtn & foreign clicks must never blank the screen
   MODE = m;
   if (panoMesh) panoMesh.visible = (m === 'pano' || m === 'both');
   splat.visible = (m === 'splat' || m === 'both');
   if (m === 'splat') { splat.opacity = 1; }
   if (m === 'pano')  { splat.opacity = 0; }
-  for (const b of document.querySelectorAll('#modes button'))
+  for (const b of document.querySelectorAll('#modes button[data-mode]'))
     b.classList.toggle('on', b.dataset.mode === m);
 }
 applyMode(MODE);
 if (!UI) { for (const id of ['hud','dpad','badge','modes']) document.getElementById(id).style.display = 'none'; }
-for (const b of document.querySelectorAll('#modes button'))
+for (const b of document.querySelectorAll('#modes button[data-mode]'))
   b.addEventListener('click', () => { if (MODE !== 'both' || b.dataset.mode !== 'both') { applyMode(b.dataset.mode); if (b.dataset.mode === 'both') { BLEND = '1'; forceBlend(1); } } });
 
 /* ---------- navigation (identical to app.js) ---------- */
@@ -214,7 +238,7 @@ setInterval(() => {
   const dist = Math.hypot(pos.x, pos.z);
   const heap = performance.memory ? (performance.memory.usedJSHeapSize / 1048576).toFixed(0) + ' MB' : 'n/a';
   hud.textContent =
-`PANODROME VQ 1.1 — ${scene} · ${GEN} · mode ${MODE}
+`PANODROME VQ 1.1 — ${scene} · gen ${GEN}${GEN_ACTUAL !== GEN ? '→' + GEN_ACTUAL + ' (fallback)' : ''} · mode ${MODE}
 splats: ${splatCount || '…'} | spz ready: ${spzReadyMs == null ? '…' : Math.round(spzReadyMs) + ' ms'} | first frame: ${firstFrameMs == null ? '…' : Math.round(firstFrameMs) + ' ms'}
 fps: ${f.fps.toFixed(1)} | frame p95: ${f.p95ms.toFixed(1)} ms | heap: ${heap}
 pos: (${pos.x.toFixed(2)}, ${pos.z.toFixed(2)}) | dist: ${dist.toFixed(2)} / safe ${SAFE_R} m
@@ -261,7 +285,7 @@ window.__vq = {
     const f = fpsStats();
     const dist = Math.hypot(pos.x, pos.z);
     return {
-      scene, gen: GEN, mode: MODE, splats: splatCount,
+      scene, gen: GEN, genActual: GEN_ACTUAL, mode: MODE, splats: splatCount,
       spzReadyMs: spzReadyMs == null ? null : Math.round(spzReadyMs),
       firstFrameMs: firstFrameMs == null ? null : Math.round(firstFrameMs),
       marks: { ...MARKS }, resources: resourceStats(),
@@ -359,6 +383,37 @@ window.__vq = {
     b.disabled = false; b.textContent = '🚶 Walk 0.75m';
   });
 }
+
+/* ---------- auto-demo (owner review 2026-11-07): enter → the engine shows itself ---------- */
+/* demo=1 — once the SPZ is ready, run the 4-direction diamond walk ONCE so the
+ * new-engine behaviour is visible in the first seconds: rest = sharp 4K pano,
+ * moving = 3D splat layer with the 350 ms soft fade. Then full control returns
+ * to the user (WASD / d-pad / drag). Never fights the autotest battery. */
+if (DEMO && !AUTOTEST) (async () => {
+  const note = document.createElement('div');
+  note.dir = 'rtl';
+  note.style.cssText =
+    'position:fixed;bottom:170px;left:50%;transform:translateX(-50%);z-index:8;' +
+    'max-width:min(92vw,560px);padding:10px 16px;border-radius:12px;' +
+    'background:rgba(0,24,14,.9);border:1px solid rgba(87,230,164,.5);color:#d7f5e6;' +
+    'font:13px/1.75 Vazirmatn,Tahoma,sans-serif;text-align:center;cursor:pointer;' +
+    'box-shadow:0 4px 22px rgba(0,0,0,.45);transition:opacity .6s ease;opacity:0';
+  note.textContent = '⏳ در حال بارگذاری موتور جدید V1.1…';
+  document.body.appendChild(note);
+  requestAnimationFrame(() => { note.style.opacity = '1'; });
+  const hide = () => { note.style.opacity = '0'; setTimeout(() => note.remove(), 700); };
+  note.addEventListener('click', hide);
+  for (let i = 0; i < 300 && spzReadyMs == null; i++) await new Promise(r => setTimeout(r, 100));
+  if (spzReadyMs == null) {
+    note.textContent = '⚠ اسپلت بارگذاری نشد — فقط پانو نمایش داده می‌شود (موتور جدید نیامده)';
+    setTimeout(hide, 4000); return;
+  }
+  note.textContent = '🚶 دموی خودکار موتور جدید V1.1 — ایست: پانوی 4K · هنگام حرکت: لایهٔ اسپلت سه‌بعدی با محو نرم ۳۵۰ms';
+  await new Promise(r => setTimeout(r, 900));
+  const b = document.getElementById('walkbtn');
+  if (b && !b.disabled) b.click();            // same 4-dir diamond as the button
+  setTimeout(hide, 11000);
+})();
 
 /* ---------- autotest battery (real iPhone Safari) ---------- */
 if (AUTOTEST) (async () => {
