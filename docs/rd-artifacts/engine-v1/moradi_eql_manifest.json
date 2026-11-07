@@ -1,0 +1,2000 @@
+{
+ "manifest": "moradi_eql_manifest",
+ "version": 1,
+ "generated": "2026-11-07",
+ "generated_by": "scripts/engine_v1/moradi_eql_manifest.py",
+ "rule_basis": "Pilot of the six-field confidence folders + EQL derivation (BPLUS_DATA_SCHEMA_PROPOSAL, design-stage) on R&D data. rooms_db.json and production are NOT touched. EQL is computed from evidence, never manually assigned; admins may only downgrade, never upgrade past evidence.",
+ "set": {
+  "name": "Moradi real-content set (one house)",
+  "source": "kuula.co/profile/Mojtaba87",
+  "one_house_rule": "owner law — all scenes from ONE house; C7360 excluded (different house)",
+  "license": "R&D-only benchmark; any public deployment requires the photographer's permission",
+  "selection_funnel": "16 posts -> -1 md5 duplicate (Kitchen_2) -> -1 other house (C7360) -> -3 reserves (kit3a, bed2b, bed3b) -> 10 scenes",
+  "reserves": {
+   "kit3a": "kuula.co/post/L8J1y — service kitchen, glass doors on both seam edges",
+   "bed2b": "kuula.co/post/L8JTl — second view of the child bedroom",
+   "bed3b": "kuula.co/post/L8JTd — second view of the pink bedroom (arched door)"
+  },
+  "excluded": {
+   "C7360": "kuula.co/post/LxFdY — different house (style markers, upload bundle, washer-in-cabinet)",
+   "Kitchen_2 duplicate": "same post uploaded twice; md5-identical -> one unique source"
+  },
+  "method_lock": {
+   "c_sigma": 1.3,
+   "opacity": 1.0,
+   "stride": 2,
+   "grid": [
+    1022,
+    518
+   ],
+   "cam_h": 1.5,
+   "depth_model": "DAV2-small ONNX",
+   "format": "SPZ v4",
+   "n_splats_per_scene": 132349,
+   "per_scene_tuning": "NONE (locked params only)"
+  },
+  "eql": {
+   "at_rest": {
+    "level": "EQL-0",
+    "basis": "single-node 4K equirect rotation on the labs harness"
+   },
+   "in_motion": {
+    "level": "EQL-3-EXP",
+    "basis": "VQ 1.1 gaussian splat layer (experimental path) — R&D-only, owner-review page, never presented as production"
+   },
+   "eql_2_claimable": false,
+   "eql_2_blockers": [
+    "no metric node positions (Kuula publishes no capture positions)",
+    "no measured inter-node distances or doorway graph",
+    "same-space pairs are cross-validation instruments, not navigation links"
+   ],
+   "engine_independence": "EQL-1 (Zero-Warp 0.08 m envelope) is a DIFFERENT engine and is not applied to this set; the three engines never merge (owner law)."
+  },
+  "movement_envelope": {
+   "ladder_bands_m": {
+    "PRIME": [
+     0.2,
+     0.6
+    ],
+    "ACCEPTED": [
+     0.75,
+     0.75
+    ],
+    "TRANSIT": [
+     1.0,
+     1.3
+    ]
+   },
+   "transit_note": "small holes only in mirror/wardrobe quadrants beyond 1.0 m",
+   "measured_basis": "ladders on moradi_bed1a (mx/px) + moradi_main3 (pz) + set-wide @0.75 m battery + VLM on 3 riskiest rooms",
+   "harness_default_change": {
+    "file": "public/labs/engine-v1/vq11.js",
+    "from_m": 1.3,
+    "to_m": 0.75,
+    "rule": "envelope numbers come from measurement (new rule 2026-11-07)",
+    "rd_ladder_access": "?safeR=1.3 explicit, or ?autotest=1 (battery lifts it itself)",
+    "date": "2026-11-07"
+   }
+  },
+  "fidelity_summary": {
+   "psnr_mean_range_db": [
+    16.41,
+    23.84
+   ],
+   "worst_of_set": {
+    "scene": "moradi_main2",
+    "psnr_db": 10.73,
+    "dir": "pz",
+    "cause": "glazed double doors + heavy patterned curtains (not the predicted seam mirrors)"
+   },
+   "holes_max_pct": 1.207,
+   "holes_max_scene": "moradi_bed3a (curved-wardrobe quadrant)",
+   "double_edge_max_pct_set": 0.0,
+   "double_edge_note": "negative excess = no double edge; measured in all 40 scene-dir cells",
+   "dot_peak_max_set": 3379.5,
+   "dot_note": "same order as the cabin same-code reference",
+   "ladder_curves": {
+    "moradi_bed1a": {
+     "mx_02": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 2.53,
+      "bleed_pct": 0.08,
+      "dot_peak": 125.6,
+      "sharp_ret_pct": 1.1,
+      "psnr_db": 20.26,
+      "double_edge_excess_pct": -73.5,
+      "nonhole_px": 267520,
+      "travel_dir": "-x",
+      "viewed_dir": "+x",
+      "offset_m": 0.2
+     },
+     "mx_04": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 2.29,
+      "bleed_pct": 0.67,
+      "dot_peak": 353.2,
+      "sharp_ret_pct": 1.1,
+      "psnr_db": 18.41,
+      "double_edge_excess_pct": -73.2,
+      "nonhole_px": 267520,
+      "travel_dir": "-x",
+      "viewed_dir": "+x",
+      "offset_m": 0.4
+     },
+     "mx_06": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 2.09,
+      "bleed_pct": 1.26,
+      "dot_peak": 740.7,
+      "sharp_ret_pct": 1.1,
+      "psnr_db": 17.35,
+      "double_edge_excess_pct": -73.7,
+      "nonhole_px": 267520,
+      "travel_dir": "-x",
+      "viewed_dir": "+x",
+      "offset_m": 0.6
+     },
+     "mx_075": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 2.25,
+      "bleed_pct": 1.64,
+      "dot_peak": 1218.0,
+      "sharp_ret_pct": 1.2,
+      "psnr_db": 16.81,
+      "double_edge_excess_pct": -73.0,
+      "nonhole_px": 267520,
+      "travel_dir": "-x",
+      "viewed_dir": "+x",
+      "offset_m": 0.75
+     },
+     "mx_10": {
+      "holes_pct": 0.158,
+      "soft_holes_pct": 2.43,
+      "bleed_pct": 1.97,
+      "dot_peak": 1707.9,
+      "sharp_ret_pct": 1.2,
+      "psnr_db": 15.98,
+      "double_edge_excess_pct": -70.4,
+      "nonhole_px": 267096,
+      "travel_dir": "-x",
+      "viewed_dir": "+x",
+      "offset_m": 1.0
+     },
+     "mx_13": {
+      "holes_pct": 0.541,
+      "soft_holes_pct": 2.22,
+      "bleed_pct": 2.01,
+      "dot_peak": 2298.4,
+      "sharp_ret_pct": 1.2,
+      "psnr_db": 15.16,
+      "double_edge_excess_pct": -69.1,
+      "nonhole_px": 266073,
+      "travel_dir": "-x",
+      "viewed_dir": "+x",
+      "offset_m": 1.3
+     },
+     "px_02": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 1.07,
+      "bleed_pct": 0.37,
+      "dot_peak": 378.6,
+      "sharp_ret_pct": 1.2,
+      "psnr_db": 22.86,
+      "double_edge_excess_pct": -77.7,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.2
+     },
+     "px_04": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 1.07,
+      "bleed_pct": 0.04,
+      "dot_peak": 635.3,
+      "sharp_ret_pct": 1.4,
+      "psnr_db": 21.0,
+      "double_edge_excess_pct": -76.3,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.4
+     },
+     "px_06": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 1.03,
+      "bleed_pct": 0.03,
+      "dot_peak": 701.5,
+      "sharp_ret_pct": 1.3,
+      "psnr_db": 19.92,
+      "double_edge_excess_pct": -75.9,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.6
+     },
+     "px_075": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.95,
+      "bleed_pct": 0.0,
+      "dot_peak": 783.3,
+      "sharp_ret_pct": 1.3,
+      "psnr_db": 19.36,
+      "double_edge_excess_pct": -76.1,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.75
+     },
+     "px_10": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.86,
+      "bleed_pct": 0.05,
+      "dot_peak": 778.8,
+      "sharp_ret_pct": 1.4,
+      "psnr_db": 18.76,
+      "double_edge_excess_pct": -76.7,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 1.0
+     },
+     "px_13": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.81,
+      "bleed_pct": 0.0,
+      "dot_peak": 909.9,
+      "sharp_ret_pct": 1.4,
+      "psnr_db": 18.42,
+      "double_edge_excess_pct": -76.6,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 1.3
+     }
+    },
+    "moradi_main3": {
+     "pz_02": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 1.41,
+      "bleed_pct": 0.0,
+      "dot_peak": 470.9,
+      "sharp_ret_pct": 0.8,
+      "psnr_db": 19.42,
+      "double_edge_excess_pct": -70.1,
+      "nonhole_px": 267520,
+      "travel_dir": "+z",
+      "viewed_dir": "-z",
+      "offset_m": 0.2
+     },
+     "pz_04": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.98,
+      "bleed_pct": 0.01,
+      "dot_peak": 530.8,
+      "sharp_ret_pct": 0.8,
+      "psnr_db": 18.71,
+      "double_edge_excess_pct": -69.8,
+      "nonhole_px": 267520,
+      "travel_dir": "+z",
+      "viewed_dir": "-z",
+      "offset_m": 0.4
+     },
+     "pz_06": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.78,
+      "bleed_pct": 0.1,
+      "dot_peak": 568.1,
+      "sharp_ret_pct": 0.8,
+      "psnr_db": 18.24,
+      "double_edge_excess_pct": -69.4,
+      "nonhole_px": 267520,
+      "travel_dir": "+z",
+      "viewed_dir": "-z",
+      "offset_m": 0.6
+     },
+     "pz_075": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.68,
+      "bleed_pct": 1.89,
+      "dot_peak": 476.4,
+      "sharp_ret_pct": 0.9,
+      "psnr_db": 17.72,
+      "double_edge_excess_pct": -69.0,
+      "nonhole_px": 267520,
+      "travel_dir": "+z",
+      "viewed_dir": "-z",
+      "offset_m": 0.75
+     },
+     "pz_10": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.57,
+      "bleed_pct": 0.47,
+      "dot_peak": 405.3,
+      "sharp_ret_pct": 0.9,
+      "psnr_db": 16.56,
+      "double_edge_excess_pct": -69.0,
+      "nonhole_px": 267520,
+      "travel_dir": "+z",
+      "viewed_dir": "-z",
+      "offset_m": 1.0
+     },
+     "pz_13": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.43,
+      "bleed_pct": 0.75,
+      "dot_peak": 463.9,
+      "sharp_ret_pct": 0.9,
+      "psnr_db": 15.27,
+      "double_edge_excess_pct": -68.7,
+      "nonhole_px": 267519,
+      "travel_dir": "+z",
+      "viewed_dir": "-z",
+      "offset_m": 1.3
+     },
+     "px_02": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.3,
+      "bleed_pct": 0.0,
+      "dot_peak": 876.6,
+      "sharp_ret_pct": 0.2,
+      "psnr_db": 17.87,
+      "double_edge_excess_pct": -78.3,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.2
+     },
+     "px_04": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.21,
+      "bleed_pct": 0.01,
+      "dot_peak": 614.9,
+      "sharp_ret_pct": 0.2,
+      "psnr_db": 16.7,
+      "double_edge_excess_pct": -79.2,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.4
+     },
+     "px_06": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.18,
+      "bleed_pct": 0.04,
+      "dot_peak": 659.7,
+      "sharp_ret_pct": 0.2,
+      "psnr_db": 16.07,
+      "double_edge_excess_pct": -80.0,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.6
+     },
+     "px_075": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.15,
+      "bleed_pct": 0.34,
+      "dot_peak": 400.9,
+      "sharp_ret_pct": 0.2,
+      "psnr_db": 15.77,
+      "double_edge_excess_pct": -80.2,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 0.75
+     },
+     "px_10": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.18,
+      "bleed_pct": 0.04,
+      "dot_peak": 678.1,
+      "sharp_ret_pct": 0.2,
+      "psnr_db": 15.56,
+      "double_edge_excess_pct": -80.4,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 1.0
+     },
+     "px_13": {
+      "holes_pct": 0.0,
+      "soft_holes_pct": 0.14,
+      "bleed_pct": 0.05,
+      "dot_peak": 682.8,
+      "sharp_ret_pct": 0.2,
+      "psnr_db": 15.57,
+      "double_edge_excess_pct": -80.4,
+      "nonhole_px": 267520,
+      "travel_dir": "+x",
+      "viewed_dir": "-x",
+      "offset_m": 1.3
+     }
+    }
+   }
+  },
+  "cross_validation": {
+   "moradi_main3|moradi_main4": {
+    "psnr_mean_delta_db": 1.62,
+    "threshold": 1.5,
+    "ok": false
+   },
+   "moradi_kit1|moradi_kit2": {
+    "psnr_mean_delta_db": 1.49,
+    "threshold": 2.0,
+    "ok": true
+   },
+   "moradi_bed1a|moradi_bed1b": {
+    "range_a": [
+     16.66,
+     20.55
+    ],
+    "range_b": [
+     16.48,
+     37.34
+    ],
+    "overlap_frac": 1.0,
+    "ok": true
+   }
+  },
+  "prediction_scorecard": {
+   "HIT": 40,
+   "NEAR": 12,
+   "MISS": 41,
+   "accuracy_pct_strict": 43.0,
+   "accuracy_pct_with_near": 55.9,
+   "n": 93,
+   "locked_before_run": "docs/rd-artifacts/engine-v1/moradi_predictions.json (23:27, pre-SPZ)",
+   "honest_note": "directional failure-family calls 11/12 confirmed; PSNR bands systematically pessimistic on mirrors/seam — the engine was better than feared"
+  }
+ },
+ "scenes": {
+  "moradi_main1": {
+   "zone": "neoclassical sitting",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_main1.jpg",
+     "kb": 746.3,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JZk — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_main1_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1049.4,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 9.137,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 16.56,
+     "psnr_worst_db": 14.71,
+     "psnr_worst_dir": "pz",
+     "psnr_best_db": 18.72,
+     "holes_max_pct": 0.17,
+     "double_edge_max_pct": -64.2,
+     "dot_peak_max": 1574.0,
+     "per_dir": {
+      "px": {
+       "psnr_db": 18.72,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -64.2
+      },
+      "mx": {
+       "psnr_db": 16.63,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -68.8
+      },
+      "pz": {
+       "psnr_db": 14.71,
+       "holes_pct": 0.17,
+       "double_edge_excess_pct": -73.2
+      },
+      "mz": {
+       "psnr_db": 16.19,
+       "holes_pct": 0.064,
+       "double_edge_excess_pct": -74.4
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "sitting room / lounge",
+     "layout": "open-plan lounge with seating arc around central coffee table, kitchen and second lounge visible left, hall right",
+     "size_feel": "large",
+     "windows": [
+      {
+       "u": 0.73,
+       "blown": true
+      },
+      {
+       "u": 0.88,
+       "blown": true
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.08,
+       "what": "gilt-framed mirror over console"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.17,
+       "to": "second lounge/kitchen area"
+      },
+      {
+       "u": 0.89,
+       "to": "hallway/entrance"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_main2": {
+   "zone": "entrance hall",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_main2.jpg",
+     "kb": 765.9,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JZc — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_main2_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1029.3,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 7.917,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 16.64,
+     "psnr_worst_db": 10.73,
+     "psnr_worst_dir": "pz",
+     "psnr_best_db": 24.11,
+     "holes_max_pct": 0.055,
+     "double_edge_max_pct": -54.4,
+     "dot_peak_max": 3379.5,
+     "per_dir": {
+      "px": {
+       "psnr_db": 14.67,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -80.7
+      },
+      "mx": {
+       "psnr_db": 17.03,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -54.4
+      },
+      "pz": {
+       "psnr_db": 10.73,
+       "holes_pct": 0.055,
+       "double_edge_excess_pct": -59.5
+      },
+      "mz": {
+       "psnr_db": 24.11,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -94.3
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "entry hall / hallway into living room",
+     "layout": "central hall with door left, glazed doors right, living area ahead",
+     "size_feel": "medium",
+     "windows": [
+      {
+       "u": 0.75,
+       "blown": false
+      },
+      {
+       "u": 0.0,
+       "blown": false
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.01,
+       "what": "large wall mirror in wood alcove"
+      },
+      {
+       "u": 0.98,
+       "what": "large wall mirror in wood alcove"
+      },
+      {
+       "u": 0.75,
+       "what": "glazed double doors"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.27,
+       "to": "closed white door"
+      },
+      {
+       "u": 0.45,
+       "to": "living/dining room"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_main3": {
+   "zone": "open living pt.A",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_main3.jpg",
+     "kb": 946.9,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JZM — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_main3_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1072.6,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 9.377,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 16.41,
+     "psnr_worst_db": 15.48,
+     "psnr_worst_dir": "mx",
+     "psnr_best_db": 17.72,
+     "holes_max_pct": 0.373,
+     "double_edge_max_pct": -67.5,
+     "dot_peak_max": 1150.4,
+     "per_dir": {
+      "px": {
+       "psnr_db": 15.77,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -80.2
+      },
+      "mx": {
+       "psnr_db": 15.48,
+       "holes_pct": 0.373,
+       "double_edge_excess_pct": -73.7
+      },
+      "pz": {
+       "psnr_db": 17.72,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -69.0
+      },
+      "mz": {
+       "psnr_db": 16.69,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -67.5
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "open-plan living/dining/kitchen",
+     "layout": "central seating area flanked by kitchen left, dining right, corridor rear",
+     "size_feel": "large",
+     "windows": [
+      {
+       "u": 0.72,
+       "blown": false
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.84,
+       "what": "gilded mirror over console"
+      },
+      {
+       "u": 0.52,
+       "what": "glass-top round coffee table"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.78,
+       "to": "entrance corridor/hall"
+      },
+      {
+       "u": 0.9,
+       "to": "side room/wardrobe area"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_main4": {
+   "zone": "open living pt.B",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_main4.jpg",
+     "kb": 828.9,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JZT — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_main4_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1084.1,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 11.158,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 18.03,
+     "psnr_worst_db": 13.71,
+     "psnr_worst_dir": "px",
+     "psnr_best_db": 19.65,
+     "holes_max_pct": 0.612,
+     "double_edge_max_pct": -62.6,
+     "dot_peak_max": 1508.1,
+     "per_dir": {
+      "px": {
+       "psnr_db": 13.71,
+       "holes_pct": 0.612,
+       "double_edge_excess_pct": -77.0
+      },
+      "mx": {
+       "psnr_db": 19.65,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -75.1
+      },
+      "pz": {
+       "psnr_db": 19.3,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -62.6
+      },
+      "mz": {
+       "psnr_db": 19.47,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -80.0
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "open-plan living/dining/kitchen",
+     "layout": "living area with curved cream sofa and ottoman chairs at centre, kitchen/dining visible through wide opening right of centre, formal dining set near curtained window, TV walls on both side walls",
+     "size_feel": "large",
+     "windows": [
+      {
+       "u": 0.71,
+       "blown": true
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.05,
+       "what": "gold-framed arched wall panel (possibly mirror) beside TV"
+      },
+      {
+       "u": 0.96,
+       "what": "gold-framed arched wall panel beside TV"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.14,
+       "to": "hallway"
+      },
+      {
+       "u": 0.36,
+       "to": "kitchen"
+      },
+      {
+       "u": 0.55,
+       "to": "corridor"
+      },
+      {
+       "u": 0.87,
+       "to": "white door"
+      },
+      {
+       "u": 0.92,
+       "to": "white door"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_kit1": {
+   "zone": "kitchen/dining pt.A",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_kit1.jpg",
+     "kb": 408.2,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JZ6 — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_kit1_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1009.5,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 8.931,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 19.24,
+     "psnr_worst_db": 17.19,
+     "psnr_worst_dir": "px",
+     "psnr_best_db": 22.39,
+     "holes_max_pct": 0.076,
+     "double_edge_max_pct": -67.1,
+     "dot_peak_max": 1174.3,
+     "per_dir": {
+      "px": {
+       "psnr_db": 17.19,
+       "holes_pct": 0.076,
+       "double_edge_excess_pct": -73.9
+      },
+      "mx": {
+       "psnr_db": 22.39,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -86.5
+      },
+      "pz": {
+       "psnr_db": 17.19,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -69.5
+      },
+      "mz": {
+       "psnr_db": 20.2,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -67.1
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "open-plan kitchen/dining/living",
+     "layout": "central buffet counter facing dining table both sides, kitchen left, living room to right rear",
+     "size_feel": "large",
+     "windows": [
+      {
+       "u": 0.75,
+       "blown": true
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.67,
+       "what": "glass-front display cabinet"
+      },
+      {
+       "u": 0.94,
+       "what": "glass-door fridge"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.83,
+       "to": "hallway/other rooms"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_kit2": {
+   "zone": "kitchen pt.B",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_kit2.jpg",
+     "kb": 410.3,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8J1g — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_kit2_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 964.2,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 7.23,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 20.73,
+     "psnr_worst_db": 16.93,
+     "psnr_worst_dir": "pz",
+     "psnr_best_db": 28.58,
+     "holes_max_pct": 0.302,
+     "double_edge_max_pct": -67.8,
+     "dot_peak_max": 1101.0,
+     "per_dir": {
+      "px": {
+       "psnr_db": 28.58,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -99.5
+      },
+      "mx": {
+       "psnr_db": 19.93,
+       "holes_pct": 0.302,
+       "double_edge_excess_pct": -76.2
+      },
+      "pz": {
+       "psnr_db": 16.93,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -67.8
+      },
+      "mz": {
+       "psnr_db": 17.47,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -79.2
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "open-plan kitchen/dining with view to living room",
+     "layout": "kitchen cabinets on left and right walls, dining table centre, corridor to living room at far end",
+     "size_feel": "large",
+     "windows": [
+      {
+       "u": 0.85,
+       "blown": true
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.85,
+       "what": "glass door/window to living room"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.83,
+       "to": "living room"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_bed1a": {
+   "zone": "master bedroom pt.A",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_bed1a.jpg",
+     "kb": 818.4,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JDH — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_bed1a_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1093.1,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 12.884,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 18.34,
+     "psnr_worst_db": 16.66,
+     "psnr_worst_dir": "pz",
+     "psnr_best_db": 20.55,
+     "holes_max_pct": 0.0,
+     "double_edge_max_pct": -62.4,
+     "dot_peak_max": 1218.0,
+     "per_dir": {
+      "px": {
+       "psnr_db": 19.36,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -76.1
+      },
+      "mx": {
+       "psnr_db": 16.81,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -73.0
+      },
+      "pz": {
+       "psnr_db": 16.66,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -62.4
+      },
+      "mz": {
+       "psnr_db": 20.55,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -69.5
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "bedroom",
+     "layout": "rectangular",
+     "size_feel": "medium",
+     "windows": [
+      {
+       "u": 0.74,
+       "blown": false
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.5,
+       "what": "vanity mirror reflecting bed"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.29,
+       "to": "hallway"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_bed1b": {
+   "zone": "master bedroom pt.B",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_bed1b.jpg",
+     "kb": 500.1,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JHt — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_bed1b_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1013.6,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 7.448,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 23.84,
+     "psnr_worst_db": 16.48,
+     "psnr_worst_dir": "pz",
+     "psnr_best_db": 37.34,
+     "holes_max_pct": 0.0,
+     "double_edge_max_pct": 0.0,
+     "dot_peak_max": 791.7,
+     "per_dir": {
+      "px": {
+       "psnr_db": 16.84,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -71.1
+      },
+      "mx": {
+       "psnr_db": 37.34,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": 0.0
+      },
+      "pz": {
+       "psnr_db": 16.48,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -69.7
+      },
+      "mz": {
+       "psnr_db": 24.68,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -84.4
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "bedroom",
+     "layout": "open suite with entry corridor, vanity area, and sleeping space",
+     "size_feel": "large",
+     "windows": [
+      {
+       "u": 0.77,
+       "blown": false
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.67,
+       "what": "vanity mirror"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.19,
+       "to": "hallway corridor"
+      },
+      {
+       "u": 0.25,
+       "to": "bathroom or closet door"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_bed2a": {
+   "zone": "child bedroom",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_bed2a.jpg",
+     "kb": 406.9,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JMW — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_bed2a_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 1061.7,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 12.258,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 20.54,
+     "psnr_worst_db": 17.95,
+     "psnr_worst_dir": "mz",
+     "psnr_best_db": 24.18,
+     "holes_max_pct": 0.0,
+     "double_edge_max_pct": -70.0,
+     "dot_peak_max": 723.5,
+     "per_dir": {
+      "px": {
+       "psnr_db": 19.32,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -70.3
+      },
+      "mx": {
+       "psnr_db": 24.18,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -70.0
+      },
+      "pz": {
+       "psnr_db": 20.7,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -70.4
+      },
+      "mz": {
+       "psnr_db": 17.95,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -70.6
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "child_bedroom",
+     "layout": "rectangular",
+     "size_feel": "medium",
+     "windows": [
+      {
+       "u": 0.4,
+       "blown": false
+      }
+     ],
+     "mirrors_glass": [],
+     "doorways": [
+      {
+       "u": 0.66,
+       "to": "hallway"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  },
+  "moradi_bed3a": {
+   "zone": "pink bedroom",
+   "eql": {
+    "at_rest": "EQL-0",
+    "in_motion": "EQL-3-EXP",
+    "envelope_m": 0.75,
+    "basis": "rest = single-node 4K equirect rotation (labs harness); motion = VQ 1.1 gaussian splat layer, EXPERIMENTAL path, R&D-only"
+   },
+   "panorama": {
+    "value": {
+     "file": "public/assets/panoramas/moradi_bed3a.jpg",
+     "kb": 471.0,
+     "resolution": "4K equirect"
+    },
+    "status": "verified",
+    "source": "kuula.co/post/L8JTX — Mojtaba87 (R&D-only benchmark; any public use requires the photographer's permission)",
+    "measurement_method": "4K equirect download; md5 dedup within the profile set (Kitchen_2 duplicate removed)",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "splat_geometry": {
+    "value": {
+     "file": "public/labs/engine-v1/assets/moradi_bed3a_splat_v11.spz",
+     "n_splats": 132349,
+     "spz_kb": 990.5,
+     "params": {
+      "c_sigma": 1.3,
+      "opacity": 1.0,
+      "stride": 2,
+      "grid": [
+       1022,
+       518
+      ],
+      "cam_h": 1.5
+     },
+     "format": "SPZ v4"
+    },
+    "status": "estimated",
+    "source": "DAV2-small ONNX monocular depth -> VQ 1.1 locked projection (method lock, no per-scene tuning)",
+    "measurement_method": "AI depth estimation — no physical scene measurement exists",
+    "confidence": "medium (fidelity independently MEASURED at 0.75 m, see fidelity folder)",
+    "verification_date": "2026-11-07"
+   },
+   "metric_scale_k": {
+    "value": 7.942,
+    "status": "estimated",
+    "source": "k_solver on DAV2-small relative depth + pano geometry assumptions",
+    "measurement_method": "monocular depth scale heuristic (CAM_H 1.5 m anchor)",
+    "confidence": "low-medium — never to be presented as measured dimensions",
+    "verification_date": "2026-11-07"
+   },
+   "fidelity_0p75m": {
+    "value": {
+     "offset_m": 0.75,
+     "psnr_mean_db": 21.79,
+     "psnr_worst_db": 14.26,
+     "psnr_worst_dir": "mz",
+     "psnr_best_db": 28.12,
+     "holes_max_pct": 1.207,
+     "double_edge_max_pct": -63.2,
+     "dot_peak_max": 2976.2,
+     "per_dir": {
+      "px": {
+       "psnr_db": 26.34,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -89.6
+      },
+      "mx": {
+       "psnr_db": 18.43,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -63.2
+      },
+      "pz": {
+       "psnr_db": 28.12,
+       "holes_pct": 0.0,
+       "double_edge_excess_pct": -82.5
+      },
+      "mz": {
+       "psnr_db": 14.26,
+       "holes_pct": 1.207,
+       "double_edge_excess_pct": -65.0
+      }
+     }
+    },
+    "status": "measured",
+    "source": "exp2 battery — settle-aware native-DPR stills (set-wide: 10 scenes x 4 dirs x 3 modes @0.75 m + 2 full distance ladders = 160)",
+    "measurement_method": "PSNR vs 4K pano reference at 0.75 m; hole/bleed/dot/double-edge pixel statistics",
+    "confidence": "high",
+    "verification_date": "2026-11-07"
+   },
+   "movement_envelope": {
+    "value": 0.75,
+    "status": "measured",
+    "source": "set-wide @0.75 m battery (this scene included) + full distance ladders on moradi_bed1a (mx/px) and moradi_main3 (pz) anchor the curve (PRIME 0.2-0.6 / ACCEPTED 0.75 / TRANSIT 1.0-1.3 m)",
+    "measurement_method": "distance ladder 0.2->1.3 m with settle-aware captures; VLM confirmation on the 3 riskiest rooms",
+    "confidence": "high",
+    "verification_date": "2026-11-07",
+    "note": "harness default clamp now equals this measured value (was 1.3 = TRANSIT edge)"
+   },
+   "vlm_room_survey": {
+    "value": {
+     "room": "bedroom",
+     "layout": "bedroom with built-in desk and wardrobe",
+     "size_feel": "medium",
+     "windows": [
+      {
+       "u": 0.25,
+       "blown": false
+      }
+     ],
+     "mirrors_glass": [
+      {
+       "u": 0.11,
+       "what": "round vanity mirror"
+      }
+     ],
+     "doorways": [
+      {
+       "u": 0.01,
+       "to": "hallway"
+      },
+      {
+       "u": 0.97,
+       "to": "hallway"
+      }
+     ]
+    },
+    "status": "estimated",
+    "source": "VLM survey of the 16-post profile set (2026-11-07 23:23, before prediction lock)",
+    "measurement_method": "visual inspection of the equirect; u = horizontal position on the pano seam",
+    "confidence": "medium",
+    "verification_date": "2026-11-07",
+    "note": "observational, not measured geometry — estimated data never grants movement rights"
+   },
+   "node_position": {
+    "value": null,
+    "status": "unverified",
+    "source": "none — Kuula posts publish no capture-position metadata",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null,
+    "note": "EQL-2 (node-based spatial navigation) NOT claimable for this set; same-space pairs are cross-validation instruments, not navigation links"
+   },
+   "links": {
+    "value": [],
+    "status": "unverified",
+    "source": "none recorded",
+    "measurement_method": "n/a",
+    "confidence": "none",
+    "verification_date": null
+   }
+  }
+ },
+ "artifacts_index": {
+  "gen": "docs/rd-artifacts/engine-v1/moradi_gen.json",
+  "metrics": "docs/rd-artifacts/engine-v1/moradi_metrics.json",
+  "verify": "docs/rd-artifacts/engine-v1/moradi_verify.json",
+  "survey": "docs/rd-artifacts/engine-v1/moradi_survey.json",
+  "predictions": "docs/rd-artifacts/engine-v1/moradi_predictions.json",
+  "stills_index": "docs/rd-artifacts/engine-v1/moradi_stills_index.json",
+  "report": "docs/engine-upgrade-v1/moradi_realcontent_v1.md"
+ }
+}

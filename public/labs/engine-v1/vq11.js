@@ -16,7 +16,13 @@ let   MODE   = Q.get('mode') || 'both';          // pano | splat | both
 const BG     = Q.get('bg') || 'black';           // splat-mode background
 let   BLEND  = Q.get('blend') || 'auto';
 const FADE_MS = parseFloat(Q.get('fade') || '350');
-const SAFE_R = parseFloat(Q.get('safeR') || '1.3');
+/* NEW RULE 2026-11-07 (EQL / data confidence): envelope numbers come from MEASUREMENT.
+ * Measured ladder on real content (Moradi set): PRIME 0.2–0.6 m · ACCEPTED 0.75 m ·
+ * TRANSIT 1.0–1.3 m (small holes in mirror/wardrobe quadrants beyond 1.0 m).
+ * Review/owner flow therefore clamps to the measured accepted envelope 0.75 m.
+ * The full 1.3 m R&D ladder stays available via ?safeR=1.3, and the autotest
+ * battery lifts SAFE_R by itself — the instrument is not degraded. */
+let SAFE_R = parseFloat(Q.get('safeR') || '0.75');
 const OFF0   = parseFloat(Q.get('offset') || '0');
 const DIR0   = (Q.get('dir') || '+x').replace(/ /g, '+');
 const LOOK0  = Q.get('look') || 'back';          // back | fwd | perp (rel. to travel dir)
@@ -380,7 +386,7 @@ window.__vq = {
     b.disabled = true; b.textContent = '🚶 …';
     const R = Math.min(SAFE_R, 0.75);
     await runWalkPath([[0,0],[R,0],[0,0],[0,R],[0,0],[-R,0],[0,0],[0,-R],[0,0]], MOVE_MPS);
-    b.disabled = false; b.textContent = '🚶 Walk 0.75m';
+    b.disabled = false; b.textContent = '🚶 Walk ' + (+R.toFixed(2)) + 'm';   // honest label: the radius actually walked
   });
 }
 
@@ -429,6 +435,7 @@ if (AUTOTEST) (async () => {
   log('VQ 1.1 autotest — walking battery (4 directions, out & back)…');
   frameMs.length = 0;
   applyMode('both'); BLEND = 'auto';
+  SAFE_R = Math.max(SAFE_R, 1.3);   // R&D instrument: always walk the FULL measured ladder (0.75 default is the review envelope, not the battery's)
   const R = Math.min(SAFE_R, 1.3);
   await runWalkPath([[0,0],[R,0],[0,0],[0,R],[0,0],[-R,0],[0,0],[0,-R],[0,0]], MOVE_MPS);
   const walk = fpsStats();
