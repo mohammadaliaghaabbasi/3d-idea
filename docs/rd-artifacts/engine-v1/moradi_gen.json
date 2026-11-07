@@ -1,0 +1,185 @@
+{
+ "tool": "moradi_gen.py",
+ "params_locked": {
+  "c_sigma": 1.3,
+  "opacity": 1.0,
+  "stride": 2,
+  "grid": [
+   1022,
+   518
+  ],
+  "cam_h": 1.5
+ },
+ "scenes": {
+  "moradi_main1": {
+   "title": "Main_1_moradi",
+   "k_metric_scale": 9.137,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 1.099,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.975,
+    "alpha_p5": 0.977,
+    "alpha_mean": 0.986,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1049.4,
+   "pano_kb": 746.3,
+   "t_depth_s": 5.4,
+   "t_total_s": 6.4
+  },
+  "moradi_main2": {
+   "title": "Main_2_moradi",
+   "k_metric_scale": 7.917,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 0.02,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.975,
+    "alpha_p5": 0.977,
+    "alpha_mean": 0.986,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1029.3,
+   "pano_kb": 765.9,
+   "t_depth_s": 4.9,
+   "t_total_s": 5.9
+  },
+  "moradi_main3": {
+   "title": "Main_3_moradi",
+   "k_metric_scale": 9.377,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 0.0,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.975,
+    "alpha_p5": 0.977,
+    "alpha_mean": 0.986,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1072.6,
+   "pano_kb": 946.9,
+   "t_depth_s": 5.0,
+   "t_total_s": 5.8
+  },
+  "moradi_main4": {
+   "title": "Main_4_moradi",
+   "k_metric_scale": 11.158,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 0.491,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.975,
+    "alpha_p5": 0.977,
+    "alpha_mean": 0.986,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1084.1,
+   "pano_kb": 828.9,
+   "t_depth_s": 5.0,
+   "t_total_s": 5.9
+  },
+  "moradi_kit1": {
+   "title": "Kitchen_1_moradi",
+   "k_metric_scale": 8.931,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 0.77,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.999,
+    "alpha_p5": 1.0,
+    "alpha_mean": 1.0,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1009.5,
+   "pano_kb": 408.2,
+   "t_depth_s": 5.0,
+   "t_total_s": 6.2
+  },
+  "moradi_kit2": {
+   "title": "Kitchen_2_moradi",
+   "k_metric_scale": 7.23,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 1.154,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.975,
+    "alpha_p5": 0.977,
+    "alpha_mean": 0.986,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 964.2,
+   "pano_kb": 410.3,
+   "t_depth_s": 4.9,
+   "t_total_s": 5.9
+  },
+  "moradi_bed1a": {
+   "title": "Bedroom_1-1_moradi",
+   "k_metric_scale": 12.884,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 1.148,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.975,
+    "alpha_p5": 0.977,
+    "alpha_mean": 0.986,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1093.1,
+   "pano_kb": 818.4,
+   "t_depth_s": 4.9,
+   "t_total_s": 5.9
+  },
+  "moradi_bed1b": {
+   "title": "Bedroom_1-2_moradi",
+   "k_metric_scale": 7.448,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 0.0,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 1.0,
+    "alpha_p5": 1.0,
+    "alpha_mean": 1.0,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1013.6,
+   "pano_kb": 500.1,
+   "t_depth_s": 5.0,
+   "t_total_s": 6.5
+  },
+  "moradi_bed2a": {
+   "title": "Bedroom_2-1_moradi",
+   "k_metric_scale": 12.258,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 0.0,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.975,
+    "alpha_p5": 0.977,
+    "alpha_mean": 0.986,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 1061.7,
+   "pano_kb": 406.9,
+   "t_depth_s": 4.9,
+   "t_total_s": 5.8
+  },
+  "moradi_bed3a": {
+   "title": "Bedroom_3-1_moradi",
+   "k_metric_scale": 7.942,
+   "depth_clip_lo_pct": 0.0,
+   "depth_clip_hi_pct": 0.0,
+   "n_splats": 132349,
+   "origin_qc": {
+    "alpha_min": 0.989,
+    "alpha_p5": 0.99,
+    "alpha_mean": 0.994,
+    "bleed_px_pct": 0.0
+   },
+   "spz_kb": 990.5,
+   "pano_kb": 471.0,
+   "t_depth_s": 5.3,
+   "t_total_s": 6.3
+  }
+ }
+}

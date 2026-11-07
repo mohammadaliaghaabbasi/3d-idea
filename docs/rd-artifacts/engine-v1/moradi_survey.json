@@ -1,0 +1,723 @@
+{
+ "c7360": {
+  "title": "C7360",
+  "post_id": "LxFdY",
+  "kuula_post": "https://kuula.co/post/LxFdY",
+  "files_uuid": "6adc-ea27-34f1-b162",
+  "vlm": {
+   "room": "living room",
+   "layout": "open plan",
+   "size_feel": "large",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.02,
+     "blown": true,
+     "note": "sheer curtain window on far left"
+    },
+    {
+     "u": 0.49,
+     "blown": false,
+     "note": "narrow vertical window next to front door"
+    },
+    {
+     "u": 0.96,
+     "blown": true,
+     "note": "large bright window at far right"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.25,
+     "what": "tall wall mirror"
+    },
+    {
+     "u": 0.49,
+     "what": "glass front display cabinet"
+    }
+   ],
+   "glossy_floor": false,
+   "rug_coverage": "large",
+   "thin_legs": [
+    "armchair legs"
+   ],
+   "ceiling": "cove",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.11,
+     "to": "hallway"
+    },
+    {
+     "u": 0.41,
+     "to": "front entrance"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "modern cove lighting, warm beige tones, dark marble island",
+   "dist_to_wall_min_m": 1.5,
+   "notes": "curved ceiling soffit with integrated LED strip lights"
+  }
+ },
+ "bed3b": {
+  "title": "Bedroom_3-2_moradi",
+  "post_id": "L8JTd",
+  "kuula_post": "https://kuula.co/post/L8JTd",
+  "files_uuid": "6ac7-3089-8264-a158",
+  "vlm": {
+   "room": "bedroom",
+   "layout": "open",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.22,
+     "blown": false,
+     "note": "large arched glass door leading outside"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.94,
+     "what": "vanity mirror"
+    }
+   ],
+   "glossy_floor": false,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "bedside table legs",
+    "desk chair legs",
+    "vanity stool legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.88,
+     "to": "hallway"
+    }
+   ],
+   "clutter": "normal",
+   "house_markers": "modern bedroom, curved bed, mauve paneling, pink curtains",
+   "dist_to_wall_min_m": 1.2,
+   "notes": "curved furniture geometry and wide panoramic view"
+  }
+ },
+ "bed3a": {
+  "title": "Bedroom_3-1_moradi",
+  "post_id": "L8JTX",
+  "kuula_post": "https://kuula.co/post/L8JTX",
+  "files_uuid": "6ac7-303f-86f5-0116",
+  "vlm": {
+   "room": "bedroom",
+   "layout": "bedroom with built-in desk and wardrobe",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.25,
+     "blown": false,
+     "note": "french doors leading to patio"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.11,
+     "what": "round vanity mirror"
+    }
+   ],
+   "glossy_floor": false,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "vanity table legs",
+    "vanity stool legs",
+    "nightstand legs",
+    "desk chair legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.01,
+     "to": "hallway"
+    },
+    {
+     "u": 0.97,
+     "to": "hallway"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "dusty pink paneling, curved built-in wardrobe, modern interior design",
+   "dist_to_wall_min_m": 1.5,
+   "notes": "large curved wardrobe structure close to camera on the right side"
+  }
+ },
+ "bed2b": {
+  "title": "Bedroom_2-2_moradi",
+  "post_id": "L8JTl",
+  "kuula_post": "https://kuula.co/post/L8JTl",
+  "files_uuid": "6ac7-300b-0b05-7754",
+  "vlm": {
+   "room": "children's bedroom",
+   "layout": "integrated study area, wardrobe, and sleeping zone",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.48,
+     "blown": false,
+     "note": "window with brown star pattern roman blind"
+    }
+   ],
+   "mirrors_glass": [],
+   "glossy_floor": false,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "desk chair legs",
+    "side table legs",
+    "credenza legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.71,
+     "to": "interior door"
+    }
+   ],
+   "clutter": "normal",
+   "house_markers": "modern scandinavian design, pastel accents, light wood, upholstered bed",
+   "dist_to_wall_min_m": 1.2,
+   "notes": "wide-angle 3D render with curved wall features"
+  }
+ },
+ "bed2a": {
+  "title": "Bedroom_2-1_moradi",
+  "post_id": "L8JMW",
+  "kuula_post": "https://kuula.co/post/L8JMW",
+  "files_uuid": "6ac7-2fc8-0fb9-6182",
+  "vlm": {
+   "room": "child_bedroom",
+   "layout": "rectangular",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.4,
+     "blown": false,
+     "note": "window with roman blind"
+    }
+   ],
+   "mirrors_glass": [],
+   "glossy_floor": false,
+   "rug_coverage": "large",
+   "thin_legs": [
+    "desk chair legs",
+    "bedside table legs"
+   ],
+   "ceiling": "cove",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.66,
+     "to": "hallway"
+    }
+   ],
+   "clutter": "normal",
+   "house_markers": "modern scandinavian design, sage green walls, wainscoting, light wood",
+   "dist_to_wall_min_m": 1.5,
+   "notes": "bed frame occupies bottom foreground of 360 view"
+  }
+ },
+ "bed1b": {
+  "title": "Bedroom_1-2_moradi",
+  "post_id": "L8JHt",
+  "kuula_post": "https://kuula.co/post/L8JHt",
+  "files_uuid": "6ac7-2f39-e21f-8213",
+  "vlm": {
+   "room": "bedroom",
+   "layout": "open suite with entry corridor, vanity area, and sleeping space",
+   "size_feel": "large",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.77,
+     "blown": false,
+     "note": "window with translucent white sheer curtains"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.67,
+     "what": "vanity mirror"
+    }
+   ],
+   "glossy_floor": false,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "vanity desk legs",
+    "vanity stool legs",
+    "bench legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.19,
+     "to": "hallway corridor"
+    },
+    {
+     "u": 0.25,
+     "to": "bathroom or closet door"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "modern luxury beige interior, arched headboard wallpaper, wood paneling",
+   "dist_to_wall_min_m": 1.2,
+   "notes": "Seamless CGI render with strong panoramic wall curvature visual"
+  }
+ },
+ "bed1a": {
+  "title": "Bedroom_1-1_moradi",
+  "post_id": "L8JDH",
+  "kuula_post": "https://kuula.co/post/L8JDH",
+  "files_uuid": "6ac7-2eec-6895-f123",
+  "vlm": {
+   "room": "bedroom",
+   "layout": "rectangular",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.74,
+     "blown": false,
+     "note": "window with sheer curtains"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.5,
+     "what": "vanity mirror reflecting bed"
+    }
+   ],
+   "glossy_floor": false,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "vanity desk legs",
+    "vanity stool legs",
+    "coffee table legs",
+    "bench legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.29,
+     "to": "hallway"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "neoclassical accents, neutral tones, arched wall murals, wood panelling",
+   "dist_to_wall_min_m": 1.0,
+   "notes": "Camera is positioned immediately adjacent to/above a large bed filling the lower field of view"
+  }
+ },
+ "kit3b": {
+  "title": "Kitchen_3-2_moradi",
+  "post_id": "L8JDG",
+  "kuula_post": "https://kuula.co/post/L8JDG",
+  "files_uuid": "6ac7-2ea3-d9e0-1165",
+  "vlm": {
+   "room": "kitchen",
+   "layout": "U-shaped",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.0,
+     "blown": true,
+     "note": "glass door exterior view"
+    },
+    {
+     "u": 1.0,
+     "blown": true,
+     "note": "glass door exterior view"
+    }
+   ],
+   "mirrors_glass": [],
+   "glossy_floor": false,
+   "rug_coverage": "none",
+   "thin_legs": [],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.0,
+     "to": "exterior"
+    },
+    {
+     "u": 1.0,
+     "to": "exterior"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "Beige cabinetry, marble backsplashes, wood accents, modern minimalist style",
+   "dist_to_wall_min_m": 1.2,
+   "notes": "Curved cabinetry and continuous countertops affect depth perception."
+  }
+ },
+ "kit3a": {
+  "title": "Kitchen_3_moradi",
+  "post_id": "L8J1y",
+  "kuula_post": "https://kuula.co/post/L8J1y",
+  "files_uuid": "6ac7-2e4c-c86f-4333",
+  "vlm": {
+   "room": "kitchen",
+   "layout": "U-shaped",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.02,
+     "blown": false,
+     "note": "glass panel door to courtyard"
+    },
+    {
+     "u": 0.98,
+     "blown": false,
+     "note": "glass panel door to courtyard"
+    }
+   ],
+   "mirrors_glass": [],
+   "glossy_floor": false,
+   "rug_coverage": "none",
+   "thin_legs": [],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [],
+   "clutter": "sparse",
+   "house_markers": "modern beige flat-panel cabinetry, light wood accents, marble backsplash",
+   "dist_to_wall_min_m": 1.2,
+   "notes": "curved counter geometry wrapping closely around camera"
+  }
+ },
+ "kit2": {
+  "title": "Kitchen_2_moradi",
+  "post_id": "L8J1g",
+  "kuula_post": "https://kuula.co/post/L8J1g",
+  "files_uuid": "6ac7-2e1a-39dd-3132",
+  "vlm": {
+   "room": "open-plan kitchen/dining with view to living room",
+   "layout": "kitchen cabinets on left and right walls, dining table centre, corridor to living room at far end",
+   "size_feel": "large",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.85,
+     "blown": true,
+     "note": "bright window at far living room end"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.85,
+     "what": "glass door/window to living room"
+    }
+   ],
+   "glossy_floor": true,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "dining table legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.83,
+     "to": "living room"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "beige modern luxury, wood+cream panels, marble surfaces, brass pendants",
+   "dist_to_wall_min_m": 2.0,
+   "notes": "CGI render; glossy tiled floor reflections, curved cabinetry, distant window brightness gradient"
+  }
+ },
+ "kit1": {
+  "title": "Kitchen_1_moradi",
+  "post_id": "L8JZ6",
+  "kuula_post": "https://kuula.co/post/L8JZ6",
+  "files_uuid": "6ac7-2b6e-a589-4652",
+  "vlm": {
+   "room": "open-plan kitchen/dining/living",
+   "layout": "central buffet counter facing dining table both sides, kitchen left, living room to right rear",
+   "size_feel": "large",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.75,
+     "blown": true,
+     "note": "bright curtained window at far end of living room"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.67,
+     "what": "glass-front display cabinet"
+    },
+    {
+     "u": 0.94,
+     "what": "glass-door fridge"
+    }
+   ],
+   "glossy_floor": true,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "dining chair legs",
+    "side table legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.83,
+     "to": "hallway/other rooms"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "beige lacquer cabinetry, marble, brass pendants, modern luxury",
+   "dist_to_wall_min_m": 1.5,
+   "notes": "duplicated dining table at both edges (wrap duplicate), strong backlight at far window, curved counter breaks straight-line depth cues"
+  }
+ },
+ "main4": {
+  "title": "Main_4_moradi",
+  "post_id": "L8JZT",
+  "kuula_post": "https://kuula.co/post/L8JZT",
+  "files_uuid": "6ac7-2b40-658a-c193",
+  "vlm": {
+   "room": "open-plan living/dining/kitchen",
+   "layout": "living area with curved cream sofa and ottoman chairs at centre, kitchen/dining visible through wide opening right of centre, formal dining set near curtained window, TV walls on both side walls",
+   "size_feel": "large",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.71,
+     "blown": true,
+     "note": "curtained window/door behind dining set, bright overexposed beyond"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.05,
+     "what": "gold-framed arched wall panel (possibly mirror) beside TV"
+    },
+    {
+     "u": 0.96,
+     "what": "gold-framed arched wall panel beside TV"
+    }
+   ],
+   "glossy_floor": true,
+   "rug_coverage": "large",
+   "thin_legs": [
+    "dining chairs",
+    "coffee tables",
+    "circular side trolley",
+    "TV console"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.14,
+     "to": "hallway"
+    },
+    {
+     "u": 0.36,
+     "to": "kitchen"
+    },
+    {
+     "u": 0.55,
+     "to": "corridor"
+    },
+    {
+     "u": 0.87,
+     "to": "white door"
+    },
+    {
+     "u": 0.92,
+     "to": "white door"
+    }
+   ],
+   "clutter": "normal",
+   "house_markers": "olive/cream walls, gold trim, classic-modern luxury style",
+   "dist_to_wall_min_m": 2.5,
+   "notes": "rendered CGI scene; glossy tiled floor reflections, large patterned rug at nadir may stress floor-depth estimation; blown window behind sheer curtains; arched niches and recessed cove lighting create soft depth cues; repeating similar dining/lounge chairs can cause matching ambiguity"
+  }
+ },
+ "main3": {
+  "title": "Main_3_moradi",
+  "post_id": "L8JZM",
+  "kuula_post": "https://kuula.co/post/L8JZM",
+  "files_uuid": "6ac7-2b0e-5e23-f548",
+  "vlm": {
+   "room": "open-plan living/dining/kitchen",
+   "layout": "central seating area flanked by kitchen left, dining right, corridor rear",
+   "size_feel": "large",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.72,
+     "blown": false,
+     "note": "sheer-curtained window, bright but detailed"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.84,
+     "what": "gilded mirror over console"
+    },
+    {
+     "u": 0.52,
+     "what": "glass-top round coffee table"
+    }
+   ],
+   "glossy_floor": true,
+   "rug_coverage": "large",
+   "thin_legs": [
+    "dining chairs",
+    "console table",
+    "side tables"
+   ],
+   "ceiling": "cove",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.78,
+     "to": "entrance corridor/hall"
+    },
+    {
+     "u": 0.9,
+     "to": "side room/wardrobe area"
+    }
+   ],
+   "clutter": "normal",
+   "house_markers": "neoclassical luxury, cream/gold, mouldings, green accents",
+   "dist_to_wall_min_m": 3.0,
+   "notes": "appears to be a CGI render; glossy tiled floor with large ornate rug pattern may confuse texture/depth; sheer curtains and cove lighting stress exposure"
+  }
+ },
+ "main2": {
+  "title": "Main_2_moradi",
+  "post_id": "L8JZc",
+  "kuula_post": "https://kuula.co/post/L8JZc",
+  "files_uuid": "6ac7-2ad3-e3b2-f631",
+  "vlm": {
+   "room": "entry hall / hallway into living room",
+   "layout": "central hall with door left, glazed doors right, living area ahead",
+   "size_feel": "medium",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.75,
+     "blown": false,
+     "note": "arched black-frame glazed double doors to exterior patio"
+    },
+    {
+     "u": 0.0,
+     "blown": false,
+     "note": "mirror reflection of window/living area at left edge"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.01,
+     "what": "large wall mirror in wood alcove"
+    },
+    {
+     "u": 0.98,
+     "what": "large wall mirror in wood alcove"
+    },
+    {
+     "u": 0.75,
+     "what": "glazed double doors"
+    }
+   ],
+   "glossy_floor": true,
+   "rug_coverage": "partial",
+   "thin_legs": [
+    "dining chair legs",
+    "coffee table legs"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "stitch",
+   "doorways": [
+    {
+     "u": 0.27,
+     "to": "closed white door"
+    },
+    {
+     "u": 0.45,
+     "to": "living/dining room"
+    }
+   ],
+   "clutter": "sparse",
+   "house_markers": "light oak millwork, cream walls, beige stone floor, modern classic",
+   "dist_to_wall_min_m": 1.5,
+   "notes": "mirrors on both edges show reflected room, confusing depth; glossy tiled floor reflections; window area bright but not fully blown; heavy patterned curtain at u~0.57"
+  }
+ },
+ "main1": {
+  "title": "Main_1_moradi",
+  "post_id": "L8JZk",
+  "kuula_post": "https://kuula.co/post/L8JZk",
+  "files_uuid": "6ac7-2a2d-0365-c351",
+  "vlm": {
+   "room": "sitting room / lounge",
+   "layout": "open-plan lounge with seating arc around central coffee table, kitchen and second lounge visible left, hall right",
+   "size_feel": "large",
+   "cam_pos": "centre",
+   "windows": [
+    {
+     "u": 0.73,
+     "blown": true,
+     "note": "large curtained window wall, sky blown through sheer curtains"
+    },
+    {
+     "u": 0.88,
+     "blown": true,
+     "note": "glass door/window, bright exterior"
+    }
+   ],
+   "mirrors_glass": [
+    {
+     "u": 0.08,
+     "what": "gilt-framed mirror over console"
+    }
+   ],
+   "glossy_floor": false,
+   "rug_coverage": "large",
+   "thin_legs": [
+    "chair legs",
+    "console table legs",
+    "side table"
+   ],
+   "ceiling": "fixtures",
+   "nadir": "clean",
+   "doorways": [
+    {
+     "u": 0.17,
+     "to": "second lounge/kitchen area"
+    },
+    {
+     "u": 0.89,
+     "to": "hallway/entrance"
+    }
+   ],
+   "clutter": "normal",
+   "house_markers": "neoclassical, gilt Louis chairs, mouldings, beige, brass cove lighting",
+   "dist_to_wall_min_m": 2.5,
+   "notes": "flowers on table directly below camera occlude nadir; repetitive identical chairs may confuse matching; sheer curtains over blown windows stress exposure/depth"
+  }
+ }
+}

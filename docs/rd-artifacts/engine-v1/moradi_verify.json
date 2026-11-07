@@ -1,0 +1,921 @@
+{
+ "per_scene": {
+  "main1": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.3
+     ],
+     "meas": 0.17,
+     "score": "HIT"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 5.0,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 1574.0,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 1.3,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "pz",
+    "actual_worst_code": "pz",
+    "score": "HIT"
+   },
+   "flags": {
+    "blown_window_disparity_noise:pz": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 18.72,
+     "score": "HIT",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 16.63,
+     "score": "HIT",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      13,
+      17
+     ],
+     "meas": 14.71,
+     "score": "HIT",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 16.19,
+     "score": "HIT",
+     "viewed": "+z"
+    }
+   }
+  },
+  "main2": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.8
+     ],
+     "meas": 0.055,
+     "score": "HIT"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 5.65,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 3379.5,
+     "score": "NEAR"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 1.0,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "px",
+    "actual_worst_code": "pz",
+    "score": "MISS"
+   },
+   "flags": {
+    "mirror_depth_collapse:px": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      12,
+      16
+     ],
+     "meas": 14.67,
+     "score": "HIT",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 17.03,
+     "score": "HIT",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 10.73,
+     "score": "MISS",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 24.11,
+     "score": "MISS",
+     "viewed": "+z"
+    }
+   }
+  },
+  "main3": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.3
+     ],
+     "meas": 0.373,
+     "score": "NEAR"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 2.12,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 1150.4,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      60,
+      80
+     ],
+     "meas": 0.8,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "pz",
+    "actual_worst_code": "mx",
+    "score": "MISS"
+   },
+   "flags": {},
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      17,
+      21
+     ],
+     "meas": 15.77,
+     "score": "MISS",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      16,
+      20
+     ],
+     "meas": 15.48,
+     "score": "NEAR",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 17.72,
+     "score": "HIT",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      16,
+      20
+     ],
+     "meas": 16.69,
+     "score": "HIT",
+     "viewed": "+z"
+    }
+   }
+  },
+  "main4": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.3
+     ],
+     "meas": 0.612,
+     "score": "MISS"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 1.81,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 1508.1,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      60,
+      80
+     ],
+     "meas": 0.9,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "px",
+    "actual_worst_code": "px",
+    "score": "HIT"
+   },
+   "flags": {
+    "mirror_depth_collapse:px": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    },
+    "blown_window_disparity_noise:pz": {
+     "in_weakest2": true,
+     "de_max": true,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      13,
+      17
+     ],
+     "meas": 13.71,
+     "score": "HIT",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      16,
+      20
+     ],
+     "meas": 19.65,
+     "score": "HIT",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 19.3,
+     "score": "MISS",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      16,
+      20
+     ],
+     "meas": 19.47,
+     "score": "HIT",
+     "viewed": "+z"
+    }
+   }
+  },
+  "kit1": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.6
+     ],
+     "meas": 0.076,
+     "score": "HIT"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 1.2,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 1174.3,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 2.0,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "px",
+    "actual_worst_code": "px",
+    "score": "HIT"
+   },
+   "flags": {
+    "seam_duplicate_geometry:px": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    },
+    "blown_window_disparity_noise:pz": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      11,
+      15
+     ],
+     "meas": 17.19,
+     "score": "MISS",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 22.39,
+     "score": "MISS",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      13,
+      17
+     ],
+     "meas": 17.19,
+     "score": "NEAR",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 20.2,
+     "score": "MISS",
+     "viewed": "+z"
+    }
+   }
+  },
+  "kit2": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.4
+     ],
+     "meas": 0.302,
+     "score": "HIT"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 2.15,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 1101.0,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 2.0,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "pz",
+    "actual_worst_code": "pz",
+    "score": "HIT"
+   },
+   "flags": {
+    "blown_window_disparity_noise:pz": {
+     "in_weakest2": true,
+     "de_max": true,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 28.58,
+     "score": "MISS",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 19.93,
+     "score": "NEAR",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      13,
+      17
+     ],
+     "meas": 16.93,
+     "score": "HIT",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      16,
+      20
+     ],
+     "meas": 17.47,
+     "score": "HIT",
+     "viewed": "+z"
+    }
+   }
+  },
+  "bed1a": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      1.0
+     ],
+     "meas": 0.0,
+     "score": "HIT"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 1.66,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 1218.0,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 1.7,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "mx",
+    "actual_worst_code": "pz",
+    "score": "NEAR"
+   },
+   "flags": {
+    "mirror_depth_collapse:mx": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    },
+    "near_field_shear:mx": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 19.36,
+     "score": "NEAR",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      12,
+      16
+     ],
+     "meas": 16.81,
+     "score": "NEAR",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 16.66,
+     "score": "HIT",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 20.55,
+     "score": "MISS",
+     "viewed": "+z"
+    }
+   }
+  },
+  "bed1b": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.8
+     ],
+     "meas": 0.0,
+     "score": "HIT"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 1.37,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 791.7,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 45.4,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "pz",
+    "actual_worst_code": "pz",
+    "score": "HIT"
+   },
+   "flags": {
+    "mirror_depth_collapse:pz": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 16.84,
+     "score": "HIT",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 37.34,
+     "score": "MISS",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      12,
+      16
+     ],
+     "meas": 16.48,
+     "score": "NEAR",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 24.68,
+     "score": "MISS",
+     "viewed": "+z"
+    }
+   }
+  },
+  "bed2a": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.5
+     ],
+     "meas": 0.0,
+     "score": "HIT"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 0.94,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 723.5,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 1.7,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "mz",
+    "actual_worst_code": "mz",
+    "score": "HIT"
+   },
+   "flags": {
+    "near_field_shear:mz": {
+     "in_weakest2": true,
+     "de_max": false,
+     "confirmed": true
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 19.32,
+     "score": "NEAR",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 24.18,
+     "score": "MISS",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      15,
+      19
+     ],
+     "meas": 20.7,
+     "score": "MISS",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      13,
+      17
+     ],
+     "meas": 17.95,
+     "score": "NEAR",
+     "viewed": "+z"
+    }
+   }
+  },
+  "bed3a": {
+   "bands": {
+    "holes_all": {
+     "pred": [
+      0.0,
+      0.6
+     ],
+     "meas": 1.207,
+     "score": "MISS"
+    },
+    "bleed": {
+     "pred": [
+      0.0,
+      0.0
+     ],
+     "meas": 8.95,
+     "score": "MISS"
+    },
+    "dot_peak": {
+     "pred": [
+      500,
+      3000
+     ],
+     "meas": 2976.2,
+     "score": "HIT"
+    },
+    "sharp_ret": {
+     "pred": [
+      55,
+      75
+     ],
+     "meas": 5.7,
+     "score": "MISS"
+    }
+   },
+   "worst_state": {
+    "pred_code": "pz",
+    "actual_worst_code": "mz",
+    "score": "MISS"
+   },
+   "flags": {
+    "mirror_depth_collapse:px": {
+     "in_weakest2": false,
+     "de_max": false,
+     "confirmed": false
+    },
+    "near_field_shear:pz": {
+     "in_weakest2": false,
+     "de_max": false,
+     "confirmed": false
+    }
+   },
+   "notes": [],
+   "per_state_psnr": {
+    "px": {
+     "pred": [
+      12,
+      16
+     ],
+     "meas": 26.34,
+     "score": "MISS",
+     "viewed": "-x"
+    },
+    "mx": {
+     "pred": [
+      14,
+      18
+     ],
+     "meas": 18.43,
+     "score": "NEAR",
+     "viewed": "+x"
+    },
+    "pz": {
+     "pred": [
+      12,
+      16
+     ],
+     "meas": 28.12,
+     "score": "MISS",
+     "viewed": "-z"
+    },
+    "mz": {
+     "pred": [
+      13,
+      17
+     ],
+     "meas": 14.26,
+     "score": "HIT",
+     "viewed": "+z"
+    }
+   }
+  }
+ },
+ "summary": {
+  "counts": {
+   "HIT": 40,
+   "NEAR": 12,
+   "MISS": 41
+  },
+  "accuracy_pct": 43.0,
+  "hit_plus_near_pct": 55.9
+ },
+ "cross_validation": {
+  "moradi_main3|moradi_main4": {
+   "psnr_mean_delta_db": 1.62,
+   "threshold": 1.5,
+   "ok": false
+  },
+  "moradi_kit1|moradi_kit2": {
+   "psnr_mean_delta_db": 1.49,
+   "threshold": 2.0,
+   "ok": true
+  },
+  "moradi_bed1a|moradi_bed1b": {
+   "range_a": [
+    16.66,
+    20.55
+   ],
+   "range_b": [
+    16.48,
+    37.34
+   ],
+   "overlap_frac": 1.0,
+   "ok": true
+  }
+ }
+}

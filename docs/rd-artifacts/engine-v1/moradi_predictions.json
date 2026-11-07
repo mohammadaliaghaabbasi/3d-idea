@@ -1,0 +1,221 @@
+{
+ "meta": {
+  "mission": "MORADI REAL-CONTENT TEST — VQ 1.1 method on 10 Kuula posts from ONE house",
+  "owner_instruction": "kuula.co/profile/Mojtaba87 — 10 related posts from one house so predictions can be precise (VQ1.1 method replaces the previous 10-page test set)",
+  "locked_before": "any pipeline run / SPZ generation / render measurement",
+  "analyst_predictions_rule": "written from VLM FACTS (moradi_survey.json) + established VQ1.1 failure-mode knowledge (cabin baseline). Quantified bands are falsifiable.",
+  "equirect_u_to_world_dir": {"0.0": "-x (seam)", "0.25": "+z", "0.5": "+x (pano centre = harness origin view)", "0.75": "-z", "1.0": "-x (seam wrap)"},
+  "battery_state_convention": "state dir=D, look=back -> camera moves D, VIEWED region = -D (vq11 exp2 convention)",
+  "baseline_cabin_v11": {"holes_pct_all_dists": 0.0, "psnr_db_075_mean": 16.9, "psnr_db_075_worst": 13.6, "bleed_pct": 0.0, "dot_peak": 1371, "verdict": "ACCEPTED default SAFE_R 0.75"},
+  "selected_10_rationale": "main1..4 + kit1..2 + bed1a/b + bed2a + bed3a = one apartment, full coverage (sitting, entry, open living x2, open kitchen x2, master bedroom pair, child bedroom, pink bedroom). 3 same-space pairs for cross-validation (main3/main4, kit1/kit2, bed1a/bed1b) — this is what makes guesses precise. c7360 EXCLUDED: different house (different style markers, separate upload batch, washing-machine kitchen). kit3a/b EXCLUDED from the 10: service kitchen with exterior doors at BOTH seams, kept as reserve extreme case. bed2b/bed3b reserves.",
+  "pipeline_locked_params": "v1.1 winner: sigma = 1.3 x footprint, opacity 1.0, stride 2, grid 1022x518, CAM_H 1.5m, depth clip 0.3-60m, SPZ v4 — NO per-scene tuning (method test, not per-image hack)"
+ },
+ "predictions": {
+  "main1": {
+   "post": "Main_1_moradi", "kuula": "https://kuula.co/post/L8JZk",
+   "room_guess": "neoclassical sitting room, large (~5x4m), gilt chairs, large rug",
+   "pred": {
+    "holes_pct_075_all_dirs": [0.0, 0.3],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(+x travel, view -x: hall doorway u0.17 area)": [15, 19],
+     "mx(-x travel, view +x: gilt mirror u0.08 + windows u0.73/0.88 edges)": [14, 18],
+     "pz(+z travel, view -z: windows u~0.75 BLOWN behind sheer curtains)": [13, 17],
+     "mz(-z travel, view +z: second lounge doorway u0.17->no wait u0.89 hallway)": [15, 19]
+    },
+    "worst_state": "pz (blown windows behind sheers -> disparity noise at window plane)",
+    "special_risk": "flowers directly below camera occlude nadir -> small holes in lower band of views that include nadir edge; repetitive identical chairs -> slight depth confusion (minor)",
+    "verdict_075": "ACCEPTED"
+   }
+  },
+  "main2": {
+   "post": "Main_2_moradi", "kuula": "https://kuula.co/post/L8JZc",
+   "room_guess": "entry hall into living, medium (~3x2.5m effective), TWO large wall mirrors AT THE SEAM (u0.01/u0.98 = -x), glazed double doors u0.75, nadir STITCH",
+   "pred": {
+    "holes_pct_075_all_dirs": [0.0, 0.8],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(view -x: MIRRORS AT SEAM + reflected room)": [12, 16],
+     "mx(view +x: glazed doors u0.75 no -> u0.75 is -z; +x = u0.5 hallway/living entry)": [15, 19],
+     "pz(view -z: glazed double doors u0.75, curtains u0.57)": [14, 18],
+     "mz(view +z: white door u0.27)": [15, 19]
+    },
+    "worst_state": "px — mirror depth collapse: DAV2 reads the REFLECTED room as real geometry at mirror-plane depth -> when the camera translates, reflected content parallax is wrong -> PSNR dip + possible double-edge excess on mirror frame",
+    "special_risk": "nadir stitch seam -> small magenta holes near bottom band; glossy tile reflections -> floor wobble",
+    "verdict_075": "ACCEPTED (borderline px)"
+   }
+  },
+  "main3": {
+   "post": "Main_3_moradi", "kuula": "https://kuula.co/post/L8JZM",
+   "room_guess": "open-plan living/dining, LARGE (~7x5m), min wall 3.0m, gilded mirror u0.84, glass-top table u0.52, glossy tiles + big ornate rug at nadir",
+   "pred": {
+    "holes_pct_075_all_dirs": [0.0, 0.3],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [60, 80],
+    "psnr_db_075_per_state": {
+     "px(view -x: mouldings/console)": [17, 21],
+     "mx(view +x: glass-top round coffee table u0.52 near-mid field)": [16, 20],
+     "pz(view -z: entrance corridor u0.78, gilded mirror u0.84)": [15, 19],
+     "mz(view +z: window u0.72 sheer)": [16, 20]
+    },
+    "worst_state": "pz (mirror + corridor depth)",
+    "special_risk": "glossy tiled floor with ornate rug — floor-band depth noise; far surfaces dominate -> good PSNR overall (best of the 10)",
+    "verdict_075": "PRIME-candidate (0.75 clean)"
+   }
+  },
+  "main4": {
+   "post": "Main_4_moradi", "kuula": "https://kuula.co/post/L8JZT",
+   "room_guess": "same open-plan living/dining as main3 (cross-validation pair), LARGE, min wall 2.5m, TWO gold-framed arched mirrors near seam (u0.05/u0.96 = -x), blown window u0.71 behind sheers, 5 doorways",
+   "pred": {
+    "cross_validation_with_main3": "same-space pair -> metric correlation: mean PSNR within 1.5 dB of main3 at matched states; similar sharpness retention",
+    "holes_pct_075_all_dirs": [0.0, 0.3],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [60, 80],
+    "psnr_db_075_per_state": {
+     "px(view -x: GOLD MIRRORS near seam)": [13, 17],
+     "mx(view +x: doorway/kitchen opening u0.36)": [16, 20],
+     "pz(view -z: blown window u0.71)": [14, 18],
+     "mz(view +z: hallway u0.14, dining set)": [16, 20]
+    },
+    "worst_state": "px (mirrors near seam — same failure family as main2 px but milder: mirrors further from exact seam)",
+    "special_risk": "large patterned rug at nadir + glossy tiles -> floor band depth noise; dining chair legs thin",
+    "verdict_075": "PRIME-candidate (0.75 clean, px borderline)"
+   }
+  },
+  "kit1": {
+   "post": "Kitchen_1_moradi", "kuula": "https://kuula.co/post/L8JZ6",
+   "room_guess": "open-plan kitchen/dining/living, LARGE, min wall 1.5m, DUPLICATED DINING TABLE AT BOTH EDGES (u0/u1 wrap = -x seam, real-photo stitch artifact), glass display u0.67, glass-door fridge u0.94, blown window u0.75, glossy floor",
+   "pred": {
+    "holes_pct_075_all_dirs": [0.0, 0.6],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(view -x: THE SEAM — duplicated dining table = two overlapping geometries)": [11, 15],
+     "mx(view +x: counters, glass display u0.67 leans this way)": [15, 19],
+     "pz(view -z: blown window u0.75 + glass fridge u0.94 edge)": [13, 17],
+     "mz(view +z: hallway opening u0.83)": [15, 19]
+    },
+    "worst_state": "px — strongest falsifiable call of the set: seam-duplicated furniture -> DAV2 builds the table geometry TWICE at slightly different depths; at 0.75m offset the two copies shear apart -> double-edge EXCESS spike + PSNR minimum of the whole set",
+    "special_risk": "double-edge excess in px state predicted 1.5-3x the set median",
+    "verdict_075": "ACCEPTED (px is transit-only)"
+   }
+  },
+  "kit2": {
+   "post": "Kitchen_2_moradi", "kuula": "https://kuula.co/post/L8J1g",
+   "room_guess": "same open-plan kitchen/dining zone as kit1 (cross-validation pair), LARGE, min wall 2.0m, blown window + glass door u0.85 (-z leaning -x), glossy tiled floor with reflections, dining table legs",
+   "pred": {
+    "cross_validation_with_kit1": "same-space pair -> px-state PSNR within 2 dB of kit1 px (both see seam region); overall profile similar",
+    "holes_pct_075_all_dirs": [0.0, 0.4],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(view -x: seam area, far side of kitchen)": [14, 18],
+     "mx(view +x: counters + curved cabinetry)": [15, 19],
+     "pz(view -z: glass door/window u0.85 blown)": [13, 17],
+     "mz(view +z: opening to living u0.83)": [16, 20]
+    },
+    "worst_state": "pz (blown window + glass door + glossy floor reflections)",
+    "special_risk": "glossy floor reflection depth noise (floor band wobble at offset)",
+    "verdict_075": "PRIME-candidate"
+   }
+  },
+  "bed1a": {
+   "post": "Bedroom_1-1_moradi", "kuula": "https://kuula.co/post/L8JDH",
+   "room_guess": "master bedroom A, medium, min wall 1.0m — camera immediately adjacent to/above the LARGE BED (fills lower field, centre/+x); VANITY MIRROR at u0.5 (+x, exact pano centre!); arched murals, neoclassical",
+   "pred": {
+    "holes_pct_075_all_dirs": [0.0, 1.0],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(view -x: hallway door u0.29 far side, calm)": [15, 19],
+     "mx(view +x: MIRROR AT CENTRE + near bed edge in view)": [12, 16],
+     "pz(view -z: window u0.74)": [14, 18],
+     "mz(view +z: vanity desk/stool thin legs)": [14, 18]
+    },
+    "worst_state": "mx — vanity mirror at pano centre: mirror depth collapse -> reflected-room parallax error; PLUS near bed surface (~1m) -> largest disocclusion shear of the set",
+    "special_risk": "bed occupies nadir band: bottom-band holes/shear in states whose view includes the bed silhouette; thin vanity + stool + bench legs",
+    "verdict_075": "ACCEPTED (mx transit-only)"
+   }
+  },
+  "bed1b": {
+   "post": "Bedroom_1-2_moradi", "kuula": "https://kuula.co/post/L8JHt",
+   "room_guess": "master bedroom B — SAME ROOM as bed1a from second position (cross-validation pair), large, min wall 1.2m, vanity mirror u0.67 (-z leaning +x), arched headboard wallpaper, bench legs",
+   "pred": {
+    "cross_validation_with_bed1a": "same-room pair -> per-state profile correlates (PSNR bands overlap >=50%); both worst in the mirror quadrant",
+    "holes_pct_075_all_dirs": [0.0, 0.8],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(view -x: hallway corridor u0.19 + bathroom door u0.25)": [14, 18],
+     "mx(view +x: room side away from mirror)": [15, 19],
+     "pz(view -z: vanity mirror u0.67 quadrant)": [12, 16],
+     "mz(view +z: bed/arched headboard)": [14, 18]
+    },
+    "worst_state": "pz (mirror quadrant)",
+    "special_risk": "second view of the same mirror-room: if predictions for BOTH bed1a/bed1b hit, the mirror failure mode is CONFIRMED twice — cross-validated root cause",
+    "verdict_075": "ACCEPTED (pz borderline)"
+   }
+  },
+  "bed2a": {
+   "post": "Bedroom_2-1_moradi", "kuula": "https://kuula.co/post/L8JMW",
+   "room_guess": "child bedroom, medium, sage green wainscoting, cove ceiling, LARGE rug (nadir mostly covered), window u0.4 (+z leaning +x), hallway door u0.66 (-z leaning -x), bed frame in bottom foreground",
+   "pred": {
+    "holes_pct_075_all_dirs": [0.0, 0.5],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(view -x: wall/wainscoting)": [15, 19],
+     "mx(view +x: window u0.4 edge + desk area)": [14, 18],
+     "pz(view -z: hallway door u0.66)": [15, 19],
+     "mz(view +z: bed in bottom foreground — near-field shear)": [13, 17]
+    },
+    "worst_state": "mz (near bed frame)",
+    "special_risk": "bed frame bottom foreground (same family as bed1a but milder); no mirrors = cleanest bedroom",
+    "verdict_075": "PRIME-candidate"
+   }
+  },
+  "bed3a": {
+   "post": "Bedroom_3-1_moradi", "kuula": "https://kuula.co/post/L8JTX",
+   "room_guess": "pink bedroom, medium, LARGE CURVED WARDROBE close to camera on the right (u~0.75-1.0 -> -z/-x quadrant, min wall 1.5m), round vanity mirror u0.11 (-x near seam), hallway doors at both seams (u0.01/u0.97), dusty pink paneling",
+   "pred": {
+    "holes_pct_075_all_dirs": [0.0, 0.6],
+    "bleed_pct": [0.0, 0.0],
+    "dot_peak": [500, 3000],
+    "sharp_retention_pct": [55, 75],
+    "psnr_db_075_per_state": {
+     "px(view -x: round mirror u0.11 + hallway doors at seam)": [12, 16],
+     "mx(view +x: window u0.25 -> +z quadrant edge, room interior)": [14, 18],
+     "pz(view -z: CURVED WARDROBE near-field)": [12, 16],
+     "mz(view +z: curved wardrobe wraps toward this quadrant too)": [13, 17]
+    },
+    "worst_state": "pz/pz-family — near-field curved surface (1.5m): silhouette edges of a big curved mass shear strongly at 0.75m; predicted stretch band is the widest of the bedrooms",
+    "special_risk": "curved wardrobe = curved-silhouette disocclusion (new failure family not present in cabin); round mirror near seam adds px stress",
+    "verdict_075": "ACCEPTED (wardrobe quadrant transit-only)"
+   }
+  }
+ },
+ "house_level_predictions": {
+  "psnr_clustering": "open-plan cluster (main3, main4, kit1, kit2 — far walls dominate): 0.75m mean PSNR 15-20 dB; bedroom cluster (bed1a/b, bed2a, bed3a — 1.0-1.5m near objects): 13-17 dB; entry (main2) 14-18 dB",
+  "pipeline_invariants": "bleed 0% and holes ~0% at ALL states (sigma x1.3 + opacity 1.0 coverage is content-independent — these are the V1.1 fix anchors); dot peak same order as cabin (<3000)",
+  "cross_validation_pairs": ["main3/main4 (same open living)", "kit1/kit2 (same open kitchen)", "bed1a/bed1b (same master bedroom)"],
+  "failure_families_expected": {
+   "mirror_depth_collapse": ["main2 px", "main4 px", "bed1a mx", "bed1b pz", "bed3a px"],
+   "seam_duplicate_geometry": ["kit1 px"],
+   "blown_window_disparity_noise": ["main1 pz", "kit1 pz", "kit2 pz", "main4 pz"],
+   "near_field_shear": ["bed1a mx (bed)", "bed3a pz (curved wardrobe)", "bed2a mz (bed frame)"],
+   "glossy_floor_depth_noise": ["main2", "main3", "main4", "kit1", "kit2"]
+  },
+  "final_question_answer_predicted": "10/10 scenes pass 0.75m with holes ~0 (V1.1 coverage fix holds on real content); worst-case states are mirror/seam/near-field quadrants at PSNR 11-16 dB = transit-grade, matching the cabin experience budget — engine method holds on real interior content; no reconstruction-method change required."
+ }
+}
