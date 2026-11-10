@@ -1,0 +1,423 @@
+{
+ "test": "marble_lab_render",
+ "when": "2026-11-10",
+ "harness": "vq11.html/js copy in /tmp/marble_lab (repo untouched)",
+ "runtime": "three 0.180.0 + Spark 2.4.0 (same vendored modules as production lab)",
+ "shots": {
+  "marble_origin_both": {
+   "stats": {
+    "scene": "marble_kitchen",
+    "gen": "v11",
+    "genActual": "v11",
+    "mode": "both",
+    "splats": 500000,
+    "spzReadyMs": 615,
+    "firstFrameMs": 268,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 65,
+     "spz_head_ms": 8,
+     "first_frame_ms": 268,
+     "spz_ready_ms": 615
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 4,
+      "transfer_kb": 331,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 46,
+      "transfer_kb": 2786,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "marble_kitchen.jpg",
+      "fetch_ms": 19,
+      "transfer_kb": 2849,
+      "ttfb_ms": 9
+     },
+     {
+      "file": "marble_kitchen_splat_v11.spz",
+      "fetch_ms": 7,
+      "transfer_kb": 0,
+      "ttfb_ms": 6
+     }
+    ],
+    "fps": 24.9,
+    "frameP95Ms": 100,
+    "frameP99Ms": 100,
+    "heapMB": 15.4,
+    "pos": [
+     0,
+     0
+    ],
+    "dist": 0,
+    "view": [
+     -1.571,
+     -0.03
+    ],
+    "blend": 0,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0,
+    "settled": {
+     "settled": true,
+     "ms": 13789,
+     "content": 1
+    }
+   },
+   "page_errors": [],
+   "png": "marble_origin_both.png",
+   "cached_png": true
+  },
+  "marble_origin_splat": {
+   "stats": {
+    "scene": "marble_kitchen",
+    "gen": "v11",
+    "genActual": "v11",
+    "mode": "splat",
+    "splats": 500000,
+    "spzReadyMs": 615,
+    "firstFrameMs": 268,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 65,
+     "spz_head_ms": 8,
+     "first_frame_ms": 268,
+     "spz_ready_ms": 615
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 4,
+      "transfer_kb": 331,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 46,
+      "transfer_kb": 2786,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "marble_kitchen.jpg",
+      "fetch_ms": 19,
+      "transfer_kb": 2849,
+      "ttfb_ms": 9
+     },
+     {
+      "file": "marble_kitchen_splat_v11.spz",
+      "fetch_ms": 7,
+      "transfer_kb": 0,
+      "ttfb_ms": 6
+     }
+    ],
+    "fps": 31.3,
+    "frameP95Ms": 100,
+    "frameP99Ms": 100,
+    "heapMB": 15.4,
+    "pos": [
+     0,
+     0
+    ],
+    "dist": 0,
+    "view": [
+     -1.571,
+     -0.03
+    ],
+    "blend": 0,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0,
+    "settled": {
+     "settled": true,
+     "ms": 241943,
+     "content": 1
+    }
+   },
+   "page_errors": [],
+   "png": "marble_origin_splat.png",
+   "cached_png": true
+  },
+  "marble_move_px075_splat": {
+   "stats": {
+    "scene": "marble_kitchen",
+    "gen": "v11",
+    "genActual": "v11",
+    "mode": "splat",
+    "splats": 500000,
+    "spzReadyMs": 615,
+    "firstFrameMs": 268,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 65,
+     "spz_head_ms": 8,
+     "first_frame_ms": 268,
+     "spz_ready_ms": 615
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 4,
+      "transfer_kb": 331,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 46,
+      "transfer_kb": 2786,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "marble_kitchen.jpg",
+      "fetch_ms": 19,
+      "transfer_kb": 2849,
+      "ttfb_ms": 9
+     },
+     {
+      "file": "marble_kitchen_splat_v11.spz",
+      "fetch_ms": 7,
+      "transfer_kb": 0,
+      "ttfb_ms": 6
+     }
+    ],
+    "fps": 33,
+    "frameP95Ms": 100,
+    "frameP99Ms": 100,
+    "heapMB": 15.4,
+    "pos": [
+     0.75,
+     0
+    ],
+    "dist": 0.75,
+    "view": [
+     1.571,
+     0
+    ],
+    "blend": 0,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0,
+    "settled": {
+     "settled": true,
+     "ms": 326548,
+     "content": 0.98
+    }
+   },
+   "page_errors": [],
+   "png": "marble_move_px075_splat.png",
+   "cached_png": true
+  },
+  "moradi_origin_both": {
+   "stats": {
+    "scene": "moradi_main1",
+    "gen": "v11",
+    "genActual": "v11",
+    "mode": "both",
+    "splats": 132349,
+    "spzReadyMs": 427,
+    "firstFrameMs": 174,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 16,
+     "spz_head_ms": 4,
+     "first_frame_ms": 174,
+     "spz_ready_ms": 427
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 5,
+      "transfer_kb": 331,
+      "ttfb_ms": 4
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 39,
+      "transfer_kb": 2786,
+      "ttfb_ms": 14
+     },
+     {
+      "file": "moradi_main1.jpg",
+      "fetch_ms": 12,
+      "transfer_kb": 729,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "moradi_main1_splat_v11.spz",
+      "fetch_ms": 2,
+      "transfer_kb": 0,
+      "ttfb_ms": 1
+     }
+    ],
+    "fps": 29.6,
+    "frameP95Ms": 100,
+    "frameP99Ms": 100,
+    "heapMB": 15.4,
+    "pos": [
+     0,
+     0
+    ],
+    "dist": 0,
+    "view": [
+     -1.571,
+     -0.03
+    ],
+    "blend": 0,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0,
+    "settled": {
+     "settled": true,
+     "ms": 13548,
+     "content": 0.99
+    }
+   },
+   "page_errors": [],
+   "png": "moradi_origin_both.png",
+   "cached_png": true
+  },
+  "moradi_origin_splat": {
+   "stats": {
+    "scene": "moradi_main1",
+    "gen": "v11",
+    "genActual": "v11",
+    "mode": "splat",
+    "splats": 132349,
+    "spzReadyMs": 427,
+    "firstFrameMs": 174,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 16,
+     "spz_head_ms": 4,
+     "first_frame_ms": 174,
+     "spz_ready_ms": 427
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 5,
+      "transfer_kb": 331,
+      "ttfb_ms": 4
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 39,
+      "transfer_kb": 2786,
+      "ttfb_ms": 14
+     },
+     {
+      "file": "moradi_main1.jpg",
+      "fetch_ms": 12,
+      "transfer_kb": 729,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "moradi_main1_splat_v11.spz",
+      "fetch_ms": 2,
+      "transfer_kb": 0,
+      "ttfb_ms": 1
+     }
+    ],
+    "fps": 32.7,
+    "frameP95Ms": 100,
+    "frameP99Ms": 100,
+    "heapMB": 15.4,
+    "pos": [
+     0,
+     0
+    ],
+    "dist": 0,
+    "view": [
+     -1.571,
+     -0.03
+    ],
+    "blend": 0,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0,
+    "settled": {
+     "settled": true,
+     "ms": 85003,
+     "content": 1
+    }
+   },
+   "page_errors": [],
+   "png": "moradi_origin_splat.png",
+   "cached_png": true
+  },
+  "moradi_move_px075_splat": {
+   "stats": {
+    "scene": "moradi_main1",
+    "gen": "v11",
+    "genActual": "v11",
+    "mode": "splat",
+    "splats": 132349,
+    "spzReadyMs": 427,
+    "firstFrameMs": 174,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 16,
+     "spz_head_ms": 4,
+     "first_frame_ms": 174,
+     "spz_ready_ms": 427
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 5,
+      "transfer_kb": 331,
+      "ttfb_ms": 4
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 39,
+      "transfer_kb": 2786,
+      "ttfb_ms": 14
+     },
+     {
+      "file": "moradi_main1.jpg",
+      "fetch_ms": 12,
+      "transfer_kb": 729,
+      "ttfb_ms": 2
+     },
+     {
+      "file": "moradi_main1_splat_v11.spz",
+      "fetch_ms": 2,
+      "transfer_kb": 0,
+      "ttfb_ms": 1
+     }
+    ],
+    "fps": 34.2,
+    "frameP95Ms": 100,
+    "frameP99Ms": 100,
+    "heapMB": 15.4,
+    "pos": [
+     0.75,
+     0
+    ],
+    "dist": 0.75,
+    "view": [
+     1.571,
+     0
+    ],
+    "blend": 0,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0,
+    "settled": {
+     "settled": true,
+     "ms": 97827,
+     "content": 1
+    }
+   },
+   "page_errors": [],
+   "png": "moradi_move_px075_splat.png",
+   "cached_png": true
+  }
+ },
+ "vlm_pair_verdict": "1. **Sharper:** Image 1 (the Marble kitchen) is clearly sharper — cabinet frames, mullions, tile grout lines and countertop edges are all well defined.\n\n2. **Blurry/veiled/dotted:** Image 2 (moradi_main1) — everything is heavily blurred/veiled; there's also a faint dot/grid pattern visible on the wall and bedding, indicating sparse or undersized gaussians.\n\n3. **Black holes / missing content:** Image 1 actually shows some dark voids inside the glazed cabinets (plates float over black), whereas Image 2 has no hard black holes — its problem is blur, not missing geometry.\n\n4. **Artifacts:**\n   - Image 1: mild smearing/streaking in the plates behind glass, slight waviness in tile lines; no floaters or banding.\n   - Image 2: strong overall smearing/blur, a regular dot/grid texture artifact across flat surfaces, soft \"melting\" edges (e.g., picture frame, bed legs); no obvious black-hole floaters.\n\n5. **Verdict:** Since both images use the same engine/camera, the gap is mainly in **content quality/density** of the splat reconstruction (sparse, low-resolution gaussians in moradi_main1), not in the renderer itself."
+}
