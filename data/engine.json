@@ -1,0 +1,15 @@
+{
+  "engine": {
+    "id": "walkable-truth",
+    "version": "1.0.0"
+  },
+  "role": "The ONLY converter from a 360 panorama to a collidable 3D room.",
+  "laws": [
+    "the panorama sphere is never displaced (zero-warp law)",
+    "geometry is metric and measured or explicitly declared",
+    "a room whose gates fail is not written to the database",
+    "collision reads geometry.floor_polygon + obstacles, never the photo"
+  ],
+  "command": "python3 skills/panodrome_engine.py build --pano <pano> --depth <depth.npy> --id <room>",
+  "updated_at": "2026-11-10T14:00:21Z"
+}

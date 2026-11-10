@@ -10,6 +10,23 @@ audio** and an **AI material inspector**. English-first, full RTL Persian from d
 > اتاق‌های سه‌بعدیِ قابل‌قدم‌زدن تبدیل می‌شوند و با درگاه‌های هوشمند به هم وصل می‌شوند.
 > زبان مادر انگلیسی، فارسی راست‌چین کامل از روز اول.
 
+## Which engine? — `walkable-truth/1.0.0` (the only one)
+
+Every 360 page becomes a walkable room through **one** command and **one** engine:
+
+```bash
+python3 skills/panodrome_engine.py info      # identity card
+python3 skills/panodrome_engine.py list      # which rooms this engine built
+python3 skills/panodrome_engine.py build --pano <pano.jpg> --depth <depth.npy> --id <room>
+```
+
+The photograph stays on a pristine sphere and is never deformed; a separate **metric**
+proxy (exact floor polygon, floor/ceiling heights, obstacle boxes) is what the collider and
+the parallax use. Every room carries its fingerprint in `geometry.engine`, so there is
+never any doubt which engine produced it. The relief-dome / depth-cut / FOV-zoom stages are
+banned. Details, gates and the honest limitations: **[docs/16-engine.md](docs/16-engine.md)**
+and **[docs/15-walkable-truth-engine.md](docs/15-walkable-truth-engine.md)**.
+
 ## Phase 1 — Core Spatial Engine ✅ (2026-11-01)
 
 The walkable engine is live in `public/` — **10 PolyHaven rooms** (living rooms, lofts,
