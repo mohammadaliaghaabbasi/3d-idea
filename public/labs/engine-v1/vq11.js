@@ -11,11 +11,20 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
 
 const Q = new URLSearchParams(location.search);
 const scene  = Q.get('scene') || 'cabin';
-const GEN    = Q.get('gen') || 'v1';
+const GEN    = Q.get('gen') || 'v12';         // v12 (VQ 1.2 content upgrade) | v11 | v1
 let   MODE   = Q.get('mode') || 'both';          // pano | splat | both
 const BG     = Q.get('bg') || 'black';           // splat-mode background
 let   BLEND  = Q.get('blend') || 'auto';
 const FADE_MS = parseFloat(Q.get('fade') || '350');
+/* VQ 1.2 (2026-11-11, Marble §7 program on real content): ~521-530k splats,
+ * anisotropic surface-adhering gaussians, fog-cull at the measured 45 m
+ * (DAV2 clip plateau), tangent sigma capped at each splat's own source-pixel
+ * size, SPZ ~5.3-6.0 MB (Marble 500k class). LoD available via Spark's in-app
+ * build (?lod=1) — MEASURED 2026-11-11: the in-app LoD build does NOT complete
+ * on the 2-core SwiftShader sandbox profile (splats stay 0 past 120 s), so the
+ * default is OFF until verified on a real device; honest default = what we
+ * verified. Renderer/format/locks untouched (three 0.180.0 + Spark 2.4.0). */
+const LOD    = Q.get('lod') || '0';
 /* NEW RULE 2026-11-07 (EQL / data confidence): envelope numbers come from MEASUREMENT.
  * Measured ladder on real content (Moradi set): PRIME 0.2–0.6 m · ACCEPTED 0.75 m ·
  * TRANSIT 1.0–1.3 m (small holes in mirror/wardrobe quadrants beyond 1.0 m).
@@ -89,14 +98,17 @@ if (MODE !== 'splat') {
 /* ---------- layer B: SPZ splat ---------- */
 const spark = new SparkRenderer({ renderer });
 scene3d.add(spark);
-/* SPZ resolution with existence check + generation fallback (v1 <-> v11).
+/* SPZ resolution with existence check + generation fallback (v12 -> v11 -> v1).
  * Rationale (owner review 2026-11-07): a missing generation must NEVER silently
- * degrade to pano-only — that reads as "previous engine". HEAD both candidates,
- * prefer the requested one, fall back to the other, surface the truth in the
+ * degrade to pano-only — that reads as "previous engine". HEAD the candidates,
+ * prefer the requested one, fall back down the chain, surface the truth in the
  * HUD + stats (genActual). */
-const SPZ_CANDIDATES = GEN === 'v11'
-  ? [`assets/${scene}_splat_v11.spz`, `assets/${scene}_splat.spz`]
-  : [`assets/${scene}_splat.spz`, `assets/${scene}_splat_v11.spz`];
+const GEN_CHAIN = {
+  v12: [`assets/${scene}_splat_v12.spz`, `assets/${scene}_splat_v11.spz`, `assets/${scene}_splat.spz`],
+  v11: [`assets/${scene}_splat_v11.spz`, `assets/${scene}_splat.spz`, `assets/${scene}_splat_v12.spz`],
+  v1:  [`assets/${scene}_splat.spz`, `assets/${scene}_splat_v11.spz`, `assets/${scene}_splat_v12.spz`],
+};
+const SPZ_CANDIDATES = GEN_CHAIN[GEN] || GEN_CHAIN.v12;
 let SPZ_URL = SPZ_CANDIDATES[0];
 let GEN_ACTUAL = GEN;
 try {
@@ -105,17 +117,21 @@ try {
   for (const u of SPZ_CANDIDATES) {
     const r = await fetch(u, { method: 'HEAD' });
     if (r.ok) {
-      if (u !== SPZ_CANDIDATES[0]) { SPZ_URL = u; GEN_ACTUAL = u.includes('_v11.') ? 'v11' : 'v1'; }
+      if (u !== SPZ_CANDIDATES[0]) {
+        SPZ_URL = u;
+        GEN_ACTUAL = u.includes('_v12.') ? 'v12' : u.includes('_v11.') ? 'v11' : 'v1';
+      }
       found = true; break;
     }
   }
   mark('spz_head_ms', performance.now() - headT);
-  if (!found) { ERR.push(`SPZ not found for scene "${scene}" (both generations checked)`); showErr(); }
+  if (!found) { ERR.push(`SPZ not found for scene "${scene}" (v12/v11/v1 all checked)`); showErr(); }
 } catch { /* HEAD unsupported on this server — keep the default candidate */ }
 const constructT = performance.now();
 let spzReadyMs = null, splatCount = 0;
 const splat = new SplatMesh({
   url: SPZ_URL,
+  lod: LOD === '1',                     // VQ 1.2: Spark in-app LoD (smooth motion)
   onLoad: () => { spzReadyMs = performance.now() - constructT; mark('spz_ready_ms', spzReadyMs);
     try { splatCount = splat.splats?.getNumSplats?.() ?? (typeof splat.numSplats === 'number' ? splat.numSplats : -1); }
     catch { splatCount = -1; } },
@@ -244,11 +260,11 @@ setInterval(() => {
   const dist = Math.hypot(pos.x, pos.z);
   const heap = performance.memory ? (performance.memory.usedJSHeapSize / 1048576).toFixed(0) + ' MB' : 'n/a';
   hud.textContent =
-`PANODROME VQ 1.1 — ${scene} · gen ${GEN}${GEN_ACTUAL !== GEN ? '→' + GEN_ACTUAL + ' (fallback)' : ''} · mode ${MODE}
+`PANODROME VQ 1.2 — ${scene} · gen ${GEN}${GEN_ACTUAL !== GEN ? '→' + GEN_ACTUAL + ' (fallback)' : ''} · mode ${MODE}
 splats: ${splatCount || '…'} | spz ready: ${spzReadyMs == null ? '…' : Math.round(spzReadyMs) + ' ms'} | first frame: ${firstFrameMs == null ? '…' : Math.round(firstFrameMs) + ' ms'}
 fps: ${f.fps.toFixed(1)} | frame p95: ${f.p95ms.toFixed(1)} ms | heap: ${heap}
 pos: (${pos.x.toFixed(2)}, ${pos.z.toFixed(2)}) | dist: ${dist.toFixed(2)} / safe ${SAFE_R} m
-blend splat: ${sCur.toFixed(3)} | fade τ: ${FADE_MS} ms | errors: ${ERR.length}`;
+blend splat: ${sCur.toFixed(3)} | fade τ: ${FADE_MS} ms | lod: ${LOD === '1' ? 'on' : 'off'} | errors: ${ERR.length}`;
 }, 400);
 
 /* ---------- deterministic walk (autotest + motion videos) ---------- */
@@ -291,7 +307,7 @@ window.__vq = {
     const f = fpsStats();
     const dist = Math.hypot(pos.x, pos.z);
     return {
-      scene, gen: GEN, genActual: GEN_ACTUAL, mode: MODE, splats: splatCount,
+      scene, gen: GEN, genActual: GEN_ACTUAL, mode: MODE, splats: splatCount, lod: LOD === '1',
       spzReadyMs: spzReadyMs == null ? null : Math.round(spzReadyMs),
       firstFrameMs: firstFrameMs == null ? null : Math.round(firstFrameMs),
       marks: { ...MARKS }, resources: resourceStats(),
@@ -404,7 +420,7 @@ if (DEMO && !AUTOTEST) (async () => {
     'background:rgba(0,24,14,.9);border:1px solid rgba(87,230,164,.5);color:#d7f5e6;' +
     'font:13px/1.75 Vazirmatn,Tahoma,sans-serif;text-align:center;cursor:pointer;' +
     'box-shadow:0 4px 22px rgba(0,0,0,.45);transition:opacity .6s ease;opacity:0';
-  note.textContent = '⏳ در حال بارگذاری موتور جدید V1.1…';
+  note.textContent = '⏳ در حال بارگذاری موتور VQ 1.2…';
   document.body.appendChild(note);
   requestAnimationFrame(() => { note.style.opacity = '1'; });
   const hide = () => { note.style.opacity = '0'; setTimeout(() => note.remove(), 700); };
@@ -414,7 +430,7 @@ if (DEMO && !AUTOTEST) (async () => {
     note.textContent = '⚠ اسپلت بارگذاری نشد — فقط پانو نمایش داده می‌شود (موتور جدید نیامده)';
     setTimeout(hide, 4000); return;
   }
-  note.textContent = '🚶 دموی خودکار موتور جدید V1.1 — ایست: پانوی 4K · هنگام حرکت: لایهٔ اسپلت سه‌بعدی با محو نرم ۳۵۰ms';
+  note.textContent = '🚶 دموی خودکار موتور V1.2 — ایست: پانوی 4K · هنگام حرکت: لایهٔ اسپلت سه‌بعدی (۵۲۹٬۳۹۶ اسپلت سطح‌چسب) با محو نرم ۳۵۰ms';
   await new Promise(r => setTimeout(r, 900));
   const b = document.getElementById('walkbtn');
   if (b && !b.disabled) b.click();            // same 4-dir diamond as the button

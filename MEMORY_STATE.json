@@ -139,5 +139,39 @@
   "AI GATEWAY LAW (locked 2026-11-02): ALL Gemini traffic goes through skills/ai_router.py which honours GEMINI_PROXY_URL in .env (= https://panodrome-ai-gw.mesadesignstudio01.workers.dev, Cloudflare Worker + enam-pinned Durable Object, egress IAD); the gateway holds no secrets — auth passes through per request; update/redeploy with bash scripts/cf_deploy_gateway.sh; CLOUDFLARE_API_TOKEN + GITHUB_TOKEN + GOOGLE_API_KEY live ONLY in .env (chmod 600, git-ignored; GitHub push via env T for deploy_gh_pages.sh, credential-header one-shot for git push — token never in remote URLs or tracked files); CF token prefix is lowercase 'cfut_'"
  ],
  "next_immediate_action": "Owner decision pending on TWO experiment orders (nothing implemented yet): (a) marble doc phase 1 — fog-splat cull (~2% scene-diag cap) + Spark LoD ON on ONE lab scene, the cheapest sharpness fix on CURRENT content (marble_reverse_engineering.md §9); (b) worldmirror W1 — CC0 cabin pano -> perspective crops + known-pose Any-Prior injection -> HunyuanWorld-Mirror -> gaussians.ply -> existing PLY->SPZ v4 -> /tmp A/B harness vs VQ1.1 + 160-still battery + VLM (worldmirror_reverse_engineering.md §8). Live review links for the NEW-RULES Moradi round remain up: panodrome labs/engine-v1/moradi.html and labs/engine-v1/vq11.html?scene=moradi_bed1b&gen=v11&demo=1.",
- "last_updated": "2026-11-11T10:35:00"
+ "last_updated": "2026-11-11T10:35:00",
+ "last_mission": {
+  "date": "2026-11-11",
+  "title": "VQ 1.2 COMPLETE MORADI EXEMPLAR (Marble §7 content program + WM filter analogs)",
+  "owner_order": "«تمامی تجربه‌هایی که الان داری دقیقاً یک نمونه تکمیلی از خواسته ما را روی مرادی پیاده کن … با کمک ماربل و این مدل هانیوان … یک نمونه دقیق بدون ایراد برای بررسی بساز، روی گیت‌هاب پوش کن و لینک سایت هم بده»",
+  "result": "content-gen v12 on all 10 moradi scenes + cabin: 132,349 -> 529,396 splats per scene (stride 1), anisotropic surface-adhering (aniso 1.82-2.07), sigma capped at each splat's own source-pixel size (fog veil killed with ZERO radial cull — both cull variants measured WRONG: deleted real photographed views; main2 +x 100%, main4 21.75%, main1 mz 20.8% @0.75m), SH degree 0 (honest), SPZ 5.4-6.1MB. QC gates all 11 scenes: absent 0.0% / holes@0.75m 0.0%. Battery 3 riskiest scenes x 4 dirs: PSNR parity with v11 (+-0.12dB), holes < 1.7%, far-view main2 mz 24.03dB (was destroyed by cull45). VLM 4/4 A/B pairs: v12 CLEARLY BETTER. E2E 18/18 (16 main + test-4 focused rerun with v12-sized window). WM live run honestly quota-blocked (ZeroGPU anonymous; 8 CC0 crops uploaded OK; no Moradi data uploaded); WM demo native-filter ANALOGS adopted (edge confidence fallback + sky/clip-plateau sigma rule). LoD = opt-in ?lod=1 (in-app build measured non-completing on 2-core SwiftShader; default stays what we verified).",
+  "renderer_changed": false,
+  "locks": {
+   "three": "0.180.0",
+   "spark": "2.4.0",
+   "spz": "v4",
+   "main": "80aa158 (untouched)"
+  },
+  "live_links": {
+   "review": "https://mohammadaliaghaabbasi.github.io/panodrome/labs/engine-v1/moradi.html",
+   "harness_demo": "https://mohammadaliaghaabbasi.github.io/panodrome/labs/engine-v1/vq11.html?scene=moradi_main1&gen=v12&mode=both&demo=1"
+  },
+  "artifacts": {
+   "report": "docs/engine-upgrade-v1/moradi_exemplar_v12.md",
+   "manifest": "docs/rd-artifacts/engine-v1/moradi_v12_manifest.json",
+   "gen": "docs/rd-artifacts/engine-v1/moradi_v12_gen.json",
+   "metrics": "docs/rd-artifacts/engine-v1/moradi_v12_metrics.json",
+   "battery": "docs/rd-artifacts/engine-v1/moradi_v12_battery_index.json",
+   "wm_attempt": "docs/rd-artifacts/engine-v1/wm_w1_attempt.json",
+   "owner_package": "download/panodrome-vq12/"
+  },
+  "next_actions": [
+   "WM W1 GPU run: needs owner-provided HuggingFace token or GPU (CC0 cabin crops ready in wm_w1_attempt.json)",
+   "LoD device verification on a real phone (?lod=1 link on the live site)",
+   "alpha structure + LoD + multi-node merge: next generations per Marble doc §7 remaining items"
+  ]
+ },
+ "missions": [
+  "2026-11-11 VQ1.2-moradi-exemplar"
+ ]
 }

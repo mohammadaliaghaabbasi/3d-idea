@@ -1,0 +1,192 @@
+{
+ "scenes": {
+  "moradi_main1": {
+   "t_start": 1794399864.5147705,
+   "gen": "v12",
+   "stats_load": {
+    "scene": "moradi_main1",
+    "gen": "v12",
+    "genActual": "v12",
+    "mode": "pano",
+    "splats": 520823,
+    "lod": false,
+    "spzReadyMs": 749,
+    "firstFrameMs": 315,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 36,
+     "spz_head_ms": 10,
+     "first_frame_ms": 315,
+     "spz_ready_ms": 749
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 12,
+      "transfer_kb": 331,
+      "ttfb_ms": 5
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 34,
+      "transfer_kb": 2786,
+      "ttfb_ms": 7
+     },
+     {
+      "file": "moradi_main1.jpg",
+      "fetch_ms": 16,
+      "transfer_kb": 729,
+      "ttfb_ms": 11
+     },
+     {
+      "file": "moradi_main1_splat_v12.spz",
+      "fetch_ms": 8,
+      "transfer_kb": 0,
+      "ttfb_ms": 7
+     }
+    ],
+    "fps": 32.9,
+    "frameP95Ms": 50.1,
+    "frameP99Ms": 100,
+    "heapMB": 15.4,
+    "pos": [
+     0,
+     0
+    ],
+    "dist": 0,
+    "view": [
+     -1.571,
+     -0.03
+    ],
+    "blend": 0,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0
+   },
+   "warm_s": 281.7,
+   "stats_end": {
+    "scene": "moradi_main1",
+    "gen": "v12",
+    "genActual": "v12",
+    "mode": "both",
+    "splats": 520823,
+    "lod": false,
+    "spzReadyMs": 749,
+    "firstFrameMs": 315,
+    "marks": {
+     "boot": 0,
+     "pano_tex_ms": 36,
+     "spz_head_ms": 10,
+     "first_frame_ms": 315,
+     "spz_ready_ms": 749
+    },
+    "resources": [
+     {
+      "file": "three-0.180.0.module.min.js",
+      "fetch_ms": 12,
+      "transfer_kb": 331,
+      "ttfb_ms": 5
+     },
+     {
+      "file": "spark.module.min.js",
+      "fetch_ms": 34,
+      "transfer_kb": 2786,
+      "ttfb_ms": 7
+     },
+     {
+      "file": "moradi_main1.jpg",
+      "fetch_ms": 16,
+      "transfer_kb": 729,
+      "ttfb_ms": 11
+     },
+     {
+      "file": "moradi_main1_splat_v12.spz",
+      "fetch_ms": 8,
+      "transfer_kb": 0,
+      "ttfb_ms": 7
+     }
+    ],
+    "fps": 40.4,
+    "frameP95Ms": 100,
+    "frameP99Ms": 100,
+    "heapMB": 26.3,
+    "pos": [
+     0,
+     -0.75
+    ],
+    "dist": 0.75,
+    "view": [
+     3.142,
+     0
+    ],
+    "blend": 1,
+    "safeR": 0.75,
+    "fadeMs": 350,
+    "errors": 0
+   },
+   "t_total_s": 2983.2
+  }
+ },
+ "errors": [],
+ "states": {
+  "moradi_main1_pano_px": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_pano_px.jpg",
+  "moradi_main1_pano_mx": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_pano_mx.jpg",
+  "moradi_main1_pano_pz": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_pano_pz.jpg",
+  "moradi_main1_pano_mz": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_pano_mz.jpg",
+  "moradi_main1_px_075_splat": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_px_075_splat.jpg",
+  "moradi_main1_px_075_both": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_px_075_both.jpg",
+  "moradi_main1_mx_075_splat": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_mx_075_splat.jpg",
+  "moradi_main1_mx_075_both": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_mx_075_both.jpg",
+  "moradi_main1_pz_075_splat": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_pz_075_splat.jpg",
+  "moradi_main1_pz_075_both": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_pz_075_both.jpg",
+  "moradi_main1_mz_075_splat": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_mz_075_splat.jpg",
+  "moradi_main1_mz_075_both": "/home/z/my-project/download/panodrome-moradi/stills_v12/moradi_main1_mz_075_both.jpg"
+ },
+ "settle": {
+  "moradi_main1-warm": {
+   "settled": true,
+   "ms": 281698,
+   "content": 1
+  },
+  "moradi_main1-px-0.75": {
+   "settled": true,
+   "ms": 265671,
+   "content": 1
+  },
+  "verify:moradi_main1_px_075_both": {
+   "settled": true,
+   "ms": 318385,
+   "content": 1
+  },
+  "moradi_main1-mx-0.75": {
+   "settled": true,
+   "ms": 280636,
+   "content": 1
+  },
+  "verify:moradi_main1_mx_075_both": {
+   "settled": true,
+   "ms": 304060,
+   "content": 1
+  },
+  "moradi_main1-pz-0.75": {
+   "settled": true,
+   "ms": 304455,
+   "content": 1
+  },
+  "verify:moradi_main1_pz_075_both": {
+   "settled": true,
+   "ms": 383866,
+   "content": 1
+  },
+  "moradi_main1-mz-0.75": {
+   "settled": true,
+   "ms": 254372,
+   "content": 0.81
+  },
+  "verify:moradi_main1_mz_075_both": {
+   "settled": true,
+   "ms": 361623,
+   "content": 1
+  }
+ }
+}

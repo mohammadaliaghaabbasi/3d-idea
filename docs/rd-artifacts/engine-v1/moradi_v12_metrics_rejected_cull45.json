@@ -1,0 +1,83 @@
+{
+ "tool": "moradi_v12_metrics.py",
+ "metric_definitions": "identical to moradi_metrics.py (VQ 1.1 exp2)",
+ "battery": "docs/rd-artifacts/engine-v1/moradi_v12_battery_index.json",
+ "scenes": {
+  "moradi_main1": {
+   "n_states": 4,
+   "psnr_mean": 16.22,
+   "psnr_best": 18.13,
+   "psnr_worst": 14.92,
+   "holes_max": 20.777,
+   "soft_holes_max": 11.34,
+   "bleed_max": 6.84,
+   "dot_peak_max": 19038.4,
+   "sharp_ret_min": 2.2,
+   "double_edge_max": -48.4,
+   "per_dir": {
+    "px": {
+     "holes_pct": 0.0,
+     "soft_holes_pct": 8.23,
+     "bleed_pct": 0.27,
+     "dot_peak": 434.7,
+     "sharp_ret_pct": 6.5,
+     "psnr_db": 18.13,
+     "double_edge_excess_pct": -48.7,
+     "nonhole_px": 267520,
+     "travel_dir": "+x",
+     "viewed_dir": "-x",
+     "offset_m": 0.75
+    },
+    "mx": {
+     "holes_pct": 0.0,
+     "soft_holes_pct": 8.15,
+     "bleed_pct": 0.79,
+     "dot_peak": 598.4,
+     "sharp_ret_pct": 3.3,
+     "psnr_db": 16.32,
+     "double_edge_excess_pct": -59.9,
+     "nonhole_px": 267520,
+     "travel_dir": "-x",
+     "viewed_dir": "+x",
+     "offset_m": 0.75
+    },
+    "pz": {
+     "holes_pct": 0.355,
+     "soft_holes_pct": 1.78,
+     "bleed_pct": 2.05,
+     "dot_peak": 669.1,
+     "sharp_ret_pct": 3.3,
+     "psnr_db": 14.92,
+     "double_edge_excess_pct": -63.2,
+     "nonhole_px": 266570,
+     "travel_dir": "+z",
+     "viewed_dir": "-z",
+     "offset_m": 0.75
+    },
+    "mz": {
+     "holes_pct": 20.777,
+     "soft_holes_pct": 11.34,
+     "bleed_pct": 6.84,
+     "dot_peak": 19038.4,
+     "sharp_ret_pct": 2.2,
+     "psnr_db": 15.51,
+     "double_edge_excess_pct": -48.4,
+     "nonhole_px": 211937,
+     "travel_dir": "-z",
+     "viewed_dir": "+z",
+     "offset_m": 0.75
+    }
+   },
+   "v11_psnr_mean": 16.56,
+   "v11_holes_max": 0.17,
+   "v11_dot_peak_max": null,
+   "delta_psnr_mean_db": -0.34
+  }
+ },
+ "ab_pairs": {
+  "moradi_main1_px": "/home/z/my-project/3d-idea/docs/rd-artifacts/engine-v1/v12_ab_pairs/moradi_main1_px_075_v11_vs_v12.jpg",
+  "moradi_main1_mx": "/home/z/my-project/3d-idea/docs/rd-artifacts/engine-v1/v12_ab_pairs/moradi_main1_mx_075_v11_vs_v12.jpg",
+  "moradi_main1_pz": "/home/z/my-project/3d-idea/docs/rd-artifacts/engine-v1/v12_ab_pairs/moradi_main1_pz_075_v11_vs_v12.jpg",
+  "moradi_main1_mz": "/home/z/my-project/3d-idea/docs/rd-artifacts/engine-v1/v12_ab_pairs/moradi_main1_mz_075_v11_vs_v12.jpg"
+ }
+}

@@ -1,0 +1,142 @@
+{
+ "tool": "wm_w1_try.py",
+ "asset": "cabin (Poly Haven, CC0)",
+ "space": "tencent/HunyuanWorld-Mirror",
+ "when": "2026-11-11T11:17:34+0000",
+ "crops": {
+  "n": 8,
+  "size": 1024,
+  "fov_deg": 70.0,
+  "files": [
+   "/tmp/wm_w1/cabin_face0.jpg",
+   "/tmp/wm_w1/cabin_face1.jpg",
+   "/tmp/wm_w1/cabin_face2.jpg",
+   "/tmp/wm_w1/cabin_face3.jpg",
+   "/tmp/wm_w1/cabin_face4.jpg",
+   "/tmp/wm_w1/cabin_face5.jpg",
+   "/tmp/wm_w1/cabin_face6.jpg",
+   "/tmp/wm_w1/cabin_face7.jpg"
+  ]
+ },
+ "client_connect_s": 3.2,
+ "api_endpoints": [
+  "/clear_fields",
+  "/get_terminal_output",
+  "/gradio_demo",
+  "/handle_depth_slider_change",
+  "/handle_generated_selection",
+  "/handle_normal_slider_change",
+  "/handle_realworld_selection",
+  "/lambda",
+  "/refresh_3d_scene",
+  "/refresh_3d_scene_1",
+  "/refresh_3d_scene_2",
+  "/refresh_3d_scene_3",
+  "/refresh_3d_scene_4",
+  "/refresh_view_displays_on_filter_update",
+  "/refresh_view_displays_on_filter_update_1",
+  "/resample_video_with_new_interval",
+  "/update_gallery_on_file_upload",
+  "/update_log"
+ ],
+ "gradio_demo_params": [
+  {
+   "label": "Output Path",
+   "parameter_name": "target_dir",
+   "parameter_has_default": true,
+   "parameter_default": "None",
+   "type": {
+    "type": "string"
+   },
+   "python_type": {
+    "type": "str",
+    "description": ""
+   },
+   "component": "Textbox",
+   "example_input": "Hello!!"
+  },
+  {
+   "label": "Show Points of a Specific Frame",
+   "parameter_name": "frame_selector",
+   "parameter_has_default": true,
+   "parameter_default": "All",
+   "type": {
+    "type": "string",
+    "enum": [
+     "All"
+    ]
+   },
+   "python_type": {
+    "type": "Literal['All']",
+    "description": ""
+   },
+   "component": "Dropdown",
+   "example_input": "All"
+  },
+  {
+   "label": "Show Camera",
+   "parameter_name": "show_camera",
+   "parameter_has_default": true,
+   "parameter_default": true,
+   "type": {
+    "type": "boolean"
+   },
+   "python_type": {
+    "type": "bool",
+    "description": ""
+   },
+   "component": "Checkbox",
+   "example_input": true
+  },
+  {
+   "label": "Filter Sky Background",
+   "parameter_name": "filter_sky_bg",
+   "parameter_has_default": true,
+   "parameter_default": false,
+   "type": {
+    "type": "boolean"
+   },
+   "python_type": {
+    "type": "bool",
+    "description": ""
+   },
+   "component": "Checkbox",
+   "example_input": true
+  },
+  {
+   "label": "Show Mesh",
+   "parameter_name": "show_mesh",
+   "parameter_has_default": true,
+   "parameter_default": true,
+   "type": {
+    "type": "boolean"
+   },
+   "python_type": {
+    "type": "bool",
+    "description": ""
+   },
+   "component": "Checkbox",
+   "example_input": true
+  },
+  {
+   "label": "Filter low confidence & depth/normal edges",
+   "parameter_name": "filter_ambiguous",
+   "parameter_has_default": true,
+   "parameter_default": true,
+   "type": {
+    "type": "boolean"
+   },
+   "python_type": {
+    "type": "bool",
+    "description": ""
+   },
+   "component": "Checkbox",
+   "example_input": true
+  }
+ ],
+ "upload_endpoint": "/update_gallery_on_file_upload",
+ "upload_s": 42.2,
+ "upload_raw": "('input_images_20261111_121809_875389', [{'image': '/tmp/gradio/c8d026fc4b10d1553a7cd742a14c59ef23ece021dfe7cf1f9413815a373f78b2/cabin_face0.jpg', 'caption': None}, {'image': '/tmp/gradio/9f62c638b897106c597617b4e6a73d2790c9cae225ea401a79edcc89f703ae76/cabin_face1.jpg', 'caption': None}, {'image': '/tmp/gradio/28cce11a01e34e21c5ea8112f0e922bfea3e9b7648b72ba4473f412bac1b30e3/cabin_face2.jpg', 'caption': None}, {'image': '/tmp/gradio/84902275bd7be9a1e86fc9212aac95d04aad5cd956546dd5d0c94e1ee95d9772/cabin_face3.jpg', 'caption': None}, {'image': '/tmp/gradio/ed5f96f4f0f8a45876593a99132eeb08f30b66ce2219cd2d1cd1bd9b66f56ae6/cabin_face4.jpg', 'caption': None}, {'image': '/tmp/gradio/51dd9a68351f4892583bea96fe9326270e29503b50776f4ea0d41bf5ea41d5b8/cabin_face5.jpg', 'caption': None}, {'image': '/tmp/gradio/2a5a2fb2a3bb5e5b6393cccea810f5786405792fa779da3afbea41e138546fd4/cabin_face6.jpg', 'caption': None}, {'image': '/tmp/gradio/415d0889fa1e0ef4688b7cc55ba6a22d2da353c8c4af042fa55c5d150e6911af/cab",
+ "status": "FAIL",
+ "fail": "AppError: You have exceeded your ZeroGPU runs limit. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+}
