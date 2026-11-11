@@ -37,20 +37,50 @@ BOXES = [(0.6, 1.8, 0.4, 1.0, -CAM_H, -0.85),      # sofa
          (-2.4, -1.9, 1.2, 1.7, -CAM_H, -0.45)]    # side table
 
 
+def wall_radius_profile(poly: np.ndarray, w: int) -> np.ndarray:
+    """Exact ray/polygon distance per ERP column (the wall really is there)."""
+    th = (np.arange(w) + 0.5) / w * 2.0 * np.pi - np.pi
+    dx, dz = np.sin(th), np.cos(th)
+    r = np.zeros(w)
+    n = len(poly)
+    for i in range(w):
+        best = np.inf
+        for k in range(n):
+            ax, az = poly[k]
+            bx, bz = poly[(k + 1) % n]
+            ex, ez = bx - ax, bz - az
+            den = dx[i] * ez - dz[i] * ex
+            if abs(den) < 1e-9:
+                continue
+            t = (ax * ez - az * ex) / den
+            s = (ax * dz[i] - az * dx[i]) / den
+            if t > 0 and -1e-9 <= s <= 1 + 1e-9:
+                best = min(best, t)
+        r[i] = best
+    return r
+
+
 def synth_colour(depth: np.ndarray) -> np.ndarray:
-    """Colourise a depth map into a readable test pattern."""
+    """
+    Colourise a depth map into a readable test pattern.
+
+    Surfaces are classified against the ANALYTIC room (distance to the real wall
+    boundary), not against noisy normals — otherwise grazing-angle pixels get
+    painted as furniture and the test pattern looks like render noise.
+    """
     h, w = depth.shape
     valid = np.isfinite(depth) & (depth > 0)
     dirs = ENG_directions(h, w)
     pts = dirs * np.where(valid, depth, 0.0)[..., None]
-    ny, ok = erp_normals(pts, depth, valid, radius=2, rel_tol=0.06)
 
     x, y, z = pts[..., 0], pts[..., 1], pts[..., 2]
     out = np.zeros((h, w, 3), dtype=np.float64)
 
-    floor = ok & (np.abs(ny[..., 1]) > 0.85) & (y < -CAM_H + 0.15)
-    ceil = ok & (np.abs(ny[..., 1]) > 0.85) & (y > -CAM_H + 0.15)
-    wall = ok & ~floor & ~ceil & (np.abs(ny[..., 1]) < 0.3)
+    r_h = np.hypot(x, z)
+    r_wall = wall_radius_profile(POLY, w)[None, :]
+    floor = valid & (y < -CAM_H + 0.12)
+    ceil = valid & (y > -CAM_H + CEIL - 0.12)
+    wall = valid & ~floor & ~ceil & (np.abs(r_h - r_wall) < 0.20)
     other = valid & ~floor & ~ceil & ~wall
 
     chk = (np.floor(x / 0.6) + np.floor(z / 0.6)) % 2

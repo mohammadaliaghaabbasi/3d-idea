@@ -33,7 +33,7 @@
 </div>
 <script type="module">
 import * as THREE from "three";
-import { loadSplat, createSplat, splatScaleFor } from "./js/splat.js?v=4";
+import { loadSplat, createSplat, syncSplatUniforms, sortSplat } from "./js/splat.js?v=6";
 
 const LAB = "data/engine_lab.json";
 const R = 0.28;            // capsule radius, same as collider.js
@@ -56,7 +56,8 @@ camera.rotation.order = "YXZ";
 // ---- appearance: the baked splat (Lane B2) ----
 const splat = await loadSplat(app.asset);
 const points = createSplat(splat, { pixelRatio: Math.min(devicePixelRatio, 2) });
-points.material.uniforms.uScale.value = splatScaleFor(camera, renderer);
+syncSplatUniforms(points, camera, renderer);
+sortSplat(points, camera);
 scene.add(points);
 window.__lab = { splat, points, camera, renderer, geom, budget };
 
@@ -149,6 +150,7 @@ const stateEl = document.getElementById("state");
 const distEl = document.getElementById("dist");
 
 let last = performance.now();
+let lastSort = 0;
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
   const sp = keys.has("shift") ? 3.2 : 1.7;
@@ -166,7 +168,10 @@ function frame(now) {
   }
   camera.position.set(pos.x, 0, pos.z);
   camera.rotation.set(pitch, yaw, 0);
-  points.material.uniforms.uScale.value = splatScaleFor(camera, renderer);
+  // EWA needs correct focal/viewport every frame; ordering is refreshed on a
+  // timer (8 ms counting sort for 260k splats, not per frame)
+  if (now - lastSort > 200) { sortSplat(points, camera); lastSort = now; }
+  syncSplatUniforms(points, camera, renderer);
 
   const d = Math.hypot(pos.x, pos.z);
   const r5 = budget.radius_5pct_m ?? 1, r15 = budget.radius_15pct_m ?? 2;
@@ -185,6 +190,7 @@ addEventListener("resize", () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  syncSplatUniforms(points, camera, renderer);
 });
 </script>
 </body>

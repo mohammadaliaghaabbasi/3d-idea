@@ -104,7 +104,7 @@ def quat_from_z(n: np.ndarray) -> np.ndarray:
 
 def bake_from_arrays(rgb: np.ndarray, depth: np.ndarray, out_path: str,
                      max_splats: int = 900_000, opacity: float = 0.98,
-                     footprint: float = 0.85) -> dict:
+                     footprint: float = 1.15) -> dict:
     """
     Lift a panorama into gaussians.
 
@@ -145,7 +145,10 @@ def bake_from_arrays(rgb: np.ndarray, depth: np.ndarray, out_path: str,
         "f_dc_1": (C[:, 1] - 0.5) / SH_C0,
         "f_dc_2": (C[:, 2] - 0.5) / SH_C0,
         "opacity": op,
-        "scale_0": np.log(scale), "scale_1": np.log(scale), "scale_2": np.log(scale * 0.35),
+        # ISOTROPIC on purpose: a flat (pancake) gaussian is edge-on whenever its
+        # measured normal is even slightly off, and a grazing disc projects to a
+        # dark splinter. Small isotropic blobs stay round from every angle.
+        "scale_0": np.log(scale), "scale_1": np.log(scale), "scale_2": np.log(scale),
         "rot_0": q[:, 0], "rot_1": q[:, 1], "rot_2": q[:, 2], "rot_3": q[:, 3],
     }
     write_ply(out_path, data)
