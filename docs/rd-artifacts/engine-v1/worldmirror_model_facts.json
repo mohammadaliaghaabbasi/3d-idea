@@ -1,0 +1,87 @@
+{
+ "artifact": "worldmirror_model_facts",
+ "generated": "2026-11-11T10:19:19.863205Z",
+ "generator": "scripts/engine_v1/worldmirror_probe.py",
+ "method": "live fetch of HuggingFace model API, raw License.txt, raw README.md, arXiv abstract page",
+ "verification_date": "2026-11-11",
+ "hf_model": {
+  "id": "tencent/HunyuanWorld-Mirror",
+  "tags": [
+   "safetensors",
+   "hunyuan3d",
+   "worldmodel",
+   "3d-reconstruction",
+   "3d-generation",
+   "3d",
+   "scene-generation",
+   "image-to-3D",
+   "video-to-3D",
+   "image-to-3d",
+   "en",
+   "zh",
+   "arxiv:2510.10726",
+   "license:other",
+   "region:us"
+  ],
+  "downloads": 1661,
+  "likes": 472,
+  "createdAt": "2025-10-16T07:10:22.000Z",
+  "lastModified": "2025-10-25T07:42:13.000Z",
+  "files": [
+   ".gitattributes",
+   "License.txt",
+   "Notice.txt",
+   "README.md",
+   "assets/arch.png",
+   "assets/qrcode/discord.png",
+   "assets/qrcode/wechat.png",
+   "assets/qrcode/x.png",
+   "assets/qrcode/xiaohongshu.png",
+   "assets/teaser.jpg",
+   "config.json",
+   "model.safetensors"
+  ],
+  "params": "1B (F32, single model.safetensors) per HF model card"
+ },
+ "license_key_clauses": {
+  "name": "Tencent HunyuanWorld-Mirror is licensed under the Tencent HunyuanWorld-Mirror Community License Agreement",
+  "mau_threshold": "1 million",
+  "commercial_contact": "hunyuan3d@tencent.com",
+  "territory_exclusion_quote": "THIS LICENSE AGREEMENT DOES NOT APPLY IN THE EUROPEAN UNION, UNITED KINGDOM AND SOUTH KOREA AND IS EXPRESSLY LIMITED TO THE TERRITORY, AS DEFINED BELOW.",
+  "territory_definition_quote": null,
+  "no_training_other_models_quote": "You must not use the Tencent HunyuanWorld-Mirror Works or any Output or results of the Tencent HunyuanWorld-Mirror Works to improve any other AI model (other than Tencent HunyuanWorld-Mirror or Model Derivatives thereof).",
+  "governing_law": "Hong Kong SAR"
+ },
+ "readme_markers": {
+  "cuda_recommend": "CUDA 12.4",
+  "torch_pin": "torch==2.4.0",
+  "gsplat_required": true,
+  "input_target_size": "518",
+  "video_fps_hint": "1",
+  "colmap_export_files": [
+   "cameras.bin",
+   "gaussians.ply",
+   "images.bin",
+   "points3D.bin"
+  ],
+  "ckpt_download_cmd": "tencent/HunyuanWorld-Mirror",
+  "paper_cited": null,
+  "acceptance": "ICML 2026",
+  "pano_equirect_support": false
+ },
+ "paper": {
+  "arxiv_id": "2510.10726",
+  "title": "WorldMirror: Universal 3D World Reconstruction with Any-Prior Prompting",
+  "authors": [
+   "Liu, Yifan",
+   "Min, Zhiyuan",
+   "Wang, Zhenwei",
+   "Wu, Junta",
+   "Wang, Tengfei",
+   "Yuan, Yixuan",
+   "Luo, Yawei",
+   "Guo, Chunchao"
+  ],
+  "abstract_snippet": "We present WorldMirror, a unified feed-forward model for comprehensive 3D geometric prediction tasks. Unlike existing methods constrained to image-only inputs or customized for a specific task, our framework flexibly integrates diverse geometric priors, including camera poses, intrinsics, and depth maps, while simultaneously generating multiple 3D representations: dense point clouds, multi-view de"
+ }
+}

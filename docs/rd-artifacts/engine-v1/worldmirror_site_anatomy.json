@@ -1,0 +1,68 @@
+{
+ "artifact": "worldmirror_site_anatomy",
+ "generated": "2026-11-11T10:19:17.010678Z",
+ "generator": "scripts/engine_v1/worldmirror_probe.py",
+ "method": "live HTTP fetch of public pages; regex extraction of markers; all evidence URL-verifiable",
+ "verification_date": "2026-11-11",
+ "home_fetch_ok": true,
+ "http_headers_measured": {
+  "server": "Vercel",
+  "x-powered-by": "Next.js",
+  "x-matched-path": null,
+  "x-vercel-cache": null,
+  "x-vercel-id": null,
+  "set-cookie": "NEXT_LOCALE=en; Path=/; SameSite=lax"
+ },
+ "page_meta": {
+  "title": "World Mirror | 3D World Generator,Free Online,No-Login",
+  "meta_description": "World Mirror transforms photos and videos into immersive 3D worlds in minutes. Free online 3D generation tool with no account required."
+ },
+ "iframe_evidence": {
+  "iframe_src": "https://tencent-hunyuanworld-mirror.hf.space?__theme=light",
+  "iframe_height": "1400",
+  "fallback_button_title": "World Mirror demo in a new tab",
+  "note": "the ONLY demo surface on the site is an <iframe> of the official free HuggingFace Space; no own compute"
+ },
+ "operator_evidence": {
+  "support_email": "support@wan2animate.com",
+  "external_links": [
+   "https://Fabric1.net",
+   "https://wan2animate.com/seed3d-1",
+   "https://wan2animate.com/sora-2",
+   "https://www.googletagmanager.com/gtag/js?id=G-NSCW52JS4E"
+  ],
+  "google_analytics_id": "G-NSCW52JS4E",
+  "note": "operator is a third party (wan2animate.com AI-tools SEO network), NOT Tencent"
+ },
+ "tos_privacy_boilerplate_evidence": {
+  "terms-of-service": {
+   "http_ok": true,
+   "boilerplate_sentence": "Welcome to World Mirror , a NextJS boilerplate designed for building AI SaaS startups quickly and efficiently.",
+   "mentions_payments": true,
+   "mentions_accounts": true,
+   "contradiction": "marketing headline says 'No-Login' while boilerplate TOS describes accounts/payments"
+  },
+  "privacy-policy": {
+   "http_ok": true,
+   "boilerplate_sentence": null,
+   "mentions_payments": true,
+   "mentions_accounts": false,
+   "contradiction": "marketing headline says 'No-Login' while boilerplate TOS describes accounts/payments"
+  }
+ },
+ "sitemap_evidence": {
+  "robots_ok": true,
+  "robots_disallow": [
+   "/*?*q=",
+   "/privacy-policy",
+   "/terms-of-service"
+  ],
+  "sitemap_urls": [
+   "https://worldmirror.app/"
+  ],
+  "sitemap_lastmod": [
+   "2025-10-23T06:35:40+00:00"
+  ],
+  "note": "sitemap lists ONLY the homepage; generated with xml-sitemaps.com (footer of sitemap)"
+ }
+}

@@ -1,0 +1,470 @@
+{
+ "artifact": "worldmirror_space_api",
+ "generated": "2026-11-11T10:19:19.548280Z",
+ "generator": "scripts/engine_v1/worldmirror_probe.py",
+ "method": "live fetch of Gradio /config (schema) + HuggingFace API (runtime); no generation was run",
+ "verification_date": "2026-11-11",
+ "gradio_version": "5.49.1",
+ "space_id": "tencent/HunyuanWorld-Mirror",
+ "components_total": 66,
+ "key_components": [
+  {
+   "id": 1,
+   "type": "textbox",
+   "label": "is_example"
+  },
+  {
+   "id": 2,
+   "type": "textbox",
+   "label": "num_images"
+  },
+  {
+   "id": 6,
+   "type": "textbox",
+   "label": "Output Path"
+  },
+  {
+   "id": 9,
+   "type": "file",
+   "label": "Upload Video or Images"
+  },
+  {
+   "id": 10,
+   "type": "slider",
+   "label": "Video Sample interval"
+  },
+  {
+   "id": 11,
+   "type": "button",
+   "label": ""
+  },
+  {
+   "id": 12,
+   "type": "gallery",
+   "label": "Image Preview"
+  },
+  {
+   "id": 13,
+   "type": "textbox",
+   "label": "Terminal Output"
+  },
+  {
+   "id": 19,
+   "type": "tabitem",
+   "label": "3D Gaussian Splatting"
+  },
+  {
+   "id": 22,
+   "type": "model3d",
+   "label": "Gaussian Splatting"
+  },
+  {
+   "id": 24,
+   "type": "video",
+   "label": "Rendered RGB Video"
+  },
+  {
+   "id": 25,
+   "type": "video",
+   "label": "Rendered Depth Video"
+  },
+  {
+   "id": 26,
+   "type": "tabitem",
+   "label": "Point Cloud/Mesh"
+  },
+  {
+   "id": 27,
+   "type": "model3d",
+   "label": "3D Pointmap/Mesh"
+  },
+  {
+   "id": 28,
+   "type": "tabitem",
+   "label": "Depth"
+  },
+  {
+   "id": 30,
+   "type": "slider",
+   "label": "View Selection Slider"
+  },
+  {
+   "id": 31,
+   "type": "image",
+   "label": "Depth Map"
+  },
+  {
+   "id": 33,
+   "type": "tabitem",
+   "label": "Normal"
+  },
+  {
+   "id": 35,
+   "type": "slider",
+   "label": "View Selection Slider"
+  },
+  {
+   "id": 36,
+   "type": "image",
+   "label": "Normal Map"
+  },
+  {
+   "id": 38,
+   "type": "tabitem",
+   "label": "Camera Parameters"
+  },
+  {
+   "id": 41,
+   "type": "downloadbutton",
+   "label": "Download Camera Parameters"
+  },
+  {
+   "id": 44,
+   "type": "button",
+   "label": ""
+  },
+  {
+   "id": 45,
+   "type": "button",
+   "label": ""
+  },
+  {
+   "id": 47,
+   "type": "dropdown",
+   "label": "Show Points of a Specific Frame"
+  },
+  {
+   "id": 51,
+   "type": "checkbox",
+   "label": "Show Camera"
+  },
+  {
+   "id": 52,
+   "type": "checkbox",
+   "label": "Show Mesh"
+  },
+  {
+   "id": 53,
+   "type": "checkbox",
+   "label": "Filter low confidence & depth/normal edges"
+  },
+  {
+   "id": 54,
+   "type": "checkbox",
+   "label": "Filter Sky Background"
+  },
+  {
+   "id": 59,
+   "type": "tabitem",
+   "label": "🌍 Realistic Cases"
+  },
+  {
+   "id": 60,
+   "type": "gallery",
+   "label": "Real-world Examples"
+  },
+  {
+   "id": 61,
+   "type": "tabitem",
+   "label": "🎨 Stylistic Cases"
+  },
+  {
+   "id": 62,
+   "type": "gallery",
+   "label": "Generated Examples"
+  }
+ ],
+ "api_endpoints": [
+  {
+   "api_name": "js_fn",
+   "inputs": [],
+   "outputs": [
+    9,
+    27,
+    17,
+    6,
+    12,
+    31,
+    36,
+    30,
+    35,
+    29,
+    34,
+    41,
+    22,
+    24,
+    25
+   ]
+  },
+  {
+   "api_name": "handle_realworld_selection",
+   "inputs": [],
+   "outputs": [
+    27,
+    22,
+    6,
+    12,
+    17
+   ]
+  },
+  {
+   "api_name": "handle_generated_selection",
+   "inputs": [],
+   "outputs": [
+    27,
+    22,
+    6,
+    12,
+    17
+   ]
+  },
+  {
+   "api_name": "clear_fields",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "api_name": "update_log",
+   "inputs": [],
+   "outputs": [
+    17
+   ]
+  },
+  {
+   "api_name": "gradio_demo",
+   "inputs": [
+    6,
+    47,
+    51,
+    54,
+    52,
+    53
+   ],
+   "outputs": [
+    27,
+    17,
+    47,
+    3,
+    31,
+    36,
+    30,
+    35,
+    29,
+    34,
+    41,
+    22,
+    24,
+    25,
+    13
+   ]
+  },
+  {
+   "api_name": "lambda",
+   "inputs": [],
+   "outputs": [
+    1
+   ]
+  },
+  {
+   "api_name": "refresh_3d_scene",
+   "inputs": [
+    6,
+    47,
+    51,
+    1,
+    54,
+    52,
+    53
+   ],
+   "outputs": [
+    27,
+    22,
+    17
+   ]
+  },
+  {
+   "api_name": "refresh_3d_scene_1",
+   "inputs": [
+    6,
+    47,
+    51,
+    1,
+    54,
+    52,
+    53
+   ],
+   "outputs": [
+    27,
+    22,
+    17
+   ]
+  },
+  {
+   "api_name": "refresh_3d_scene_2",
+   "inputs": [
+    6,
+    47,
+    51,
+    1,
+    54,
+    52,
+    53
+   ],
+   "outputs": [
+    27,
+    22,
+    17
+   ]
+  },
+  {
+   "api_name": "refresh_3d_scene_3",
+   "inputs": [
+    6,
+    47,
+    51,
+    1,
+    54,
+    52,
+    53
+   ],
+   "outputs": [
+    27,
+    22,
+    17
+   ]
+  },
+  {
+   "api_name": "refresh_view_displays_on_filter_update",
+   "inputs": [
+    6,
+    54,
+    3,
+    30,
+    35
+   ],
+   "outputs": [
+    3,
+    31,
+    36
+   ]
+  },
+  {
+   "api_name": "refresh_3d_scene_4",
+   "inputs": [
+    6,
+    47,
+    51,
+    1,
+    54,
+    52,
+    53
+   ],
+   "outputs": [
+    27,
+    22,
+    17
+   ]
+  },
+  {
+   "api_name": "refresh_view_displays_on_filter_update_1",
+   "inputs": [
+    6,
+    54,
+    3,
+    30,
+    35
+   ],
+   "outputs": [
+    3,
+    31,
+    36
+   ]
+  },
+  {
+   "api_name": "update_gallery_on_file_upload",
+   "inputs": [
+    9,
+    10
+   ],
+   "outputs": [
+    6,
+    12,
+    17,
+    13
+   ]
+  },
+  {
+   "api_name": "resample_video_with_new_interval",
+   "inputs": [
+    9,
+    10,
+    6
+   ],
+   "outputs": [
+    6,
+    12,
+    17,
+    13
+   ]
+  },
+  {
+   "api_name": "handle_depth_slider_change",
+   "inputs": [
+    3,
+    30
+   ],
+   "outputs": [
+    31,
+    29
+   ]
+  },
+  {
+   "api_name": "handle_normal_slider_change",
+   "inputs": [
+    3,
+    35
+   ],
+   "outputs": [
+    36,
+    34
+   ]
+  },
+  {
+   "api_name": "get_terminal_output",
+   "inputs": [],
+   "outputs": [
+    13
+   ]
+  }
+ ],
+ "demo_ui_tabs": [
+  "3D Gaussian Splatting",
+  "Point Cloud/Mesh",
+  "Depth",
+  "Normal",
+  "Camera Parameters",
+  "🌍 Realistic Cases",
+  "🎨 Stylistic Cases"
+ ],
+ "postprocess_filters": [
+  "Show Camera",
+  "Show Mesh",
+  "Filter low confidence & depth/normal edges",
+  "Filter Sky Background"
+ ],
+ "hf_runtime": {
+  "stage": "RUNNING",
+  "hardware": {
+   "current": "zero-a10g",
+   "requested": "zero-a10g"
+  },
+  "domain": {
+   "domain": "tencent-hunyuanworld-mirror.hf.space",
+   "stage": "READY"
+  },
+  "likes": 197,
+  "sdk": "gradio",
+  "gcTimeout_s": 172800,
+  "note": "demo runs on A10G-class (24GB) GPU via HF ZeroGPU; sleeps when idle (wake-on-demand)"
+ }
+}
