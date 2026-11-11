@@ -11,5 +11,5 @@
     "collision reads geometry.floor_polygon + obstacles, never the photo"
   ],
   "command": "python3 skills/panodrome_engine.py build --pano <pano> --depth <depth.npy> --id <room>",
-  "updated_at": "2026-11-10T14:00:21Z"
+  "updated_at": "2026-11-11T10:39:54Z"
 }

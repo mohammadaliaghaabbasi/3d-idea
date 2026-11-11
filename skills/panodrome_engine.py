@@ -70,6 +70,7 @@ sys.path.insert(0, HERE)
 from walkable_layout_fit import (  # noqa: E402
     GATES, fit_layout, polygon_area, run_gates,
 )
+from walk_budget import walk_budget  # noqa: E402
 
 ENGINE_ID = "walkable-truth"
 ENGINE_VERSION = "1.0.0"
@@ -231,6 +232,12 @@ def run_engine(depth: np.ndarray | None, plan: dict | None, pano: str,
     """One entry point, one engine, one output shape."""
     if depth is not None:
         geom = fit_layout(depth)
+        # Lane C: how far the photograph can be walked before pixels are unknown
+        try:
+            geom["walk_budget"] = walk_budget(depth)
+            geom["level"] = "L1"
+        except Exception as exc:  # never block a bake on the budget
+            print(f"  ! walk budget failed: {exc}")
         geom["engine"] = {"id": ENGINE_ID, "version": ENGINE_VERSION}
         geom["source"] = {"kind": source_kind, "detail": source_detail}
         if depth_path:
