@@ -82,8 +82,11 @@ const VERT = /* glsl */ `
     vColor = aColor;
     vAlpha = aAlpha;
     vec4 mv = modelViewMatrix * vec4(position, 1.0);
-    // a gaussian of radius r at depth d subtends uScale * r / d pixels
-    gl_PointSize = clamp(uScale * aSize * 1.8 / max(-mv.z, 0.05), 1.0, 64.0);
+    // A gaussian of radius r at depth d subtends uScale * r / d device pixels.
+    // 4.0x is not a fudge: an isotropic footprint of one ERP pixel leaves gaps
+    // because neighbouring columns land ~3.4 CSS px apart, so the disc has to
+    // overlap its neighbour by ~2x to read as a continuous surface.
+    gl_PointSize = clamp(uScale * aSize * 4.0 / max(-mv.z, 0.05), 1.0, 96.0);
     gl_Position = projectionMatrix * mv;
   }
 `;
@@ -95,7 +98,9 @@ const FRAG = /* glsl */ `
     vec2 d = gl_PointCoord - vec2(0.5);
     float r = length(d) * 2.0;
     if (r > 1.0) discard;
-    float a = vAlpha * smoothstep(1.0, 0.35, r);
+    // solid disc: with adjacent footprints overlapping, a soft falloff would
+    // re-open the seam between every pair of splats (it reads as striping)
+    float a = vAlpha;
     gl_FragColor = vec4(vColor, a);
   }
 `;

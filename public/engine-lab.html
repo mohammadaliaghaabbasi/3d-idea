@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panodrome — Engine Lab (splat + metric collision)</title>
+<style>
+  html,body{margin:0;height:100%;background:#0a0d12;color:#e8eef7;
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:hidden}
+  #c{position:fixed;inset:0;display:block;touch-action:none}
+  #hud{position:fixed;left:12px;top:12px;padding:10px 12px;border-radius:10px;
+    background:rgba(10,14,20,.72);border:1px solid rgba(160,190,220,.18);
+    backdrop-filter:blur(8px);max-width:330px;white-space:pre-wrap;pointer-events:none}
+  #hud b{color:#9fd0ff;font-weight:600}
+  #bar{position:fixed;left:12px;right:12px;bottom:12px;padding:8px 12px;border-radius:10px;
+    background:rgba(10,14,20,.72);border:1px solid rgba(160,190,220,.18);
+    display:flex;gap:14px;align-items:center;font-size:12px;pointer-events:none}
+  #meter{flex:1;height:6px;border-radius:3px;background:#1b2431;overflow:hidden}
+  #fill{height:100%;width:0;background:#5ad18a;transition:background .2s}
+  .k{color:#8fa5bd}
+</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three-0.160.0.module.js" } }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">loading…</div>
+<div id="bar">
+  <span class="k">walk</span><span id="dist">0.00 m</span>
+  <div id="meter"><div id="fill"></div></div>
+  <span id="state" class="k">photograph</span>
+</div>
+<script type="module">
+import * as THREE from "three";
+import { loadSplat, createSplat, splatScaleFor } from "./js/splat.js?v=4";
+
+const LAB = "data/engine_lab.json";
+const R = 0.28;            // capsule radius, same as collider.js
+
+const cfg = await (await fetch(LAB)).json();
+const geom = cfg.geometry, app = cfg.appearance, budget = cfg.walk_budget || {};
+
+const canvas = document.getElementById("c");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace;   // splat colours are literal
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0d12);
+const camera = new THREE.PerspectiveCamera(72, innerWidth / innerHeight, 0.05, 200);
+camera.position.set(0, 0, 0);                             // y=0 IS the capture eye height
+camera.rotation.order = "YXZ";
+
+// ---- appearance: the baked splat (Lane B2) ----
+const splat = await loadSplat(app.asset);
+const points = createSplat(splat, { pixelRatio: Math.min(devicePixelRatio, 2) });
+points.material.uniforms.uScale.value = splatScaleFor(camera, renderer);
+scene.add(points);
+window.__lab = { splat, points, camera, renderer, geom, budget };
+
+// ---- truth: the metric floor polygon (Lane A) ----
+const poly = geom.floor_polygon.map(([x, z]) => new THREE.Vector3(x, 0.01, z));
+const loop = poly.concat([poly[0]]);
+scene.add(new THREE.Line(
+  new THREE.BufferGeometry().setFromPoints(loop),
+  new THREE.LineBasicMaterial({ color: 0x6fa8ff })
+));
+for (const o of geom.obstacles || []) {
+  const g = new THREE.BoxGeometry(o.extent_xz[0], o.top_y - o.base_y, o.extent_xz[1]);
+  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({
+    color: 0x6fa8ff, wireframe: true, transparent: true, opacity: 0.35 }));
+  m.position.set(o.centre_xz[0], (o.top_y + o.base_y) / 2, o.centre_xz[1]);
+  m.rotation.y = -o.yaw_deg * Math.PI / 180;
+  scene.add(m);
+}
+
+// ---- collision: capsule vs polygon edges + OBBs (mirrors collider.js) ----
+const obstacles = (geom.obstacles || []).map((o) => ({
+  x: o.centre_xz[0], z: o.centre_xz[1],
+  hw: o.extent_xz[0] / 2, hd: o.extent_xz[1] / 2,
+  rot: -o.yaw_deg * Math.PI / 180,
+}));
+
+function resolve(p) {
+  for (let pass = 0; pass < 2; pass++) {
+    for (let i = 0; i < poly.length; i++) {
+      const a = poly[i], b = poly[(i + 1) % poly.length];
+      const ex = b.x - a.x, ez = b.z - a.z, L2 = ex * ex + ez * ez;
+      if (L2 < 1e-9) continue;
+      let t = ((p.x - a.x) * ex + (p.z - a.z) * ez) / L2;
+      t = Math.max(0, Math.min(1, t));
+      const px = a.x + ex * t, pz = a.z + ez * t;
+      let dx = p.x - px, dz = p.z - pz;
+      const d = Math.hypot(dx, dz);
+      if (d >= R || d < 1e-6) continue;
+      p.x += (dx / d) * (R - d);
+      p.z += (dz / d) * (R - d);
+    }
+    for (const o of obstacles) {
+      const cr = Math.cos(-o.rot), sr = Math.sin(-o.rot);
+      const rx = p.x - o.x, rz = p.z - o.z;
+      const lx = cr * rx - sr * rz, lz = sr * rx + cr * rz;
+      const cx = Math.max(-o.hw, Math.min(o.hw, lx));
+      const cz = Math.max(-o.hd, Math.min(o.hd, lz));
+      const dx = lx - cx, dz = lz - cz;
+      const d = Math.hypot(dx, dz);
+      if (d >= R) continue;
+      let nx, nz;
+      if (d < 1e-6) {
+        const px = o.hw + R - Math.abs(lx), pz = o.hd + R - Math.abs(lz);
+        if (px < pz) { nx = Math.sign(lx) || 1; nz = 0; p.x += nx * px; p.z += nz * px; }
+        else { nx = 0; nz = Math.sign(lz) || 1; p.x += nx * pz; p.z += nz * pz; }
+      } else {
+        nx = dx / d; nz = dz / d; p.x += nx * (R - d); p.z += nz * (R - d);
+      }
+    }
+  }
+}
+
+// ---- input: WASD/arrows + drag look ----
+const keys = new Set();
+addEventListener("keydown", (e) => keys.add(e.key.toLowerCase()));
+addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
+let yaw = 0, pitch = 0, dragging = false, lx = 0, ly = 0;
+canvas.addEventListener("pointerdown", (e) => { dragging = true; lx = e.clientX; ly = e.clientY; });
+addEventListener("pointerup", () => { dragging = false; });
+addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  yaw -= (e.clientX - lx) * 0.0032;
+  pitch -= (e.clientY - ly) * 0.0032;
+  pitch = Math.max(-1.4, Math.min(1.4, pitch));
+  lx = e.clientX; ly = e.clientY;
+});
+
+const pos = new THREE.Vector3(0, 0, 0);
+const hud = document.getElementById("hud");
+hud.textContent = "";
+hud.innerHTML =
+  `<b>${cfg.engine}</b>  ${cfg.level}\n` +
+  `splats ${app.splats.toLocaleString()} · invented ${(app.invented_fraction * 100).toFixed(0)}%\n` +
+  `polygon ${geom.floor_polygon.length} vtx · area ${geom.area_m2} m² · ceiling ${geom.ceiling_h} m\n` +
+  `walk budget 5% ${budget.radius_5pct_m} m · 15% ${budget.radius_15pct_m} m\n` +
+  `drag = look · WASD / arrows = walk`;
+
+const fill = document.getElementById("fill");
+const stateEl = document.getElementById("state");
+const distEl = document.getElementById("dist");
+
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  const sp = keys.has("shift") ? 3.2 : 1.7;
+  let f = 0, s = 0;
+  if (keys.has("w") || keys.has("arrowup")) f += 1;
+  if (keys.has("s") || keys.has("arrowdown")) f -= 1;
+  if (keys.has("a") || keys.has("arrowleft")) s -= 1;
+  if (keys.has("d") || keys.has("arrowright")) s += 1;
+  if (f || s) {
+    const len = Math.hypot(f, s) || 1;
+    const sinY = Math.sin(yaw), cosY = Math.cos(yaw);
+    pos.x += ((f / len) * -sinY + (s / len) * cosY) * sp * dt;
+    pos.z += ((f / len) * -cosY + (s / len) * sinY) * sp * dt;
+    resolve(pos);
+  }
+  camera.position.set(pos.x, 0, pos.z);
+  camera.rotation.set(pitch, yaw, 0);
+  points.material.uniforms.uScale.value = splatScaleFor(camera, renderer);
+
+  const d = Math.hypot(pos.x, pos.z);
+  const r5 = budget.radius_5pct_m ?? 1, r15 = budget.radius_15pct_m ?? 2;
+  distEl.textContent = d.toFixed(2) + " m";
+  fill.style.width = Math.min(100, (d / r15) * 100) + "%";
+  if (d <= r5) { fill.style.background = "#5ad18a"; stateEl.textContent = "photograph"; }
+  else if (d <= r15) { fill.style.background = "#e8c05a"; stateEl.textContent = "gaps appear"; }
+  else { fill.style.background = "#e8705a"; stateEl.textContent = "not photographed"; }
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+addEventListener("resize", () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
