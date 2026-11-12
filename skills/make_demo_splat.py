@@ -115,6 +115,17 @@ def main() -> int:
     info = bake_from_arrays(rgb, depth, out, max_splats=400_000)
     print(f"  splat       {info['splats']} gaussians, {info['file_mb']} MB")
 
+    # low-res depth sphere for the runtime hole-fill mask (192x384 float32)
+    from walk_budget import _downsample
+    low = _downsample(depth, (192, 384))
+    bin_path = os.path.join(ROOT, "public", "data", f"{ROOM_ID}_depth.bin")
+    with open(bin_path, "wb") as fh:
+        fh.write(np.uint16(384).astype("<u2").tobytes())
+        fh.write(np.uint16(192).astype("<u2").tobytes())
+        fh.write(low.astype("<f4").tobytes())
+    print(f"  depth map   {os.path.relpath(bin_path, ROOT)} "
+          f"({os.path.getsize(bin_path) / 1024:.0f} KB for hole-fill)")
+
     geom = fit_layout(depth)
     geom["engine"] = {"id": ENG.ENGINE_ID, "version": "1.1.0"}
     geom["source"] = {"kind": "measured", "pano": os.path.relpath(png, ROOT),

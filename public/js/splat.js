@@ -111,11 +111,13 @@ const VERT = /* glsl */ `
   varying vec3 vColor;
   varying float vAlpha;
   varying vec2 vPos;
+  varying vec3 vDir;
 
   void main() {
     vColor = aColor;
     vAlpha = aAlpha;
     vPos = position.xy * 2.0;         // corner quad is [-1,1] -> [-2,2] sigma
+    vDir = normalize(aPos - cameraPosition);
 
     vec4 vc = viewMatrix * vec4(aPos, 1.0);
     if (vc.z > -0.02) {               // behind the camera
@@ -161,10 +163,29 @@ const FRAG = /* glsl */ `
   varying vec3 vColor;
   varying float vAlpha;
   varying vec2 vPos;
+  varying vec3 vDir;
+
+  uniform float uOpacity;    // global layer opacity (crossfade tests)
+  uniform float uUseMask;    // 1 = hole-fill: hide where the photo is valid
+  uniform sampler2D uMask;   // low-res ERP coverage of the translated view
+
+  const float PI = 3.141592653589793;
+
   void main() {
     float A = -dot(vPos, vPos);      // exp(-r^2), r in sigma units
     if (A < -4.0) discard;
-    float a = exp(A) * vAlpha;
+
+    // HOLE-FILL: the photograph keeps every direction it can still explain;
+    // the splat is painted only into the wedges it never saw. This is why the
+    // view stays sharp while moving instead of crossfading into a 500k-splat
+    // layer.
+    if (uUseMask > 0.5) {
+      vec2 uv = vec2(atan(vDir.x, vDir.z) / (2.0 * PI) + 0.5,
+                     acos(clamp(vDir.y, -1.0, 1.0)) / PI);
+      if (texture2D(uMask, uv).r > 0.5) discard;
+    }
+
+    float a = exp(A) * vAlpha * uOpacity;
     if (a < 0.004) discard;
     gl_FragColor = vec4(vColor, a);
   }
@@ -194,6 +215,9 @@ export function createSplat(splat, { pixelRatio = 1 } = {}) {
     uniforms: {
       uViewport: { value: new THREE.Vector2(1, 1) },
       uFocal: { value: new THREE.Vector3(1, 1, 0) },
+      uOpacity: { value: 1 },
+      uUseMask: { value: 0 },
+      uMask: { value: new THREE.DataTexture(new Uint8Array([0]), 1, 1) },
     },
   });
 
