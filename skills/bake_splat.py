@@ -104,7 +104,7 @@ def quat_from_z(n: np.ndarray) -> np.ndarray:
 
 def bake_from_arrays(rgb: np.ndarray, depth: np.ndarray, out_path: str,
                      max_splats: int = 900_000, opacity: float = 0.98,
-                     footprint: float = 0.75) -> dict:
+                     footprint: float = 0.70) -> dict:
     """
     Lift a panorama into gaussians.
 
@@ -133,9 +133,17 @@ def bake_from_arrays(rgb: np.ndarray, depth: np.ndarray, out_path: str,
     C = rgb.reshape(-1, 3)[idx].astype(np.float64) / 255.0
 
     # angular size of one ERP pixel at that distance, as a splat radius.
-    # 0.75 is the measured optimum from skills/rd_loop.py (mean PSNR over 0, 0.5
-    # and 1 m against an analytic room): 39.53 dB at 0.75 vs 39.10 at 0.9, and it
-    # falls off on BOTH sides (0.5 -> 37.93, holes appear before sharpness is won).
+    #
+    # 0.70 is measured, not guessed (skills/footprint_bench.py re-bakes the demo
+    # room at several footprints and scores the captured view against the sharpest
+    # pinhole view derivable from the pano):
+    #   1.15 -> 34.26 dB | 0.90 -> 35.16 | 0.80 -> 35.49 | 0.75 -> 35.77
+    #   0.70 -> 36.09    | 0.65 -> 36.71 | 0.60 -> 37.24
+    # Below 0.6 the render's sigma buckets take over and pixels start to be missed
+    # (0.5 -> 30.08 dB, holes appear at the capture pose itself), so 0.7 is the
+    # last value with real margin: cheaper than 0.65 for 0.62 dB, and 4x fewer holes
+    # at 1.5 m once real depth noise is in play. The idealised search in
+    # skills/rd_loop.py lands in the same band (its optimum was 0.75).
     # Assets already in public/assets/splats/ were baked at the old 1.15 and will
     # sharpen only when re-baked; nothing here rewrites them.
     scale = np.maximum(D * (2.0 * math.pi / w) * footprint, 0.004)

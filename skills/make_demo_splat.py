@@ -79,7 +79,11 @@ def synth_colour(depth: np.ndarray) -> np.ndarray:
     r_h = np.hypot(x, z)
     r_wall = wall_radius_profile(POLY, w)[None, :]
     floor = valid & (y < -CAM_H + 0.12)
-    ceil = valid & (y > -CAM_H + CEIL - 0.12)
+    # CEIL is measured FROM THE CAMERA (the ceiling plane is y = +CEIL), so the
+    # test is CEIL - 0.12. Writing -CAM_H + CEIL - 0.12 put the threshold at
+    # y = -0.82 and painted every wall pixel above ~0.8 m as ceiling white; the
+    # bands and the wall palette above eye level were simply lost.
+    ceil = valid & (y > CEIL - 0.12)
     wall = valid & ~floor & ~ceil & (np.abs(r_h - r_wall) < 0.20)
     other = valid & ~floor & ~ceil & ~wall
 

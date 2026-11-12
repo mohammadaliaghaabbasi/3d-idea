@@ -1,0 +1,297 @@
+{
+ "room": {
+  "w": 1024,
+  "h": 512
+ },
+ "reference": {
+  "pano_psnr_at_capture": 99.0,
+  "pano_vs_analytic_db": 24.661
+ },
+ "render": {
+  "w": 320,
+  "h": 180
+ },
+ "poses": [
+  0.0,
+  0.5,
+  1.0,
+  1.5
+ ],
+ "footprints": {
+  "1.15": {
+   "splats": 524288,
+   "ply_mb": 35.65,
+   "px_per_splat": 1.0,
+   "median_splat_mm": 12.65,
+   "ply_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 34.255,
+     "analytic_psnr": 25.382,
+     "edge_energy": 0.00392
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.0
+    },
+    "1.5m": {
+     "holes_pct": 0.0
+    }
+   },
+   "spz_lod0_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 34.2,
+     "analytic_psnr": 25.368,
+     "edge_energy": 0.00391
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.0
+    },
+    "1.5m": {
+     "holes_pct": 0.0
+    }
+   },
+   "lod_bytes": [
+    4212014,
+    2141256,
+    1084638,
+    550008
+   ],
+   "spz_roundtrip": {
+    "checked": 52429,
+    "pos_err_mm_max": 0.1221,
+    "opacity_err_max": 0.0004,
+    "color_err_8bit_max": 1,
+    "scale_rel_err_max_pct": 3.174
+   }
+  },
+  "0.8": {
+   "splats": 524288,
+   "ply_mb": 35.65,
+   "px_per_splat": 1.0,
+   "median_splat_mm": 8.8,
+   "ply_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 35.486,
+     "analytic_psnr": 25.22,
+     "edge_energy": 0.00417
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.0
+    },
+    "1.5m": {
+     "holes_pct": 0.0
+    }
+   },
+   "spz_lod0_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 35.392,
+     "analytic_psnr": 25.217,
+     "edge_energy": 0.00415
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.0
+    },
+    "1.5m": {
+     "holes_pct": 0.0
+    }
+   },
+   "lod_bytes": [
+    4214602,
+    2142747,
+    1085235,
+    550607
+   ],
+   "spz_roundtrip": {
+    "checked": 52429,
+    "pos_err_mm_max": 0.1221,
+    "opacity_err_max": 0.0004,
+    "color_err_8bit_max": 1,
+    "scale_rel_err_max_pct": 3.174
+   }
+  },
+  "0.7": {
+   "splats": 524288,
+   "ply_mb": 35.65,
+   "px_per_splat": 1.0,
+   "median_splat_mm": 7.7,
+   "ply_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 36.095,
+     "analytic_psnr": 25.18,
+     "edge_energy": 0.00426
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.005
+    },
+    "1.5m": {
+     "holes_pct": 0.03
+    }
+   },
+   "spz_lod0_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 36.014,
+     "analytic_psnr": 25.173,
+     "edge_energy": 0.00425
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.005
+    },
+    "1.5m": {
+     "holes_pct": 0.021
+    }
+   },
+   "lod_bytes": [
+    4210446,
+    2140480,
+    1084168,
+    549918
+   ],
+   "spz_roundtrip": {
+    "checked": 52429,
+    "pos_err_mm_max": 0.1221,
+    "opacity_err_max": 0.0004,
+    "color_err_8bit_max": 1,
+    "scale_rel_err_max_pct": 3.174
+   }
+  },
+  "0.65": {
+   "splats": 524288,
+   "ply_mb": 35.65,
+   "px_per_splat": 1.0,
+   "median_splat_mm": 7.15,
+   "ply_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 36.71,
+     "analytic_psnr": 25.11,
+     "edge_energy": 0.00436
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.007
+    },
+    "1.5m": {
+     "holes_pct": 0.071
+    }
+   },
+   "spz_lod0_render": {
+    "0.0m": {
+     "holes_pct": 0.0,
+     "psnr": 36.644,
+     "analytic_psnr": 25.092,
+     "edge_energy": 0.00436
+    },
+    "0.5m": {
+     "holes_pct": 0.0
+    },
+    "1.0m": {
+     "holes_pct": 0.007
+    },
+    "1.5m": {
+     "holes_pct": 0.064
+    }
+   },
+   "lod_bytes": [
+    4207422,
+    2138931,
+    1083332,
+    549306
+   ],
+   "spz_roundtrip": {
+    "checked": 52429,
+    "pos_err_mm_max": 0.1221,
+    "opacity_err_max": 0.0004,
+    "color_err_8bit_max": 1,
+    "scale_rel_err_max_pct": 3.174
+   }
+  },
+  "0.55": {
+   "splats": 524288,
+   "ply_mb": 35.65,
+   "px_per_splat": 1.0,
+   "median_splat_mm": 6.05,
+   "ply_render": {
+    "0.0m": {
+     "holes_pct": 0.028,
+     "psnr": 35.236,
+     "analytic_psnr": 24.841,
+     "edge_energy": 0.00493
+    },
+    "0.5m": {
+     "holes_pct": 0.019
+    },
+    "1.0m": {
+     "holes_pct": 0.028
+    },
+    "1.5m": {
+     "holes_pct": 0.194
+    }
+   },
+   "spz_lod0_render": {
+    "0.0m": {
+     "holes_pct": 0.03,
+     "psnr": 35.071,
+     "analytic_psnr": 24.816,
+     "edge_energy": 0.00495
+    },
+    "0.5m": {
+     "holes_pct": 0.021
+    },
+    "1.0m": {
+     "holes_pct": 0.035
+    },
+    "1.5m": {
+     "holes_pct": 0.208
+    }
+   },
+   "lod_bytes": [
+    4207007,
+    2138956,
+    1083267,
+    549435
+   ],
+   "spz_roundtrip": {
+    "checked": 52429,
+    "pos_err_mm_max": 0.1221,
+    "opacity_err_max": 0.0004,
+    "color_err_8bit_max": 1,
+    "scale_rel_err_max_pct": 3.174
+   }
+  }
+ },
+ "delta": {
+  "footprints": [
+   1.15,
+   0.55
+  ],
+  "psnr_at_capture_db": 0.981,
+  "edge_gain": 0.00101,
+  "holes_at_1.5m_pp": 0.194,
+  "container_cost_db": -0.165
+ }
+}
