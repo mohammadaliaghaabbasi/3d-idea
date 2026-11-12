@@ -1,0 +1,62 @@
+{
+ "session": "2026-11-12-splat-parity",
+ "agent": "Buffy",
+ "generated_at": "2026-11-12",
+ "density": {
+  "formula": "px_per_splat = pano_px / splat_count",
+  "moradi_demo_4k": { "pano_px": 7372800, "splats": 520000, "px_per_splat": 14.2 },
+  "lab_before": { "pano_px": 524288, "splats": 262144, "px_per_splat": 2.0 },
+  "lab_after_lod0": { "pano_px": 524288, "splats": 524288, "px_per_splat": 1.0 }
+ },
+ "containers": {
+  "ply_demo_splat": { "bytes": 35652000, "splats": 524288, "bytes_per_splat": 68.0 },
+  "spz_lod0": { "bytes": 4209356, "splats": 524288, "bytes_per_splat": 8.03, "px_per_splat": 1.0 },
+  "spz_lod1": { "bytes": 2139613, "splats": 262144, "bytes_per_splat": 8.16, "px_per_splat": 2.0 },
+  "spz_lod2": { "bytes": 1083756, "splats": 131072, "bytes_per_splat": 8.27, "px_per_splat": 4.0 },
+  "spz_lod3": { "bytes": 549271, "splats": 65536, "bytes_per_splat": 8.38, "px_per_splat": 8.0 },
+  "compression_vs_ply": 8.47
+ },
+ "spz_roundtrip": {
+  "container": "spz/2 (gzip, 24-bit fixed positions, fractionalBits 12, DC colour only)",
+  "checked_samples": 52429,
+  "position_error_mm_max": 0.1221,
+  "alpha_error_max": 0.0004,
+  "colour_error_8bit_max": 1,
+  "scale_relative_error_pct_max": 3.174,
+  "verdict": "GREEN"
+ },
+ "hole_fill_mask": {
+  "source": "docs/17 Lane C + public/js/holefill.js",
+  "coverage_photographed": {
+   "0.00m": 1.0, "0.25m": 0.981, "0.50m": 0.958, "0.75m": 0.949, "1.00m": 0.899, "1.20m": 0.848
+  },
+  "mask_update_ms": 13.4,
+  "update_threshold_m": 0.04
+ },
+ "render_perf_sandbox_swiftshader": {
+  "note": "software GL, NOT representative of real hardware",
+  "lod3_65536_splats_fps": 1.4,
+  "lod0_524288_splats_fps": 0.3
+ },
+ "live_http_checks": {
+  "js/spz.js": { "status": 200, "bytes": 4705 },
+  "data/engine_lab.json": { "status": 200, "bytes": 3010, "lods": 4 },
+  "assets/splats/demo_splat_lod0.spz": { "status": 200, "bytes": 4209356 },
+  "assets/splats/demo_splat_lod1.spz": { "status": 200, "bytes": 2139613 },
+  "assets/splats/demo_splat_lod2.spz": { "status": 200, "bytes": 1083756 },
+  "assets/splats/demo_splat_lod3.spz": { "status": 200, "bytes": 549271 }
+ },
+ "browser_runtime_check": {
+  "url": "https://mohammadaliaghaabbasi.github.io/panodrome/engine-lab.html?lod=3",
+  "reported": { "level": 3, "points": 65536, "container": "spz/2", "bytes": 549271 },
+  "lod1_reported": { "level": 1, "points": 262144, "container": "spz/2", "bytes": 2139613 }
+ },
+ "commits": [
+  "8e25c11 engine: hole-fill composite — the photo stays sharp, splats fill only the holes",
+  "e610778 lab: fix the panorama path and guard it",
+  "11827a4 labs/vq11: the photograph stays authoritative inside the measured walk budget",
+  "b035d50 splat: bake at photographic density and publish the sharpness number",
+  "98dc63f splat: ship the SPZ container and four LOD tiers",
+  "e76c20b lab: version the manifest fetch so a deploy cannot pair a new page with an old config"
+ ]
+}
