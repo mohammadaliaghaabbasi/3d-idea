@@ -152,9 +152,16 @@ def bake_from_arrays(rgb: np.ndarray, depth: np.ndarray, out_path: str,
         "rot_0": q[:, 0], "rot_1": q[:, 1], "rot_2": q[:, 2], "rot_3": q[:, 3],
     }
     write_ply(out_path, data)
+    photographed_px = int(len(idx)) * stride
     return {
         "splats": int(len(idx)),
         "stride": stride,
+        # THE sharpness number: how many photograph pixels one gaussian has to
+        # carry. >1 means the cloud cannot be sharper than the photo — it is a
+        # resampling of it, and softness grows with this value.
+        "photo_px_per_splat": round(float(photographed_px) / max(1, len(idx)), 2),
+        "photographed_px": photographed_px,
+        "pano_px": int(h * w),
         "file_mb": round(os.path.getsize(out_path) / 1e6, 2),
         "bbox": {
             "min": [round(float(v), 3) for v in P.min(axis=0)],
@@ -208,6 +215,9 @@ def main(argv=None) -> int:
     ap.add_argument("--id", required=True)
     ap.add_argument("--out", default=None, help="default public/assets/splats/<id>.ply")
     ap.add_argument("--max-splats", type=int, default=900_000)
+    ap.add_argument("--density", type=float, default=None,
+                    help="splats per photographed pixel (1.0 = one gaussian per "
+                         "photo pixel = photographically sharp; overrides --max-splats)")
     ap.add_argument("--db", action="append")
     ap.add_argument("--create-room", action="store_true")
     ap.add_argument("--no-budget", action="store_true", help="skip walk-budget (fast)")
@@ -218,9 +228,17 @@ def main(argv=None) -> int:
     rgb = load_rgb(args.pano, depth.shape)
     out = args.out or os.path.join(ROOT, "public", "assets", "splats", f"{args.id}.ply")
 
-    info = bake_from_arrays(rgb, depth, out, args.max_splats)
+    max_splats = args.max_splats
+    if args.density:
+        valid_px = int(np.count_nonzero(np.isfinite(depth) & (depth > 0)))
+        max_splats = max(1, int(round(valid_px * args.density)))
+
+    info = bake_from_arrays(rgb, depth, out, max_splats)
     print(f"  splat       {info['splats']} gaussians, {info['file_mb']} MB -> "
           f"{os.path.relpath(out, ROOT)}")
+    print(f"  sharpness   {info['photo_px_per_splat']} photograph px per gaussian "
+          f"(stride {info['stride']} of {info['pano_px']} pano px); "
+          f"1.0 = the cloud can carry every photographed pixel")
 
     geom = fit_layout(depth)
     geom["engine"] = {"id": ENG.ENGINE_ID, "version": ENGINE_VERSION}
@@ -237,6 +255,7 @@ def main(argv=None) -> int:
         "asset": os.path.relpath(out, os.path.join(ROOT, "public")),
         "source": "panorama",
         "splats": info["splats"],
+        "photo_px_per_splat": info["photo_px_per_splat"],
         "engine": f"{ENG.ENGINE_ID}/{ENGINE_VERSION}",
         # nothing painted in: the bake lifts photographed pixels only
         "invented_fraction": 0.0,

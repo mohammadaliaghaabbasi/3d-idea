@@ -1705,7 +1705,7 @@
     "mode": "splat",
     "asset": "assets/splats/demo_splat.ply",
     "source": "synthetic",
-    "splats": 262144,
+    "splats": 524288,
     "engine": "walkable-truth/1.1.0",
     "invented_fraction": 0.0
    },

@@ -112,7 +112,10 @@ def main() -> int:
     print(f"  panorama    {os.path.relpath(png, ROOT)} (synthetic test pattern)")
 
     out = os.path.join(ROOT, "public", "assets", "splats", f"{ROOM_ID}.ply")
-    info = bake_from_arrays(rgb, depth, out, max_splats=400_000)
+    # PHOTOGRAPHIC DENSITY: one gaussian per photographed pixel (W*H). Any lower
+    # cap makes the cloud a resampling of the photo and softens it — the "blurry
+    # when I move" report. 524,288 splats for a 1024x512 pano = 1.0 px/splat.
+    info = bake_from_arrays(rgb, depth, out, max_splats=W * H)
     print(f"  splat       {info['splats']} gaussians, {info['file_mb']} MB")
 
     # low-res depth sphere for the runtime hole-fill mask (192x384 float32)
