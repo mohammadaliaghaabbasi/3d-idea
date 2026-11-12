@@ -1,0 +1,361 @@
+{
+ "self_test": {
+  "psnr": 44.59,
+  "coverage": 1.0,
+  "threshold_psnr": 30.0,
+  "pass": true
+ },
+ "poses": [
+  "0.00m",
+  "0.50m",
+  "1.00m"
+ ],
+ "render": {
+  "w": 320,
+  "h": 180,
+  "fov_y_deg": 72.0
+ },
+ "objective": "mean PSNR(dB) - 0.35 * estimated MB",
+ "iterations": [
+  {
+   "iteration": 0,
+   "evaluated": 30,
+   "best": {
+    "config": {
+     "density": 1.0,
+     "sigma_px": 0.75
+    },
+    "splats": 524288,
+    "size_mb_est": 4.19,
+    "px_per_splat": 1.0,
+    "per_pose": {
+     "0.00m": {
+      "psnr": 40.331,
+      "coverage": 1.0
+     },
+     "0.50m": {
+      "psnr": 39.051,
+      "coverage": 1.0
+     },
+     "1.00m": {
+      "psnr": 39.212,
+      "coverage": 1.0
+     }
+    },
+    "mean_psnr": 39.531,
+    "score": 38.063
+   },
+   "gain_db": null,
+   "top5": [
+    {
+     "config": {
+      "density": 1.0,
+      "sigma_px": 0.75
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 40.331,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 39.051,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 39.212,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.531,
+     "score": 38.063
+    },
+    {
+     "config": {
+      "density": 1.5,
+      "sigma_px": 0.75
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 40.331,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 39.051,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 39.212,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.531,
+     "score": 38.063
+    },
+    {
+     "config": {
+      "density": 2.0,
+      "sigma_px": 0.75
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 40.331,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 39.051,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 39.212,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.531,
+     "score": 38.063
+    },
+    {
+     "config": {
+      "density": 1.0,
+      "sigma_px": 0.9
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 39.773,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 38.734,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 38.788,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.098,
+     "score": 37.63
+    },
+    {
+     "config": {
+      "density": 1.5,
+      "sigma_px": 0.9
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 39.773,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 38.734,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 38.788,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.098,
+     "score": 37.63
+    }
+   ]
+  },
+  {
+   "iteration": 1,
+   "evaluated": 9,
+   "best": {
+    "config": {
+     "density": 1.0,
+     "sigma_px": 0.75
+    },
+    "splats": 524288,
+    "size_mb_est": 4.19,
+    "px_per_splat": 1.0,
+    "per_pose": {
+     "0.00m": {
+      "psnr": 40.331,
+      "coverage": 1.0
+     },
+     "0.50m": {
+      "psnr": 39.051,
+      "coverage": 1.0
+     },
+     "1.00m": {
+      "psnr": 39.212,
+      "coverage": 1.0
+     }
+    },
+    "mean_psnr": 39.531,
+    "score": 38.063
+   },
+   "gain_db": 0.0,
+   "top5": [
+    {
+     "config": {
+      "density": 1.0,
+      "sigma_px": 0.75
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 40.331,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 39.051,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 39.212,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.531,
+     "score": 38.063
+    },
+    {
+     "config": {
+      "density": 1.25,
+      "sigma_px": 0.75
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 40.331,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 39.051,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 39.212,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.531,
+     "score": 38.063
+    },
+    {
+     "config": {
+      "density": 1.0,
+      "sigma_px": 0.6
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 41.118,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 39.43,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 37.639,
+       "coverage": 0.9999
+      }
+     },
+     "mean_psnr": 39.396,
+     "score": 37.928
+    },
+    {
+     "config": {
+      "density": 1.25,
+      "sigma_px": 0.6
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 41.118,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 39.43,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 37.639,
+       "coverage": 0.9999
+      }
+     },
+     "mean_psnr": 39.396,
+     "score": 37.928
+    },
+    {
+     "config": {
+      "density": 1.0,
+      "sigma_px": 0.9
+     },
+     "splats": 524288,
+     "size_mb_est": 4.19,
+     "px_per_splat": 1.0,
+     "per_pose": {
+      "0.00m": {
+       "psnr": 39.773,
+       "coverage": 1.0
+      },
+      "0.50m": {
+       "psnr": 38.734,
+       "coverage": 1.0
+      },
+      "1.00m": {
+       "psnr": 38.788,
+       "coverage": 1.0
+      }
+     },
+     "mean_psnr": 39.098,
+     "score": 37.63
+    }
+   ]
+  }
+ ],
+ "winner": {
+  "config": {
+   "density": 1.0,
+   "sigma_px": 0.75
+  },
+  "splats": 524288,
+  "size_mb_est": 4.19,
+  "px_per_splat": 1.0,
+  "per_pose": {
+   "0.00m": {
+    "psnr": 40.331,
+    "coverage": 1.0
+   },
+   "0.50m": {
+    "psnr": 39.051,
+    "coverage": 1.0
+   },
+   "1.00m": {
+    "psnr": 39.212,
+    "coverage": 1.0
+   }
+  },
+  "mean_psnr": 39.531,
+  "score": 38.063
+ },
+ "generated_at": "2026-11-12T14:53:53Z"
+}

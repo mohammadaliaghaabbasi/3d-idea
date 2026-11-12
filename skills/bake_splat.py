@@ -104,7 +104,7 @@ def quat_from_z(n: np.ndarray) -> np.ndarray:
 
 def bake_from_arrays(rgb: np.ndarray, depth: np.ndarray, out_path: str,
                      max_splats: int = 900_000, opacity: float = 0.98,
-                     footprint: float = 1.15) -> dict:
+                     footprint: float = 0.75) -> dict:
     """
     Lift a panorama into gaussians.
 
@@ -132,7 +132,12 @@ def bake_from_arrays(rgb: np.ndarray, depth: np.ndarray, out_path: str,
     D = depth.reshape(-1)[idx]
     C = rgb.reshape(-1, 3)[idx].astype(np.float64) / 255.0
 
-    # angular size of one ERP pixel at that distance, as a splat radius
+    # angular size of one ERP pixel at that distance, as a splat radius.
+    # 0.75 is the measured optimum from skills/rd_loop.py (mean PSNR over 0, 0.5
+    # and 1 m against an analytic room): 39.53 dB at 0.75 vs 39.10 at 0.9, and it
+    # falls off on BOTH sides (0.5 -> 37.93, holes appear before sharpness is won).
+    # Assets already in public/assets/splats/ were baked at the old 1.15 and will
+    # sharpen only when re-baked; nothing here rewrites them.
     scale = np.maximum(D * (2.0 * math.pi / w) * footprint, 0.004)
     scale = np.minimum(scale, 0.5)
     q = quat_from_z(N)
