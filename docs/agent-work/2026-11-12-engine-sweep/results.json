@@ -1,0 +1,1169 @@
+{
+ "houses": {
+  "group": "houses",
+  "count": 10,
+  "rows": [
+   {
+    "room": "anniversary_lounge",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -1.7,
+     "maxX": 1.7,
+     "minZ": -2.4,
+     "maxZ": 2.4
+    },
+    "obstacles": 7,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 7,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      0.849,
+      1.794
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 7,
+     "egress_steps": 350,
+     "outside_mm_max": 329.64,
+     "residual_overlap_mm_max": 548.5491,
+     "final_xz": [
+      0.789,
+      0.35
+     ]
+    }
+   },
+   {
+    "room": "art_studio",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -1.9,
+     "maxX": 1.9,
+     "minZ": -2.9,
+     "maxZ": 2.9
+    },
+    "obstacles": 5,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 5,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      0.907,
+      1.496
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 5,
+     "egress_steps": 13,
+     "outside_mm_max": 257.01,
+     "residual_overlap_mm_max": 218.0403,
+     "final_xz": [
+      0.888,
+      0.286
+     ]
+    }
+   },
+   {
+    "room": "cabin",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -1.15,
+     "maxX": 1.15,
+     "minZ": -1.7,
+     "maxZ": 1.7
+    },
+    "obstacles": 5,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 5,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 26.6179,
+     "final_xz": [
+      0.151,
+      1.167
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 5,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 331.411,
+     "final_xz": [
+      -0.379,
+      -0.634
+     ]
+    }
+   },
+   {
+    "room": "comfy_cafe",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -1.9,
+     "maxX": 1.9,
+     "minZ": -2.9,
+     "maxZ": 2.9
+    },
+    "obstacles": 8,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 8,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 37.736,
+     "final_xz": [
+      0.997,
+      -0.018
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 8,
+     "egress_steps": 164,
+     "outside_mm_max": 490.54,
+     "residual_overlap_mm_max": 717.7651,
+     "final_xz": [
+      0.888,
+      -1.754
+     ]
+    }
+   },
+   {
+    "room": "large_corridor",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -1.1,
+     "maxX": 1.1,
+     "minZ": -5.9,
+     "maxZ": 5.9
+    },
+    "obstacles": 2,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 2,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      0.697,
+      3.73
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 2,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      0.088,
+      1.579
+     ]
+    }
+   },
+   {
+    "room": "castle_zavelstein_cellar",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -1.2,
+     "maxX": 1.2,
+     "minZ": -4.4,
+     "maxZ": 4.4
+    },
+    "obstacles": 0,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 0,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      0.797,
+      2.384
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 0,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      0.188,
+      0.079
+     ]
+    }
+   },
+   {
+    "room": "ballroom",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -3.9,
+     "maxX": 3.9,
+     "minZ": -6.4,
+     "maxZ": 6.4
+    },
+    "obstacles": 1,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 1,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      -0.464,
+      3.989
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 1,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      2.888,
+      2.079
+     ]
+    }
+   },
+   {
+    "room": "school_hall",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -3.9,
+     "maxX": 3.9,
+     "minZ": -7.4,
+     "maxZ": 7.4
+    },
+    "obstacles": 3,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 3,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      -1.614,
+      5.384
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 3,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 250.0,
+     "final_xz": [
+      2.888,
+      3.079
+     ]
+    }
+   },
+   {
+    "room": "leipzig_festsaal",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -4.4,
+     "maxX": 4.4,
+     "minZ": -7.4,
+     "maxZ": 7.4
+    },
+    "obstacles": 2,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 2,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      -2.114,
+      5.384
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 2,
+     "egress_steps": 10,
+     "outside_mm_max": 49.42,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      3.388,
+      3.081
+     ]
+    }
+   },
+   {
+    "room": "quadrangle_sunny",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "lane_a": "blocked: no 360 depth",
+    "bounds": {
+     "minX": -11.4,
+     "maxX": 11.4,
+     "minZ": -11.4,
+     "maxZ": 11.4
+    },
+    "obstacles": 3,
+    "collision": {
+     "steps": 20000,
+     "step_max_m": 0.1,
+     "mode": "bounds",
+     "obstacles": 3,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      -3.09,
+      6.393
+     ]
+    },
+    "collision_adversarial": {
+     "steps": 20000,
+     "step_max_m": 0.85,
+     "mode": "bounds",
+     "obstacles": 3,
+     "egress_steps": 0,
+     "outside_mm_max": 0.0,
+     "residual_overlap_mm_max": 0.0,
+     "final_xz": [
+      0.48,
+      7.06
+     ]
+    }
+   }
+  ]
+ },
+ "generated_at": "2026-11-12",
+ "villa": {
+  "group": "villa",
+  "room": "modern_3d_villa",
+  "glb": "assets/true3d/modern_3d_villa.glb",
+  "glb_bytes": 3433952,
+  "walkable_area_m2": 23.65,
+  "bounds": {
+   "minX": -2.75,
+   "maxX": 2.75,
+   "minZ": -2.15,
+   "maxZ": 2.15
+  },
+  "colliders": 5,
+  "collider_kinds": {
+   "box": 4,
+   "cylinder": 1
+  },
+  "collision": {
+   "steps": 20000,
+   "step_max_m": 0.1,
+   "mode": "bounds",
+   "obstacles": 5,
+   "egress_steps": 0,
+   "outside_mm_max": 0.0,
+   "residual_overlap_mm_max": 0.0,
+   "final_xz": [
+    -1.503,
+    1.339
+   ]
+  },
+  "collision_adversarial": {
+   "steps": 20000,
+   "step_max_m": 0.85,
+   "mode": "bounds",
+   "obstacles": 5,
+   "egress_steps": 318,
+   "outside_mm_max": 160.0,
+   "residual_overlap_mm_max": 300.0,
+   "final_xz": [
+    1.688,
+    -1.212
+   ]
+  }
+ },
+ "moradi": {
+  "group": "moradi",
+  "count": 10,
+  "rows": [
+   {
+    "scene": "moradi_bed1a",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 818414,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1093144,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -9.0,
+        -21.18,
+        -11.83
+       ],
+       [
+        26.55,
+        24.22,
+        59.05
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9981,
+       "0.50m": 0.9857,
+       "1.00m": 0.9144,
+       "1.50m": 0.905
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 6078460,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -9.0,
+        -21.51,
+        -11.83
+       ],
+       [
+        26.56,
+        24.55,
+        59.05
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.998,
+       "0.50m": 0.9857,
+       "1.00m": 0.9158,
+       "1.50m": 0.9055
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.998,
+     "0.50m": 0.9857,
+     "1.00m": 0.9158,
+     "1.50m": 0.9055
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_bed1b",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 500148,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1013606,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -19.15,
+        -6.73,
+        -30.79
+       ],
+       [
+        2.69,
+        11.84,
+        10.12
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9986,
+       "0.50m": 0.9904,
+       "1.00m": 0.9821,
+       "1.50m": 0.988
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 5643583,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -19.17,
+        -6.74,
+        -30.8
+       ],
+       [
+        2.69,
+        11.84,
+        10.16
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9973,
+       "0.50m": 0.9899,
+       "1.00m": 0.9813,
+       "1.50m": 0.9645
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9973,
+     "0.50m": 0.9899,
+     "1.00m": 0.9813,
+     "1.50m": 0.9645
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_bed2a",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 406949,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1061708,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -8.17,
+        -9.7,
+        -14.94
+       ],
+       [
+        13.69,
+        10.86,
+        18.91
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.999,
+       "0.50m": 0.991,
+       "1.00m": 0.9593,
+       "1.50m": 0.9033
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 6010368,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -8.18,
+        -9.75,
+        -14.94
+       ],
+       [
+        13.72,
+        10.87,
+        18.91
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9982,
+       "0.50m": 0.9907,
+       "1.00m": 0.9593,
+       "1.50m": 0.9031
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9982,
+     "0.50m": 0.9907,
+     "1.00m": 0.9593,
+     "1.50m": 0.9031
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_bed3a",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 470964,
+    "gens": {
+     "v11": {
+      "spz_bytes": 990495,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -5.3,
+        -6.08,
+        -2.69
+       ],
+       [
+        8.47,
+        7.0,
+        20.3
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9985,
+       "0.50m": 0.9909,
+       "1.00m": 0.9748,
+       "1.50m": 0.9559
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 5563027,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -5.3,
+        -6.08,
+        -2.7
+       ],
+       [
+        8.47,
+        7.02,
+        20.3
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9976,
+       "0.50m": 0.9907,
+       "1.00m": 0.9737,
+       "1.50m": 0.953
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9976,
+     "0.50m": 0.9907,
+     "1.00m": 0.9737,
+     "1.50m": 0.953
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_kit1",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 408245,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1009536,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -33.39,
+        -7.8,
+        -60.0
+       ],
+       [
+        5.15,
+        11.03,
+        12.34
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9977,
+       "0.50m": 0.9903,
+       "1.00m": 0.9758,
+       "1.50m": 0.9724
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 5687476,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -33.7,
+        -8.16,
+        -60.0
+       ],
+       [
+        5.21,
+        11.04,
+        12.37
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9977,
+       "0.50m": 0.9898,
+       "1.00m": 0.9732,
+       "1.50m": 0.9716
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9977,
+     "0.50m": 0.9898,
+     "1.00m": 0.9732,
+     "1.50m": 0.9716
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_kit2",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 410304,
+    "gens": {
+     "v11": {
+      "spz_bytes": 964244,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -13.12,
+        -10.68,
+        -60.0
+       ],
+       [
+        24.96,
+        13.88,
+        3.42
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9997,
+       "0.50m": 0.9896,
+       "1.00m": 0.9756,
+       "1.50m": 0.9298
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 5413778,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -13.31,
+        -10.68,
+        -60.0
+       ],
+       [
+        24.97,
+        13.88,
+        3.42
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9973,
+       "0.50m": 0.99,
+       "1.00m": 0.9681,
+       "1.50m": 0.9075
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9973,
+     "0.50m": 0.99,
+     "1.00m": 0.9681,
+     "1.50m": 0.9075
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_main1",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 746322,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1049416,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -36.1,
+        -7.75,
+        -18.54
+       ],
+       [
+        24.0,
+        12.46,
+        60.0
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9988,
+       "0.50m": 0.9901,
+       "1.00m": 0.9671,
+       "1.50m": 0.9314
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 5839805,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -36.39,
+        -7.81,
+        -18.54
+       ],
+       [
+        24.0,
+        12.54,
+        60.0
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9975,
+       "0.50m": 0.9861,
+       "1.00m": 0.9544,
+       "1.50m": 0.9294
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9975,
+     "0.50m": 0.9861,
+     "1.00m": 0.9544,
+     "1.50m": 0.9294
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_main2",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 765934,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1029272,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -3.34,
+        -7.7,
+        -5.46
+       ],
+       [
+        43.56,
+        11.39,
+        44.65
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9986,
+       "0.50m": 0.9886,
+       "1.00m": 0.9607,
+       "1.50m": 0.9319
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 5708154,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -3.34,
+        -7.81,
+        -5.5
+       ],
+       [
+        45.28,
+        12.11,
+        44.89
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9972,
+       "0.50m": 0.9881,
+       "1.00m": 0.9613,
+       "1.50m": 0.9304
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9972,
+     "0.50m": 0.9881,
+     "1.00m": 0.9613,
+     "1.50m": 0.9304
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_main3",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 946897,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1072631,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -18.29,
+        -5.94,
+        -39.24
+       ],
+       [
+        13.4,
+        6.9,
+        24.17
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.999,
+       "0.50m": 0.9916,
+       "1.00m": 0.9846,
+       "1.50m": 0.9578
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 5984776,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -18.46,
+        -5.94,
+        -39.38
+       ],
+       [
+        13.44,
+        6.9,
+        24.34
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.998,
+       "0.50m": 0.9926,
+       "1.00m": 0.974,
+       "1.50m": 0.937
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.998,
+     "0.50m": 0.9926,
+     "1.00m": 0.974,
+     "1.50m": 0.937
+    },
+    "verdict": "cannot carry the photograph"
+   },
+   {
+    "scene": "moradi_main4",
+    "pano_px": [
+     4096,
+     2048
+    ],
+    "pano_bytes": 828919,
+    "gens": {
+     "v11": {
+      "spz_bytes": 1084098,
+      "splats": 132349,
+      "px_per_splat": 63.4,
+      "bbox_m": [
+       [
+        -10.74,
+        -10.14,
+        -59.22
+       ],
+       [
+        31.53,
+        10.41,
+        28.97
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9948,
+       "0.50m": 0.9934,
+       "1.00m": 0.9777,
+       "1.50m": 0.9592
+      },
+      "verdict": "cannot carry the photograph"
+     },
+     "v12": {
+      "spz_bytes": 6016144,
+      "splats": 529396,
+      "px_per_splat": 15.8,
+      "bbox_m": [
+       [
+        -10.78,
+        -10.32,
+        -59.22
+       ],
+       [
+        31.88,
+        10.68,
+        29.8
+       ]
+      ],
+      "coverage": {
+       "0.00m": 1.0,
+       "0.25m": 0.9947,
+       "0.50m": 0.9933,
+       "1.00m": 0.9784,
+       "1.50m": 0.9576
+      },
+      "verdict": "cannot carry the photograph"
+     }
+    },
+    "splats": 529396,
+    "px_per_splat": 15.8,
+    "coverage": {
+     "0.00m": 1.0,
+     "0.25m": 0.9947,
+     "0.50m": 0.9933,
+     "1.00m": 0.9784,
+     "1.50m": 0.9576
+    },
+    "verdict": "cannot carry the photograph"
+   }
+  ]
+ }
+}

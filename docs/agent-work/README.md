@@ -33,3 +33,4 @@ Rules
 | Date | Agent | Slug | Topic |
 |---|---|---|---|
 | 2026-11-12 | Buffy | `2026-11-12-splat-parity` | Why the walk view blurs, photographic-density bake, SPZ + 4-level LOD, moradi page policy |
+| 2026-11-12 | Buffy | `2026-11-12-engine-sweep` | Engine sweep: 10 moradi scenes, 10 house rooms, the villa — sharpness ceiling, walk coverage, collision egress |
