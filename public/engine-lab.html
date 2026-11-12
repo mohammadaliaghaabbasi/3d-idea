@@ -53,10 +53,18 @@ const camera = new THREE.PerspectiveCamera(72, innerWidth / innerHeight, 0.05, 1
 camera.rotation.order = "YXZ";
 
 /* ---------------- Lane B1: the photograph, always sharp ---------------- */
-const panoTex = await new THREE.TextureLoader().loadAsync(
-  "../" + (geom.source?.pano || "assets/panoramas/demo_splat.jpg"));
-panoTex.colorSpace = THREE.SRGBColorSpace;
-panoTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+// geometry.source.pano is repo-relative ("public/assets/…"); the lab is served
+// FROM public/, so strip that prefix. A missing photo must never kill the page.
+const panoPath = String(geom.source?.pano || "assets/panoramas/demo_splat.jpg")
+  .replace(/^public\//, "");
+let panoTex = null;
+try {
+  panoTex = await new THREE.TextureLoader().loadAsync(panoPath);
+  panoTex.colorSpace = THREE.SRGBColorSpace;
+  panoTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+} catch (e) {
+  console.warn("panorama failed to load:", panoPath, e);
+}
 const pano = new THREE.Mesh(
   new THREE.SphereGeometry(500, 128, 96),
   new THREE.MeshBasicMaterial({ map: panoTex, side: THREE.BackSide, toneMapped: false }));
