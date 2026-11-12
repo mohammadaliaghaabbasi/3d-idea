@@ -1,87 +1,134 @@
 #!/bin/bash
 # ============================================================================
-# PANODROME — deploy public/ live via GitHub Pages
-#
-# NOTE: mohammadaliaghaabbasi/3d-idea stays PRIVATE (idea docs, roadmap…),
-# and GitHub Free does not serve Pages from private repos. So the live site
-# deploys to the PUBLIC site repo  mohammadaliaghaabbasi/panodrome
-# (Pages source: main branch / root):
+# PANODROME — publish public/ to the LIVE mirror  mohammadaliaghaabbasi/panodrome
 #
 #   LIVE:  https://mohammadaliaghaabbasi.github.io/panodrome/
 #
-# ANTI-FRAGMENTATION LOCK (2026-11-02): panodrome is a DUMB build-output
-# mirror. This script is its ONLY writer — never clone panodrome, never
-# hand-edit files in it. The mirror README.md below is auto-generated on
-# EVERY deploy so it survives the force-push.
+# IMPORTANT (2026-11-11 change): the mirror is no longer a dumb overwrite.
+# The live repo now also carries content that does NOT exist in this workspace
+#   labs/engine-v1/**            (the VQ splat lab, built on another machine)
+#   assets/panoramas/moradi_*    (the owner's real panorama set)
+#   assets/…/moradi_*_splat_*.spz (baked splats, ~5-6 MB each)
+# A force-push of public/ would DELETE all 57 of those files. So the deploy is
+# now ADDITIVE: clone the live repo, overlay public/ on top, commit, push.
+# Files that exist only live are preserved. Use --clean for the old force-push
+# behaviour, and --dry-run to see exactly what would change with no network push.
 #
 # Token ONLY via env var T (never stored in any tracked file).
-#   Usage:  T="github_pat_..." bash scripts/deploy_gh_pages.sh
+#   Usage:  T="ghp_…" bash scripts/deploy_gh_pages.sh
+#           T="ghp_…" bash scripts/deploy_gh_pages.sh --dry-run
 # ============================================================================
-set -e
+set -euo pipefail
+
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 OWNER="mohammadaliaghaabbasi"
-SITE="panodrome"        # public site repo (auto-created if missing)
+SITE="panodrome"
 API="https://api.github.com"
+WORK="/tmp/panodrome-ghpages"
+CLEAN=0
+DRY=0
+for a in "$@"; do
+  case "$a" in
+    --clean) CLEAN=1 ;;
+    --dry-run) DRY=1 ;;
+  esac
+done
 
-if [ -z "$T" ]; then echo "ERROR: set T (GitHub token)"; exit 1; fi
-cd "$REPO_DIR"
+echo "== Panodrome deploy =="
+echo "   source : $REPO_DIR/public"
+echo "   target : https://github.com/$OWNER/$SITE.git  (main / root)"
+echo "   mode   : $([ $CLEAN = 1 ] && echo 'CLEAN force-push (DESTRUCTIVE)' || echo 'additive overlay (safe)')$([ $DRY = 1 ] && echo '  · DRY RUN')"
 
-AUTH=$(printf 'x-access-token:%s' "$T" | base64 | tr -d '\n')
+if [ -z "${T:-}" ] && [ $DRY = 0 ]; then
+  echo "ERROR: set T (GitHub token). Never paste it into a tracked file." >&2
+  exit 1
+fi
 
-# ---------- 1) build an orphan deploy branch with public/ CONTENTS at root ----------
-git worktree remove --force /tmp/panodrome-ghpages 2>/dev/null || true
-rm -rf /tmp/panodrome-ghpages
-git worktree add -q --orphan -b panodrome-deploy /tmp/panodrome-ghpages
-cd /tmp/panodrome-ghpages
-# contents at the site root (NOT nested inside public/) — fixes the 404 bug
-cp -r "$REPO_DIR/public/." .
+AUTH=""
+if [ -n "${T:-}" ]; then
+  AUTH="$(printf 'x-access-token:%s' "$T" | base64 | tr -d '\n')"
+fi
 
-# ---------- 1b) mirror disclaimer README (auto-generated EVERY deploy; never hand-edit) ----------
-cat > README.md <<'EOF'
+# ---------------------------------------------------------------- workspace
+rm -rf "$WORK"
+if [ $CLEAN = 1 ]; then
+  git -C "$REPO_DIR" worktree remove --force "$WORK" 2>/dev/null || true
+  git -C "$REPO_DIR" worktree add -q --orphan -b panodrome-deploy "$WORK"
+  echo "   clean: orphan worktree"
+else
+  CLONE_URL="https://github.com/$OWNER/$SITE.git"
+  if [ -n "$AUTH" ]; then
+    git -c "http.extraheader=Authorization: Basic $AUTH" clone -q --depth 1 "$CLONE_URL" "$WORK"
+  else
+    git clone -q --depth 1 "$CLONE_URL" "$WORK"     # public repo: read needs no auth
+  fi
+  echo "   cloned live mirror ($(git -C "$WORK" log --oneline -1))"
+fi
+
+# ------------------------------------------------------------------ overlay
+# public/ wins on every path it contains; everything else on the mirror stays.
+(cd "$REPO_DIR/public" && tar -cf - .) | (cd "$WORK" && tar -xf -)
+
+cat > "$WORK/README.md" <<'EOF'
 # Panodrome — Live Site Mirror
 
-Automated production mirror of Panodrome static build. Source of truth resides in private monorepo.
+Automated production mirror of the Panodrome static build. Source of truth lives in the private monorepo.
 
 - **LIVE site:** https://mohammadaliaghaabbasi.github.io/panodrome/
-- This repository is a dumb build artifact: it is force-pushed by
-  `scripts/deploy_gh_pages.sh` from the private source monorepo
-  `mohammadaliaghaabbasi/3d-idea`.
-- Do NOT open pull requests or commit here — every change is overwritten
-  on the next deploy.
+- **Engine lab:** https://mohammadaliaghaabbasi.github.io/panodrome/engine-lab.html
+- Deployed by `scripts/deploy_gh_pages.sh` from `mohammadaliaghaabbasi/3d-idea`.
+- The deploy is ADDITIVE: `labs/` and the owner's captured assets are preserved.
 
 > Auto-generated by the deploy script. Do not edit.
 EOF
 
+cd "$WORK"
 git add -A
-git commit -qm "panodrome: deploy public/ $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+if git diff --cached --quiet; then
+  echo "   nothing to deploy (mirror already matches)"
+  SUMMARY="no changes"
+else
+  SUMMARY="$(git diff --cached --stat | tail -1)"
+  echo "   changes: $SUMMARY"
+  if [ $DRY = 1 ]; then
+    echo "   --- staged files (first 40) ---"
+    git diff --cached --name-status | head -40
+  else
+    git -c user.name="panodrome-deploy" -c user.email="deploy@panodrome.local" \
+      commit -qm "deploy: public/ overlay $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  fi
+fi
 
-# ---------- 2) ensure the public site repo exists, then push ----------
-curl -s -o /dev/null -X POST -H "Authorization: token $T" "$API/user/repos" \
-  -d "{\"name\":\"$SITE\",\"description\":\"Panodrome — Spatial & Living Architecture Pinterest. Walkable 6DoF rooms from 360 panoramas (Three.js depth-mesh engine).\",\"private\":false}" || true
-git -c "http.extraheader=Authorization: Basic $AUTH" push -q -f \
-  "https://github.com/$OWNER/$SITE.git" panodrome-deploy:main 2>&1 | sed "s|$T|***|g"
-echo "site pushed to $OWNER/$SITE:main"
+if [ $DRY = 1 ]; then
+  echo
+  echo "DRY RUN — nothing pushed. Re-run without --dry-run (and with T set) to publish."
+  cd "$REPO_DIR"; rm -rf "$WORK"
+  exit 0
+fi
 
-# ---------- 3) ensure GitHub Pages is enabled (main / root) ----------
+# --------------------------------------------------------------------- push
+git -c "http.extraheader=Authorization: Basic $AUTH" push -q origin main 2>&1 | sed "s|$T|***|g" || \
+  git -c "http.extraheader=Authorization: Basic $AUTH" push -q -f origin main 2>&1 | sed "s|$T|***|g"
+echo "   pushed to $OWNER/$SITE:main"
+
+# ------------------------------------------------------- ensure Pages on
 CODE=$(curl -s -o /tmp/gh_pages.json -w "%{http_code}" -X POST \
   -H "Authorization: token $T" -H "Accept: application/vnd.github+json" \
   "$API/repos/$OWNER/$SITE/pages" \
   -d '{"source":{"branch":"main","path":"/"}}')
 if [ "$CODE" = "201" ]; then
-  echo "GitHub Pages enabled"
+  echo "   GitHub Pages enabled"
 elif [ "$CODE" = "409" ]; then
   curl -s -X PUT -H "Authorization: token $T" -H "Accept: application/vnd.github+json" \
     "$API/repos/$OWNER/$SITE/pages" \
     -d '{"source":{"branch":"main","path":"/"}}' > /dev/null
-  echo "GitHub Pages source updated to main/"
+  echo "   Pages source = main /"
 else
-  echo "Pages API HTTP $CODE (already enabled is fine — see /tmp/gh_pages.json)"
+  echo "   Pages API HTTP $CODE (already enabled is fine)"
 fi
 
 cd "$REPO_DIR"
-git worktree remove --force /tmp/panodrome-ghpages
-git branch -D panodrome-deploy >/dev/null 2>&1 || true
-
+rm -rf "$WORK"
 echo
-echo "LIVE: https://$OWNER.github.io/$SITE/   (first build takes ~1 min)"
-echo "Cloudflare Pages alternative: wrangler pages deploy public --project-name panodrome"
+echo "LIVE: https://$OWNER.github.io/$SITE/          (build ~1 min)"
+echo "LAB : https://$OWNER.github.io/$SITE/engine-lab.html"
